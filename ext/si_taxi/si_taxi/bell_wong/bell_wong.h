@@ -162,8 +162,6 @@ struct BWSim {
    * the one with the lowest index is chosen.
    */
   size_t idle_veh_at(size_t i) const;
-
-  void foo(BWReactiveHandler *h);
 };
 
 struct BWReactiveHandler {

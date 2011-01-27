@@ -8,7 +8,7 @@
 # Path must be relative to the project root. 
 # The directory containing the stdafx.h must contain at least one .cpp file.
 #
-PCH = 'src/stdafx.h'
+PCH = 'si_taxi/stdafx.h'
 
 # Look at existing makefile to see if it needs hacking; we will only rewrite
 # it if necessary.

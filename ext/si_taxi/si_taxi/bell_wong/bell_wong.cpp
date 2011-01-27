@@ -222,8 +222,4 @@ size_t BWSNNHandler::handle_pax(const BWPax &pax) {
   return numeric_limits<size_t>::max(); // sim state already updated
 }
 
-void BWSim::foo(BWReactiveHandler *h) {
-  this->reactive = h;
-}
-
 }
