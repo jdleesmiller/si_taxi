@@ -1,0 +1,27 @@
+= si_taxi
+
+== Design Notes
+
+Using SWIG constrains the design in a few ways:
+- must use one namespace (in this case si_taxi)
+  - nested namespaces won't work, so we just use prefixes (e.g. BWSim instead of
+    the more conventional bell_wong::Sim).
+- nested classes don't work, so we don't use them.
+- forward declarations of the form
+    struct A;
+    void foo(A *a);
+  must be used instead of
+    void foo(struct A *a);
+
+== Old Notes
+
+Notes on rice setup on enm-enjdlm:
+- The precompiled version of gccxml_gem doesn't work; it assumes glibc 2.7, but
+  my machine is 2.5 (run ldd --version to check).
+  - This required installation of cmake 2.8.3
+  - There is now a working gem in ~/gccxml_gem
+- The 1.4.0 gem version of rice crashes on 1.9.2. The latest from
+https://github.com/jameskilton/rice/tree/a66b090d91885373a20b6903103742a99510955b
+works OK (last commit 4 Dec, 2010). Followed instructions in BUILDING;
+then rake gem.
+
