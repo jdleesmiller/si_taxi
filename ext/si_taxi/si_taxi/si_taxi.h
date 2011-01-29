@@ -21,11 +21,17 @@
 //#include <boost/numeric/ublas/matrix_proxy.hpp>
 
 namespace si_taxi {
+
 /**
  * Spit out a (C++) stack trace after a segfault. This only works with g++ on
  * Linux; on other platforms it does nothing.
  */
 void register_sigsegv_handler();
+
+/**
+ * Used for 'no index' values.
+ */
+const size_t SIZE_T_MAX = std::numeric_limits<size_t>::max();
 
 /**
  * Base class for exceptions. This is a light-weight exception. Use the

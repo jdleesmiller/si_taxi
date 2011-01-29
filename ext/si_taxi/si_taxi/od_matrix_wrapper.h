@@ -8,7 +8,8 @@ namespace si_taxi {
 /**
  * Cache some commonly used figures for an OD matrix.
  *
- * This class doesn't require any particular units for the entries.
+ * This class doesn't require any particular units for the entries (depends
+ * where it's used).
  */
 struct ODMatrixWrapper
 {

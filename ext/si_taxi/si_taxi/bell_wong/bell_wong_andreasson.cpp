@@ -7,9 +7,9 @@ using namespace std;
 
 namespace si_taxi {
 
-BWAndreassonHandler::BWAndreassonHandler(
-    BWSim &sim, boost::numeric::ublas::matrix<double> od) :
-    BWProactiveHandler(sim), _call_time(sim), _od(od) {
+BWAndreassonHandler::BWAndreassonHandler(BWSim &sim,
+    BWCallTimeTracker &call_time, boost::numeric::ublas::matrix<double> od) :
+    BWProactiveHandler(sim), _call_time(call_time), _od(od) {
   // Defaults:
   immediate_inbound_only = false;
   use_call_times_for_inbound = true;
@@ -17,7 +17,7 @@ BWAndreassonHandler::BWAndreassonHandler(
   send_when_over = true;
   pull_only_from_surplus = true;
   target_surplus = 1.0;
-  targets.resize(sim.num_stations());
+  targets.resize(sim.num_stations(), 0);
   preferred.resize(sim.num_stations(), sim.num_stations());
   preferred.clear();
 }
@@ -70,7 +70,7 @@ int BWAndreassonHandler::num_vehicles_inbound_in_call_time(size_t i) const {
   int count = 0;
   for (size_t k = 0; k < sim.vehs.size(); ++k) {
     if (sim.vehs[k].destin == i &&
-        sim.vehs[k].arrive <= sim.now + _call_time[i]) {
+        sim.vehs[k].arrive <= sim.now + _call_time.at(i)) {
       ++count;
     }
   }
@@ -84,35 +84,37 @@ const {
   for (size_t k = 0; k < sim.vehs.size(); ++k) {
     if (sim.vehs[k].destin == i &&
         sim.vehs[k].arrive <= sim.now +
-        min(_call_time[i], (double)sim.trip_time(sim.vehs[k].origin, i))) {
+        min(_call_time.at(i), (double)sim.trip_time(sim.vehs[k].origin, i))) {
       ++count;
     }
   }
   return count;
 }
 
-double BWAndreassonHandler::surplus(size_t i) const {
+double BWAndreassonHandler::supply_at(size_t i) const {
   ASSERT(i < sim.num_stations());
-
-  double supply_i, demand_i;
-
   if (immediate_inbound_only && use_call_times_for_inbound) {
-    supply_i = num_vehicles_immediately_inbound_in_call_time(i);
+    return num_vehicles_immediately_inbound_in_call_time(i);
   } else if (immediate_inbound_only) {
-    supply_i = sim.num_vehicles_immediately_inbound(i);
+    return sim.num_vehicles_immediately_inbound(i);
   } else if (use_call_times_for_inbound) {
-    supply_i = num_vehicles_inbound_in_call_time(i);
+    return num_vehicles_inbound_in_call_time(i);
   } else {
-    supply_i = sim.num_vehicles_inbound(i);
+    return sim.num_vehicles_inbound(i);
   }
+}
 
+double BWAndreassonHandler::demand_at(size_t i) const {
+  ASSERT(i < sim.num_stations());
   if (use_call_times_for_targets) {
-    demand_i = _call_time[i] * _od.rate_from(i);
+    return _call_time.at(i) * _od.rate_from(i);
   } else {
-    demand_i = targets[i];
+    return targets.at(i);
   }
+}
 
-  return supply_i - demand_i;
+double BWAndreassonHandler::surplus(size_t i) const {
+  return supply_at(i) - demand_at(i);
 }
 
 size_t BWAndreassonHandler::find_call_origin(size_t j, double min_surplus) const {
@@ -149,8 +151,8 @@ size_t BWAndreassonHandler::find_send_destin(size_t i) const {
   ASSERT(i < sim.num_stations());
   size_t best_destin = numeric_limits<size_t>::max();
   size_t pref_destin = numeric_limits<size_t>::max();
-  double min_surplus = target_surplus;
-  double pref_surplus = numeric_limits<int>::max();
+  double min_surplus = 0;
+  double pref_surplus = 0;
 
   for (size_t j = 0; j < sim.num_stations(); ++j) {
     if (i != j) {

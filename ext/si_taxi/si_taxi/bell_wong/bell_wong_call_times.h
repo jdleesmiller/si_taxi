@@ -28,18 +28,46 @@ struct BWCallTimeTracker {
   /**
    * Shorthand to get call time of station i.
    */
-  inline double operator[](size_t i) const {
+  inline double at(size_t i) const {
     return call_time.at(i);
   }
 
   /**
    * Update call time of ev_destin to reflect the given empty vehicle trip.
+   *
+   * If the trip is trivial (ev_origin = ev_destin), the trip is ignored.
    */
   void update(size_t ev_origin, size_t ev_destin);
 
 protected:
   /// Simulator to track call times for.
   BWSim &sim;
+};
+
+/**
+ * The original Bell and Wong Nearest Neighbours (BWNN) heuristic.
+ */
+struct BWNNHandlerWithCallTimeUpdates : public BWNNHandler {
+  explicit inline BWNNHandlerWithCallTimeUpdates(BWSim &sim,
+      BWCallTimeTracker &call_time) :
+	      BWNNHandler(sim), _call_time(call_time) { }
+  virtual ~BWNNHandlerWithCallTimeUpdates() { }
+  virtual size_t handle_pax(const BWPax &pax);
+
+  /**
+   * Call times computed so far for each station.
+   *
+   * Note that if call_time were a public member, it would have to have a
+   * working assignment operator, which is not possible, because it has
+   * reference members.
+   */
+  const BWCallTimeTracker &call_time() const {
+    return _call_time;
+  }
+
+protected:
+  /// See call_time()
+  BWCallTimeTracker &_call_time;
 };
 
 }

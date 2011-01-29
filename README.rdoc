@@ -12,6 +12,7 @@ Using SWIG constrains the design in a few ways:
     void foo(A *a);
   must be used instead of
     void foo(struct A *a);
+- avoid operator() and operator[], because they require extra swig code.
 
 == Old Notes
 

@@ -3,6 +3,7 @@ require 'si_taxi_ext'
 SiTaxi = Si_taxi_ext
 
 require 'si_taxi/version'
+require 'si_taxi/bell_wong'
 
 module SiTaxi
   #

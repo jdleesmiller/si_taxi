@@ -22,7 +22,7 @@ void BWSim::init() {
 }
 
 void BWSim::handle_pax(const BWPax & pax) {
-  TV(this->now);
+  //TV(this->now);
   ASSERT(this->reactive);
   ASSERT(this->proactive);
   ASSERT(pax.origin < num_stations());

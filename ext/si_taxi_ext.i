@@ -4,6 +4,7 @@
 #include <si_taxi/si_taxi.h>
 #include <si_taxi/od_matrix_wrapper.h>
 #include <si_taxi/bell_wong/bell_wong.h>
+#include <si_taxi/bell_wong/bell_wong_call_times.h>
 #include <si_taxi/bell_wong/bell_wong_andreasson.h>
 
 using namespace si_taxi;
@@ -24,6 +25,7 @@ using namespace si_taxi;
 
 %template(SizeTVector) std::vector<size_t>;
 %template(DoubleVector) std::vector<double>;
+%template(IntVector) std::vector<int>;
 %template(NaturalHistogramVector) std::vector<si_taxi::NaturalHistogram>;
 
 %template(BWVehicleVector) std::vector<si_taxi::BWVehicle>;
@@ -36,10 +38,13 @@ BOOST_NUMERIC_UBLAS_MATRIX_TYPEMAP_IN(int, NUM2INT)
 BOOST_NUMERIC_UBLAS_MATRIX_TYPEMAP_OUT(int, INT2NUM)
 BOOST_NUMERIC_UBLAS_MATRIX_TYPEMAP_IN(size_t, NUM2ULONG)
 BOOST_NUMERIC_UBLAS_MATRIX_TYPEMAP_OUT(size_t, ULONG2NUM)
+BOOST_NUMERIC_UBLAS_MATRIX_TYPEMAP_IN(bool, (bool))
+BOOST_NUMERIC_UBLAS_MATRIX_TYPEMAP_OUT(bool, SWIG_From_bool)
 
 %include "si_taxi/si_taxi.h"
 %include "si_taxi/od_matrix_wrapper.h"
 
 %include "si_taxi/bell_wong/bell_wong.h"
+%include "si_taxi/bell_wong/bell_wong_call_times.h"
 %include "si_taxi/bell_wong/bell_wong_andreasson.h"
 

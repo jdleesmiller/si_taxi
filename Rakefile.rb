@@ -12,6 +12,7 @@ end
 $rakefile_dir = File.dirname(__FILE__)
 CLOBBER.include('ext/*{.o,.so,.log,.cxx}')
 CLOBBER.include('ext/si_taxi/Debug')
+CLOBBER.include('ext/si_taxi/si_taxi/stdafx.h.gch')
 CLOBBER.include(%w(ext/Makefile))
 
 def num_processors

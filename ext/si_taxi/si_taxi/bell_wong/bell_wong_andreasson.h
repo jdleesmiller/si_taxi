@@ -15,7 +15,8 @@ struct BWAndreassonHandler : public BWProactiveHandler {
    * @param sim
    * @param od with entries in vehicles per second
    */
-  BWAndreassonHandler(BWSim &sim, boost::numeric::ublas::matrix<double> od);
+  BWAndreassonHandler(BWSim &sim, BWCallTimeTracker &call_time,
+      boost::numeric::ublas::matrix<double> od);
 
   /**
    * Override.
@@ -38,6 +39,16 @@ struct BWAndreassonHandler : public BWProactiveHandler {
    * the call time for station i.
    */
   int num_vehicles_immediately_inbound_in_call_time(size_t i) const;
+
+  /**
+   * Compute supply at station i; see surplus for details.
+   */
+  double supply_at(size_t i) const;
+
+  /**
+   * Compute demand at station i; see surplus for details.
+   */
+  double demand_at(size_t i) const;
 
   /**
    * Compute surplus (supply - demand). The definition of supply depends on the
@@ -65,13 +76,12 @@ struct BWAndreassonHandler : public BWProactiveHandler {
 
   /**
    * Station with the largest expected deficit. This is interpreted as meaning
-   * that we won't send to a station that has an expected surplus, with respect
-   * to target_surplus.
+   * that we won't send to a station that has an expected surplus (> 0).
    *
    * If an eligible "preferred" station can be found, it will be used; this
    * allows the use of the send lists in the 1998 paper.
    *
-   * @return numeric_limits<size_t>::max() if no suitable origin found
+   * @return numeric_limits<size_t>::max() if no suitable destination found
    */
   size_t find_send_destin(size_t i) const;
 
@@ -99,7 +109,7 @@ struct BWAndreassonHandler : public BWProactiveHandler {
 
 protected:
   /// See call_time()
-  BWCallTimeTracker _call_time;
+  BWCallTimeTracker &_call_time;
   /// See od()
   ODMatrixWrapper _od;
 
