@@ -1,13 +1,17 @@
 require 'mkmf'
 
 SI_TAXI_DIR = File.expand_path(File.join(File.dirname(__FILE__),'si_taxi'))
-SI_TAXI_LIB = File.join(SI_TAXI_DIR, 'Debug')
+SI_TAXI_LIB = File.join(SI_TAXI_DIR, 'Coverage')
+#SI_TAXI_LIB = File.join(SI_TAXI_DIR, 'Debug')
 
 # CPP = C PreProcessor by default; we need to find a C++ header.
 Config::CONFIG['CPP'] = 'g++ -E'
 
 # Need to load C++ standard header.
 $LIBS += " -lstdc++"
+
+# For coverage:
+$LIBS += " -lgcov"
 
 # More machine-specific code... have to do something about this.
 BOOST_DIRS = []

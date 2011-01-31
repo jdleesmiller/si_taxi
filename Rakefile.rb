@@ -11,9 +11,10 @@ end
 
 $rakefile_dir = File.dirname(__FILE__)
 CLOBBER.include('ext/*{.o,.so,.log,.cxx}')
-CLOBBER.include('ext/si_taxi/Debug')
+CLOBBER.include('ext/si_taxi/{Debug,Coverage,Release}')
 CLOBBER.include('ext/si_taxi/si_taxi/stdafx.h.gch')
 CLOBBER.include(%w(ext/Makefile))
+CLOBBER.include('lcov')
 
 def num_processors
   n = ENV['NUMBER_OF_PROCESSORS'];
@@ -22,7 +23,8 @@ def num_processors
 end
 
 SI_TAXI_DIR = File.expand_path(File.join($rakefile_dir, 'ext', 'si_taxi'))
-SI_TAXI_LIB = File.join(SI_TAXI_DIR, 'Debug', 'libsi_taxi.a')
+#SI_TAXI_LIB = File.join(SI_TAXI_DIR, 'Debug', 'libsi_taxi.a')
+SI_TAXI_LIB = File.join(SI_TAXI_DIR, 'Coverage', 'libsi_taxi.a')
 
 #
 # SWIG
@@ -48,5 +50,26 @@ end
 
 desc 'generate wrapper with swig'
 task :swig => SWIG_EXT 
+
+LCOV_DIR = '../ext'
+LCOV_BASE_DIR = '../ext/si_taxi/Coverage/'
+
+desc 'zero coverage counters'
+task 'lcov:zero' do
+  mkdir_p 'lcov' 
+  Dir.chdir('lcov') do
+    sh "lcov --directory #{LCOV_DIR} --zerocounters"
+  end
+end
+
+desc 'generate coverage report'
+task 'lcov:capture' do
+  mkdir_p 'lcov' 
+  Dir.chdir('lcov') do
+    sh "lcov --directory #{LCOV_DIR} --base-directory #{LCOV_BASE_DIR}"\
+         " --capture --output-file ext.info"
+    sh "genhtml ext.info"
+  end
+end
 
 task :default => :test
