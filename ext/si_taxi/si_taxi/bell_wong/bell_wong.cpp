@@ -21,16 +21,12 @@ void BWSim::init() {
   empty_trips.clear();
 }
 
-void BWSim::handle_pax(const BWPax & pax) {
-  //TV(this->now);
+void BWSim::run_to(BWTime t) {
   ASSERT(this->reactive);
   ASSERT(this->proactive);
-  ASSERT(pax.origin < num_stations());
-  ASSERT(pax.destin < num_stations());
-  ASSERT(pax.arrive >= now);
+  ASSERT(t >= now);
 
-  // Run the sim up to just before the passenger's arrival.
-  for (; now < pax.arrive; ++now) {
+  for (; now < t; ++now) {
     // Record queue length stats.
     record_queue_lengths();
 
@@ -46,8 +42,17 @@ void BWSim::handle_pax(const BWPax & pax) {
       proactive->handle_strobe();
     }
   }
+}
 
-  // Now handle the new arrival.
+void BWSim::handle_pax(const BWPax & pax) {
+  //TV(this->now);
+  ASSERT(pax.origin < num_stations());
+  ASSERT(pax.destin < num_stations());
+
+  // Run the sim up to just before the passenger's arrival...
+  this->run_to(pax.arrive);
+
+  // then handle the new arrival.
   size_t k = reactive->handle_pax(pax);
   if (k != numeric_limits<size_t>::max()) {
     size_t empty_origin = vehs.at(k).destin;

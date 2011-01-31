@@ -157,10 +157,116 @@ class AndreassonTest < Test::Unit::TestCase
       assert_in_delta 10, @pro.call_time.at(1), $delta
       assert_in_delta 20, @pro.call_time.at(2), $delta
 
+      # should count a non-trivial trip (empty from 1 to 0, which takes 50s)
       pax         0,  1,   5
       assert_veh  0,  1,  70 # pickup at 60s + 10s trip
       assert_wait_hists({0 => 1, 55 => 1}, [], [])
+
+      assert_equal [1, 0, 0], @pro.call_time.call.to_a
+      assert_in_delta 50, @pro.call_time.at(0), $delta
+      assert_in_delta 10, @pro.call_time.at(1), $delta
+      assert_in_delta 20, @pro.call_time.at(2), $delta
+    end
+
+    should "count inbound vehicles" do
+      put_veh_at 0
+
+      assert_equal 1, @pro.num_vehicles_inbound_in_call_time(0)
+      assert_equal 1, @pro.num_vehicles_immediately_inbound_in_call_time(0)
+      assert_equal 0, @pro.num_vehicles_inbound_in_call_time(1)
+      assert_equal 0, @pro.num_vehicles_immediately_inbound_in_call_time(1)
+      assert_equal 0, @pro.num_vehicles_inbound_in_call_time(2)
+      assert_equal 0, @pro.num_vehicles_immediately_inbound_in_call_time(2)
+
+      assert_equal 30, @pro.call_time.at(0), $delta
+      assert_equal 10, @pro.call_time.at(1), $delta
+      assert_equal 20, @pro.call_time.at(2), $delta
+
+      pax         2,  0,   0
+      assert_veh  2,  0,  60
+
+      # should have updated the call time for station 2
+      assert_equal 30, @pro.call_time.at(0), $delta
+      assert_equal 10, @pro.call_time.at(1), $delta
+      assert_equal 30, @pro.call_time.at(2), $delta
+
+      # vehicle now inbound to 0, but it is still doing its empty trip, so it is
+      # not "immediately" inbound, and it is outside of station 0's call time.
+      assert_equal 1, @sim.num_vehicles_inbound(0)
+      assert_equal 0, @sim.num_vehicles_immediately_inbound(0)
+      assert_equal 0, @pro.num_vehicles_inbound_in_call_time(0)
+      assert_equal 0, @pro.num_vehicles_immediately_inbound_in_call_time(0)
+
+      # the other stations shouldn't count the vehicle
+      [1, 2].each do |i|
+        assert_equal 0, @sim.num_vehicles_inbound(i)
+        assert_equal 0, @sim.num_vehicles_immediately_inbound(i)
+        assert_equal 0, @pro.num_vehicles_inbound_in_call_time(i)
+        assert_equal 0, @pro.num_vehicles_immediately_inbound_in_call_time(i)
+      end
+
+      # just before the vehicle gets to 2, the situation is the same
+      @sim.run_to 29
+      assert_equal 1, @sim.num_vehicles_inbound(0)
+      assert_equal 0, @sim.num_vehicles_immediately_inbound(0)
+      assert_equal 0, @pro.num_vehicles_inbound_in_call_time(0)
+      assert_equal 0, @pro.num_vehicles_immediately_inbound_in_call_time(0)
+
+      # once the vehicle reaches 2, it is immediately inbound; it's also inside
+      # the call time, which is (still) 30
+      @sim.run_to 30
+      assert_equal 30, @pro.call_time.at(0), $delta
+      assert_equal 1, @sim.num_vehicles_inbound(0)
+      assert_equal 1, @sim.num_vehicles_immediately_inbound(0)
+      assert_equal 1, @pro.num_vehicles_inbound_in_call_time(0)
+      assert_equal 1, @pro.num_vehicles_immediately_inbound_in_call_time(0)
+
+      # make some trips to get station 0's call time to 40s; this allows us to
+      # get different behavior with and without the call times
+      pax         0,  1,  50
+      assert_veh  0,  1,  70 # departs at 60s, 10s trip
+      pax         0,  1,  60
+      assert_veh  0,  1, 130 # 60s around the loop
+
+      assert_in_delta 50, @pro.call_time.at(0), $delta
+
+      pax         1,  2,  60
+      assert_veh  1,  2, 150 # 20s
+      pax         0,  1,  60
+      assert_veh  0,  1, 190 # 30s + 10s
+
+      assert_in_delta (30 + 50) / 2, @pro.call_time.at(0), $delta
+
+      # now the call time at 0 should matter
+      pax         2,  0,  60
+      assert_veh  2,  0, 240 # 20s + 30s
+
+      # vehicle not yet immediately inbound; outside call time
+      @sim.run_to 199
+      assert_equal 1, @sim.num_vehicles_inbound(0)
+      assert_equal 0, @sim.num_vehicles_immediately_inbound(0)
+      assert_equal 0, @pro.num_vehicles_inbound_in_call_time(0)
+      assert_equal 0, @pro.num_vehicles_immediately_inbound_in_call_time(0)
+
+      # vehicle not yet immediately inbound; now inside call time
+      @sim.run_to 200
+      assert_equal 1, @sim.num_vehicles_inbound(0)
+      assert_equal 0, @sim.num_vehicles_immediately_inbound(0)
+      assert_equal 1, @pro.num_vehicles_inbound_in_call_time(0)
+      assert_equal 0, @pro.num_vehicles_immediately_inbound_in_call_time(0)
+
+      # now immediately inbound, and it's inside the call time
+      @sim.run_to 210
+      assert_equal 1, @sim.num_vehicles_inbound(0)
+      assert_equal 1, @sim.num_vehicles_immediately_inbound(0)
+      assert_equal 1, @pro.num_vehicles_inbound_in_call_time(0)
+      assert_equal 1, @pro.num_vehicles_immediately_inbound_in_call_time(0)
     end
   end
+
+  # edge case: some tolerance is provided on call time comparison -- if we
+  # always pull from some station, but due to rounding the call time comes out
+  # slightly less than the travel time, we won't pull proactively from that
+  # station
 end
 

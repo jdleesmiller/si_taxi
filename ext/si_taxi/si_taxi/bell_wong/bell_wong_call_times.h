@@ -13,6 +13,18 @@ namespace si_taxi {
  *
  * Call times are initialised to the shortest trip time from any upstream
  * station.
+ *
+ * Since the call time average does not include trivial (zero-length) empty
+ * vehicle trips, a station's call time is always at least as large as the
+ * travel time from its nearest upstream station.
+ *
+ * Another property call times is that if a station, S, gets all of its empty
+ * vehicles from two upstream stations, A and B, then its (mean) call time will
+ * be between T(A,S) and T(B,S). This is potentially problematic: if most
+ * T(A,S) < T(B,S), and most (but not all) empty vehicles come from B, then B
+ * won't be within the station's call time, so it won't pull vehicles
+ * proactively from B. It might be better to choose measure such as the median
+ * call time, rather than the mean call time.
  */
 struct BWCallTimeTracker {
   /**

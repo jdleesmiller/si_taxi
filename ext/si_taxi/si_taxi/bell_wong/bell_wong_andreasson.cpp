@@ -7,6 +7,9 @@ using namespace std;
 
 namespace si_taxi {
 
+// Compensate for floating point errors in call time comparisons.
+const double EPSILON = 1e-3;
+
 BWAndreassonHandler::BWAndreassonHandler(BWSim &sim,
     BWCallTimeTracker &call_time, boost::numeric::ublas::matrix<double> od) :
     BWProactiveHandler(sim), _call_time(call_time), _od(od) {
@@ -70,7 +73,7 @@ int BWAndreassonHandler::num_vehicles_inbound_in_call_time(size_t i) const {
   int count = 0;
   for (size_t k = 0; k < sim.vehs.size(); ++k) {
     if (sim.vehs[k].destin == i &&
-        sim.vehs[k].arrive <= sim.now + _call_time.at(i)) {
+        sim.vehs[k].arrive <= sim.now + EPSILON + _call_time.at(i)) {
       ++count;
     }
   }
@@ -83,8 +86,8 @@ const {
   int count = 0;
   for (size_t k = 0; k < sim.vehs.size(); ++k) {
     if (sim.vehs[k].destin == i &&
-        sim.vehs[k].arrive <= sim.now +
-        min(_call_time.at(i), (double)sim.trip_time(sim.vehs[k].origin, i))) {
+        sim.vehs[k].arrive <= sim.now + min(EPSILON + _call_time.at(i),
+            (double)sim.trip_time(sim.vehs[k].origin, i))) {
       ++count;
     }
   }

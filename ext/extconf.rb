@@ -1,17 +1,21 @@
 require 'mkmf'
 
+# Note that you currently have to set this in the Rakefile and Eclipse, too.
+COVERAGE = false
+
 SI_TAXI_DIR = File.expand_path(File.join(File.dirname(__FILE__),'si_taxi'))
-SI_TAXI_LIB = File.join(SI_TAXI_DIR, 'Coverage')
-#SI_TAXI_LIB = File.join(SI_TAXI_DIR, 'Debug')
+if COVERAGE
+  SI_TAXI_LIB = File.join(SI_TAXI_DIR, 'Coverage')
+else
+  SI_TAXI_LIB = File.join(SI_TAXI_DIR, 'Debug')
+end
 
 # CPP = C PreProcessor by default; we need to find a C++ header.
 Config::CONFIG['CPP'] = 'g++ -E'
 
 # Need to load C++ standard header.
 $LIBS += " -lstdc++"
-
-# For coverage:
-$LIBS += " -lgcov"
+$LIBS += " -lgcov" if COVERAGE
 
 # More machine-specific code... have to do something about this.
 BOOST_DIRS = []

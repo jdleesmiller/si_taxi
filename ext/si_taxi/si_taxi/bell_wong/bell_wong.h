@@ -114,6 +114,16 @@ struct BWSim {
   void init();
 
   /**
+   * Run the simulation from now (inclusive) to time t (exclusive).
+   *
+   * When the method returns, now is set to t; if called with t == now, this
+   * method does nothing.
+   *
+   * @param t at least now
+   */
+  void run_to(BWTime t);
+
+  /**
    * Main simulation driver; run the simulation until the passenger arrives,
    * and then assign a vehicle to serve the passenger.
    */

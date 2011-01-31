@@ -9,6 +9,9 @@ rescue LoadError
   puts 'Install gemma (sudo gem install gemma) for more rake tasks.'
 end
 
+# Note that you currently have to set this in extconf.rb and Eclipse, too.
+COVERAGE = false
+
 $rakefile_dir = File.dirname(__FILE__)
 CLOBBER.include('ext/*{.o,.so,.log,.cxx}')
 CLOBBER.include('ext/si_taxi/{Debug,Coverage,Release}')
@@ -23,8 +26,11 @@ def num_processors
 end
 
 SI_TAXI_DIR = File.expand_path(File.join($rakefile_dir, 'ext', 'si_taxi'))
-#SI_TAXI_LIB = File.join(SI_TAXI_DIR, 'Debug', 'libsi_taxi.a')
-SI_TAXI_LIB = File.join(SI_TAXI_DIR, 'Coverage', 'libsi_taxi.a')
+if COVERAGE
+  SI_TAXI_LIB = File.join(SI_TAXI_DIR, 'Coverage', 'libsi_taxi.a')
+else
+  SI_TAXI_LIB = File.join(SI_TAXI_DIR, 'Debug', 'libsi_taxi.a')
+end
 
 #
 # SWIG
@@ -51,6 +57,7 @@ end
 desc 'generate wrapper with swig'
 task :swig => SWIG_EXT 
 
+# note: this doesn't seem to work in lcov 1.8; works with lcov 1.9, though
 LCOV_DIR = '../ext'
 LCOV_BASE_DIR = '../ext/si_taxi/Coverage/'
 
@@ -60,6 +67,15 @@ task 'lcov:zero' do
   Dir.chdir('lcov') do
     sh "lcov --directory #{LCOV_DIR} --zerocounters"
   end
+end
+
+# NOTE: to avoid lots of spurious leaks, it should be possible to install 
+# ruby with
+#   rvm install 1.9.2 -C --with-valgrind
+# but I haven't actually seen this work (still get lots of leaks)
+desc 'run tests under valgrind'
+task 'test:valgrind' do
+  sh "valgrind --partial-loads-ok=yes --undef-value-errors=no rake test"
 end
 
 desc 'generate coverage report'
