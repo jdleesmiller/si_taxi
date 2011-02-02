@@ -75,6 +75,16 @@ void BWSim::move_empty(size_t k, size_t destin) {
   veh.arrive = max(veh.arrive, now) + trip_time(veh.origin, veh.destin);
 }
 
+size_t BWSim::move_empty_od(size_t origin, size_t destin) {
+  size_t k = idle_veh_at(origin);
+  if (origin != destin) {
+    // There should always be an idle vehicle to move.
+    CHECK(k < vehs.size());
+    move_empty(k, destin);
+  }
+  return k;
+}
+
 void BWSim::serve_pax(size_t k, const BWPax &pax) {
   CHECK(k < vehs.size());
   BWVehicle &veh = vehs[k];
@@ -135,6 +145,16 @@ int BWSim::num_vehicles_immediately_inbound(size_t i) const {
   for (size_t k = 0; k < vehs.size(); ++k) {
     if (vehs[k].destin == i &&
         vehs[k].arrive <= now + trip_time(vehs[k].origin, i)) {
+      ++count;
+    }
+  }
+  return count;
+}
+
+int BWSim::num_vehicles_idle_by(size_t i, BWTime t) const {
+  int count = 0;
+  for (size_t k = 0; k < vehs.size(); ++k) {
+    if (vehs[k].destin == i && vehs[k].arrive <= t) {
       ++count;
     }
   }

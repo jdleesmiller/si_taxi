@@ -2,7 +2,7 @@
 #define SI_TAXI_BELL_WONG_ANDREASSON_H_
 
 #include "bell_wong.h"
-#include "bell_wong_call_times.h"
+#include "call_times.h"
 
 namespace si_taxi {
 
@@ -43,7 +43,7 @@ struct BWAndreassonHandler : public BWProactiveHandler {
   /**
    * Compute supply at station i; see surplus for details.
    */
-  double supply_at(size_t i) const;
+  int supply_at(size_t i) const;
 
   /**
    * Compute demand at station i; see surplus for details.
@@ -64,7 +64,7 @@ struct BWAndreassonHandler : public BWProactiveHandler {
   /**
    * Nearest origin with expected surplus not higher than min_surplus;
    * this could be the surplus at the origin station, in which case we behave
-   * like the 1998 paper, or it could be target_surplus, in which case we get
+   * like the 1998 paper, or it could be surplus_threshold, in which case we get
    * the 1994 paper (nearest station with a surplus).
    *
    * If an eligible "preferred" station can be found, it will be used; this
@@ -76,10 +76,14 @@ struct BWAndreassonHandler : public BWProactiveHandler {
 
   /**
    * Station with the largest expected deficit. This is interpreted as meaning
-   * that we won't send to a station that has an expected surplus (> 0).
+   * that we won't send to a station that has an expected surplus (>= 0).
    *
    * If an eligible "preferred" station can be found, it will be used; this
    * allows the use of the send lists in the 1998 paper.
+   *
+   * Instead of sending only to stations with surplus < 0, we could send to
+   * stations with surplus < surplus_threshold, but the former seems closer to
+   * the wording in Andreasson 1998. The difference should be minor, anyway.
    *
    * @return numeric_limits<size_t>::max() if no suitable destination found
    */
@@ -123,9 +127,9 @@ public:
   /// try to send when an empty vehicle is idle at a station with a surplus
   bool send_when_over;
   /// see find_call_origin
-  bool pull_only_from_surplus;
-  /// added to result of surplus(...) to define target level of surplus
-  double target_surplus;
+  bool call_only_from_surplus;
+  /// station wants to call if its surplus is less than this threshold
+  double surplus_threshold;
   /// used unless use_call_times_for_targets is true; see surplus(...)
   std::vector<int> targets;
   /// To implement call/send lists, e.g. based on fluid limit solution

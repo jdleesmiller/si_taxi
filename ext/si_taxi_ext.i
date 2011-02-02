@@ -4,8 +4,9 @@
 #include <si_taxi/si_taxi.h>
 #include <si_taxi/od_matrix_wrapper.h>
 #include <si_taxi/bell_wong/bell_wong.h>
-#include <si_taxi/bell_wong/bell_wong_call_times.h>
-#include <si_taxi/bell_wong/bell_wong_andreasson.h>
+#include <si_taxi/bell_wong/call_times.h>
+#include <si_taxi/bell_wong/andreasson.h>
+#include <si_taxi/bell_wong/dynamic_tp.h>
 
 using namespace si_taxi;
 %}
@@ -45,6 +46,7 @@ BOOST_NUMERIC_UBLAS_MATRIX_TYPEMAP_OUT(bool, SWIG_From_bool)
 %include "si_taxi/od_matrix_wrapper.h"
 
 %include "si_taxi/bell_wong/bell_wong.h"
-%include "si_taxi/bell_wong/bell_wong_call_times.h"
-%include "si_taxi/bell_wong/bell_wong_andreasson.h"
+%include "si_taxi/bell_wong/call_times.h"
+%include "si_taxi/bell_wong/andreasson.h"
+%include "si_taxi/bell_wong/dynamic_tp.h"
 

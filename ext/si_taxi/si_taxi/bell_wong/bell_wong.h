@@ -104,7 +104,6 @@ struct BWSim {
    * Number of stations (or zones); this is based on the trip times.
    */
   inline size_t num_stations() const {
-    assert(trip_time.size1() == trip_time.size2());
     return trip_time.size1();
   }
 
@@ -130,9 +129,21 @@ struct BWSim {
   void handle_pax(const BWPax & pax);
 
   /**
-   * Begin empty trip from veh's current destination to destin.
+   * Begin empty trip from veh k's current destination to destin.
    */
   void move_empty(size_t k, size_t destin);
+
+  /**
+   * Begin an empty trip from the given origin to the given destination.
+   * This method finds an idle vehicle at origin to do the trip (takes the
+   * one with the lowest index). If origin and destin are the same, nothing
+   * happens (but an idle vehicle must still be at origin).
+   *
+   * @return index of the idle vehicle chosen for the trip (even if origin ==
+   * destin and no actual trip occurs); numeric_limits<size_t>::max() if
+   * origin == destin and there are no idle vehicles at origin.
+   */
+  size_t move_empty_od(size_t origin, size_t destin);
 
   /**
    * Assign vehicle k to serve pax; this requires that k finish its current
@@ -165,6 +176,12 @@ struct BWSim {
    * simulators.
    */
   int num_vehicles_immediately_inbound(size_t i) const;
+
+  /**
+   * Number of vehicles that will be idle at i at time t, if no further actions
+   * are taken.
+   */
+  int num_vehicles_idle_by(size_t i, BWTime t) const;
 
   /**
    * Index of an idle vehicle at origin, or numeric_limits<size_t>::max() if
@@ -208,8 +225,9 @@ struct BWProactiveHandler {
    *
    * @param sim current system state
    *
-   * @param empty_origin station that the arriving passenger's assigned vehicle
-   * came from (a re-supply movement may be called for)
+   * @param empty_origin the station that lost an empty vehicle due to the
+   * passenger's arrival (not necessarily the passenger's origin station); it
+   * maybe worth supplying a new empty vehicle.
    */
   inline virtual void handle_pax_served(size_t empty_origin)
   { }
@@ -219,8 +237,8 @@ struct BWProactiveHandler {
    *
    * @param sim current system state
    *
-   * @param veh vehicle that just became idle at veh.destin (vehicle may now be
-   * moved to another station)
+   * @param veh vehicle that just became idle (it became idle at veh.destin;
+   * it may now be moved to another station)
    */
   inline virtual void handle_idle(BWVehicle &veh) { }
 

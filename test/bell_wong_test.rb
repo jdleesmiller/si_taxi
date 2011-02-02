@@ -90,7 +90,7 @@ class BellWongTest < Test::Unit::TestCase
           assert_queue_hists [10+30,30+1,30+1,20-2], [120]
         end
 
-        should "count inbound vehicles correctly" do
+        should "count inbound vehicles" do
           put_veh_at 0 
           pax         0,  1,   0
           assert_veh  0,  1,  10
@@ -98,6 +98,14 @@ class BellWongTest < Test::Unit::TestCase
           assert_equal 0, @sim.num_vehicles_immediately_inbound(0)
           assert_equal 1, @sim.num_vehicles_inbound(1)
           assert_equal 1, @sim.num_vehicles_immediately_inbound(1)
+        end
+
+        should "handle strobe" do
+          put_veh_at 0 
+          @sim.strobe = 1
+          pax         0,  1,   5
+          assert_veh  0,  1,  15
+          @sim.run_to 20
         end
       end
 
@@ -173,21 +181,28 @@ class BellWongTest < Test::Unit::TestCase
     setup do
       setup_sim TRIP_TIMES_2ST_RING_10_20
       put_veh_at 0
-      @test_paxs = [[0, 1,  0],
-                    [0, 1, 60]]
+      @sim.proactive = BWProactiveHandler.new(@sim) # nop
     end
 
     should "not move proactively with BWNN" do
       @sim.reactive  = BWNNHandler.new(@sim)
-      @sim.proactive = BWProactiveHandler.new(@sim) # nop
-      @test_paxs.each do |p| pax(*p) end
+      pax 0, 1,  0
+      pax 0, 1, 60
       assert_wait_hists({0=>1, 20=>1}, {})
     end
 
     should "move proactively with SNN" do
       @sim.reactive  = BWSNNHandler.new(@sim)
-      @sim.proactive = BWProactiveHandler.new(@sim) # nop
-      @test_paxs.each do |p| pax(*p) end
+      pax 0, 1,  0
+      pax 0, 1, 60
+      assert_wait_hists [2], [] # zero wait
+    end
+
+    should "move proactively with SNN and two vehicles" do
+      @sim.reactive  = BWSNNHandler.new(@sim)
+      put_veh_at 0, 0
+      pax 0, 1,  0
+      pax 0, 1, 60
       assert_wait_hists [2], [] # zero wait
     end
   end

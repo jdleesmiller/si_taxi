@@ -126,7 +126,7 @@ class AndreassonTest < Test::Unit::TestCase
       @ct = BWCallTimeTracker.new(@sim)
       @rea = BWNNHandlerWithCallTimeUpdates.new(@sim, @ct)
       @pro = BWAndreassonHandler.new(@sim, @ct,
-                                     [[  0, 120.0/3600, 0], # veh / sec
+                                     [[  0, 180.0/3600, 0], # veh / sec
                                       [  0,          0, 0],
                                       [  0,          0, 0]])
       @sim.reactive = @rea
@@ -235,7 +235,7 @@ class AndreassonTest < Test::Unit::TestCase
       pax         0,  1,  60
       assert_veh  0,  1, 190 # 30s + 10s
 
-      assert_in_delta (30 + 50) / 2, @pro.call_time.at(0), $delta
+      assert_in_delta((30 + 50) / 2, @pro.call_time.at(0), $delta)
 
       # now the call time at 0 should matter
       pax         2,  0,  60
@@ -262,11 +262,250 @@ class AndreassonTest < Test::Unit::TestCase
       assert_equal 1, @pro.num_vehicles_inbound_in_call_time(0)
       assert_equal 1, @pro.num_vehicles_immediately_inbound_in_call_time(0)
     end
-  end
 
-  # edge case: some tolerance is provided on call time comparison -- if we
-  # always pull from some station, but due to rounding the call time comes out
-  # slightly less than the travel time, we won't pull proactively from that
-  # station
+    should "cope with call time rounding errors when counting inbound" do
+      # edge case: some tolerance is provided on call time comparison -- if we
+      # always call from some station, but due to rounding the call time comes
+      # out slightly less than the travel time, we won't call proactively from
+      # that station, unless there is a tolerance (EPSILON)
+      
+      put_veh_at 0
+      pax         1,  2,   0
+      assert_veh  1,  2,  30 
+
+      @sim.run_to 5
+      assert_equal 1, @sim.num_vehicles_inbound(2)
+      assert_equal 0, @sim.num_vehicles_immediately_inbound(2)
+
+      @ct.call_time[2] = 100.0 # directly modifying the call time
+      assert_equal 1, @pro.num_vehicles_inbound_in_call_time(2)
+      assert_equal 0, @pro.num_vehicles_immediately_inbound_in_call_time(2)
+
+      @ct.call_time[2] = 25.0
+      assert_equal 1, @pro.num_vehicles_inbound_in_call_time(2)
+      assert_equal 0, @pro.num_vehicles_immediately_inbound_in_call_time(2)
+
+      @ct.call_time[2] = 24.9999 # tolerance is 1e-3
+      assert_equal 1, @pro.num_vehicles_inbound_in_call_time(2)
+      assert_equal 0, @pro.num_vehicles_immediately_inbound_in_call_time(2)
+
+      @sim.run_to 10
+
+      assert_equal 1, @sim.num_vehicles_inbound(2)
+      assert_equal 1, @sim.num_vehicles_immediately_inbound(2)
+      assert_equal 1, @pro.num_vehicles_inbound_in_call_time(2)
+      assert_equal 1, @pro.num_vehicles_immediately_inbound_in_call_time(2)
+    end
+
+    should "move proactively" do
+      put_veh_at 0
+
+      # 30s call time at 180 trips / hr => 1.5 vehicles - one vehicle idle at 0
+      assert_in_delta(-0.5, @pro.surplus(0), $delta)
+      assert_in_delta(   0, @pro.surplus(1), $delta)
+      assert_in_delta(   0, @pro.surplus(2), $delta)
+
+      # move vehicle to 2
+      pax         1,  2,   0
+      assert_veh  1,  2,  30
+
+      # vehicle left has left, but it's outside of station 2's call time (20s),
+      # so it isn't initially counted.
+      assert_in_delta(-1.5, @pro.surplus(0), $delta)
+      assert_in_delta(   0, @pro.surplus(1), $delta)
+      assert_in_delta(   0, @pro.surplus(2), $delta)
+
+      # run until vehicle inside station 2's call time
+      @sim.run_to 9
+      assert_in_delta(-1.5, @pro.surplus(0), $delta)
+      assert_in_delta(   0, @pro.surplus(1), $delta)
+      assert_in_delta(   0, @pro.surplus(2), $delta)
+      @sim.run_to 10
+      assert_in_delta(-1.5, @pro.surplus(0), $delta)
+      assert_in_delta(   0, @pro.surplus(1), $delta)
+      assert_in_delta( 1.0, @pro.surplus(2), $delta)
+      
+      # vehicle is moved proactively when it becomes idle at 2
+      @sim.run_to 30
+      assert_in_delta(-1.5, @pro.surplus(0), $delta)
+      assert_in_delta(   0, @pro.surplus(1), $delta)
+      assert_in_delta( 1.0, @pro.surplus(2), $delta)
+      @sim.run_to 31
+      assert_in_delta(-0.5, @pro.surplus(0), $delta)
+      assert_in_delta(   0, @pro.surplus(1), $delta)
+      assert_in_delta(   0, @pro.surplus(2), $delta)
+
+      # This should have updated the call time at 0.
+      assert_equal [1, 1, 0], @ct.call.to_a
+      assert_in_delta 30.0, @ct.call_time[0], $delta # no change -- still 30
+      assert_in_delta 10.0, @ct.call_time[1], $delta
+      assert_in_delta 20.0, @ct.call_time[2], $delta
+    end
+
+    should "move proactively when there are two vehicles" do
+      put_veh_at 0, 2
+
+      pax         1,  2,   0
+      assert_veh  1,  2,  30
+
+      # this should prompt the vehicle that is idle at 2 to move to station 0
+      assert_veh  2,  0,  30
+    end
+
+    should "use the call queue" do
+      # here we'll set targets instead of using the call times and od matrix
+      @pro.use_call_times_for_targets = false
+      @pro.targets[0] = 1
+      @pro.targets[1] = 1
+      @pro.targets[2] = 1
+
+      # targets are set so that no immediate replacement is available; it is
+      # placed in the call queue
+      put_veh_at 0, 2
+      pax        0, 1,  0
+      assert_veh 0, 1, 10
+      assert_veh 2, 2,  0
+
+      # lower target at 0, so it no longer (thinks it) wants a vehicle, and
+      # lower the target at 1, so that it's willing to give up
+      @pro.targets[0] = 0
+      @pro.targets[1] = 0
+
+      @sim.run_to 11
+      assert_veh 1, 0, 60
+      assert_veh 2, 2,  0
+    end
+
+    [true, false].each do |send_when_over|
+      should "send when over (when #{send_when_over})" do
+        @pro.send_when_over = send_when_over
+
+        # just set the targets rather than using call times
+        # make station 2 think it needs lots of vehicles
+        @pro.use_call_times_for_targets = false
+        @pro.targets[0] = 0
+        @pro.targets[1] = 0
+        @pro.targets[2] = 3
+
+        # send vehicles to 1
+        put_veh_at 0, 0, 0
+        pax        0, 1,  0
+        pax        0, 1,  0
+        pax        0, 1,  0
+
+        # they should all want to move to 2
+        @sim.run_to 10
+        assert_veh 0, 1, 10, 0
+        assert_veh 0, 1, 10, 1
+        assert_veh 0, 1, 10, 2
+        @sim.run_to 11
+
+        # the target at station 0 is 0, but the surplus threshold is 1, so it
+        # queues a call when the last vehicle leaves; when the vehicles reach
+        # station 1 (which has target 0), one is assigned due to this call
+        assert_veh 1, 0, 60, 0
+
+        if send_when_over
+          # the remaining vehicles continue on to station 2
+          assert_veh 1, 2, 30, 1
+          assert_veh 1, 2, 30, 2
+
+          # before they get to 2, tell them 2 no longer wants vehicles (for fun)
+          @pro.targets[0] = 2
+          @pro.targets[1] = 1
+          @pro.targets[2] = 0
+          @sim.run_to 31
+          assert_veh 1, 0, 60, 0
+          assert_veh 2, 0, 60, 1
+          assert_veh 2, 1, 70, 2
+        else
+          # the remaining vehicles stay at station 1
+          assert_veh 0, 1, 10, 1
+          assert_veh 0, 1, 10, 2
+        end
+      end
+    end
+
+    [true, false].each do |call_only_from_surplus|
+      should "pull only from surplus (#{call_only_from_surplus})" do
+        @pro.call_only_from_surplus = call_only_from_surplus 
+
+        # just set the targets rather than using call times
+        # give station 0 a large target; set station 2's target so that when
+        # there is one vehicle at station 2, it does not have a surplus, but it
+        # does have a smaller deficit than station 0
+        @pro.use_call_times_for_targets = false
+        @pro.targets[0] = 3
+        @pro.targets[1] = 0
+        @pro.targets[2] = 1
+
+        put_veh_at 0, 2
+        pax        0, 1,  0
+        assert_veh 0, 1, 10
+
+        if call_only_from_surplus
+          assert_veh 2, 2,  0
+        else
+          assert_veh 2, 0, 30
+        end
+      end
+    end
+
+    [true, false].each do |use_preferred|
+      should "respect preferred stations on call (#{use_preferred})" do
+        # set all targets to zero (ignore call times)
+        @pro.use_call_times_for_targets = false
+
+        # if there are no preferred stations set, we'd rather call from 1 to 2
+        # than from 0 to 2, because 1 is closer; however, if we tell the sim to
+        # prefer 0 to 2, it should do that instead
+        if use_preferred
+          @pro.preferred = [[false, false, true],
+                            [false, false, false],
+                            [false, false, false]]
+        end
+
+        put_veh_at 0, 1, 2
+        pax        2, 0,  0
+        assert_veh 2, 0, 30
+
+        if use_preferred
+          assert_veh 0, 2, 30
+          assert_veh 1, 1,  0
+        else
+          assert_veh 0, 0,  0
+          assert_veh 1, 2, 20
+        end
+      end
+
+      should "respect preferred stations on send (#{use_preferred})" do
+        @pro.use_call_times_for_targets = false
+        @pro.targets[0] = 2
+        @pro.targets[1] = 0
+        @pro.targets[2] = 1
+
+        # if there are no preferred stations set, we'd rather send from 1 to 0
+        # than from 1 to 2, because 0 has a larger deficit; however, if we tell
+        # the sim to prefer to send from 1 to 2, it should do that instead
+        if use_preferred
+          @pro.preferred = [[false, false, false],
+                            [false, false, true],
+                            [false, false, false]]
+        end
+
+        put_veh_at 0, 1
+        pax        0, 1,  0
+        assert_veh 0, 1, 10
+        assert_veh 1, 0, 50
+
+        @sim.run_to 15
+        if use_preferred
+          assert_veh 1, 2, 30
+        else
+          assert_veh 1, 0, 60
+        end
+      end
+     end
+  end
 end
 

@@ -1,7 +1,7 @@
 #include <si_taxi/stdafx.h>
 #include <si_taxi/utility.h>
 #include <si_taxi/od_matrix_wrapper.h>
-#include "bell_wong_andreasson.h"
+#include "andreasson.h"
 
 using namespace std;
 
@@ -18,8 +18,8 @@ BWAndreassonHandler::BWAndreassonHandler(BWSim &sim,
   use_call_times_for_inbound = true;
   use_call_times_for_targets = true;
   send_when_over = true;
-  pull_only_from_surplus = true;
-  target_surplus = 1.0;
+  call_only_from_surplus = true;
+  surplus_threshold = 1.0;
   targets.resize(sim.num_stations(), 0);
   preferred.resize(sim.num_stations(), sim.num_stations());
   preferred.clear();
@@ -27,11 +27,12 @@ BWAndreassonHandler::BWAndreassonHandler(BWSim &sim,
 
 void BWAndreassonHandler::handle_pax_served(size_t empty_origin) {
   size_t ev_destin = empty_origin;
+
   double ev_destin_surplus = surplus(ev_destin);
-  if (ev_destin_surplus < target_surplus) {
+  if (ev_destin_surplus < surplus_threshold) {
     // Want to call a vehicle.
     double min_surplus =
-        pull_only_from_surplus ? target_surplus : ev_destin_surplus;
+        call_only_from_surplus ? surplus_threshold : ev_destin_surplus;
     size_t ev_origin = find_call_origin(ev_destin, min_surplus);
     if (ev_origin == numeric_limits<size_t>::max()) {
       // No origin found; put this station on the call queue.
@@ -51,7 +52,11 @@ void BWAndreassonHandler::handle_pax_served(size_t empty_origin) {
 
 void BWAndreassonHandler::handle_idle(BWVehicle &veh) {
   size_t ev_origin = veh.destin;
-  if (surplus(ev_origin) > target_surplus) {
+  // The rationale for the = in the >= here is that a station with zero demand
+  // and one vehicle should be considered to have a surplus when the surplus
+  // threshold is one vehicle. It's also consistent with the corresponding test
+  // in find_call_origin, and it complements the test in handle_pax_served.
+  if (surplus(ev_origin) >= surplus_threshold) {
     size_t ev_destin = numeric_limits<size_t>::max();
     if (call_queue.empty()) {
       if (send_when_over)
@@ -94,7 +99,7 @@ const {
   return count;
 }
 
-double BWAndreassonHandler::supply_at(size_t i) const {
+int BWAndreassonHandler::supply_at(size_t i) const {
   ASSERT(i < sim.num_stations());
   if (immediate_inbound_only && use_call_times_for_inbound) {
     return num_vehicles_immediately_inbound_in_call_time(i);
