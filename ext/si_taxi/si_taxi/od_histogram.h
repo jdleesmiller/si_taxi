@@ -3,7 +3,7 @@
 
 #include "si_taxi.h"
 
-#include <boost/numeric/ublas/banded.hpp>
+//#include <boost/numeric/ublas/banded.hpp>
 //#include <boost/numeric/ublas/matrix_proxy.hpp>
 
 using namespace std;
@@ -40,63 +40,37 @@ struct ODHistogram
   }
 
   /**
+   * Set all entries to zero.
+   */
+  inline void clear() {
+    _matrix.clear();
+  }
+
+  /**
    * The largest weight accumulated.
    *
    * Note: all entries must be non-negative, or the result is undefined.
    */
-  int max_weight() const {
-    int w_max = -numeric_limits<int>::infinity();
-    for (size_t i = 0; i < num_stations(); ++i) {
-      for (size_t j = 0; j < num_stations(); ++j) {
-        if (_matrix(i, j) > w_max) {
-          w_max = _matrix(i, j);
-        }
-      }
-    }
-    return w_max;
-  }
+  int max_weight() const;
 
   /**
    * The largest weight accumulated in the given row.
    */
-  int max_weight_in_row(size_t i) const {
-    int w_max = -numeric_limits<int>::infinity();
-    for (size_t j = 0; j < num_stations(); ++j) {
-      if (_matrix(i, j) > w_max) {
-        w_max = _matrix(i, j);
-      }
-    }
-    return w_max;
-  }
+  int max_weight_in_row(size_t i) const;
 
   /**
    * The largest weight accumulated in the given column.
    */
-  int max_weight_in_col(size_t j) const {
-    int w_max = -numeric_limits<int>::infinity();
-    for (size_t i = 0; i < num_stations(); ++i) {
-      if (_matrix(i, j) > w_max) {
-        w_max = _matrix(i, j);
-      }
-    }
-    return w_max;
-  }
+  int max_weight_in_col(size_t j) const;
 
   /**
    * Sum up along row (including element on diagonal).
    */
-  int row_sum(size_t i) const {
-    int sum = 0;
-    for (size_t j = 0; j < _matrix.size2(); ++j) {
-      sum += _matrix(i,j);
-    }
-    return sum;
-  }
+  int row_sum(size_t i) const;
 
   /**
    * Set diagonal elements such that the elements in each row sum to the given
    * totals. The old values on the diagonal are discarded.
-   */
   void set_diagonal_for_row_sums(
       const boost::numeric::ublas::diagonal_matrix<int> &row_sums) {
     assert(_matrix.size1() == row_sums.size1());
@@ -112,18 +86,7 @@ struct ODHistogram
       _matrix(i,i) = row_sums(i,i) - curr_row_sum;
     }
   }
-
-  /**
-   * Divide each entry by the sum of all entries in its row.
    */
-  void normalize_rows() {
-    for (size_t i = 0; i < _matrix.size1(); ++i) {
-      double sum = this->row_sum(i);
-      for (size_t j = 0; j < _matrix.size2(); ++j) {
-        _matrix(i,j) /= sum;
-      }
-    }
-  }
 
   /**
    * The underlying matrix of counts.

@@ -8,6 +8,7 @@
 #include <si_taxi/bell_wong/call_times.h>
 #include <si_taxi/bell_wong/andreasson.h>
 #include <si_taxi/bell_wong/dynamic_tp.h>
+#include <si_taxi/bell_wong/sampling_voting.h>
 
 using namespace si_taxi;
 %}
@@ -71,4 +72,5 @@ void seed_rng(unsigned int seed) {
 %include "si_taxi/bell_wong/call_times.h"
 %include "si_taxi/bell_wong/andreasson.h"
 %include "si_taxi/bell_wong/dynamic_tp.h"
+%include "si_taxi/bell_wong/sampling_voting.h"
 

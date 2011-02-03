@@ -2,6 +2,7 @@
 #define SI_TAXI_BELL_WONG_SAMPLING_VOTING_H_
 
 #include "bell_wong.h"
+#include <si_taxi/od_histogram.h>
 #include <si_taxi/od_matrix_wrapper.h>
 
 namespace si_taxi {
@@ -40,7 +41,7 @@ struct BWSamplingVotingHandler : public BWProactiveHandler {
   /**
    *
    */
-  void sample();
+  void sample(ODHistogram &action_hist);
 
   void handle_sample_pax(std::vector<BWVehicle> &clone_vehs,
       const BWPax &pax) const;

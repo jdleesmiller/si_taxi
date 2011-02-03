@@ -113,11 +113,35 @@ class TestSiTaxi < Test::Unit::TestCase
     should "handle single-entry histogram" do
       h = SiTaxi::ODHistogram.new(1)
       assert_equal 1, h.num_stations
+      assert_equal 0, h.max_weight
       h.increment(0, 0)
-      p h.od_matrix
+      assert_equal [[1]], h.od_matrix
+      assert_equal 1, h.max_weight
+      h.increment(0, 0)
+      assert_equal [[2]], h.od_matrix
+      assert_equal 2, h.max_weight
     end
 
     should "record entries" do
+      h = SiTaxi::ODHistogram.new(2)
+      assert_equal 2, h.num_stations
+      assert_equal 0, h.max_weight
+
+      h.increment(0, 0)
+      assert_equal 1, h.max_weight
+      h.increment(0, 1)
+      h.increment(1, 0)
+      h.increment(1, 1)
+      assert_equal [[1,1],[1,1]], h.od_matrix
+
+      h.accumulate(0,1,2);
+      assert_equal 3, h.max_weight
+      assert_equal 3, h.max_weight_in_row(0)
+      assert_equal 1, h.max_weight_in_row(1)
+      assert_equal [[1,3],[1,1]], h.od_matrix
+
+      h.clear
+      assert_equal [[0,0],[0,0]], h.od_matrix
     end
   end
 end

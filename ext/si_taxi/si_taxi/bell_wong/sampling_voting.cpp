@@ -30,13 +30,15 @@ void BWSamplingVotingHandler::clone_sim_vehs(
   }
 }
 
-void BWSamplingVotingHandler::sample() {
+void BWSamplingVotingHandler::sample(ODHistogram &action_hist) {
   vector<BWVehicle> clone_vehs;
 
   vector<int> num_trivial_idle_trips(sim.num_stations());
   vector<size_t> first_idle_nt_destins(sim.num_stations()); // nt = nontrivial
   vector<size_t> first_destins(sim.num_stations());
   const size_t NONE = numeric_limits<size_t>::max();
+
+  action_hist.clear();
 
   // Can stop early if we have assigned destinations for all stations with
   // idle vehicles.
@@ -83,8 +85,29 @@ void BWSamplingVotingHandler::sample() {
 
       BWSNNHandler::update_veh(pax, clone_vehs[k_star], sim.trip_time);
     }
+
+    //TV(first_idle_nt_destins);
+    //TV(num_trivial_idle_trips);
+    //TV(first_destins);
+
+    // Accumulate decisions in action_hist.
+    for (size_t i = 0; i < sim.num_stations(); ++i) {
+      if (idle_vehs[i] == 0) {
+        // nothing to do
+      } else if (first_idle_nt_destins[i] != NONE) {
+        action_hist.increment(i, first_idle_nt_destins[i]);
+      } else if (num_trivial_idle_trips[i] >= idle_vehs[i]) {
+        assert(num_trivial_idle_trips[i] == idle_vehs[i]);
+        action_hist.increment(i, i);
+      } else if (first_destins[i] != NONE) {
+        action_hist.increment(i, first_destins[i]);
+      } else {
+        action_hist.increment(i, i); // give up: leave vehicle where it is
+      }
+    }
   }
 }
+
 #if 0
     assert(idle_vehs.size() == trip_times.size1());
 
