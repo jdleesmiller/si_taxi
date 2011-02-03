@@ -7,18 +7,20 @@
 namespace si_taxi {
 
 /**
+ * The Dynamic Transportation Problem (DTP) heuristic.
  *
+ * Note that there is only one transportation problem solver instance, so you
+ * must use at most one instance of BWDynamicTransportationProblemHandler at a
+ * time.
  */
 struct BWDynamicTransportationProblemHandler : public BWProactiveHandler {
   /**
    * @param sim
-   * @param od with entries in vehicles per second
    */
-  BWDynamicTransportationProblemHandler(BWSim &sim,
-      boost::numeric::ublas::matrix<double> od);
+  BWDynamicTransportationProblemHandler(BWSim &sim);
 
   /// Destructor.
-  ~BWDynamicTransportationProblemHandler();
+  virtual ~BWDynamicTransportationProblemHandler();
 
   /**
    * Override.
@@ -52,25 +54,11 @@ struct BWDynamicTransportationProblemHandler : public BWProactiveHandler {
   inline int sink_node() const { return num_stations() + 2; }
 
   /**
-   * In vehicle trips / second; only used if use_call_times_for_targets.
-   *
-   * Note that if call_time were a public member, it would have to have a
-   * working assignment operator, which is not possible, because it has
-   * reference members.
-   */
-  const ODMatrixWrapper &od() const {
-    return _od;
-  }
-
-  /**
-   * Print currently configured problem in format for the original relax4
-   * solver to string.
+   * Get currently configured problem in format for the original relax4 solver.
    */
   std::string dump_problem();
 
 protected:
-  /// See od()
-  ODMatrixWrapper _od;
 
   /**
    * Set source and sink demand to balance out the given net_demand, which is

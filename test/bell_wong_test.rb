@@ -133,6 +133,8 @@ class BellWongTest < Test::Unit::TestCase
 
           pax         0,  1, 120 # to compute queue length stats
           assert_queue_hists [120], [110,10], [91,29]
+
+ObjectSpace.garbage_collect
         end
 
         should "take the closer vehicle (from 1 not 0, then from 2 not 1)" do

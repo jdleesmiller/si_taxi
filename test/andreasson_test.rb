@@ -9,7 +9,7 @@ class AndreassonTest < Test::Unit::TestCase
       @ct = BWCallTimeTracker.new(@sim)
       @rea = BWNNHandlerWithCallTimeUpdates.new(@sim, @ct)
       @pro = BWAndreassonHandler.new(@sim, @ct, [[  0, 120.0/3600], # veh / sec
-                                                 [  0,   0]])
+                                                 [  0,          0]])
       @sim.reactive = @rea
       @sim.proactive = @pro
     end

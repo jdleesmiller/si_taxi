@@ -11,8 +11,7 @@ using namespace std;
 namespace si_taxi {
 
 BWDynamicTransportationProblemHandler::BWDynamicTransportationProblemHandler(
-    BWSim &sim, boost::numeric::ublas::matrix<double> od) :
-    BWProactiveHandler(sim), _od(od) {
+    BWSim &sim) : BWProactiveHandler(sim) {
   targets.resize(sim.num_stations(), 0);
 
   start_nodes = new int[num_arcs()];
@@ -84,7 +83,7 @@ void BWDynamicTransportationProblemHandler::handle_strobe() {
 
 void BWDynamicTransportationProblemHandler::redistribute() {
   for (size_t i = 0; i < sim.num_stations(); ++i) {
-    demands[i] = min(
+    demands[i] = -min(
         sim.num_vehicles_inbound(i) - targets[i],
         sim.num_vehicles_idle_by(i, sim.now));
   }
@@ -161,8 +160,8 @@ void BWDynamicTransportationProblemHandler::move_by_flows() {
   for (int i = 0; i < num_stations(); ++i) {
     for (int j = 0; j < num_stations(); ++j) {
       if (i != j) {
-        assert(flows[a] >= 0);
-        assert(a < (size_t)num_arcs());
+        ASSERT(flows[a] >= 0);
+        ASSERT(a < (size_t)num_arcs());
         while (flows[a] > 0) {
           ASSERT(sim.num_vehicles_idle_by(i, sim.now) > 0);
           sim.move_empty_od(i, j);

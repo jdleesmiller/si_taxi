@@ -104,7 +104,6 @@ si_taxi::Error::Error(const char* message, int line, const char* file,
     ostringstream ss;
     trace(ss);
     _stackTrace = ss.str();
-    cerr << ss.str() << endl;
 #else
     _stackTrace = "";
 #endif

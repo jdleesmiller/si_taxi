@@ -39,7 +39,7 @@ SI_TAXI_WRAP = 'ext/si_taxi_ext_wrap.cxx'
 SI_TAXI_WRAP_DEPS = Dir['ext/*.i'] + Dir["ext/**/*.h"]
 file SI_TAXI_WRAP => SI_TAXI_WRAP_DEPS do |t|
   Dir.chdir('ext') do
-    sh "swig -c++ -ruby -I#{SI_TAXI_DIR} si_taxi_ext.i"
+    sh "swig -Wall -c++ -ruby -I#{SI_TAXI_DIR} si_taxi_ext.i"
   end
 end
 
