@@ -12,6 +12,10 @@
   int i, j, rows, cols;
   VALUE row;
 
+  if (!rb_obj_is_kind_of($input, rb_cArray)) {
+    SWIG_exception_fail(SWIG_ERROR, "not an array");
+  }
+
   rows = RARRAY_LEN($input);
   if (rows > 0) {
     cols = RARRAY_LEN(rb_ary_entry($input, 0));
@@ -42,6 +46,10 @@
   const boost::numeric::ublas::matrix<entrytype> {
   int i, j, rows, cols;
   VALUE row;
+
+  if (!rb_obj_is_kind_of($input, rb_cArray)) {
+    SWIG_exception_fail(SWIG_ERROR, "not an array");
+  }
 
   rows = RARRAY_LEN($input);
   if (rows > 0) {

@@ -92,7 +92,7 @@ struct BWAndreassonHandler : public BWProactiveHandler {
   /**
    * Call times computed so far for each station.
    *
-   * Note that if call_time were a public member, it would have to have a
+   * Note that if _call_time were a public member, it would have to have a
    * working assignment operator, which is not possible, because it has
    * reference members.
    */
@@ -101,9 +101,9 @@ struct BWAndreassonHandler : public BWProactiveHandler {
   }
 
   /**
-   * In vehicle trips / second; only used if use_call_times_for_targets.
+   * In vehicle trips / second.
    *
-   * Note that if call_time were a public member, it would have to have a
+   * Note that if _od were a public member, it would have to have a
    * working assignment operator, which is not possible, because it has
    * reference members.
    */
@@ -112,9 +112,9 @@ struct BWAndreassonHandler : public BWProactiveHandler {
   }
 
 protected:
-  /// See call_time()
+  /// see call_time()
   BWCallTimeTracker &_call_time;
-  /// See od()
+  /// see od()
   ODMatrixWrapper _od;
 
 public:
@@ -132,9 +132,9 @@ public:
   double surplus_threshold;
   /// used unless use_call_times_for_targets is true; see surplus(...)
   std::vector<int> targets;
-  /// To implement call/send lists, e.g. based on fluid limit solution
+  /// to implement call/send lists, e.g. based on fluid limit solution
   boost::numeric::ublas::matrix<bool> preferred;
-  /// Stations that tried to call but couldn't find any available vehicles.
+  /// stations that tried to call but couldn't find any available vehicles
   std::queue<int> call_queue;
 };
 

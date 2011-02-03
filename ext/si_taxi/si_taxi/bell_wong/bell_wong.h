@@ -2,6 +2,7 @@
 #define SI_TAXI_BELL_WONG_H_
 
 #include <si_taxi/si_taxi.h>
+#include <si_taxi/od_matrix_wrapper.h>
 
 #include <queue>
 
@@ -56,6 +57,17 @@ struct BWPax {
   BWPax() { }
   BWPax(size_t origin, size_t destin, BWTime arrive) :
     origin(origin), destin(destin), arrive(arrive) { }
+};
+
+/**
+ * Abstract base class for an object that generates a (notionally) infinite
+ * sequence of requests. For example, BWPoissonPaxStream generates an infinite
+ * sequence of passenger requests with exponentially distributed interarrival
+ * times.
+ */
+struct BWPaxStream {
+  virtual ~BWPaxStream() { }
+  virtual BWPax next_pax() = 0;
 };
 
 struct BWReactiveHandler;  // forward declaration
@@ -113,7 +125,8 @@ struct BWSim {
   void init();
 
   /**
-   * Run the simulation from now (inclusive) to time t (exclusive).
+   * Run the simulation from now (inclusive) to time t (exclusive) *without*
+   * any more passenger arrivals.
    *
    * When the method returns, now is set to t; if called with t == now, this
    * method does nothing.
@@ -127,6 +140,17 @@ struct BWSim {
    * and then assign a vehicle to serve the passenger.
    */
   void handle_pax(const BWPax & pax);
+
+  /**
+   * Generate and handle num_pax passengers.
+   *
+   * This is here for efficiency reasons: it avoids the overhead of calling
+   * handle_pax through the wrapper for each passenger.
+   *
+   * @param num_pax non-negative; number of requests to generate
+   * @param pax_stream not null
+   */
+  void handle_pax_stream(size_t num_pax, BWPaxStream *pax_stream);
 
   /**
    * Begin empty trip from veh k's current destination to destin.
@@ -189,6 +213,18 @@ struct BWSim {
    * the one with the lowest index is chosen.
    */
   size_t idle_veh_at(size_t i) const;
+
+  /**
+   * Count idle vehicles and provide some summary stats.
+   *
+   * @param idle_vehs [in] must have num_stations entries; [out] per-station
+   * idle vehicle counts; non-negative
+   * @param num_idle_vehs [in] 0; [out] non-negative; summed over all stations
+   * @param num_stations_with_idle_vehs [in] 0; [out] non-negative
+   */
+  void count_idle_vehs(std::vector<int> &idle_vehs,
+      int &num_idle_vehs,
+      int &num_stations_with_idle_vehs) const;
 };
 
 struct BWReactiveHandler {
@@ -285,11 +321,52 @@ struct BWSNNHandler : public BWReactiveHandler {
    *
    * @return the passenger's pickup time
    */
-  static BWTime update_veh(const BWPax &pax, std::vector<BWVehicle> &vehs,
-      const boost::numeric::ublas::matrix<int> &trip_time, size_t k_star);
+  static BWTime update_veh(const BWPax &pax, BWVehicle &veh,
+      const boost::numeric::ublas::matrix<int> &trip_time);
 
   virtual size_t handle_pax(const BWPax &pax);
 };
+
+/**
+ * Generates a stream of passenger requests from an OD matrix. Times between
+ * requests are exponentially distributed (before rounding to the nearest
+ * time step).
+ */
+struct BWPoissonPaxStream : public BWPaxStream {
+  /**
+   * @param now non-negative; the first request arrives at time now (after
+   * rounding to the nearest time step)
+   * @param od used to generate the requests; entries in vehicles per second
+   */
+  BWPoissonPaxStream(double now, boost::numeric::ublas::matrix<double> od);
+
+  /**
+   * Generate the next passenger in the sequence.
+   */
+  virtual BWPax next_pax();
+
+  /**
+   * Time at which the next request will be generated, in seconds. Note that
+   * the first request is generated at the time 'now' passed to the constructor.
+   */
+  inline double next_time() const {
+    return _next_time;
+  }
+
+  /**
+   * Demand matrix with entries in vehicle trips / second.
+   */
+  const ODMatrixWrapper &od() const {
+    return _od;
+  }
+
+protected:
+  /// see next_time()
+  double _next_time;
+  /// see od()
+  ODMatrixWrapper _od;
+};
+
 
 }
 

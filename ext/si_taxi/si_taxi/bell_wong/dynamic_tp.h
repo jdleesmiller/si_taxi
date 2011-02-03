@@ -2,7 +2,6 @@
 #define SI_TAXI_BELL_WONG_DTP_H_
 
 #include "bell_wong.h"
-#include <si_taxi/od_matrix_wrapper.h>
 
 namespace si_taxi {
 

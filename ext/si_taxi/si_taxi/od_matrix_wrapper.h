@@ -51,6 +51,16 @@ struct ODMatrixWrapper
     return _rate_from(i);
   }
 
+  /**
+   * Generate a request. The origin and destination are chosen according to
+   * the trip_prob matrix, and the interval is exponentially distributed
+   * according to the expected interarrival time.
+   *
+   * The interval is in the same units as the expected_interarrival_time; what
+   * they actually are depends on the matrix that was passed in.
+   */
+  void sample(size_t &origin, size_t &destin, double &interval) const;
+
 private:
   boost::numeric::ublas::matrix<double> _od;
   boost::numeric::ublas::matrix<double> _trip_prob;

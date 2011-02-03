@@ -2,6 +2,7 @@
 
 %{
 #include <si_taxi/si_taxi.h>
+#include <si_taxi/od_histogram.h>
 #include <si_taxi/od_matrix_wrapper.h>
 #include <si_taxi/bell_wong/bell_wong.h>
 #include <si_taxi/bell_wong/call_times.h>
@@ -11,7 +12,9 @@
 using namespace si_taxi;
 %}
 
+%include typemaps.i
 %include exception.i
+%include std_vector.i
 
 %exceptionclass si_taxi::Exception;
 %exception {
@@ -21,8 +24,6 @@ using namespace si_taxi;
     SWIG_exception(SWIG_RuntimeError, e.what());
   }
 }
-
-%include std_vector.i
 
 %template(SizeTVector) std::vector<size_t>;
 %template(DoubleVector) std::vector<double>;
@@ -42,8 +43,29 @@ BOOST_NUMERIC_UBLAS_MATRIX_TYPEMAP_OUT(size_t, ULONG2NUM)
 BOOST_NUMERIC_UBLAS_MATRIX_TYPEMAP_IN(bool, (bool))
 BOOST_NUMERIC_UBLAS_MATRIX_TYPEMAP_OUT(bool, SWIG_From_bool)
 
+%inline %{
+/**
+ * Easy way to seed the generator from Ruby, because it's not worth wrapping
+ * the whole Boost.Random library just to do this.
+ */
+void seed_rng(unsigned int seed) {
+  si_taxi::rng.seed(seed);
+}
+%}
+
 %include "si_taxi/si_taxi.h"
+%include "si_taxi/od_histogram.h"
+
+/* Enable multiple return values for od.sample(). */
+%apply size_t *OUTPUT { size_t &origin, size_t &destin }
+%apply double *OUTPUT { double &interval }
+
 %include "si_taxi/od_matrix_wrapper.h"
+
+/* Clean up for od.sample(). */
+%clear size_t &origin;
+%clear size_t &destin;
+%clear double &interval;
 
 %include "si_taxi/bell_wong/bell_wong.h"
 %include "si_taxi/bell_wong/call_times.h"

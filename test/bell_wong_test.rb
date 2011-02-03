@@ -107,6 +107,14 @@ class BellWongTest < Test::Unit::TestCase
           assert_veh  0,  1,  15
           @sim.run_to 20
         end
+
+        should "run" do
+          put_veh_at 0, 1
+          SiTaxi.seed_rng 1
+          stream = BWPoissonPaxStream.new(0, [[0, 0.1],[0.2, 0]])
+          @sim.handle_pax_stream 100, stream
+          assert_equal 100, @sim.pax_wait.map(&:to_a).flatten.inject(:+)
+        end
       end
 
       context "on three station ring (10s, 20s, 30s)" do
@@ -133,8 +141,6 @@ class BellWongTest < Test::Unit::TestCase
 
           pax         0,  1, 120 # to compute queue length stats
           assert_queue_hists [120], [110,10], [91,29]
-
-ObjectSpace.garbage_collect
         end
 
         should "take the closer vehicle (from 1 not 0, then from 2 not 1)" do

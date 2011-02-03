@@ -23,6 +23,9 @@ void si_taxi_hello_world() {
 
 namespace si_taxi {
 
+// storage; declared in si_taxi.h
+boost::mt19937 rng;
+
 //
 // Stack trace code based on http://www.mr-edd.co.uk/blog/stack_trace_x86
 // Modified to handle a null name.

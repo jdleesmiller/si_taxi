@@ -67,6 +67,15 @@ class TestSiTaxi < Test::Unit::TestCase
         assert_in_delta 1, @w.rate_from(0), $delta
         assert_in_delta 2, @w.rate_from(1), $delta
       end
+      should "be able to sample" do
+        SiTaxi.seed_rng(123)
+        100.times do
+          origin, destin, interval = @w.sample
+          assert [0, 1].member?(origin) && [0, 1].member?(destin)
+          assert origin != destin
+          assert interval >= 0
+        end
+      end
     end
 
     context "3x3 matrix" do
@@ -84,6 +93,31 @@ class TestSiTaxi < Test::Unit::TestCase
         assert_in_delta 3+4, @w.rate_from(1), $delta
         assert_in_delta 5+6, @w.rate_from(2), $delta
       end
+      should "be able to sample" do
+        SiTaxi.seed_rng(456)
+        100.times do
+          origin, destin, interval = @w.sample
+          assert [0, 1, 2].member?(origin) && [0, 1, 2].member?(destin)
+          assert origin != destin
+          assert interval >= 0
+        end
+      end
+    end
+  end
+
+  context "od histogram" do
+    should "handle empty histogram" do
+      assert_equal 0, SiTaxi::ODHistogram.new(0).num_stations
+    end
+
+    should "handle single-entry histogram" do
+      h = SiTaxi::ODHistogram.new(1)
+      assert_equal 1, h.num_stations
+      h.increment(0, 0)
+      p h.od_matrix
+    end
+
+    should "record entries" do
     end
   end
 end

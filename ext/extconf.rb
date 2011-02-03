@@ -1,7 +1,7 @@
 require 'mkmf'
 
 # Note that you currently have to set this in the Rakefile and Eclipse, too.
-COVERAGE = true
+COVERAGE = false
 
 SI_TAXI_DIR = File.expand_path(File.join(File.dirname(__FILE__),'si_taxi'))
 if COVERAGE

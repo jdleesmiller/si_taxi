@@ -5,6 +5,12 @@
 #define SI_TAXI_COMMON_H_
 
 /**
+ * Marker for arguments passed by reference (evaluates to nothing; it's just
+ * a marker).
+ */
+#define BYREF
+
+/**
  * Throws an exception. Allows stream-like formatting in the message.
  * @param message stream operator message (e.g. "x=" << x << "y=" << y)
  */

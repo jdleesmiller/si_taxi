@@ -1,6 +1,6 @@
+#include "bell_wong.h"
 #include <si_taxi/stdafx.h>
 #include <si_taxi/utility.h>
-#include "bell_wong.h"
 
 using namespace std;
 
@@ -58,6 +58,13 @@ void BWSim::handle_pax(const BWPax & pax) {
     size_t empty_origin = vehs.at(k).destin;
     serve_pax(k, pax);
     proactive->handle_pax_served(empty_origin);
+  }
+}
+
+void BWSim::handle_pax_stream(size_t num_pax, BWPaxStream *pax_stream) {
+  ASSERT(pax_stream);
+  for (; num_pax > 0; --num_pax) {
+    handle_pax(pax_stream->next_pax());
   }
 }
 
@@ -171,6 +178,22 @@ size_t BWSim::idle_veh_at(size_t i) const {
   return numeric_limits<size_t>::max();
 }
 
+void BWSim::count_idle_vehs(std::vector<int> &idle_vehs,
+  int &num_idle_vehs,
+  int &num_stations_with_idle_vehs) const {
+  CHECK(idle_vehs.size() == num_stations());
+  for (size_t k = 0; k < vehs.size(); ++k) {
+    if (vehs[k].arrive <= now) {
+      ++num_idle_vehs;
+      int &count = idle_vehs[vehs[k].destin];
+      if (count == 0) {
+        ++num_stations_with_idle_vehs;
+      }
+      ++count;
+    }
+  }
+}
+
 size_t BWNNHandler::handle_pax(const BWPax &pax) {
   ASSERT(pax.origin < sim.num_stations());
   ASSERT(pax.destin < sim.num_stations());
@@ -222,15 +245,15 @@ size_t BWSNNHandler::choose_veh(const BWPax &pax, const vector<BWVehicle> &vehs,
   return ks;
 }
 
-BWTime BWSNNHandler::update_veh(const BWPax &pax, vector<BWVehicle> &vehs,
-    const boost::numeric::ublas::matrix<int> &trip_time, size_t k_star) {
-  int ks_empty = trip_time(vehs[k_star].destin, pax.origin);
-  BWTime ks_arrive = vehs[k_star].arrive + ks_empty;
+BWTime BWSNNHandler::update_veh(const BWPax &pax, BWVehicle &veh,
+    const boost::numeric::ublas::matrix<int> &trip_time) {
+  int ks_empty = trip_time(veh.destin, pax.origin);
+  BWTime ks_arrive = veh.arrive + ks_empty;
   BWTime pickup = max(ks_arrive, pax.arrive);
 
-  vehs[k_star].arrive = pickup + trip_time(pax.origin, pax.destin);
-  vehs[k_star].origin = pax.origin;
-  vehs[k_star].destin = pax.destin;
+  veh.arrive = pickup + trip_time(pax.origin, pax.destin);
+  veh.origin = pax.origin;
+  veh.destin = pax.destin;
 
   return pickup;
 }
@@ -240,11 +263,24 @@ size_t BWSNNHandler::handle_pax(const BWPax &pax) {
 
   // Update sim state here, because we're not following the usual update rules.
   size_t empty_origin = sim.vehs[k_star].destin;
-  BWTime pickup = BWSNNHandler::update_veh(
-      pax, sim.vehs, sim.trip_time, k_star);
+  BWTime pickup = BWSNNHandler::update_veh(pax,
+      sim.vehs[k_star], sim.trip_time);
   sim.record_pax_served(pax, empty_origin, pickup);
 
   return numeric_limits<size_t>::max(); // sim state already updated
+}
+
+BWPoissonPaxStream::BWPoissonPaxStream(double now,
+    boost::numeric::ublas::matrix<double> od) : _next_time(now), _od(od) {
+}
+
+BWPax BWPoissonPaxStream::next_pax() {
+  BWPax pax;
+  double interval;
+  _od.sample(BYREF pax.origin, BYREF pax.destin, BYREF interval);
+  pax.arrive = (BWTime)round(_next_time);
+  _next_time += interval;
+  return pax;
 }
 
 }

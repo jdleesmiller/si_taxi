@@ -13,6 +13,9 @@ Using SWIG constrains the design in a few ways:
   must be used instead of
     void foo(struct A *a);
 - avoid operator() and operator[], because they require extra swig code.
+- don't inherit from classes that don't wrap well (e.g. an extension of a
+  boost matrix class doesn't work; it can be used as a member, because we
+  define a typemap.
 
 == Old Notes
 
