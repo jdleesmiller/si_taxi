@@ -103,6 +103,12 @@ class TestSiTaxi < Test::Unit::TestCase
         end
       end
     end
+
+    should "fail to create non-square OD matrix" do
+      assert_raise(RuntimeError) do
+        SiTaxi::ODMatrixWrapper.new [[0,1,2],[3,0,4],[5,6,0],[1,2,3]]
+      end
+    end
   end
 
   context "od histogram" do

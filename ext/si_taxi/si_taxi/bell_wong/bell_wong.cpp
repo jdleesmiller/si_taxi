@@ -264,32 +264,29 @@ size_t BWSNNHandler::handle_pax(const BWPax &pax) {
 }
 
 BWPoissonPaxStream::BWPoissonPaxStream(double now,
-    boost::numeric::ublas::matrix<double> od) : _next_time(now), _od(od) {
+    boost::numeric::ublas::matrix<double> od) : last_time(now), _od(od) {
 }
 
 BWPax BWPoissonPaxStream::next_pax() {
   BWPax pax;
   double interval;
   _od.sample(BYREF pax.origin, BYREF pax.destin, BYREF interval);
-  pax.arrive = (BWTime)round(_next_time);
-  _next_time += interval;
+  last_time += interval;
+  pax.arrive = (BWTime)round(last_time);
   return pax;
 }
 
-BWVectorPaxStream::BWVectorPaxStream() : index(0), offset(0) { }
+BWTestPaxStream::BWTestPaxStream() : offset(0) { }
 
-BWPax BWVectorPaxStream::next_pax() {
+BWPax BWTestPaxStream::next_pax() {
   CHECK(pax.size() > 0);
-  if (index >= pax.size()) {
-    index = 0;
-  }
-  BWPax pax_i = pax[index];
+  BWPax pax_i = pax.front();
   pax_i.arrive += offset;
-  ++index;
+  pax.pop();
   return pax_i;
 }
 
-void BWVectorPaxStream::reset(double now) {
+void BWTestPaxStream::reset(double now) {
   offset = (int)round(now);
 }
 

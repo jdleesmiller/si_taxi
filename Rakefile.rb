@@ -10,7 +10,7 @@ rescue LoadError
 end
 
 # Note that you currently have to set this in extconf.rb and Eclipse, too.
-COVERAGE = false
+COVERAGE = !!ENV['SI_TAXI_COVERAGE']
 
 $rakefile_dir = File.dirname(__FILE__)
 CLOBBER.include('ext/*{.o,.so,.log,.cxx}')

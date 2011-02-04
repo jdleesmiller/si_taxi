@@ -28,6 +28,7 @@ int ODHistogram::max_weight_in_row(size_t i) const {
   return w_max;
 }
 
+#if 0
 int ODHistogram::max_weight_in_col(size_t j) const {
   int w_max = -numeric_limits<int>::infinity();
   for (size_t i = 0; i < num_stations(); ++i) {
@@ -45,6 +46,7 @@ int ODHistogram::row_sum(size_t i) const {
   }
   return sum;
 }
+#endif
 
 std::ostream &operator<<(std::ostream &os, const ODHistogram &hist) {
   return os << hist.od_matrix();

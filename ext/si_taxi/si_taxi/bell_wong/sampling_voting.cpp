@@ -57,7 +57,6 @@ void BWSamplingVotingHandler::sample(const std::vector<int> &idle_vehs,
   vector<int> num_trivial_idle_trips(sim.num_stations());
   vector<size_t> first_idle_nt_destins(sim.num_stations()); // nt = nontrivial
   vector<size_t> first_destins(sim.num_stations());
-  const size_t NONE = numeric_limits<size_t>::max();
 
   action_hist.clear();
 
@@ -74,26 +73,33 @@ void BWSamplingVotingHandler::sample(const std::vector<int> &idle_vehs,
   ASSERT(0 <= num_stations_with_idle_vehs &&
       num_stations_with_idle_vehs <= (int)sim.num_stations());
 
+  // Stop if there's nothing to move.
+  if (num_idle_vehs == 0)
+    return;
+
   for (size_t s = 0; s < num_sequences; ++s) {
     // Copy system state.
     clone_sim_vehs(BYREF clone_vehs);
 
     int first_idle_nt_destins_done = 0;
-    first_idle_nt_destins.assign(first_idle_nt_destins.size(), NONE);
+    first_idle_nt_destins.assign(first_idle_nt_destins.size(), SIZE_T_MAX);
     num_trivial_idle_trips.assign(num_trivial_idle_trips.size(), 0);
-    first_destins.assign(first_destins.size(), NONE);
+    first_destins.assign(first_destins.size(), SIZE_T_MAX);
 
     // Generate sample and process.
+    pax_stream->reset(sim.now);
     for (size_t p = 0; p < num_pax; ++p) {
       BWPax pax = pax_stream->next_pax();
+      TRACE("pax" << pax.origin << "-" << pax.destin << "@" << pax.arrive);
       size_t k_star = BWSNNHandler::choose_veh(pax, clone_vehs, sim.trip_time);
+      TV(k_star);
       size_t k_origin = clone_vehs.at(k_star).destin;
 
       // Extracting solution features.
       bool idle = (clone_vehs[k_star].arrive <= sim.now);
       bool nontrivial = (k_origin != pax.origin);
       if (idle && nontrivial) {
-        if (first_idle_nt_destins[k_origin] == NONE) {
+        if (first_idle_nt_destins[k_origin] == SIZE_T_MAX) {
           first_idle_nt_destins[k_origin] = pax.origin;
 
           // Can stop early if we get all of these done.
@@ -105,7 +111,7 @@ void BWSamplingVotingHandler::sample(const std::vector<int> &idle_vehs,
       } else if (idle) {
         ++num_trivial_idle_trips[k_origin]; // idle but trivial
       } else if (nontrivial) {
-        if (first_destins[k_origin] == NONE) {
+        if (first_destins[k_origin] == SIZE_T_MAX) {
           first_destins[k_origin] = pax.origin;
         }
       }
@@ -113,20 +119,20 @@ void BWSamplingVotingHandler::sample(const std::vector<int> &idle_vehs,
       BWSNNHandler::update_veh(pax, clone_vehs[k_star], sim.trip_time);
     }
 
-    //TV(first_idle_nt_destins);
-    //TV(num_trivial_idle_trips);
-    //TV(first_destins);
+    TV(first_idle_nt_destins);
+    TV(num_trivial_idle_trips);
+    TV(first_destins);
 
     // Accumulate decisions in action_hist.
     for (size_t i = 0; i < sim.num_stations(); ++i) {
       if (idle_vehs[i] == 0) {
         // nothing to do
-      } else if (first_idle_nt_destins[i] != NONE) {
+      } else if (first_idle_nt_destins[i] != SIZE_T_MAX) {
         action_hist.increment(i, first_idle_nt_destins[i]);
       } else if (num_trivial_idle_trips[i] >= idle_vehs[i]) {
-        assert(num_trivial_idle_trips[i] == idle_vehs[i]);
+        ASSERT(num_trivial_idle_trips[i] == idle_vehs[i]);
         action_hist.increment(i, i);
-      } else if (first_destins[i] != NONE) {
+      } else if (first_destins[i] != SIZE_T_MAX) {
         action_hist.increment(i, first_destins[i]);
       } else {
         action_hist.increment(i, i); // give up: leave vehicle where it is

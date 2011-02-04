@@ -73,4 +73,25 @@ class DynamicTransportationProblemTest < Test::Unit::TestCase
       assert_veh  0,  0,   0, 3
     end
   end
+
+  should "run on a three station ring (10s, 20s, 30s)" do
+    setup_sim TRIP_TIMES_3ST_RING_10_20_30
+    rea = BWNNHandler.new(@sim)
+    pro = BWDynamicTransportationProblemHandler.new(@sim)
+    @sim.reactive = rea
+    @sim.proactive = pro
+
+    pro.targets[0] = 1
+    pro.targets[1] = 2
+    pro.targets[2] = 2
+    put_veh_at 0, 0, 1, 1, 2
+
+    SiTaxi.seed_rng(13)
+    stream = BWPoissonPaxStream.new(0,
+      [[  0, 0.1, 0.2],
+       [  0,   0, 0.4],
+       [0.2, 0.3,   0]])
+    @sim.handle_pax_stream 100, stream
+    assert_equal 100, @sim.pax_wait.map(&:to_a).flatten.inject(:+)
+  end
 end

@@ -356,8 +356,7 @@ struct BWSNNHandler : public BWReactiveHandler {
  */
 struct BWPoissonPaxStream : public BWPaxStream {
   /**
-   * @param now non-negative; the first request arrives at time now (after
-   * rounding to the nearest time step)
+   * @param now non-negative; the first request arrives some time after now
    * @param od used to generate the requests; entries in vehicles per second
    */
   BWPoissonPaxStream(double now, boost::numeric::ublas::matrix<double> od);
@@ -366,17 +365,10 @@ struct BWPoissonPaxStream : public BWPaxStream {
   virtual BWPax next_pax();
 
   /// override
-  inline virtual void reset(double now) {
-    _next_time = now;
-  }
+  inline virtual void reset(double now) { last_time = now; }
 
-  /**
-   * Time at which the next request will be generated, in seconds. Note that
-   * the first request is generated at the time 'now' passed to the constructor.
-   */
-  inline double next_time() const {
-    return _next_time;
-  }
+  /// time at which the last request was be generated, in seconds
+  double last_time;
 
   /**
    * Demand matrix with entries in vehicle trips / second.
@@ -386,23 +378,19 @@ struct BWPoissonPaxStream : public BWPaxStream {
   }
 
 protected:
-  /// see next_time()
-  double _next_time;
   /// see od()
   ODMatrixWrapper _od;
 };
 
 /**
- * Generates a given stream of passengers; this is intended for testing.
+ * Generates a given stream of passengers; this is intended for testing code
+ * that relies on random passenger arrivals (e.g. from BWPoissonPaxStream).
  *
- * If the pax vector is empty, next_pax raises an error.
- *
- * The passengers in pax are recycled forever. The returned passengers have
- * an offset (set by reset()) added to their nominal arrival time. Note that
- * resetting does not affect recycling.
+ * If the pax vector is empty, next_pax raises an error. The returned
+ * passengers have an offset (as set by reset()) added to their arrival time.
  */
-struct BWVectorPaxStream : public BWPaxStream {
-  BWVectorPaxStream();
+struct BWTestPaxStream : public BWPaxStream {
+  BWTestPaxStream();
 
   /// override
   virtual BWPax next_pax();
@@ -410,9 +398,10 @@ struct BWVectorPaxStream : public BWPaxStream {
   /// override
   virtual void reset(double now);
 
-  std::vector<BWPax> pax;
+  /// passengers to be created (first in first out)
+  std::queue<BWPax> pax;
+
 protected:
-  size_t index;
   int offset;
 };
 

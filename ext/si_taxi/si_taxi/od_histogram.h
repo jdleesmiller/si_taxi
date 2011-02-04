@@ -65,6 +65,7 @@ struct ODHistogram
    */
   int max_weight_in_row(size_t i) const;
 
+#if 0 // not used at the moment
   /**
    * The largest weight accumulated in the given column.
    */
@@ -78,6 +79,7 @@ struct ODHistogram
   /**
    * Set diagonal elements such that the elements in each row sum to the given
    * totals. The old values on the diagonal are discarded.
+   */
   void set_diagonal_for_row_sums(
       const boost::numeric::ublas::diagonal_matrix<int> &row_sums) {
     assert(_matrix.size1() == row_sums.size1());
@@ -93,7 +95,7 @@ struct ODHistogram
       _matrix(i,i) = row_sums(i,i) - curr_row_sum;
     }
   }
-   */
+#endif
 
   /**
    * The underlying matrix of counts.
