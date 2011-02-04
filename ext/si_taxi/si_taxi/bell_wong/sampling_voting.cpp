@@ -21,10 +21,10 @@ void BWSamplingVotingHandler::handle_idle(BWVehicle &veh) {
   vector<int> idle_vehs(sim.num_stations(), 0);
   ODHistogram action_hist(sim.num_stations());
   idle_vehs[veh.destin] = sim.num_vehicles_idle_by(veh.destin, sim.now);
-  TV(sim.now);
-  TV(idle_vehs);
+  //TV(sim.now);
+  //TV(idle_vehs);
   sample(idle_vehs, action_hist);
-  TV(action_hist);
+  //TV(action_hist);
   move_to_best_destin_for_each_station(idle_vehs, action_hist);
 }
 
@@ -33,10 +33,10 @@ void BWSamplingVotingHandler::handle_strobe() {
   vector<int> idle_vehs(sim.num_stations(), 0);
   ODHistogram action_hist(sim.num_stations());
   sim.count_idle_vehs(idle_vehs);
-  TV(sim.now);
-  TV(idle_vehs);
+  //TV(sim.now);
+  //TV(idle_vehs);
   sample(idle_vehs, action_hist);
-  TV(action_hist);
+  //TV(action_hist);
   move_to_best_destin_for_each_station(idle_vehs, action_hist);
 }
 
@@ -90,9 +90,9 @@ void BWSamplingVotingHandler::sample(const std::vector<int> &idle_vehs,
     pax_stream->reset(sim.now);
     for (size_t p = 0; p < num_pax; ++p) {
       BWPax pax = pax_stream->next_pax();
-      TRACE("pax" << pax.origin << "-" << pax.destin << "@" << pax.arrive);
+      //TRACE("pax" << pax.origin << "-" << pax.destin << "@" << pax.arrive);
       size_t k_star = BWSNNHandler::choose_veh(pax, clone_vehs, sim.trip_time);
-      TV(k_star);
+      //TV(k_star);
       size_t k_origin = clone_vehs.at(k_star).destin;
 
       // Extracting solution features.
@@ -119,9 +119,9 @@ void BWSamplingVotingHandler::sample(const std::vector<int> &idle_vehs,
       BWSNNHandler::update_veh(pax, clone_vehs[k_star], sim.trip_time);
     }
 
-    TV(first_idle_nt_destins);
-    TV(num_trivial_idle_trips);
-    TV(first_destins);
+    //TV(first_idle_nt_destins);
+    //TV(num_trivial_idle_trips);
+    //TV(first_destins);
 
     // Accumulate decisions in action_hist.
     for (size_t i = 0; i < sim.num_stations(); ++i) {

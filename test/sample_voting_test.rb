@@ -298,20 +298,23 @@ class SamplingVotingTest < Test::Unit::TestCase
   should "run on a three station ring (10s, 20s, 30s)" do
     setup_sim TRIP_TIMES_3ST_RING_10_20_30
     rea = BWNNHandler.new(@sim)
+    @sim.reactive = rea
+
     SiTaxi.seed_rng(666)
     sample_stream = BWPoissonPaxStream.new(0,
       [[  0, 0.2, 0.4],
        [0.1,   0, 0.3],
        [  0, 0.1,   0]])
-    pro = BWSamplingVotingHandler.new(@sim, @sample_stream)
-    @sim.reactive = rea
+    pro = BWSamplingVotingHandler.new(@sim, sample_stream)
+    pro.num_sequences = 3
+    pro.num_pax = 5
     @sim.proactive = pro
 
     stream = BWPoissonPaxStream.new(0,
       [[  0, 0.1, 0.2],
        [  0,   0, 0.4],
        [0.2, 0.3,   0]])
-    put_veh_at 0, 0, 1, 1
+    put_veh_at(*([0,1,2]*15))
     @sim.handle_pax_stream 100, stream
     assert_equal 100, @sim.pax_wait.map(&:to_a).flatten.inject(:+)
   end
