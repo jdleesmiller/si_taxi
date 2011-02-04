@@ -79,4 +79,22 @@
 #define ASSERT(x) CHECK(x)
 #endif
 
+// not strictly legal
+namespace std {
+template<typename S, typename T>
+ostream& operator<<(ostream &os, const std::pair<S, T> &p) {
+  return os << "(" << p.first << "," << p.second << ")";
+}
+template<typename T>
+ostream& operator<<(ostream &os, const std::vector<T> &v) {
+  copy(v.begin(), v.end(), ostream_iterator<T> (os, " "));
+  return os;
+}
+template<typename T>
+ostream& operator<<(ostream &os, const std::deque<T> &v) {
+  copy(v.begin(), v.end(), ostream_iterator<T> (os, " "));
+  return os;
+}
+} // namespace std
+
 #endif /* guard */

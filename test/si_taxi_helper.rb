@@ -4,12 +4,21 @@ require "si_taxi"
 
 #
 # Two station ring network.
-#   +->-10->-+
-#  (0)      (1)
-#   +-<-20-<-+
+#   +->--10-->-+
+#  (0)        (1)
+#   +-<--20--<-+
 #
 TRIP_TIMES_2ST_RING_10_20 = [[0,10],
                              [20,0]]
+
+#
+# Another two station ring network.
+#   +->--2-->-+
+#  (0)       (1)
+#   +-<--3--<-+
+#
+TRIP_TIMES_2ST_RING_2_3 = [[0,2],
+                           [3,0]]
 
 #
 # Three station ring network.

@@ -16,6 +16,7 @@ using namespace si_taxi;
 %include typemaps.i
 %include exception.i
 %include std_vector.i
+%include std_queue.i
 
 %exceptionclass si_taxi::Exception;
 %exception {
@@ -32,6 +33,7 @@ using namespace si_taxi;
 %template(NaturalHistogramVector) std::vector<si_taxi::NaturalHistogram>;
 
 %template(BWVehicleVector) std::vector<si_taxi::BWVehicle>;
+%template(BWPaxQueue) std::queue<si_taxi::BWPax>;
 
 %include "boost_numeric_ublas_matrix.i"
 

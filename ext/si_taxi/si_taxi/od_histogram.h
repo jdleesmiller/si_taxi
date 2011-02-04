@@ -47,6 +47,13 @@ struct ODHistogram
   }
 
   /**
+   * Return entry for origin i and destination j.
+   */
+  inline int operator()(size_t i, size_t j) const {
+    return _matrix(i, j);
+  }
+
+  /**
    * The largest weight accumulated.
    *
    * Note: all entries must be non-negative, or the result is undefined.
@@ -98,6 +105,8 @@ struct ODHistogram
 protected:
   boost::numeric::ublas::matrix<int> _matrix;
 };
+
+std::ostream &operator<<(std::ostream &os, const ODHistogram &hist);
 
 }
 

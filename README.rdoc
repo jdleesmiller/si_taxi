@@ -16,6 +16,7 @@ Using SWIG constrains the design in a few ways:
 - don't inherit from classes that don't wrap well (e.g. an extension of a
   boost matrix class doesn't work; it can be used as a member, because we
   define a typemap.
+- don't use exit or assert, because these will kill Ruby as well
 
 == Old Notes
 

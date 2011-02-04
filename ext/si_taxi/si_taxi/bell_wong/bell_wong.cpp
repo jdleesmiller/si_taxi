@@ -178,18 +178,11 @@ size_t BWSim::idle_veh_at(size_t i) const {
   return numeric_limits<size_t>::max();
 }
 
-void BWSim::count_idle_vehs(std::vector<int> &idle_vehs,
-  int &num_idle_vehs,
-  int &num_stations_with_idle_vehs) const {
+void BWSim::count_idle_vehs(std::vector<int> &idle_vehs) const {
   CHECK(idle_vehs.size() == num_stations());
   for (size_t k = 0; k < vehs.size(); ++k) {
     if (vehs[k].arrive <= now) {
-      ++num_idle_vehs;
-      int &count = idle_vehs[vehs[k].destin];
-      if (count == 0) {
-        ++num_stations_with_idle_vehs;
-      }
-      ++count;
+      ++(idle_vehs[vehs[k].destin]);
     }
   }
 }
@@ -281,6 +274,23 @@ BWPax BWPoissonPaxStream::next_pax() {
   pax.arrive = (BWTime)round(_next_time);
   _next_time += interval;
   return pax;
+}
+
+BWVectorPaxStream::BWVectorPaxStream() : index(0), offset(0) { }
+
+BWPax BWVectorPaxStream::next_pax() {
+  CHECK(pax.size() > 0);
+  if (index >= pax.size()) {
+    index = 0;
+  }
+  BWPax pax_i = pax[index];
+  pax_i.arrive += offset;
+  ++index;
+  return pax_i;
+}
+
+void BWVectorPaxStream::reset(double now) {
+  offset = (int)round(now);
 }
 
 }

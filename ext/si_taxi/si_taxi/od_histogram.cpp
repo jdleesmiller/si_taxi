@@ -46,4 +46,8 @@ int ODHistogram::row_sum(size_t i) const {
   return sum;
 }
 
+std::ostream &operator<<(std::ostream &os, const ODHistogram &hist) {
+  return os << hist.od_matrix();
+}
+
 }

@@ -67,7 +67,17 @@ struct BWPax {
  */
 struct BWPaxStream {
   virtual ~BWPaxStream() { }
+
+  /**
+   * Generate the next passenger in the sequence.
+   */
   virtual BWPax next_pax() = 0;
+
+  /**
+   * Set the time of the next passenger arrival. This rebases the sequence
+   * at time 'now.'
+   */
+  virtual void reset(double now) = 0;
 };
 
 struct BWReactiveHandler;  // forward declaration
@@ -78,7 +88,23 @@ struct BWProactiveHandler; // forward declaration
  *
  * Can be re-used; call init between runs.
  *
- * A passenger's waiting time is recorded as soon has he arrives.
+ * A passenger's waiting time is recorded as soon has he arrives, so the sim
+ * does not maintain queues of passengers.
+ *
+ * The general order of operations is, for time step t:
+ * 1) Passengers arriving at time t are assigned a vehicle (handle_pax), and
+ *    proactive->handle_pax_served is called for each one in turn.
+ * 2) Computed queue lengths are recorded.
+ * 3) Then proactive->handle_idle is called for each vehicle that has become
+ *    idle at time t (in ascending order by vehicle index).
+ * 4) The strobe handler runs if strobe > 0 and t % strobe == 0.
+ * 5) Repeat for time step t + 1.
+ *
+ * A few notes/cautions:
+ * 1) If vehicles are initially created with arrive = 0, proactive->handle_idle
+ *    is called for all vehicles at the start of the sim, _except_ for those
+ *    that were assigned trips due to passengers arriving at time 0.
+ * 2) The strobe also fires when t = 0.
  */
 struct BWSim {
   /// Current simulation time.
@@ -219,12 +245,8 @@ struct BWSim {
    *
    * @param idle_vehs [in] must have num_stations entries; [out] per-station
    * idle vehicle counts; non-negative
-   * @param num_idle_vehs [in] 0; [out] non-negative; summed over all stations
-   * @param num_stations_with_idle_vehs [in] 0; [out] non-negative
    */
-  void count_idle_vehs(std::vector<int> &idle_vehs,
-      int &num_idle_vehs,
-      int &num_stations_with_idle_vehs) const;
+  void count_idle_vehs(std::vector<int> &idle_vehs) const;
 };
 
 struct BWReactiveHandler {
@@ -340,10 +362,13 @@ struct BWPoissonPaxStream : public BWPaxStream {
    */
   BWPoissonPaxStream(double now, boost::numeric::ublas::matrix<double> od);
 
-  /**
-   * Generate the next passenger in the sequence.
-   */
+  /// override
   virtual BWPax next_pax();
+
+  /// override
+  inline virtual void reset(double now) {
+    _next_time = now;
+  }
 
   /**
    * Time at which the next request will be generated, in seconds. Note that
@@ -367,6 +392,29 @@ protected:
   ODMatrixWrapper _od;
 };
 
+/**
+ * Generates a given stream of passengers; this is intended for testing.
+ *
+ * If the pax vector is empty, next_pax raises an error.
+ *
+ * The passengers in pax are recycled forever. The returned passengers have
+ * an offset (set by reset()) added to their nominal arrival time. Note that
+ * resetting does not affect recycling.
+ */
+struct BWVectorPaxStream : public BWPaxStream {
+  BWVectorPaxStream();
+
+  /// override
+  virtual BWPax next_pax();
+
+  /// override
+  virtual void reset(double now);
+
+  std::vector<BWPax> pax;
+protected:
+  size_t index;
+  int offset;
+};
 
 }
 

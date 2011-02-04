@@ -41,10 +41,21 @@ struct BWSamplingVotingHandler : public BWProactiveHandler {
   /**
    *
    */
-  void sample(ODHistogram &action_hist);
+  void sample(const std::vector<int> &idle_vehs, ODHistogram &action_hist);
 
-  void handle_sample_pax(std::vector<BWVehicle> &clone_vehs,
-      const BWPax &pax) const;
+  /**
+   * For a given origin, find the destination with largest weight, breaking ties
+   * on minimum trip time.
+   */
+  size_t best_destin(size_t i, const ODHistogram &action_hist);
+
+  /**
+   * For each station with idle vehicles (as counted by idle_vehs), move an
+   * idle vehicle to the best destination (as defined by best_destin) for
+   * that station.
+   */
+  void move_to_best_destin_for_each_station(const std::vector<int> &idle_vehs,
+      const ODHistogram &action_hist);
 
   /// generates passengers for the sample sequences
   BWPaxStream *pax_stream;
