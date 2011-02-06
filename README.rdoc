@@ -1,5 +1,28 @@
 = si_taxi
 
+== Usage
+
+- data -- networks, demands
+  - should these be in the database? it was a pain last time, but I could make
+    it work -- maybe better to encode the matrices in tables 
+- experiment scripts
+- intensity calcs
+
+- should the experiments be part of the gem?
+    probably not
+    better to split it up, but more annoying
+- should the data be part of the gem?
+    probably not
+    but what about the data model?
+    if we can make it work with DM/AR, this would structure the code nicely.
+
+model:
+  System = (id, Network, DemandMatrix, Fleet Size)
+  Network = (id, Stations, TripTimeEntries, GraphML)
+  TripTimeEntry = (id, Origin, Destin, Time)
+  DemandMatrix = (id, DemandMatrixEntries)
+  DemandMatrixEntry = (id, Origin, Destin, Flow)
+
 == Design Notes
 
 Using SWIG constrains the design in a few ways:

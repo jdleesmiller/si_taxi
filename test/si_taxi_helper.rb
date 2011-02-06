@@ -32,7 +32,14 @@ TRIP_TIMES_3ST_RING_10_20_30 = [[  0, 10, 30],
                                 [ 50,  0, 20],
                                 [ 30, 40,  0]]
 
+module TestHelper
+  def assert_is_nan x
+    assert x != x, "expected #{x} to be NaN"
+  end
+end 
+
 module BellWongTestHelper
+  include TestHelper
   include SiTaxi
 
   #

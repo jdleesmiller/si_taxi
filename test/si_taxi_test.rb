@@ -1,8 +1,8 @@
-require "test/unit"
-require "shoulda"
-require "si_taxi"
+require 'test/si_taxi_helper'
 
 class TestSiTaxi < Test::Unit::TestCase
+  include TestHelper
+
   #
   # Tolerance for floating point comparison.
   #
@@ -15,16 +15,86 @@ class TestSiTaxi < Test::Unit::TestCase
 
     should "be empty" do
       assert_equal [], @h.to_a
+      assert_equal 0, @h.size
+      assert_equal 0, @h.count
+      assert_is_nan @h.mean
+      assert_is_nan @h.variance
+      assert_is_nan @h.sample_variance
+      assert_is_nan @h.central_moment(3)
+      assert_equal nil, @h.quantile(0)
+      assert_equal nil, @h.quantile(0.5)
+      assert_equal nil, @h.quantile(1)
     end
 
-    context "after increment(0)" do
-      setup do
-        @h.increment(0)
-      end
+    should "work with single zero" do
+      @h.increment(0)
+      assert_equal [1], @h.to_a
+      assert_in_delta 0, @h.mean, $delta
+      assert_in_delta 0, @h.variance, $delta
+      assert_is_nan @h.sample_variance
+      assert_equal 0, @h.quantile(0)
+      assert_equal 0, @h.quantile(0.5)
+      assert_equal 0, @h.quantile(1)
+    end
 
-      should "contain one zero" do
-        assert_equal [1], @h.to_a
-      end
+    should "work with single one" do
+      @h.increment(1)
+      assert_equal [0,1], @h.to_a
+      assert_in_delta 1, @h.mean, $delta
+      assert_in_delta 0, @h.variance, $delta
+      assert_is_nan @h.sample_variance
+      assert_equal 1, @h.quantile(0)
+      assert_equal 1, @h.quantile(0.5)
+      assert_equal 1, @h.quantile(1)
+    end
+
+    should "compute basic stats" do
+      @h.accumulate(0, 9)
+      @h.accumulate(1, 3)
+      @h.accumulate(2, 6);
+      @h.accumulate(3, 7);
+      @h.accumulate(4, 5);
+      @h.accumulate(5, 2);
+      @h.accumulate(6, 1);
+      @h.accumulate(7, 4);
+      @h.accumulate(8, 8);
+      @h.accumulate(9, 8);
+
+      assert_equal 53, @h.count
+      assert_equal 236, @h.total
+      assert_equal 9, @h.max
+      assert_equal 0, @h.quantile(0)
+      assert_equal 4, @h.quantile(0.5)
+      assert_equal 9, @h.quantile(0.9)
+      # from Excel
+      assert_in_delta 4.452830189, @h.mean, $delta
+      assert_in_delta 3.284965974, Math.sqrt(@h.sample_variance), $delta
+    end
+
+    should "handle big numbers" do
+      @h.accumulate(65536, 65536) # this can cause overflow if not careful
+      assert_in_delta 65536, @h.mean, $delta
+    end
+
+    should "merge" do
+      h0 = SiTaxi::NaturalHistogram.from_h 1 => 1, 2 => 1
+      h1 = SiTaxi::NaturalHistogram.from_h 2 => 1, 3 => 1
+
+      h = SiTaxi::NaturalHistogram.merge(SiTaxi::NaturalHistogram.new, h0)
+      assert_equal 2, h.count
+      assert_equal 0, h.frequency[0]
+      assert_equal 1, h.frequency[1]
+      assert_equal 1, h.frequency[2]
+
+      h = SiTaxi::NaturalHistogram.merge(h0, h1)
+      assert_equal 4, h.count
+      assert_equal 0, h.frequency[0]
+      assert_equal 1, h.frequency[1]
+      assert_equal 2, h.frequency[2]
+      assert_equal 1, h.frequency[3]
+
+      assert_equal 3, h.quantile(1)
+      assert_equal 2, h.quantile(0.5)
     end
   end
 
