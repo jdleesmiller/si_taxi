@@ -36,6 +36,12 @@ module TestHelper
   def assert_is_nan x
     assert x != x, "expected #{x} to be NaN"
   end
+
+  def assert_all_in_delta expected, actual, delta, message=""
+    expected.zip(actual).each do |e,a|
+      assert_in_delta(e,a,delta,message)
+    end
+  end
 end 
 
 module BellWongTestHelper
