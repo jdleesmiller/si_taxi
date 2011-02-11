@@ -1,6 +1,9 @@
 require 'facets/enumerable/sum'
 require 'facets/kernel/disable_warnings'
-require 'narray'
+
+disable_warnings do # gives one annoying warning
+  require 'narray'
+end
 
 # When the gem is loaded with bundler, we get an SiTaxi constant defined, which
 # causes a warning when we remap it to Si_taxi_ext below; it would be better to
