@@ -1,6 +1,8 @@
-require "test/unit"
-require "shoulda"
-require "si_taxi"
+require 'si_taxi'
+require 'test/unit'
+disable_warnings do # gives some annoying warnings
+  require 'shoulda'
+end
 
 #
 # Two station ring network.
