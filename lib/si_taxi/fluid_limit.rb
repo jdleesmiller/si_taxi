@@ -1,4 +1,4 @@
-module SiTaxi
+module SiTaxi::FluidLimit
   #
   # Solve linear program to minimize the total number of concurrent empty
   # vehicles; computes the resulting empty vehicle flows.
@@ -16,10 +16,10 @@ module SiTaxi
   # @return [Array<Array<Float>>] computed ev flows, in the same units as the
   # od_demand 
   #
-  def solve_fluid_limit_lp od_time, od_demand
+  def self.solve_lp od_time, od_demand
     # Solve linear program to find required number of empty vehicles.
-    lp_prog = make_fluid_limit_lp(od_time, od_demand)
-    status, num_empty_veh, ev_flows = lp_solve(lp_prog)
+    lp_prog = make_lp(od_time, od_demand)
+    status, num_empty_veh, ev_flows = SiTaxi.lp_solve(lp_prog)
 
     # Recover the ev flows as a matrix.
     # Sometimes rounding errors give us very small negatives.
@@ -48,7 +48,7 @@ module SiTaxi
   #
   # @return [Float] non-negative 
   #
-  def fluid_limit_intensity od_time, od_occup, od_empty, num_veh
+  def self.intensity od_time, od_occup, od_empty, num_veh
     od_time = NArray[*od_time].to_f
     od_occup = NArray[*od_occup].to_f
     od_empty = NArray[*od_empty].to_f
@@ -67,7 +67,7 @@ module SiTaxi
   #
   # @return [String] lp for input to lp_solve
   #
-  def make_fluid_limit_lp od_time, od_demand
+  def self.make_lp od_time, od_demand
     t, l = od_time, od_demand
     raise "demand and times must have same size" if l.size != t.size
 
@@ -94,7 +94,7 @@ LP
 
   private
   # Helper method: sum a function of entries of an mxm matrix.
-  def lp_str_sum zm
+  def self.lp_str_sum zm
     zm.map {|i| zm.map {|j| yield(i,j)}.join(' + ')}
   end
 end

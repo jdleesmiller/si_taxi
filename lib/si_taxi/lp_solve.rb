@@ -18,7 +18,7 @@ module SiTaxi
   # results. Pass +args+ to the lp_solve command; note that if you pass -S0 or
   # S1, this method will fail.
   #
-  def lp_solve lp_prog, *args
+  def self.lp_solve lp_prog, *args
     begin
       out = disable_warnings {
           IO.popen("lp_solve #{args.join(' ')}", 'r+') {|p|
