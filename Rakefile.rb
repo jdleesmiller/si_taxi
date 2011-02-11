@@ -2,9 +2,14 @@ require 'rake/clean'
 
 begin
   require 'rubygems'
+  require 'bundler/setup'
   require 'gemma'
 
-  Gemma::RakeTasks.with_gemspec_file 'si_taxi.gemspec'
+  Gemma::RakeTasks.with_gemspec_file 'si_taxi.gemspec' do |g|
+#    g.test.with_test_task do |tt|
+#      tt.warning = false
+#    end
+  end
 rescue LoadError
   puts 'Install gemma (sudo gem install gemma) for more rake tasks.'
 end
@@ -72,7 +77,7 @@ end
 # NOTE: to avoid lots of spurious leaks, it should be possible to install 
 # ruby with
 #   rvm install 1.9.2 -C --with-valgrind
-# but I haven't actually seen this work (still get lots of leaks)
+# but I haven't actually seen this work (still get lots of spurious leaks)
 desc 'run tests under valgrind'
 task 'test:valgrind' do
   sh "valgrind --partial-loads-ok=yes --undef-value-errors=no rake test"

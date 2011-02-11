@@ -8,22 +8,22 @@ module SiTaxi
   # there is no allowance for ride sharing if the demand matrix is in passengers
   # per unit time).
   #
-  # @param [Array<Array<Numeric>>] od_time_matrix trip times
+  # @param [Array<Array<Numeric>>] od_time trip times
   #
-  # @param [Array<Array<Numeric>>] od_demand_matrix demand, in units appropriate
+  # @param [Array<Array<Numeric>>] od_demand demand, in units appropriate
   # for the trip times
   #
   # @return [Array<Array<Float>>] computed ev flows, in the same units as the
-  # od_demand_matrix 
+  # od_demand 
   #
-  def solve_fluid_limit_lp od_time_matrix, od_demand_matrix
+  def solve_fluid_limit_lp od_time, od_demand
     # Solve linear program to find required number of empty vehicles.
-    lp_prog = make_fluid_limit_lp(od_time_matrix, od_demand_matrix)
+    lp_prog = make_fluid_limit_lp(od_time, od_demand)
     status, num_empty_veh, ev_flows = lp_solve(lp_prog)
 
     # Recover the ev flows as a matrix.
     # Sometimes rounding errors give us very small negatives.
-    zm = (0...(od_demand_matrix.size)).to_a
+    zm = (0...(od_demand.size)).to_a
     ev_flows = zm.map{|i| zm.map{|j|
       eij = ev_flows["y#{i}_#{j}"] || 0
       raise "large negative e_#{i},#{j} = #{eij}" if eij < -1e-4
@@ -34,18 +34,41 @@ module SiTaxi
   end
 
   #
+  # Number of vehicles 
+  #
+  # @param [Array<Array<Numeric>>] od_time trip times
+  #
+  # @param [Array<Array<Numeric>>] od_occup vehicle flows, in vehicles per unit
+  # time (in time units appropriate for od_time)
+  #
+  # @param [Array<Array<Numeric>>] od_empty empty vehicle flows, in vehicles per
+  # unit time (in time units appropriate for od_time)
+  #
+  # @param [Numeric] num_veh number of vehicles; positive
+  #
+  # @return [Float] non-negative 
+  #
+  def fluid_limit_intensity od_time, od_occup, od_empty, num_veh
+    od_time = NArray[*od_time].to_f
+    od_occup = NArray[*od_occup].to_f
+    od_empty = NArray[*od_empty].to_f
+
+    (od_time * (od_occup + od_empty)).sum / num_veh.to_f
+  end
+
+  #
   # Write linear program (in lp-format for lp_solve) to minimize the total
   # number of concurrent empty vehicles.
   #
-  # @param [Array<Array<Numeric>>] od_time_matrix trip times
+  # @param [Array<Array<Numeric>>] od_time trip times
   #
-  # @param [Array<Array<Numeric>>] od_demand_matrix demand, in units appropriate
+  # @param [Array<Array<Numeric>>] od_demand demand, in units appropriate
   # for the trip times
   #
   # @return [String] lp for input to lp_solve
   #
-  def make_fluid_limit_lp od_time_matrix, od_demand_matrix
-    t, l = od_time_matrix, od_demand_matrix
+  def make_fluid_limit_lp od_time, od_demand
+    t, l = od_time, od_demand
     raise "demand and times must have same size" if l.size != t.size
 
     zm = (0...(l.size)).to_a

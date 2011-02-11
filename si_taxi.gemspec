@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'facets', '~> 2.9'
   s.add_development_dependency 'gemma', '>= 1.0.1', '~> 1.0'
+  s.add_development_dependency 'shoulda', '>= 2.11.3', '~> 2.11'
 
   s.files       = Dir.glob('{lib,bin}/**/*.rb') + %w(README.rdoc)
   s.test_files  = Dir.glob('test/*_test.rb')
