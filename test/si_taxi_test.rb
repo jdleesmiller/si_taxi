@@ -2,6 +2,7 @@ require 'test/si_taxi_helper'
 
 class TestSiTaxi < Test::Unit::TestCase
   include TestHelper
+  include SiTaxi
 
   #
   # Tolerance for floating point comparison.
@@ -219,6 +220,40 @@ class TestSiTaxi < Test::Unit::TestCase
       h.clear
       assert_equal [[0,0],[0,0]], h.od_matrix
     end
+  end
+
+  should "compute cartesian product of hashes" do
+    assert_equal nil, cartesian_product() # undefined
+    assert_equal [], cartesian_product([])
+    assert_equal [[1]], cartesian_product([1])
+    assert_equal [], cartesian_product([],[])
+    assert_equal [], cartesian_product([1],[])
+
+    # no array-valued values
+    args = {:a => 1, :b => "foo"}
+    hs = hash_cartesian_product(args)
+    assert_equal [{:a => 1, :b => "foo"}], hs
+
+    args[:c] = [1, 2]
+    hs = hash_cartesian_product(args)
+    assert_equal 2, hs.size
+    assert_equal({:a => 1, :b => "foo", :c => 1}, hs[0])
+    assert_equal({:a => 1, :b => "foo", :c => 2}, hs[1])
+
+    args[:d] = [4,5,6]
+    hs = hash_cartesian_product(args)
+    assert_equal({:a => 1, :b => "foo", :c => 1, :d => 4}, hs[0])
+    assert_equal({:a => 1, :b => "foo", :c => 1, :d => 5}, hs[1])
+    assert_equal({:a => 1, :b => "foo", :c => 1, :d => 6}, hs[2])
+    assert_equal({:a => 1, :b => "foo", :c => 2, :d => 4}, hs[3])
+    assert_equal({:a => 1, :b => "foo", :c => 2, :d => 5}, hs[4])
+    assert_equal({:a => 1, :b => "foo", :c => 2, :d => 6}, hs[5])
+  end
+
+  should "have nil if nan" do
+    assert_equal 1.0, SiTaxi.nil_if_nan(1.0)
+    assert_equal 1.0/0.0, SiTaxi.nil_if_nan(1.0/0.0) # doesn't remove infs
+    assert_equal nil, SiTaxi.nil_if_nan(0.0/0.0)
   end
 end
 

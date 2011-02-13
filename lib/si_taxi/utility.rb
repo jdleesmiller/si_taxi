@@ -1,4 +1,6 @@
-module SiTaxi
+module SiTaxi::Utility
+  module_function
+
   #
   # One way to encode a sparse matrix is as a hash of hashes; another way is to
   # use an array of arrays. This method orders the keys of +h+ in order to
