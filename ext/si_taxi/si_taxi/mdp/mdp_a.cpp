@@ -142,9 +142,9 @@ bool MDPModelA::improve_policy() {
   CHECK(state_number(state) == 0);
   CHECK(action_number(action) == 0);
   do {
-    init_sweep_action(state);
     size_t a_max = numeric_limits<size_t>::max();
     double v_max = -numeric_limits<double>::max();
+    init_sweep_action(state);
     do {
       work_state_copy(state);
       apply(action, work_state);
@@ -161,11 +161,12 @@ bool MDPModelA::improve_policy() {
       stable = false;
     }
     action(s) = a_max;
-
   } while (sweep_state());
+
   return stable;
 }
 
+/*
 MDPModelAStateCursor::MDPModelAStateCursor(MDPModelA &model) : model(model) {
   state = new int[model.state_size()];
   fill(state, state + model.state_size(), 0);
@@ -174,6 +175,7 @@ MDPModelAStateCursor::MDPModelAStateCursor(MDPModelA &model) : model(model) {
 MDPModelAStateCursor::~MDPModelAStateCursor() {
   delete state;
 }
+*/
 
 }
 
