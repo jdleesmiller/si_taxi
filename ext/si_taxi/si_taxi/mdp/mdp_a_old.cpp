@@ -2,7 +2,7 @@
 #define SI_TAXI_MDP_A_H_
 
 namespace si_taxi {
-
+#if 0
 typedef byte unsigned char;
 
 struct MDPAAction {
@@ -510,6 +510,7 @@ private:
   }*/
 };
 
+#endif
 }
 
 #endif // guard

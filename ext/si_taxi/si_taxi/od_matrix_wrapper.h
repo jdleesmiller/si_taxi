@@ -52,6 +52,24 @@ struct ODMatrixWrapper
   }
 
   /**
+   * Sum of column j (total vehicle trips per unit time into station j).
+   */
+  inline double rate_to(size_t j) const {
+    return _rate_to(j);
+  }
+
+  /**
+   * Probability of exactly n arrivals (per unit time) at station i.
+   */
+  double poisson_arrival_pmf(size_t i, double n) const;
+
+  /**
+   * Probability of strictly greater than n arrivals (per unit time) at station
+   * i.
+   */
+  double poisson_arrival_cdf_complement(size_t i, double n) const;
+
+  /**
    * Generate a request. The origin and destination are chosen according to
    * the trip_prob matrix, and the interval is exponentially distributed
    * according to the expected interarrival time.
@@ -65,6 +83,7 @@ private:
   boost::numeric::ublas::matrix<double> _od;
   boost::numeric::ublas::matrix<double> _trip_prob;
   boost::numeric::ublas::vector<double> _rate_from;
+  boost::numeric::ublas::vector<double> _rate_to;
   double _expected_interarrival_time;
 };
 

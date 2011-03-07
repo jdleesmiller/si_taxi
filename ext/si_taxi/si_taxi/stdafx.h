@@ -28,5 +28,6 @@
 #include <boost/numeric/ublas/matrix_proxy.hpp>
 #include <boost/numeric/ublas/io.hpp>
 #include <boost/random.hpp>
+#include <boost/math/distributions/poisson.hpp>
 
 #endif /* guard */

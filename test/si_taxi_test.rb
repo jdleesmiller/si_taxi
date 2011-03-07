@@ -3,6 +3,7 @@ require 'test/si_taxi_helper'
 class TestSiTaxi < Test::Unit::TestCase
   include TestHelper
   include SiTaxi
+  include Utility
 
   #
   # Tolerance for floating point comparison.
@@ -134,9 +135,13 @@ class TestSiTaxi < Test::Unit::TestCase
         assert_in_delta 2.0/3, @w.trip_prob(1, 0), $delta
         assert_in_delta     0, @w.trip_prob(1, 1), $delta
       end
-      should "have right rates" do
+      should "have right rates from" do
         assert_in_delta 1, @w.rate_from(0), $delta
         assert_in_delta 2, @w.rate_from(1), $delta
+      end
+      should "have right rates to" do
+        assert_in_delta 2, @w.rate_to(0), $delta
+        assert_in_delta 1, @w.rate_to(1), $delta
       end
       should "be able to sample" do
         SiTaxi.seed_rng(123)
@@ -146,6 +151,28 @@ class TestSiTaxi < Test::Unit::TestCase
           assert origin != destin
           assert interval >= 0
         end
+      end
+      should "compute poisson probabilities" do
+        # reference values from R: dpois(0:2, 1) and dpois(0:2, 2)
+        assert_in_delta 0.36787944, @w.poisson_arrival_pmf(0, 0), $delta
+        assert_in_delta 0.36787944, @w.poisson_arrival_pmf(0, 1), $delta
+        assert_in_delta 0.18393972, @w.poisson_arrival_pmf(0, 2), $delta
+        assert_in_delta 0.06131324, @w.poisson_arrival_pmf(0, 3), $delta
+
+        assert_in_delta 0.1353353, @w.poisson_arrival_pmf(1, 0), $delta
+        assert_in_delta 0.2706706, @w.poisson_arrival_pmf(1, 1), $delta
+        assert_in_delta 0.2706706, @w.poisson_arrival_pmf(1, 2), $delta
+        assert_in_delta 0.1804470, @w.poisson_arrival_pmf(1, 3), $delta
+
+        assert_in_delta 1-0.36787944,
+          @w.poisson_arrival_cdf_complement(0, 0), $delta
+        assert_in_delta 1-0.36787944-0.36787944,
+          @w.poisson_arrival_cdf_complement(0, 1), $delta
+
+        assert_in_delta 1-0.1353353,
+          @w.poisson_arrival_cdf_complement(1, 0), $delta
+        assert_in_delta 1-0.1353353-0.2706706,
+          @w.poisson_arrival_cdf_complement(1, 1), $delta
       end
     end
 
@@ -159,10 +186,15 @@ class TestSiTaxi < Test::Unit::TestCase
       should "have right expected interarrival time" do
         assert_in_delta 1.0/(1+2+3+4+5+6), @w.expected_interarrival_time, $delta
       end
-      should "have right rates" do
+      should "have right rates from" do
         assert_in_delta 1+2, @w.rate_from(0), $delta
         assert_in_delta 3+4, @w.rate_from(1), $delta
         assert_in_delta 5+6, @w.rate_from(2), $delta
+      end
+      should "have right rates to" do
+        assert_in_delta 3+5, @w.rate_to(0), $delta
+        assert_in_delta 1+6, @w.rate_to(1), $delta
+        assert_in_delta 2+4, @w.rate_to(2), $delta
       end
       should "be able to sample" do
         SiTaxi.seed_rng(456)
@@ -251,9 +283,9 @@ class TestSiTaxi < Test::Unit::TestCase
   end
 
   should "have nil if nan" do
-    assert_equal 1.0, SiTaxi.nil_if_nan(1.0)
-    assert_equal 1.0/0.0, SiTaxi.nil_if_nan(1.0/0.0) # doesn't remove infs
-    assert_equal nil, SiTaxi.nil_if_nan(0.0/0.0)
+    assert_equal 1.0, nil_if_nan(1.0)
+    assert_equal 1.0/0.0, nil_if_nan(1.0/0.0) # doesn't remove infs
+    assert_equal nil, nil_if_nan(0.0/0.0)
   end
 end
 

@@ -3,6 +3,8 @@
 #include "od_matrix_wrapper.h"
 #include "random.h"
 
+#include <boost/math/distributions/poisson.hpp>
+
 using namespace std;
 
 namespace si_taxi {
@@ -13,7 +15,19 @@ ODMatrixWrapper::ODMatrixWrapper(
   boost::numeric::ublas::scalar_vector<double> ones(_od.size1());
   _expected_interarrival_time = 1.0 / inner_prod(prod(_od, ones), ones);
   _rate_from = prod(_od, ones);
+  _rate_to = prod(ones, _od);
   _trip_prob = _od * _expected_interarrival_time;
+}
+
+double ODMatrixWrapper::poisson_arrival_pmf(size_t i, double n) const {
+  boost::math::poisson p(this->rate_from(i));
+  return boost::math::pdf(p, n);
+}
+
+double ODMatrixWrapper::poisson_arrival_cdf_complement(
+    size_t i, double n) const {
+  boost::math::poisson p(this->rate_from(i));
+  return boost::math::cdf(boost::math::complement(p, n));
 }
 
 void ODMatrixWrapper::sample(size_t &origin, size_t &destin,

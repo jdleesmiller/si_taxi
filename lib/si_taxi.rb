@@ -1,8 +1,12 @@
 require 'facets/array/product'
 require 'facets/enumerable/sum'
 require 'facets/enumerable/mash'
+require 'facets/enumerable/purge'
 require 'facets/hash/slice'
 require 'facets/kernel/disable_warnings'
+disable_warnings do # gives one annoying warning
+  require 'facets/set' # for power_set
+end
 
 disable_warnings do # gives one annoying warning
   require 'narray'
@@ -25,6 +29,8 @@ require 'si_taxi/bell_wong'
 require 'si_taxi/lp_solve'
 require 'si_taxi/fluid_limit'
 require 'si_taxi/natural_histogram'
+
+require 'si_taxi/mdp_model_a'
 
 module SiTaxi
   #
@@ -109,52 +115,6 @@ module SiTaxi
     end
 
     return v
-  end
-
-  #
-  # Cartesian product of Enumerables.
-  #
-  # @return [Array<Array>] the product
-  #
-  def cartesian_product *enums
-    if enums.empty?
-      nil
-    else
-      enums.first.product(*enums.drop(1))
-    end
-  end
-  
-  #
-  # Array of hashes with one for each entry in the Cartesian product of the
-  # Array-valued values of h.
-  #
-  # Example:
-  #  hash_cartesian_product({:a=>[1,2], :b => 1})
-  # gives
-  #  [{:a => 1, :b => 1}, {:a => 2, :b => 1}]
-  #
-  def hash_cartesian_product h
-    multi_valued_keys = h.keys.select {|k| h[k].is_a? Array}
-    multi_valued_vals = multi_valued_keys.map {|k| h[k]}
-
-    result = []
-    (cartesian_product(*multi_valued_vals) || [[]]).each do |arg|
-      a = h.dup
-      multi_valued_keys.zip(arg).each do |k, arg_k|
-        a[k] = arg_k
-      end
-      result << a
-    end
-    result
-  end
-
-  #
-  # Return nil if x is NaN (not a number).
-  #
-  # @return [Float, nil]
-  #
-  def self.nil_if_nan x
-    x unless x.nan?
   end
 end
 
