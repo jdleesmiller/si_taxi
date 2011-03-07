@@ -1,3 +1,6 @@
+#require 'simplecov'
+#SimpleCov.start
+
 require 'si_taxi'
 require 'test/unit'
 disable_warnings do # gives some annoying warnings

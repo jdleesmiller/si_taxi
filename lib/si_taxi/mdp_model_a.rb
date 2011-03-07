@@ -24,17 +24,6 @@ module SiTaxi
     attr_accessor :queue, :destin, :eta
 
     #
-    # Redefine dup to be a deep copy instead of a shallow copy.
-    #
-    def dup
-      copy = super
-      copy.queue = self.queue.dup
-      copy.destin = self.destin.dup
-      copy.eta = self.eta.dup
-      copy
-    end
-
-    #
     # Mutate this state into the 'next' state in numerical order.
     #
     # @return [Boolean] true iff the new state is not state zero
@@ -42,7 +31,7 @@ module SiTaxi
     def next!
       Utility.spin_array(queue,  @model.max_queue) ||
       Utility.spin_array(destin, @model.num_stations - 1) ||
-      Utility.spin_array(eta,    @model.max_time)
+      Utility.spin_array(eta,    @model.max_time.max)
     end
 
     #
@@ -64,12 +53,13 @@ module SiTaxi
 
     #
     # Feasible iff there is no station with both waiting passengers and idle
-    # vehicles.
+    # vehicles and travel times are in range.
     #
     # @return [Boolean] 
     #
     def feasible?
-      !@model.stations.any? {|i| queue[i] > 0 && idle_vehicles_at(i).size > 0}
+      @model.stations.all? {|i| queue[i] == 0 || idle_vehicles_at(i).empty?} &&
+        @model.vehicles.all? {|k| eta[k] <= @model.max_time[destin[k]]}
     end
 
     #
@@ -89,8 +79,73 @@ module SiTaxi
       nil
     end
 
+    #
+    # The immediate reward for this state.
+    #
+    # @return [Float, nil] nil if state is infeasible
+    #
+    def reward
+      -queue.sum.to_f if feasible?
+    end
+
+    #
+    # Allowed actions in this state. 
+    #
+    # @return [Array<Array<Integer>>]
+    #
+    def actions
+      actions = []
+      @model.with_each_action_for(self) do |action|
+        actions << action
+      end
+      actions
+    end
+
+    #
+    # All successor states with non-zero probability under the given action. 
+    # The probabilities are not returned; see also
+    # {MDPModelA#with_each_successor_state}.
+    #
+    # @return [Array<MDPStateA>]
+    #
+    def successors action
+      states = []
+      @model.with_each_successor_state(self, action) do |ss, pr|
+        states << ss
+      end
+      states
+    end
+
+    #
+    # Redefine dup to be a deep copy instead of a shallow copy.
+    #
+    def dup
+      copy = super
+      copy.queue = self.queue.dup
+      copy.destin = self.destin.dup
+      copy.eta = self.eta.dup
+      copy
+    end
+
+    #
+    # Redefine comparison so we can sort states lexically.
+    #
     def <=> state
       self.to_a <=> state.to_a
+    end
+
+    #
+    # Redefine hashing so we can use states as hash keys.
+    #
+    def hash
+      self.to_a.hash
+    end
+
+    #
+    # Redefine equality so we can use states as hash keys.
+    #
+    def eql? state
+      self.to_a.eql? state.to_a
     end
 
     def to_a
@@ -103,17 +158,24 @@ module SiTaxi
   end
 
   class MDPModelA
-    def initialize trip_time, num_veh, demand, max_queue
+    def initialize trip_time, num_veh, demand, max_queue, discount
       @trip_time = trip_time
       @num_veh = num_veh
       @demand = demand
       @max_queue = max_queue
+      @discount = discount
 
       @stations = (0...trip_time.size).to_a
       @vehicles = (0...num_veh).to_a
-      @max_time = trip_time.flatten.max
-      @value = {}
-      @action = {}
+
+      # maximum time for j is the max_i T_ij
+      @max_time = NArray[trip_time].max(1).to_a.first
+
+      # default value to the immediate reward for the state
+      @value = Hash.new {|h,s| h[s] = s.reward}
+
+      # default policy is to do nothing (preserve vehicle destinations)
+      @policy = Hash.new {|h,s| h[s] = s.destin.dup}
     end
 
     attr_reader :trip_time
@@ -123,6 +185,7 @@ module SiTaxi
     attr_reader :demand
     attr_reader :num_veh
     attr_reader :max_queue
+    attr_reader :discount
     attr_reader :stations
     attr_reader :vehicles
     attr_reader :max_time
@@ -158,6 +221,54 @@ module SiTaxi
         policy[state] = a_max
       end
       stable
+    end
+
+    #
+    # 
+    # @param [Array<Integer>] state
+    #
+    # @param [Array<Integer>] action
+    #
+    def backup state, action
+      v = 0.0
+      with_each_successor_state(state, action) do |succ, succ_pr|
+        v += state.reward + discount*succ_pr*value[succ]
+      end
+      v
+    end
+
+    #
+    # Sparse transition probability tensor; dimensions are action, state and
+    # successor state. If an action is not valid for a given state, the row in
+    # the transition matrix for that state-action pair is missing (nil).
+    #
+    # @return Hash
+    #
+    def transitions
+      # set up nested hashes using appropriate missing value defaults
+      mat = Hash.new {|h0,k0|
+        h0[k0] = Hash.new {|h1,k1|
+          h1[k1] = Hash.new {0} } }
+
+      with_each_state do |s0|
+        with_each_action_for(s0) do |a|
+          with_each_successor_state(s0, a) do |s1, pr|
+            mat[a][s0][s1] = pr
+          end
+        end
+      end
+      mat
+    end
+
+    #
+    # Collect states from {#with_each_state} into an array.
+    #
+    def states
+      states = []
+      with_each_state do |state|
+        states << state
+      end
+      states
     end
 
     #
@@ -205,6 +316,15 @@ module SiTaxi
 
     #
     # Yield for each possible successor state of state under action.
+    #
+    # Note: we currently enumerate all possible permutations of passenger
+    # destinations; we could instead enumerate only the numbers of requests 
+    # per destination (must sum to total requests), because the difference is
+    # just in the order in which we assign the idle vehicles.
+    #
+    # @param [MDPStateA] state
+    #
+    # @param [Array<Integer>] action 
     #
     # @yield [state] 
     #
@@ -262,107 +382,6 @@ module SiTaxi
           yield new_state, new_state_pr
         end
       end while Utility.spin_array(new_pax, max_new_pax)
-    end
-
-    #
-    # 
-    # Note: we currently enumerate all possible permutations of passenger
-    # destinations; we could instead enumerate only the numbers of requests 
-    # per destination (must sum to total requests), because the difference is
-    # just in the order in which we assign the idle vehicles.
-    #
-    # @param [Array<Integer>] state can be modified in place TODO maybe not
-    #
-    # @param [Array<Integer>] action not modified
-    #
-    def backup state, action
-      # count vehicles already idle
-      idle = stations.map {|i| vehicles.count {|k|
-        state.destin[k] == i && state.eta[k] == 0}}
-
-      # count vehicles that are about to become idle
-      landing = stations.map {|i| vehicles.count {|k|
-        state.destin[k] == i && state.eta[k] == 1}}
-
-      # count vehicles that are leaving due to the selected action
-      leaving = stations.map {|i| vehicles.count {|k|
-        state.destin[k] == i && state.eta[k] == 0 &&
-        action[k] != i}}
-
-      # for each station, the basic relationship is:
-      #   new_queue = max(0, queue + new_pax - (idle + landing - leaving))
-      # because there can't be both idle vehicles and waiting passengers;
-      # we want all values of new_pax that make new_queue <= max_queue
-      max_new_pax = stations.map {|i|
-        max_queue - state_queue(state, i) + (idle[i] + landing[i] - leaving[i])}
-
-      new_pax = [0]*num_stations
-      begin
-        # need to know how many pax we can serve now (rest must queue)
-        serving = stations.map {|i|
-          [idle[i] + landing[i] - leaving[i], new_pax[i]].min}
-
-        # need to know destinations for the ones we're serving
-        pax_destins = stations.map {|i| stations.purge(i)*serving[i]}
-        Utility.cartesian_product(*pax_destins) do |pax_destin|
-          puts pax_destin
-          #new_state = state.dup
-
-        # update station queues to reflect the new arrival; see notes above
-        #stations.each do |i|
-        # TODO
-        #  state_queue(new_state, i) = [state_queue(state, i) + new_pax[i] -
-        #    (idle[i] + landing[i] - leaving[i]), 0].max
-        #end
-        end while Utility.spin_array(destins, max_destins)
-      end while Utility.spin_array(new_pax, max_new_pax)
-    end
-#      # move idle vehicles according to the specified action
-#      apply_action(state, action)
-#
-#      # move vehicles closer to their destinations
-#      vehicles.each do |k|
-#        state_eta(state, k) -= 1 if state_eta(state, k) > 0
-#      end
-#
-#      # sweep over all possible next states
-#      v = 0.0
-#      with_each_state do |new_state|
-#        # prob of next state:
-#        # 0 if we moved a non-idle vehicle
-#        # 0 if queue length decreased without moving an idle vehicle
-#        # 0 if number of idle vehicles increased
-#        # 0 if there is a station with qi > 0 and idle vehicles
-#        vehicles.each do |k|
-#          if state_eta(state, k) == 0
-#
-#          else
-#            # vehicle not idle; must leave it alone
-#            if state_eta(state, k) == state_eta(new_state, k)
-#              vs = 1.0
-#            else
-#              vs = 0.0
-#            end
-#          end
-#        end
-#      end
-
-    #
-    # Modify state so that its idle vehicle destinations match the 
-    # and ETAs.
-    #
-    # @param [Array<Integer>] state modified in place
-    #
-    # @return nil
-    #
-    def apply_action state, action
-      vehicles.each do |k|
-        old_destin = state.destin[k]
-        new_destin = action[k]
-        state.destin[k] = new_destin
-        state.eta[k]    = trip_time[old_destin][new_destin]
-      end
-      nil
     end
   end
 end

@@ -287,5 +287,30 @@ class TestSiTaxi < Test::Unit::TestCase
     assert_equal 1.0/0.0, nil_if_nan(1.0/0.0) # doesn't remove infs
     assert_equal nil, nil_if_nan(0.0/0.0)
   end
+
+  should "have range function like matlab" do
+    # These came from testing things in Matlab.
+    assert_equal [], range(1,0,2) 
+    assert_equal [], range(2,0,1) 
+    assert_equal [], range(2,0.1,1) 
+    assert_equal [0.1], range(0.1,0.1,0.1) 
+    assert_all_in_delta [0.1, 0.12, 0.14, 0.16, 0.18, 0.2],
+      range(0.1,0.02,0.2), $delta 
+    assert_all_in_delta [0.1, 0.2], range(0.1,0.1,0.2), $delta
+    assert_all_in_delta [0.1, 0.2, 0.3], range(0.1,0.1,0.3), $delta
+    assert_equal 201, range(-1, 0.01, 1).size 
+    
+    # But, integer ranges should stay as integers in Ruby.
+    range(0,5,20).each do |x| assert_instance_of(Fixnum, x); end
+    range(0,1,2).each do |x| assert_instance_of(Fixnum, x); end
+    range(0,1,1).each do |x| assert_instance_of(Fixnum, x); end
+      
+    # Check that the default delta is 1.
+    range(0,2).each do |x| assert_instance_of(Fixnum, x); end
+    assert_equal range(0,2), range(0,1,2)
+    assert_all_in_delta [0.5,1.5,2.5], range(0.5,2.5), $delta
+    
+    assert_equal [0,0.5,1], range(0,0.5,1)
+  end
 end
 
