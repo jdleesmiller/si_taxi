@@ -333,6 +333,7 @@ module SiTaxi
       # but subtract those that are moving away due to the action
       available = stations.map {|i| vehicles.count {|k|
         state.destin[k] == i && state.eta[k] <= 1 && action[k] == i}}
+      puts "available: #{available.inspect}"
 
       # for each station, the basic relationship is:
       #   new_queue = max(0, queue + new_pax - (idle + landing - leaving))
@@ -345,6 +346,8 @@ module SiTaxi
         # need to know how many pax we can serve now (rest must queue)
         pax_temp   = stations.map {|i| state.queue[i] + new_pax[i]}
         pax_served = stations.map {|i| [available[i], pax_temp[i]].min}
+        puts "pax_temp: #{pax_temp}"
+        puts "pax_served: #{pax_served}"
 
         # update queue states and vehicles due to actions
         new_state = state.dup
@@ -362,17 +365,27 @@ module SiTaxi
 
         # need to know destinations for the pax we're serving
         pax_stations = stations.select {|i| pax_served[i] > 0}
+        puts "pax_stations: #{pax_stations.inspect}"
         pax_destins = pax_stations.map {|i| stations.purge(i) * pax_served[i]}
+        puts "pax_destins: #{pax_destins.inspect}"
+        p Utility.cartesian_product([1,1])
         pax_destins = Utility.cartesian_product(*pax_destins)
         if pax_destins
+          puts "pax_destins: #{pax_destins.inspect}"
           pax_destins.each do |pax_destin|
             pax_state = new_state.dup
             pax_stations.zip(pax_destin).each do |i, destin_i|
               available_i = pax_state.available_vehicles_at(i)
+              p i
+              p destin_i
+              p pax_state
+              p pax_state.feasible?
+              p available_i
               pax_state.destin[available_i.first] = destin_i
               pax_state.set_eta_from(state)
               pax_state_pr = new_state_pr * demand.at(i, destin_i) /
                 demand.rate_to(destin_i)
+              p pax_state
               yield pax_state, pax_state_pr
             end
           end

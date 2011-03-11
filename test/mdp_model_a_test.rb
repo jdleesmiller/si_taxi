@@ -216,13 +216,45 @@ class MDPModelATest < Test::Unit::TestCase
                          ODMatrixWrapper.new([[0,0.2],[0.3,0]]), 2, 0.95)
     end
 
-    should "have ??? states" do
-      puts @m.states.map(&:inspect)
-      puts @m.states.size
-      # 3*2 for when the vehicle is idle, and 3*3*2 when it is not
-      #assert_equal 24, @m.states.size
+    should "have 33 states" do
+      # 6 states for idle vehicles; 2*9 states when vehicle going from 0 to 1;
+      # 9 states when vehicle going from 1 to 0 (travel time 1) 
+      assert_equal 33, @m.states.size
     end
 
+    should "do value iteration" do
+      assert @m.evaluate_policy >= 0
+      assert_equal 33, @m.value.size
+      @m.improve_policy
+      assert_equal 33, @m.policy.size
+
+      # only allowed actions should be in the policy
+      assert @m.policy.all? {|s, a| s.eta == [0] || a == s.destin}
+    end
+  end
+
+  context "two station ring with two vehicles" do
+    setup do
+      @m = MDPModelA.new([[0,1],[1,0]], 2,
+                         ODMatrixWrapper.new([[0,0.2],[0.3,0]]), 1, 0.95)
+    end
+
+    should "have ?? states" do
+      puts @m.states.map(&:inspect)
+      puts @m.states.size
+    end
+
+    should "do value iteration" do
+      assert @m.evaluate_policy >= 0
+      puts @m.value
+      #assert_equal 33, @m.value.size
+      @m.improve_policy
+      puts @m.policy
+      #assert_equal 33, @m.policy.size
+
+      # only allowed actions should be in the policy
+      assert @m.policy.all? {|s, a| s.eta == [0] || a == s.destin}
+    end
   end
 end
 

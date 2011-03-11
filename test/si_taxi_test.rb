@@ -254,13 +254,17 @@ class TestSiTaxi < Test::Unit::TestCase
     end
   end
 
-  should "compute cartesian product of hashes" do
+  should "compute cartesian product of arrays" do
     assert_equal nil, cartesian_product() # undefined
     assert_equal [], cartesian_product([])
     assert_equal [[1]], cartesian_product([1])
     assert_equal [], cartesian_product([],[])
     assert_equal [], cartesian_product([1],[])
 
+    p cartesian_product([1,1])
+  end
+
+  should "compute cartesian product of hashes" do
     # no array-valued values
     args = {:a => 1, :b => "foo"}
     hs = hash_cartesian_product(args)
