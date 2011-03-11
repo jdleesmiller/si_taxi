@@ -21,7 +21,6 @@
 #include <vector>
 
 #include <boost/config.hpp>
-#include <boost/circular_buffer.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/numeric/ublas/banded.hpp>
 #include <boost/numeric/ublas/matrix.hpp>
