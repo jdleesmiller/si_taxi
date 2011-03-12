@@ -33,6 +33,7 @@ class MDPModelATest < Test::Unit::TestCase
     end
   end
 
+=begin
   context "two station ring with one vehicle; max_queue=1" do
     setup do
       @m = MDPModelA.new([[0,1],[1,0]], 1,
@@ -240,21 +241,44 @@ class MDPModelATest < Test::Unit::TestCase
     end
 
     should "have ?? states" do
-      puts @m.states.map(&:inspect)
-      puts @m.states.size
+      #puts @m.states.map(&:inspect)
+      #puts @m.states.size
     end
 
     should "do value iteration" do
       assert @m.evaluate_policy >= 0
-      puts @m.value
+      p @m.value
       #assert_equal 33, @m.value.size
       @m.improve_policy
-      puts @m.policy
+      p @m.policy
       #assert_equal 33, @m.policy.size
 
       # only allowed actions should be in the policy
-      assert @m.policy.all? {|s, a| s.eta == [0] || a == s.destin}
+      #assert @m.policy.all? {|s, a| s.eta == [0] || a == s.destin}
     end
   end
+
+  should "work" do
+    stations = [0,1,2]
+    pax_served = [2,1,0]
+    journey_product = stations.map {|i|
+      journeys_i = stations.purge(i).map {|j| [i, j] }
+      Utility.cartesian_product(*[journeys_i]*pax_served[i])}.compact
+    puts journey_product.map(&:inspect)
+    #Utility.cartesian_product(*journey_product.compact).each do |journeys|
+    #  journeys.flatten(1).each do |journey|
+    #    p journey
+    #  end
+    #end
+    journey_product = stations.map {|i|
+      destins_i = Utility.cartesian_product(*[stations.purge(i)]*pax_served[i])
+      [i, destins_i] if destins_i
+    }
+    puts journey_product.map(&:inspect)
+    #Utility.cartesian_product(*journey_product.compact).each do |journeys|
+    #  p journeys
+    #end
+  end
+=end
 end
 

@@ -60,7 +60,6 @@ module SiTaxi::Utility
   # @return [Array<Array>] the product
   #
   def cartesian_product *enums
-    puts "ENUMS: #{enums.inspect}"
     if enums.empty?
       nil
     else

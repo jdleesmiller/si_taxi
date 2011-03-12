@@ -258,10 +258,12 @@ class TestSiTaxi < Test::Unit::TestCase
     assert_equal nil, cartesian_product() # undefined
     assert_equal [], cartesian_product([])
     assert_equal [[1]], cartesian_product([1])
+    assert_equal [[1],[2]], cartesian_product([1,2])
+
     assert_equal [], cartesian_product([],[])
     assert_equal [], cartesian_product([1],[])
-
-    p cartesian_product([1,1])
+    assert_equal [[1,2]], cartesian_product([1],[2])
+    assert_equal [[1,2],[1,3]], cartesian_product([1],[2,3])
   end
 
   should "compute cartesian product of hashes" do
