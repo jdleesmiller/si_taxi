@@ -154,25 +154,25 @@ class TestSiTaxi < Test::Unit::TestCase
       end
       should "compute poisson probabilities" do
         # reference values from R: dpois(0:2, 1) and dpois(0:2, 2)
-        assert_in_delta 0.36787944, @w.poisson_arrival_pmf(0, 0), $delta
-        assert_in_delta 0.36787944, @w.poisson_arrival_pmf(0, 1), $delta
-        assert_in_delta 0.18393972, @w.poisson_arrival_pmf(0, 2), $delta
-        assert_in_delta 0.06131324, @w.poisson_arrival_pmf(0, 3), $delta
+        assert_in_delta 0.36787944, @w.poisson_origin_pmf(0, 0), $delta
+        assert_in_delta 0.36787944, @w.poisson_origin_pmf(0, 1), $delta
+        assert_in_delta 0.18393972, @w.poisson_origin_pmf(0, 2), $delta
+        assert_in_delta 0.06131324, @w.poisson_origin_pmf(0, 3), $delta
 
-        assert_in_delta 0.1353353, @w.poisson_arrival_pmf(1, 0), $delta
-        assert_in_delta 0.2706706, @w.poisson_arrival_pmf(1, 1), $delta
-        assert_in_delta 0.2706706, @w.poisson_arrival_pmf(1, 2), $delta
-        assert_in_delta 0.1804470, @w.poisson_arrival_pmf(1, 3), $delta
+        assert_in_delta 0.1353353, @w.poisson_origin_pmf(1, 0), $delta
+        assert_in_delta 0.2706706, @w.poisson_origin_pmf(1, 1), $delta
+        assert_in_delta 0.2706706, @w.poisson_origin_pmf(1, 2), $delta
+        assert_in_delta 0.1804470, @w.poisson_origin_pmf(1, 3), $delta
 
         assert_in_delta 1-0.36787944,
-          @w.poisson_arrival_cdf_complement(0, 0), $delta
+          @w.poisson_origin_cdf_complement(0, 0), $delta
         assert_in_delta 1-0.36787944-0.36787944,
-          @w.poisson_arrival_cdf_complement(0, 1), $delta
+          @w.poisson_origin_cdf_complement(0, 1), $delta
 
         assert_in_delta 1-0.1353353,
-          @w.poisson_arrival_cdf_complement(1, 0), $delta
+          @w.poisson_origin_cdf_complement(1, 0), $delta
         assert_in_delta 1-0.1353353-0.2706706,
-          @w.poisson_arrival_cdf_complement(1, 1), $delta
+          @w.poisson_origin_cdf_complement(1, 1), $delta
       end
     end
 

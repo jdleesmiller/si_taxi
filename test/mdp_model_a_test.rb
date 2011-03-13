@@ -9,22 +9,18 @@ class MDPModelATest < Test::Unit::TestCase
   end
 
   def pretty_print_transition_probabilities
-    states = []
-    @m.with_each_state do |s0|
-      states << s0
-    end
+    states = @m.states
     t = @m.transitions
-
     actions = t.keys.sort
     actions.each do |action|
       puts "action: #{action}"
       mat = states.map {|s0|
-        if t[action][s0]
+        if t[action].has_key?(s0)
           s0.inspect + "\t" +
           states.map {|s1|
-            pr = t[action][s0][s1]
-            if pr then "%.2f" % pr else '    ' end}.join(" ") +
-          "\t" + ("%.2f" % t[action][s0].values.sum)
+            pr = t[action][s0][s1] if t[action][s0].has_key?(s1)
+            if pr then "%.2f" % pr else '    ' end
+          }.join(" ") + "\t" + ("%.2f" % t[action][s0].values.sum)
         else
           s0.inspect
         end
@@ -33,7 +29,17 @@ class MDPModelATest < Test::Unit::TestCase
     end
   end
 
-=begin
+  def check_transition_matrix
+    # rows should sum to 1 if the action is valid
+    @m.transitions.each do |action, tr_mat|
+      @m.with_each_state do |s0|
+        if tr_mat.has_key?(s0)
+          assert_in_delta 1, tr_mat[s0].values.sum, $delta
+        end
+      end
+    end
+  end
+
   context "two station ring with one vehicle; max_queue=1" do
     setup do
       @m = MDPModelA.new([[0,1],[1,0]], 1,
@@ -150,14 +156,8 @@ class MDPModelATest < Test::Unit::TestCase
       tr = @m.transitions
       assert_equal 2, tr.size # two possible actions
 
-      # rows should sum to 1 or be nil if the action is invalid
-      @feasible_states.each do |s|
-        s_pr_0 = tr[[0]][st(*s)].values
-        assert_in_delta 1, s_pr_0.sum, $delta unless s_pr_0.empty?
-
-        s_pr_1 = tr[[1]][st(*s)].values
-        assert_in_delta 1, s_pr_1.sum, $delta unless s_pr_1.empty?
-      end
+      # generic checks
+      check_transition_matrix
 
       # dpois(0,0.2)*dpois(0,0.3) -- stay in state 0 if no new arrivals
       assert_in_delta 0.6065307, tr[[0]][st(0,0,0,0)][st(0,0,0,0)], $delta 
@@ -200,6 +200,10 @@ class MDPModelATest < Test::Unit::TestCase
       assert_equal 24, @m.states.size
     end
 
+    should "have valid transition matrix" do
+      check_transition_matrix
+    end
+
     should "do value iteration" do
       assert @m.evaluate_policy >= 0
       assert_equal 24, @m.value.size
@@ -223,6 +227,10 @@ class MDPModelATest < Test::Unit::TestCase
       assert_equal 33, @m.states.size
     end
 
+    should "have valid transition matrix" do
+      check_transition_matrix
+    end
+
     should "do value iteration" do
       assert @m.evaluate_policy >= 0
       assert_equal 33, @m.value.size
@@ -240,21 +248,29 @@ class MDPModelATest < Test::Unit::TestCase
                          ODMatrixWrapper.new([[0,0.2],[0.3,0]]), 1, 0.95)
     end
 
-    should "have ?? states" do
-      puts @m.states.map(&:inspect)
-      puts @m.states.size
+    should "have valid transition matrix" do
+      check_transition_matrix
     end
 
     should "do value iteration" do
       assert @m.evaluate_policy >= 0
-      p @m.value
-      #assert_equal 33, @m.value.size
+      assert_equal 38, @m.value.size # 38 states
       @m.improve_policy
-      p @m.policy
-      #assert_equal 33, @m.policy.size
+      assert_equal 38, @m.policy.size
+    end
+  end
 
-      # only allowed actions should be in the policy
-      #assert @m.policy.all? {|s, a| s.eta == [0] || a == s.destin}
+  context "three station ring with one vehicle" do
+    setup do
+      @m = MDPModelA.new([[0,1,2],[2,0,1],[1,2,0]], 1,
+        ODMatrixWrapper.new([[0,0.1,0.2],[0.1,0,0.2],[0.1,0.2,0]]), 1, 0.95)
+    end
+
+    should "have valid transition matrix" do
+      puts @m.states.map(&:inspect)
+      puts @m.states.size
+      @m.dump
+      #check_transition_matrix
     end
   end
 end

@@ -43,15 +43,6 @@ module SiTaxi
     end
 
     #
-    #
-    # @return Array<Integer> indexes of vehicles that are either idle at
-    # station i or becoming idle in the current time step (eta == 1)
-    #
-    def available_vehicles_at i
-      @model.vehicles.select {|k| destin[k] == i && eta[k] <= 1}
-    end
-
-    #
     # Feasible iff there is no station with both waiting passengers and idle
     # vehicles and travel times are in range.
     #
@@ -261,6 +252,30 @@ module SiTaxi
     end
 
     #
+    # Print transition probabilities and rewards in sparse format.
+    #
+    def dump io=$stdout, delim=','
+      io.puts %w(state action new_state probability reward).join(delim)
+
+      tr = self.transitions
+      ss = self.states
+      tr.keys.sort.each do |action|
+        tra = tr[action]
+        ss.each do |s0|
+          if tra.has_key?(s0)
+            tr0 = tra[s0]
+            ss.each do |s1|
+              if tr0.has_key?(s1)
+                io.puts [s0.inspect, action.inspect, s1.inspect,
+                  tr0[s1], s0.reward].map(&:inspect).join(delim)
+              end
+            end
+          end
+        end
+      end
+    end
+
+    #
     # Collect states from {#with_each_state} into an array.
     #
     def states
@@ -358,17 +373,17 @@ module SiTaxi
           new_state.queue[i] = pax_temp[i] - pax_served[i]
           new_state.destin = action.dup
 
-          pr_i = demand.poisson_arrival_pmf(i, new_pax[i])
-          pr_i += demand.poisson_arrival_cdf_complement(i, new_pax[i]) if
+          pr_i = demand.poisson_origin_pmf(i, new_pax[i])
+          pr_i += demand.poisson_origin_cdf_complement(i, new_pax[i]) if
             new_state.queue[i] == max_queue
           raise "bug: pr_i > 1" if pr_i > 1
           new_state_pr *= pr_i
         end
 
-        # need to know destinations for the pax we're serving
+        # need to know destinations for any pax we're serving
         journey_product = stations.map {|i|
-          journeys_i = stations.purge(i).map {|j| [i, j] }
-          Utility.cartesian_product(*[journeys_i]*pax_served[i])}.compact
+          journeys_from_i = stations.map {|j| [i, j] if i != j}.compact
+          Utility.cartesian_product(*[journeys_from_i]*pax_served[i])}.compact
         #puts "new_state: #{new_state.inspect}"
         #puts "journey_product:\n#{journey_product.inspect}"
         if journey_product.empty?
@@ -383,10 +398,10 @@ module SiTaxi
             #puts "journeys: #{journeys.inspect}"
             journeys.flatten(1).each do |i, j|
               pax_state.destin[available_for_pax[i].shift] = j
-              pax_state.set_eta_from(state)
-              pax_state_pr *= demand.at(i, j) / demand.rate_to(j)
+              pax_state_pr *= demand.at(i, j) / demand.rate_from(i)
               #puts "pax_state: #{pax_state.inspect}"
             end
+            pax_state.set_eta_from(state)
             #puts "pax_state: #{pax_state.inspect}"
             yield pax_state, pax_state_pr
           end

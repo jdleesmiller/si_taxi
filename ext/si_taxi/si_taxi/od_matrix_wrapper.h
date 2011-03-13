@@ -61,13 +61,25 @@ struct ODMatrixWrapper
   /**
    * Probability of exactly n arrivals (per unit time) at station i.
    */
-  double poisson_arrival_pmf(size_t i, double n) const;
+  double poisson_origin_pmf(size_t i, double n) const;
+
+  /**
+   * Probability of exactly n requests (per unit time) from station i to
+   * station j.
+   */
+  double poisson_trip_pmf(size_t i, size_t j, double n) const;
 
   /**
    * Probability of strictly greater than n arrivals (per unit time) at station
    * i.
    */
-  double poisson_arrival_cdf_complement(size_t i, double n) const;
+  double poisson_origin_cdf_complement(size_t i, double n) const;
+
+  /**
+   * Probability of strictly greater than n requests (per unit time) from
+   * station i to station j.
+   */
+  double poisson_trip_cdf_complement(size_t i, size_t j, double n) const;
 
   /**
    * Generate a request. The origin and destination are chosen according to

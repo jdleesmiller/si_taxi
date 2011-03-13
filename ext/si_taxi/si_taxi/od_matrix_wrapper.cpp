@@ -19,14 +19,25 @@ ODMatrixWrapper::ODMatrixWrapper(
   _trip_prob = _od * _expected_interarrival_time;
 }
 
-double ODMatrixWrapper::poisson_arrival_pmf(size_t i, double n) const {
+double ODMatrixWrapper::poisson_origin_pmf(size_t i, double n) const {
   boost::math::poisson p(this->rate_from(i));
   return boost::math::pdf(p, n);
 }
 
-double ODMatrixWrapper::poisson_arrival_cdf_complement(
+double ODMatrixWrapper::poisson_trip_pmf(size_t i, size_t j, double n) const {
+  boost::math::poisson p(this->at(i, j));
+  return boost::math::pdf(p, n);
+}
+
+double ODMatrixWrapper::poisson_origin_cdf_complement(
     size_t i, double n) const {
   boost::math::poisson p(this->rate_from(i));
+  return boost::math::cdf(boost::math::complement(p, n));
+}
+
+double ODMatrixWrapper::poisson_trip_cdf_complement(
+    size_t i, size_t j, double n) const {
+  boost::math::poisson p(this->at(i, j));
   return boost::math::cdf(boost::math::complement(p, n));
 }
 
