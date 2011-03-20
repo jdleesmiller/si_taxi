@@ -49,7 +49,8 @@ module SiTaxi
     # @return [Boolean] 
     #
     def feasible?
-      @model.stations.all? {|i| queue[i] == 0 || idle_vehicles_at(i).empty?} &&
+      @model.stations.all? {|i| queue[i] == 0 ||
+        (idle_vehicles_at(i).empty? && @model.demand.rate_from(i) > 0)} &&
         @model.vehicles.all? {|k| eta[k] <= @model.max_time[destin[k]]}
     end
 
@@ -196,7 +197,7 @@ module SiTaxi
     end
 
     def improve_policy
-      stable = false
+      stable = true
       with_each_state do |state|
         a_max = nil
         v_max = -Float::MAX
@@ -221,9 +222,9 @@ module SiTaxi
     # @param [Array<Integer>] action
     #
     def backup state, action
-      v = 0.0
+      v = state.reward
       with_each_successor_state(state, action) do |succ, succ_pr|
-        v += state.reward + discount*succ_pr*value[succ]
+        v += discount*succ_pr*value[succ]
       end
       v
     end
@@ -380,30 +381,34 @@ module SiTaxi
           new_state_pr *= pr_i
         end
 
-        # need to know destinations for any pax we're serving
-        journey_product = stations.map {|i|
-          journeys_from_i = stations.map {|j| [i, j] if i != j}.compact
-          Utility.cartesian_product(*[journeys_from_i]*pax_served[i])}.compact
-        #puts "new_state: #{new_state.inspect}"
-        #puts "journey_product:\n#{journey_product.inspect}"
-        if journey_product.empty?
-          # no passengers served; just yield new_state
-          new_state.set_eta_from(state)
-          yield new_state, new_state_pr
-        else
-          Utility.cartesian_product(*journey_product).each do |journeys|
-            available_for_pax = available.map{|ai| ai.dup}
-            pax_state = new_state.dup
-            pax_state_pr = new_state_pr
-            #puts "journeys: #{journeys.inspect}"
-            journeys.flatten(1).each do |i, j|
-              pax_state.destin[available_for_pax[i].shift] = j
-              pax_state_pr *= demand.at(i, j) / demand.rate_from(i)
+        # the above generates states with non-zero queues at stations with zero
+        # arrival rates, which would cause us to generate infeasible states
+        if new_state_pr > 0
+          # need to know destinations for any pax we're serving
+          journey_product = stations.map {|i|
+            journeys_from_i = stations.map {|j| [i, j] if i != j}.compact
+            Utility.cartesian_product(*[journeys_from_i]*pax_served[i])}.compact
+          #puts "new_state: #{new_state.inspect}"
+          #puts "journey_product:\n#{journey_product.inspect}"
+          if journey_product.empty?
+            # no passengers served; just yield new_state
+            new_state.set_eta_from(state)
+            yield new_state, new_state_pr
+          else
+            Utility.cartesian_product(*journey_product).each do |journeys|
+              available_for_pax = available.map{|ai| ai.dup}
+              pax_state = new_state.dup
+              pax_state_pr = new_state_pr
+              #puts "journeys: #{journeys.inspect}"
+              journeys.flatten(1).each do |i, j|
+                pax_state.destin[available_for_pax[i].shift] = j
+                pax_state_pr *= demand.at(i, j) / demand.rate_from(i)
+                #puts "pax_state: #{pax_state.inspect}"
+              end
+              pax_state.set_eta_from(state)
               #puts "pax_state: #{pax_state.inspect}"
+              yield pax_state, pax_state_pr
             end
-            pax_state.set_eta_from(state)
-            #puts "pax_state: #{pax_state.inspect}"
-            yield pax_state, pax_state_pr
           end
         end
         #

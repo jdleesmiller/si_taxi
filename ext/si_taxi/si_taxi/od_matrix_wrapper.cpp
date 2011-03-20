@@ -19,26 +19,42 @@ ODMatrixWrapper::ODMatrixWrapper(
   _trip_prob = _od * _expected_interarrival_time;
 }
 
+// Boost's Poisson distribution doesn't like a zero rate.
+static double poisson_pmf(double lambda, double n) {
+  if (lambda == 0) {
+    return n == 0.0 ? 1.0 : 0.0;
+  } else {
+    boost::math::poisson p(lambda);
+    return boost::math::pdf(p, n);
+  }
+}
+
+// Boost's Poisson distribution doesn't like a zero rate.
+static double poisson_cdf_complement(double lambda, double n) {
+  if (lambda == 0) {
+    return n < 0 ? 1.0 : 0.0; // strictly > n arrivals with zero rate
+  } else {
+    boost::math::poisson p(lambda);
+    return boost::math::cdf(boost::math::complement(p, n));
+  }
+}
+
 double ODMatrixWrapper::poisson_origin_pmf(size_t i, double n) const {
-  boost::math::poisson p(this->rate_from(i));
-  return boost::math::pdf(p, n);
+  return poisson_pmf(this->rate_from(i), n);
 }
 
 double ODMatrixWrapper::poisson_trip_pmf(size_t i, size_t j, double n) const {
-  boost::math::poisson p(this->at(i, j));
-  return boost::math::pdf(p, n);
+  return poisson_pmf(this->at(i, j), n);
 }
 
 double ODMatrixWrapper::poisson_origin_cdf_complement(
     size_t i, double n) const {
-  boost::math::poisson p(this->rate_from(i));
-  return boost::math::cdf(boost::math::complement(p, n));
+  return poisson_cdf_complement(this->rate_from(i), n);
 }
 
 double ODMatrixWrapper::poisson_trip_cdf_complement(
     size_t i, size_t j, double n) const {
-  boost::math::poisson p(this->at(i, j));
-  return boost::math::cdf(boost::math::complement(p, n));
+  return poisson_cdf_complement(this->at(i, j), n);
 }
 
 void ODMatrixWrapper::sample(size_t &origin, size_t &destin,

@@ -267,10 +267,43 @@ class MDPModelATest < Test::Unit::TestCase
     end
 
     should "have valid transition matrix" do
-      puts @m.states.map(&:inspect)
-      puts @m.states.size
-      @m.dump
-      #check_transition_matrix
+      check_transition_matrix
+    end
+
+    should "do value iteration" do
+      assert @m.evaluate_policy >= 0
+      assert_equal 60, @m.value.size # 60 states
+      @m.improve_policy
+      assert_equal 60, @m.policy.size
+    end
+  end
+
+  context "two station ring with zero demand from one station" do
+    setup do
+      @m = MDPModelA.new([[0,1],[1,0]], 1,
+                         ODMatrixWrapper.new([[0,0.0],[0.1,0]]), 1, 0.95)
+    end
+
+    should "have 7 states" do
+      # five states infeasible because they have non-zero queues at 0
+      assert_equal [[0, 0, 0, 0],
+                    [0, 1, 0, 0],
+                    [0, 0, 1, 0],
+                    [0, 0, 0, 1],
+                    [0, 1, 0, 1],
+                    [0, 0, 1, 1],
+                    [0, 1, 1, 1]], @m.states.map(&:to_a)
+    end
+
+    should "have valid transition matrix" do
+      check_transition_matrix
+    end
+
+    should "do value iteration" do
+      assert @m.evaluate_policy >= 0
+      assert_equal 7, @m.value.size
+      @m.improve_policy
+      assert_equal 7, @m.policy.size
     end
   end
 end

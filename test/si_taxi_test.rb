@@ -176,6 +176,30 @@ class TestSiTaxi < Test::Unit::TestCase
       end
     end
 
+    context "2x2 matrix with zero entry" do
+      setup do
+        @w = SiTaxi::ODMatrixWrapper.new [[0,0],[1,0]]
+      end
+      should "compute poisson probabilities" do
+        assert_in_delta 1.0, @w.poisson_origin_pmf(0, 0), $delta
+        assert_in_delta 0.0, @w.poisson_origin_pmf(0, 1), $delta
+        assert_in_delta 0.0, @w.poisson_origin_pmf(0, 2), $delta
+
+        assert_in_delta 0.36787944, @w.poisson_origin_pmf(1, 0), $delta
+        assert_in_delta 0.36787944, @w.poisson_origin_pmf(1, 1), $delta
+        assert_in_delta 0.18393972, @w.poisson_origin_pmf(1, 2), $delta
+        assert_in_delta 0.06131324, @w.poisson_origin_pmf(1, 3), $delta
+
+        assert_in_delta 0.0, @w.poisson_origin_cdf_complement(0, 0), $delta
+        assert_in_delta 0.0, @w.poisson_origin_cdf_complement(0, 1), $delta
+
+        assert_in_delta 1-0.36787944,
+          @w.poisson_origin_cdf_complement(1, 0), $delta
+        assert_in_delta 1-0.36787944-0.36787944,
+          @w.poisson_origin_cdf_complement(1, 1), $delta
+      end
+    end
+
     context "3x3 matrix" do
       setup do
         @w = SiTaxi::ODMatrixWrapper.new [[0,1,2],[3,0,4],[5,6,0]]
