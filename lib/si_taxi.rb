@@ -4,6 +4,7 @@ require 'facets/enumerable/mash'
 require 'facets/enumerable/purge'
 require 'facets/hash/slice'
 require 'facets/kernel/disable_warnings'
+require 'facets/kernel/in'
 disable_warnings do # gives one annoying warning
   require 'facets/set' # for power_set
 end

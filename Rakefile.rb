@@ -93,4 +93,14 @@ task 'lcov:capture' do
   end
 end
 
+desc 'build libsi_taxi'
+task 'eclipse:build' do
+  si_taxi_project = File.join(File.expand_path('.'), 'ext', 'si_taxi')
+  sh "/usr/local/eclipse/eclipse -nosplash"\
+    " -application org.eclipse.cdt.managedbuilder.core.headlessbuild"\
+    " -import #{si_taxi_project}"\
+    " -build si_taxi"
+
+end
+
 task :default => :test
