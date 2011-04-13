@@ -31,7 +31,9 @@ require 'si_taxi/lp_solve'
 require 'si_taxi/fluid_limit'
 require 'si_taxi/natural_histogram'
 
+require 'si_taxi/mdp_model'
 require 'si_taxi/mdp_model_a'
+require 'si_taxi/mdp_model_b'
 
 module SiTaxi
   #

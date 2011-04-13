@@ -1,12 +1,10 @@
 module SiTaxi
-  class MDPStateA < MDPStateBase
-    include MarkovDecisionProcess::VectorValued
-
+  class MDPStateB < MDPStateBase
     def initialize model
       super model
-      @queue  = [0]*model.num_stations
-      @destin = [0]*model.num_veh
-      @eta    = [0]*model.num_veh
+      @queue   = [0]*model.num_stations
+      @inbound = [0]*model.num_veh
+      @eta     = [0]*model.num_veh
     end
 
     #
@@ -15,60 +13,57 @@ module SiTaxi
     def self.from_a model, a
       state = self.new(model)
       ns, nv = model.num_stations, model.num_veh
-      state.queue  = a[0,     ns]
-      state.destin = a[ns,    nv]
-      state.eta    = a[ns+nv, nv]
+      state.queue   = a[0,    ns]
+      state.inbound = a[ns,   ns]
+      state.eta     = a[2*ns, nv]
       state
     end
 
-    attr_accessor :queue, :destin, :eta
+    attr_accessor :model, :queue, :inbound, :eta
 
     #
-    # Mutate this state into the 'next' state in numerical order.
+    # Mutate this state into the 'next' state in numerical order; the resulting
+    # state is not guaranteed to be feasible.
     #
     # @return [Boolean] true iff the new state is not state zero
     #
     def next!
-      Utility.spin_array(queue,  @model.max_queue) ||
-      Utility.spin_array(destin, @model.num_stations - 1) ||
-      Utility.spin_array(eta,    @model.max_time.max)
+      Utility.spin_array(queue,   @model.max_queue) ||
+      Utility.spin_array(inbound, @model.num_veh) ||
+      Utility.spin_array(eta,     @model.max_time.max)
     end
 
     #
     #
-    # @return Array<Integer> indexes of vehicles idle at station i
+    # @return [Array<Integer>] length inbound[i]; time steps remaining until
+    # each vehicle inbound to i becomes idle; entries non-negative and in
+    # ascending order; result is undefined if sum of inbound counts does not
+    # equal the fleet size
+    #
+    def eta_at i
+      eta[inbound[0...i].sum, inbound[i]]
+    end
+
+    #
+    #
+    # @return [Integer] number of idle vehicles at station i
     #
     def idle_vehicles_at i
-      @model.vehicles.select {|k| destin[k] == i && eta[k] == 0}
+      eta_at(i).count {|t| t == 0}
     end
 
     #
-    # Feasible iff there is no station with both waiting passengers and idle
-    # vehicles and travel times are in range.
+    # Feasible iff inbound vehicle counts sum to the fleet size, there is no
+    # station with both waiting passengers and idle vehicles and travel times
+    # are in range.
     #
     # @return [Boolean] 
     #
     def feasible?
-      @model.stations.all? {|i| queue[i] == 0 ||
-        (idle_vehicles_at(i).empty? && @model.demand.rate_from(i) > 0)} &&
-        @model.vehicles.all? {|k| eta[k] <= @model.max_time[destin[k]]}
-    end
-
-    #
-    # Update expected time to arrival (eta) based on old destinations (state)
-    # and current destinations. If a vehicle's ETA is larger than 1, it is just
-    # decremented; otherwise, it's set to the trip time between its old and new
-    # destination.
-    #
-    def set_eta_from state
-      @model.vehicles.each do |k|
-        if self.eta[k] > 1
-          self.eta[k] -= 1
-        else
-          self.eta[k] = @model.trip_time[state.destin[k]][self.destin[k]]
-        end
-      end
-      nil
+      inbound.sum == @model.num_veh &&
+        @model.stations.all? {|i| queue[i] == 0 ||
+          (idle_vehicles_at(i) == 0 && @model.demand.rate_from(i) > 0)} &&
+        @model.stations.all? {|j| eta_at(j).all? {|t| t <= @model.max_time[j]}}
     end
 
     #
@@ -77,17 +72,17 @@ module SiTaxi
     def dup
       copy = super
       copy.queue = self.queue.dup
-      copy.destin = self.destin.dup
+      copy.inbound = self.inbound.dup
       copy.eta = self.eta.dup
       copy
     end
 
     def to_a
-      queue + destin + eta
+      queue + inbound + eta
     end
   end
 
-  class MDPModelA < MDPModelBase
+  class MDPModelB
     #
     # Yield for each state in numeric order.
     #
@@ -95,7 +90,7 @@ module SiTaxi
     # affecting the iteration
     #
     def with_each_state
-      state = MDPStateA.new(self)
+      state = MDPStateB.new(self)
       begin
         yield state.dup if state.feasible?
       end while state.next!
@@ -212,53 +207,7 @@ module SiTaxi
             end
           end
         end
-        #
-        #p stations.map {|i|
-        #  journeys = stations.purge(i).map {|j| [i, j] }
-        #  Utility.cartesian_product(*[journeys]*pax_served[i])} 
-        #pax_stations = stations.select {|i| pax_served[i] > 0}
-        #puts "pax_stations: #{pax_stations.inspect}"
-        #pax_destins = pax_stations.map {|i| [stations.purge(i)] * pax_served[i]}
-        #puts "pax_destins: #{pax_destins.inspect}"
-        ## [1,0,2]
-        ## [[1,2,3],[],[0,1,3,0,1,3]]
-        ## or
-        ## [1,0]
-        ## [[1],[]]
-        #pax_destins = Utility.cartesian_product(*pax_destins)
-        #if pax_destins
-        #  puts "pax_destins: #{pax_destins.inspect}"
-        #  pax_destins.each do |pax_destin|
-        #    puts "pax_destin: #{pax_destin}"
-        #    pax_stations.zip(pax_destin).each do |i, destins_i|
-        #      available_i = new_state.available_vehicles_at(i)
-        #      pax_state = new_state.dup
-        #      available_i.zip(destins_i).each do |k, destin_i|
-        #        pax_state.destin[k] = destin_i
-        #        pax_state.set_eta_from(state)
-        #        pax_state_pr = new_state_pr * demand.at(i, destin_i) /
-        #          demand.rate_to(destin_i)
-        #        p pax_state
-        #        yield pax_state, pax_state_pr
-        #      end
-        #    end
-        #  end
-        #else
-        #  # no passengers served; just yield new_state
-        #  new_state.set_eta_from(state)
-        #  yield new_state, new_state_pr
-        #end
       end while Utility.spin_array(new_pax, max_new_pax)
-    end
-
-    #
-    # Create an explicit solver for the model.
-    #
-    def solver discount
-      # default policy is to do nothing (preserve vehicle destinations)
-      MarkovDecisionProcess::ExplicitSolver.new(self.transitions,
-        self.states.mash{|s| [s, s.reward]}, discount,
-        Hash.new {|h,s| h[s] = s.destin.dup})
     end
   end
 end

@@ -31,11 +31,9 @@ class MDPModelATest < Test::Unit::TestCase
 
   def check_transition_matrix
     # rows should sum to 1 if the action is valid
-    @m.transitions.each do |action, tr_mat|
-      @m.with_each_state do |s0|
-        if tr_mat.has_key?(s0)
-          assert_in_delta 1, tr_mat[s0].values.sum, $delta
-        end
+    @m.transitions.each do |state, actions|
+      actions.each do |action, succ| 
+        assert_in_delta 1, succ.values.sum, $delta
       end
     end
   end
@@ -43,7 +41,7 @@ class MDPModelATest < Test::Unit::TestCase
   context "two station ring with one vehicle; max_queue=1" do
     setup do
       @m = MDPModelA.new([[0,1],[1,0]], 1,
-                         ODMatrixWrapper.new([[0,0.2],[0.3,0]]), 1, 0.95)
+                         ODMatrixWrapper.new([[0,0.2],[0.3,0]]), 1)
 
       # 16 possible states; 12 are feasible
       @feasible_states = [
@@ -154,22 +152,23 @@ class MDPModelATest < Test::Unit::TestCase
 
     should "get valid transition matries" do
       tr = @m.transitions
-      assert_equal 2, tr.size # two possible actions
+      assert_equal 12, tr.size # 12 states
+      assert_equal [0, 1], tr.map{|k,v| v.keys}.flatten.uniq # 2 actions
 
       # generic checks
       check_transition_matrix
 
       # dpois(0,0.2)*dpois(0,0.3) -- stay in state 0 if no new arrivals
-      assert_in_delta 0.6065307, tr[[0]][st(0,0,0,0)][st(0,0,0,0)], $delta 
+      assert_in_delta 0.6065307, tr[st(0,0,0,0)][[0]][st(0,0,0,0)], $delta 
 
       # dpois(0,0.2)*dpois(0,0.3) -- no arrivals and move to 1
-      assert_in_delta 0.6065307, tr[[1]][st(0,0,0,0)][st(0,0,1,1)], $delta 
+      assert_in_delta 0.6065307, tr[st(0,0,0,0)][[1]][st(0,0,1,1)], $delta 
 
       # dpois(0, 0.2) * (1-dpois(0, 0.3)) -- new arrival at 1
-      assert_in_delta 0.2122001, tr[[0]][st(0,0,0,0)][st(0,1,0,0)]
+      assert_in_delta 0.2122001, tr[st(0,0,0,0)][[0]][st(0,1,0,0)]
 
       # new arrival at 0 forces us to move to 1
-      assert_in_delta 0, tr[[0]][st(0,0,0,0)][st(1,0,0,0)], $delta
+      assert_in_delta 0, tr[st(0,0,0,0)][[0]][st(1,0,0,0)], $delta
     end
 
     should "have non-positive rewards for states" do
@@ -179,20 +178,21 @@ class MDPModelATest < Test::Unit::TestCase
     end
 
     should "do value iteration" do
-      assert @m.evaluate_policy >= 0
-      assert_equal 12, @m.value.size
-      @m.improve_policy
-      assert_equal 12, @m.policy.size
+      solver = @m.solver(0.95)
+      assert solver.evaluate_policy >= 0
+      assert_equal 12, solver.value.size
+      solver.improve_policy
+      assert_equal 12, solver.policy.size
 
       # only allowed actions should be in the policy
-      assert @m.policy.all? {|s, a| s.eta == [0] || a == s.destin}
+      assert solver.policy.all? {|s, a| s.eta == [0] || a == s.destin}
     end
   end
 
   context "two station ring with one vehicle; max_queue=2" do
     setup do
       @m = MDPModelA.new([[0,1],[1,0]], 1,
-                         ODMatrixWrapper.new([[0,0.2],[0.3,0]]), 2, 0.95)
+                         ODMatrixWrapper.new([[0,0.2],[0.3,0]]), 2)
     end
 
     should "have 24 states" do
@@ -205,20 +205,21 @@ class MDPModelATest < Test::Unit::TestCase
     end
 
     should "do value iteration" do
-      assert @m.evaluate_policy >= 0
-      assert_equal 24, @m.value.size
-      @m.improve_policy
-      assert_equal 24, @m.policy.size
+      solver = @m.solver(0.95)
+      assert solver.evaluate_policy >= 0
+      assert_equal 24, solver.value.size
+      solver.improve_policy
+      assert_equal 24, solver.policy.size
 
       # only allowed actions should be in the policy
-      assert @m.policy.all? {|s, a| s.eta == [0] || a == s.destin}
+      assert solver.policy.all? {|s, a| s.eta == [0] || a == s.destin}
     end
   end
 
   context "two station ring with one vehicle; distance 2; max_queue=2" do
     setup do
       @m = MDPModelA.new([[0,2],[1,0]], 1,
-                         ODMatrixWrapper.new([[0,0.2],[0.3,0]]), 2, 0.95)
+                         ODMatrixWrapper.new([[0,0.2],[0.3,0]]), 2)
     end
 
     should "have 33 states" do
@@ -232,20 +233,21 @@ class MDPModelATest < Test::Unit::TestCase
     end
 
     should "do value iteration" do
-      assert @m.evaluate_policy >= 0
-      assert_equal 33, @m.value.size
-      @m.improve_policy
-      assert_equal 33, @m.policy.size
+      solver = @m.solver(0.95)
+      assert solver.evaluate_policy >= 0
+      assert_equal 33, solver.value.size
+      solver.improve_policy
+      assert_equal 33, solver.policy.size
 
       # only allowed actions should be in the policy
-      assert @m.policy.all? {|s, a| s.eta == [0] || a == s.destin}
+      assert solver.policy.all? {|s, a| s.eta == [0] || a == s.destin}
     end
   end
 
   context "two station ring with two vehicles" do
     setup do
       @m = MDPModelA.new([[0,1],[1,0]], 2,
-                         ODMatrixWrapper.new([[0,0.2],[0.3,0]]), 1, 0.95)
+                         ODMatrixWrapper.new([[0,0.2],[0.3,0]]), 1)
     end
 
     should "have valid transition matrix" do
@@ -253,17 +255,18 @@ class MDPModelATest < Test::Unit::TestCase
     end
 
     should "do value iteration" do
-      assert @m.evaluate_policy >= 0
-      assert_equal 38, @m.value.size # 38 states
-      @m.improve_policy
-      assert_equal 38, @m.policy.size
+      solver = @m.solver(0.95)
+      assert solver.evaluate_policy >= 0
+      assert_equal 38, solver.value.size # 38 states
+      solver.improve_policy
+      assert_equal 38, solver.policy.size
     end
   end
 
   context "three station ring with one vehicle" do
     setup do
       @m = MDPModelA.new([[0,1,2],[2,0,1],[1,2,0]], 1,
-        ODMatrixWrapper.new([[0,0.1,0.2],[0.1,0,0.2],[0.1,0.2,0]]), 1, 0.95)
+        ODMatrixWrapper.new([[0,0.1,0.2],[0.1,0,0.2],[0.1,0.2,0]]), 1)
     end
 
     should "have valid transition matrix" do
@@ -271,17 +274,18 @@ class MDPModelATest < Test::Unit::TestCase
     end
 
     should "do value iteration" do
-      assert @m.evaluate_policy >= 0
-      assert_equal 60, @m.value.size # 60 states
-      @m.improve_policy
-      assert_equal 60, @m.policy.size
+      solver = @m.solver(0.95)
+      assert solver.evaluate_policy >= 0
+      assert_equal 60, solver.value.size # 60 states
+      solver.improve_policy
+      assert_equal 60, solver.policy.size
     end
   end
 
   context "two station ring with zero demand from one station" do
     setup do
       @m = MDPModelA.new([[0,1],[1,0]], 1,
-                         ODMatrixWrapper.new([[0,0.0],[0.1,0]]), 1, 0.95)
+                         ODMatrixWrapper.new([[0,0.0],[0.1,0]]), 1)
     end
 
     should "have 7 states" do
@@ -300,10 +304,11 @@ class MDPModelATest < Test::Unit::TestCase
     end
 
     should "do value iteration" do
-      assert @m.evaluate_policy >= 0
-      assert_equal 7, @m.value.size
-      @m.improve_policy
-      assert_equal 7, @m.policy.size
+      solver= @m.solver(0.95)
+      assert solver.evaluate_policy >= 0
+      assert_equal 7, solver.value.size
+      solver.improve_policy
+      assert_equal 7, solver.policy.size
     end
   end
 end
