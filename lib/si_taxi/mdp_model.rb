@@ -97,7 +97,7 @@ end
 # Use of hashes is reasonably efficient when the transitions are sparse, and it
 # allows for states and actions to be arbitrary objects, without worrying about
 # the numbering scheme (provided these objects define hash codes; see the
-# {MDPState} mix-in).
+# {VectorValued} mix-in).
 #
 class MarkovDecisionProcess::ExplicitSolver
   def initialize transitions, reward, discount, policy={},
@@ -194,6 +194,8 @@ class MarkovDecisionProcess::ExplicitSolver
   # @param state
   #
   # @param action
+  #
+  # @return [Float]
   #
   def backup_value state, action
     v = reward[state]
@@ -343,6 +345,15 @@ module SiTaxi
         states << state
       end
       states
+    end
+
+    #
+    # Yield for all feasible states.
+    #
+    # @abstract
+    #
+    def with_each_state
+      raise NotImplementedError
     end
 
   end

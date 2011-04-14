@@ -36,7 +36,7 @@ module SiTaxi
 
     #
     #
-    # @return Array<Integer> indexes of vehicles idle at station i
+    # @return [Array<Integer>] indexes of vehicles idle at station i
     #
     def idle_vehicles_at i
       @model.vehicles.select {|k| destin[k] == i && eta[k] == 0}

@@ -19,7 +19,7 @@ module SiTaxi
       state
     end
 
-    attr_accessor :model, :queue, :inbound, :eta
+    attr_accessor :queue, :inbound, :eta
 
     #
     # Mutate this state into the 'next' state in numerical order; the resulting
@@ -87,7 +87,7 @@ module SiTaxi
     # Yield for each state in numeric order.
     #
     # @yield [state] a copy of the current state; you can modify it without
-    # affecting the iteration
+    #        affecting the iteration
     #
     def with_each_state
       state = MDPStateB.new(self)
@@ -104,7 +104,10 @@ module SiTaxi
     # @yield [action] 
     #
     def with_each_action
-      action = [0] * num_veh
+      # enumerate all assignments of num_veh vehicles among the stations
+      action = NArray.int(num_stations, num_stations)
+      # TODO
+      
       begin 
         yield action.dup
       end while Utility.spin_array(action, num_stations - 1)
