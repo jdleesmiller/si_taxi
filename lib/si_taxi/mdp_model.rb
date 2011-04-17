@@ -100,7 +100,7 @@ end
 # {VectorValued} mix-in).
 #
 class MarkovDecisionProcess::ExplicitSolver
-  def initialize transitions, reward, discount, policy={},
+  def initialize transitions, reward, discount, policy,
     value=Hash.new {|v,s| v[s] = reward[s]}
     
     @transitions = transitions
@@ -110,7 +110,7 @@ class MarkovDecisionProcess::ExplicitSolver
     @policy      = policy
   end
 
-  attr_accessor :transitions, :reward, :discount, :value, :policy
+  attr_accessor :value, :policy
 
   #
   # Refine our estimate of the value function for the current policy; this can
@@ -124,10 +124,13 @@ class MarkovDecisionProcess::ExplicitSolver
   #
   def evaluate_policy
     delta = 0.0
-    for state in transitions.keys
-      new_value = backup_value(state, policy[state])
-      delta = [delta, (value[state] - new_value).abs].max
-      value[state] = new_value
+    for state, actions in @transitions
+      new_value = @reward[state]
+      for succ, succ_pr in actions[@policy[state]]
+        new_value += @discount*succ_pr*@value[succ]
+      end
+      delta = [delta, (@value[state] - new_value).abs].max
+      @value[state] = new_value
     end
     delta
   end
@@ -143,7 +146,7 @@ class MarkovDecisionProcess::ExplicitSolver
   #
   def improve_policy
     stable = true
-    for state, actions in transitions
+    for state, actions in @transitions
       a_max = nil
       v_max = -Float::MAX
       for action in actions.keys
@@ -154,8 +157,8 @@ class MarkovDecisionProcess::ExplicitSolver
         end
       end
       raise "no feasible actions in state #{state}" unless a_max
-      stable = false if policy[state] != a_max
-      policy[state] = a_max
+      stable = false if @policy[state] != a_max
+      @policy[state] = a_max
     end
     stable
   end
@@ -172,17 +175,21 @@ class MarkovDecisionProcess::ExplicitSolver
   #
   def value_iteration
     delta = 0.0
-    for state, actions in transitions
-      for action in actions.keys
-        v = backup_value(state, action)
+    for state, actions in @transitions
+      state_reward = @reward[state]
+      for action, succs in actions
+        v = state_reward
+        for succ, succ_pr in succs
+          v += @discount*succ_pr*@value[succ]
+        end
         if v > v_max
           a_max = action
           v_max = v
         end
       end
-      delta = [delta, (value[state] - v_max).abs].max
-      value[state]  = v_max
-      policy[state] = a_max
+      delta = [delta, (@value[state] - v_max).abs].max
+      @value[state]  = v_max
+      @policy[state] = a_max
     end
     delta
   end
@@ -198,11 +205,64 @@ class MarkovDecisionProcess::ExplicitSolver
   # @return [Float]
   #
   def backup_value state, action
-    v = reward[state]
-    for succ, succ_pr in transitions[state][action]
-      v += discount*succ_pr*value[succ]
+    v = @reward[state]
+    for succ, succ_pr in @transitions[state][action]
+      v += @discount*succ_pr*@value[succ]
     end
     v
+  end
+end
+
+#
+# Wrapper for {ExplicitSolver} that may help to solve models with complicated
+# state objects more quickly than ExplicitSolver would; it transparently numbers
+# all states and actions, to avoid repeatedly rehashing them during the
+# computation, which can slow things down significantly.
+#
+class MarkovDecisionProcess::ExplicitRichStateSolver <
+  MarkovDecisionProcess::ExplicitSolver
+
+  def initialize transitions, reward, discount, policy, value=Hash.new(0.0)
+    raise ArgumentError.new('reward and policy maps must have same size') if
+      reward.size != policy.size
+
+    # build map from states to numbers and back; the order is arbitrary
+    @state_num = Hash[*reward.keys.zip(0...reward.size).flatten(1)]
+
+    # build map from actions to numbers
+    all_actions = transitions.values.map(&:keys).flatten(1).uniq
+    @action_num = Hash[*all_actions.zip(0...all_actions.size).flatten(1)]
+
+    # rewrite transitions with state and action numbers
+    n_transitions = {}
+    for state, actions in transitions
+      n_actions = n_transitions[@state_num[state]] = {}
+      for action, succs in actions
+        n_succs = n_actions[@action_num[action]] = {}
+        for succ, succ_pr in succs
+          n_succs[@state_num[succ]] = succ_pr
+        end
+      end
+    end
+
+    # rewrite rewards, (initial) values and (initial) policy for state numbers
+    n_reward = Hash[*@state_num.map{|n, s| [n, reward[s]]}.flatten(1)]
+    n_value  = Hash[*@state_num.map{|n, s| [n, value[s]]}.flatten(1)]
+    n_policy = Hash[*@state_num.map{|n, s| [n,
+      @action_num[policy[s]]]}.flatten(1)]
+
+    super(n_transitions, n_reward, discount, n_value, n_policy)
+  end
+
+  def value
+    num_state = @state_num.invert
+    Hash[*super.map{|ns, v| [num_state[ns], v]}.flatten(1)]
+  end
+  
+  def policy
+    num_state  = @state_num.invert
+    num_action = @action_num.invert
+    Hash[*super.map{|ns, na| [num_state[ns], num_action[na]]}.flatten(1)]
   end
 end
 
