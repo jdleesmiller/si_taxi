@@ -1,7 +1,5 @@
 module SiTaxi
   class MDPStateA < MDPStateBase
-    include MarkovDecisionProcess::VectorValued
-
     def initialize model
       super model
       @queue  = [0]*model.num_stations
@@ -255,10 +253,7 @@ module SiTaxi
     # Create an explicit solver for the model.
     #
     def solver discount
-      # default policy is to do nothing (preserve vehicle destinations)
-      MarkovDecisionProcess::ExplicitSolver.new(self.transitions,
-        self.states.mash{|s| [s, s.reward]}, discount,
-        Hash.new {|h,s| h[s] = s.destin.dup})
+      FiniteMDP::solver.new(self, discount)
     end
   end
 end
