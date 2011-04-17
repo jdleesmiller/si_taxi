@@ -253,7 +253,7 @@ module SiTaxi
     # Create an explicit solver for the model.
     #
     def solver discount
-      FiniteMDP::solver.new(self, discount)
+      FiniteMDP::Solver.new(self, discount)
     end
   end
 end

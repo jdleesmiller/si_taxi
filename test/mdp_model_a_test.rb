@@ -29,15 +29,6 @@ class MDPModelATest < Test::Unit::TestCase
     end
   end
 
-  def check_transition_matrix
-    # rows should sum to 1 if the action is valid
-    @m.transitions.each do |state, actions|
-      actions.each do |action, succ| 
-        assert_in_delta 1, succ.values.sum, $delta
-      end
-    end
-  end
-
   context "two station ring with one vehicle; max_queue=1" do
     setup do
       @m = MDPModelA.new([[0,1],[1,0]], 1,
@@ -151,24 +142,24 @@ class MDPModelATest < Test::Unit::TestCase
     end
 
     should "get valid transition matries" do
-      tr = @m.transitions
+      # generic checks
+      @m.check_transition_probabilities_sum
+
+      tr = FiniteMDP::HashModel.from_model(@m).hash
       assert_equal 12, tr.size # 12 states
       assert_equal [0, 1], tr.map{|k,v| v.keys}.flatten.uniq # 2 actions
 
-      # generic checks
-      check_transition_matrix
-
       # dpois(0,0.2)*dpois(0,0.3) -- stay in state 0 if no new arrivals
-      assert_in_delta 0.6065307, tr[st(0,0,0,0)][[0]][st(0,0,0,0)], $delta 
+      assert_in_delta 0.6065307, tr[st(0,0,0,0)][[0]][st(0,0,0,0)][0], $delta 
 
       # dpois(0,0.2)*dpois(0,0.3) -- no arrivals and move to 1
-      assert_in_delta 0.6065307, tr[st(0,0,0,0)][[1]][st(0,0,1,1)], $delta 
+      assert_in_delta 0.6065307, tr[st(0,0,0,0)][[1]][st(0,0,1,1)][0], $delta 
 
       # dpois(0, 0.2) * (1-dpois(0, 0.3)) -- new arrival at 1
-      assert_in_delta 0.2122001, tr[st(0,0,0,0)][[0]][st(0,1,0,0)]
+      assert_in_delta 0.2122001, tr[st(0,0,0,0)][[0]][st(0,1,0,0)][0]
 
       # new arrival at 0 forces us to move to 1
-      assert_in_delta 0, tr[st(0,0,0,0)][[0]][st(1,0,0,0)], $delta
+      assert_nil tr[st(0,0,0,0)][[0]][st(1,0,0,0)]
     end
 
     should "have non-positive rewards for states" do
@@ -201,7 +192,7 @@ class MDPModelATest < Test::Unit::TestCase
     end
 
     should "have valid transition matrix" do
-      check_transition_matrix
+      @m.check_transition_probabilities_sum
     end
 
     should "do value iteration" do
@@ -229,7 +220,7 @@ class MDPModelATest < Test::Unit::TestCase
     end
 
     should "have valid transition matrix" do
-      check_transition_matrix
+      @m.check_transition_probabilities_sum
     end
 
     should "do value iteration" do
@@ -251,7 +242,7 @@ class MDPModelATest < Test::Unit::TestCase
     end
 
     should "have valid transition matrix" do
-      check_transition_matrix
+      @m.check_transition_probabilities_sum
     end
 
     should "do value iteration" do
@@ -270,7 +261,7 @@ class MDPModelATest < Test::Unit::TestCase
     end
 
     should "have valid transition matrix" do
-      check_transition_matrix
+      @m.check_transition_probabilities_sum
     end
 
     should "do value iteration" do
@@ -300,7 +291,7 @@ class MDPModelATest < Test::Unit::TestCase
     end
 
     should "have valid transition matrix" do
-      check_transition_matrix
+      @m.check_transition_probabilities_sum
     end
 
     should "do value iteration" do

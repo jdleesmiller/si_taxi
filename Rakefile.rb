@@ -1,6 +1,6 @@
 require 'rake/clean'
 
-begin
+#begin
   require 'rubygems'
   require 'bundler/setup'
   require 'gemma'
@@ -10,9 +10,9 @@ begin
 #      tt.warning = false
 #    end
   end
-rescue LoadError
-  puts 'Install gemma (sudo gem install gemma) for more rake tasks.'
-end
+#rescue LoadError
+#  puts 'Install gemma (sudo gem install gemma) for more rake tasks.'
+#end
 
 # Note that you currently have to set this in extconf.rb and Eclipse, too.
 COVERAGE = !!ENV['SI_TAXI_COVERAGE']
