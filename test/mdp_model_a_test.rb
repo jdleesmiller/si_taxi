@@ -145,7 +145,7 @@ class MDPModelATest < Test::Unit::TestCase
       # generic checks
       @m.check_transition_probabilities_sum
 
-      tr = FiniteMDP::HashModel.from_model(@m).hash
+      tr = @m.to_hash
       assert_equal 12, tr.size # 12 states
       assert_equal [0, 1], tr.map{|k,v| v.keys}.flatten.uniq # 2 actions
 
@@ -159,7 +159,7 @@ class MDPModelATest < Test::Unit::TestCase
       assert_in_delta 0.2122001, tr[st(0,0,0,0)][[0]][st(0,1,0,0)][0]
 
       # new arrival at 0 forces us to move to 1
-      assert_nil tr[st(0,0,0,0)][[0]][st(1,0,0,0)]
+      assert_equal [0,0], tr[st(0,0,0,0)][[0]][st(1,0,0,0)]
     end
 
     should "have non-positive rewards for states" do

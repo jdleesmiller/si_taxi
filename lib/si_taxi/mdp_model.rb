@@ -66,8 +66,6 @@ end
 # Common features for the A and B models.
 #
 class SiTaxi::MDPModelBase
-  include FiniteMDP::Model
-
   def initialize trip_time, num_veh, demand, max_queue
     @trip_time = trip_time
     @num_veh = num_veh
@@ -95,25 +93,40 @@ class SiTaxi::MDPModelBase
   def num_stations; stations.size end
 
   #
+  # @return [Array] array of states
+  #
+  def states
+    states = []
+    with_each_state do |state|
+      states << state
+    end
+    states
+  end
+
+  #
   # Build the explicit transition matrices (as nested Hashes).
   #
   # @return Hash
   #
-#  def transitions
-#    # set up nested hashes using appropriate missing value defaults
-#    mat = Hash.new {|h0,k0|
-#      h0[k0] = Hash.new {|h1,k1|
-#        h1[k1] = Hash.new {0} } }
-#
-#    with_each_state do |s0|
-#      with_each_action_for(s0) do |a|
-#        with_each_successor_state(s0, a) do |s1, pr|
-#          mat[s0][a][s1] = pr
-#        end
-#      end
-#    end
-#    mat
-#  end
+  def to_hash
+    # set up nested hashes using appropriate missing value defaults
+    hash = Hash.new {|h0,k0|
+      h0[k0] = Hash.new {|h1,k1|
+        h1[k1] = Hash.new {[0,0]} } }
+
+    with_each_state do |s0|
+      with_each_action_for(s0) do |a|
+        with_each_successor_state(s0, a) do |s1, pr|
+          hash[s0][a][s1] = [pr, s0.reward]
+        end
+      end
+    end
+    hash
+  end
+
+  def check_transition_probabilities_sum
+    FiniteMDP::HashModel.new(self.to_hash).check_transition_probabilities_sum
+  end
 
 #  #
 #  # Print transition probabilities and rewards in sparse format.
@@ -138,45 +151,6 @@ class SiTaxi::MDPModelBase
 #      end
 #    end
 #  end
-
-  # see {FiniteMDP::Model}
-  def states
-    states = []
-    with_each_state do |state|
-      states << state
-    end
-    states
-  end
-
-  # see {FiniteMDP::Model}
-  def actions state
-    actions = []
-    with_each_action_for(state) do |action|
-      actions << action
-    end
-    actions
-  end
-
-  # see {FiniteMDP::Model}
-  def next_states state, action
-    next_states = []
-    with_each_successor_state(state, action) do |s1, pr|
-      next_states << s1
-    end
-    next_states
-  end
-
-  # see {FiniteMDP::Model}
-  def transition_probability state, action, next_state
-    with_each_successor_state(state, action) do |s1, pr|
-      return pr if s1 == next_state
-    end
-  end
-
-  # see {FiniteMDP::Model}
-  def reward state, action, next_state
-    state.reward
-  end
 
   #
   # Yield for all feasible states.
