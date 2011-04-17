@@ -22,6 +22,9 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'simplecov', '>= 0.4.0', '~> 0.4'
   s.add_development_dependency 'yard', '>= 0.6.7', '~> 0.6'
 
+  # TODO need to rethink how gemma does this...
+  s.add_development_dependency 'rdoc', '>= 3.5.3', '~> 3.5'
+
   s.files       = Dir.glob('{lib,bin}/**/*.rb') + %w(README.rdoc)
   s.test_files  = Dir.glob('test/*_test.rb')
   s.executables = Dir.glob('bin/*').map{|f| File.basename(f)}
