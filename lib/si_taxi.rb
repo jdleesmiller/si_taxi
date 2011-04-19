@@ -24,6 +24,7 @@ require 'si_taxi_ext'
 SiTaxi = Si_taxi_ext
 
 require 'si_taxi/version'
+require 'si_taxi/extensions'
 require 'si_taxi/utility'
 require 'si_taxi/abstract_networks'
 require 'si_taxi/bell_wong'

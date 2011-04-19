@@ -88,17 +88,13 @@ module SiTaxi::FluidLimit
   # is only one empty trip following on from each occupied trip, so we
   # underestimate the true empty trip time in the former case.
   #
-  # We could potentially extend the model with a probability of a second empty
-  # trip: in the example above, if B has both inbound and outbound empty
-  # vehicle flow, this should add to the expected empty trip time from A. 
-  #
   # The real model here is a random walk model: after a trip to j, the vehicle
   # may do an occupied trip to some other station or an empty trip to some other
   # station; in the latter case, it may then do another empty trip. What we
-  # really want for the service time distribution is the length of the random
-  # *empty* walk. But, when od_empty is computed using the fluid limit LP and
+  # really want for the service time distribution is the length of the whole
+  # random walk. But, when od_empty is computed using the fluid limit LP and
   # the travel times satisfy the triangle inequality, it should always be a
-  # walk of length 1, because no station should have both inbound and outbound
+  # one-step walk, because no station should have both inbound and outbound
   # empty vehicle flow (always cheaper to go direct).
   #
   # @param [Array<Array<Numeric>>] od_occup vehicle flows, in vehicles per unit
@@ -107,9 +103,14 @@ module SiTaxi::FluidLimit
   # @param [Array<Array<Numeric>>] od_empty empty vehicle flows, in vehicles per
   #        unit time (in whatever time units you choose)
   #
-  def transaction_probability_tensor od_occup, od_empty
-    d = NArray[*od_occup]
-    x = NArray[*od_empty]
+  # @param [Float, nil] tol tolerance for the check that the sum of the returned
+  #        probabilities is approximately 1, or nil to skip the check
+  #
+  # @return [Array<Array<Array<Numeric>>>]
+  #
+  def transaction_probability_tensor od_occup, od_empty, tol=1e-6
+    d = NArray[*od_occup].to_f
+    x = NArray[*od_empty].to_f
     raise "dimensions do not match" if d.shape != x.shape
     n = d.shape[0]
 
@@ -117,20 +118,36 @@ module SiTaxi::FluidLimit
     # probability of a trip from i to j
     d.div!(d.sum)
     
-    # x needs more work; first, patch up
-    
-    # for x, however, we want the probability of an empty trip from j to k;
+    # x needs more work; first, get the trivial empty flows from each station
+    # to itself, which are given by total occupied flow out (row sums) - total
+    # occupied flow in (column sums), when it is positive
+    x_diag = d.sum(0) - d.sum(1)
+    x_diag[x_diag < 0] = 0
+
+    # store this total on the diagonal of X, which is assumed to be zero,
+    # because the X_ii terms cancel in the lp formulation
+    x_hat = x.dup
+    for i in 0...n; x_hat[i,i] = x_diag[i] end
+
+    # for x, we want the probability of an empty trip from j to k;
     # that is, we want the probability of a trip to station k, conditional on
     # starting at station j; so, here we normalise by row sums
-    x.div!(x.sum(0))
+    # we also have to be careful about dividing by zero, which may happen for
+    # stations with no demand in or out (e.g. depots)
+    x_hat_norm = x_hat.sum(0).newdim(0).tile(3)
+    x_hat.div!(x_hat_norm)
+    raise unless x_hat[x_hat_norm.eq(0)].ne(x_hat[x_hat_norm.eq(0)]).all? # nan
+    x_hat[x_hat_norm.eq(0)] = 0
 
-    # the rows of x need not sum to 1, so 
-
-    tau = NArray.new(t.typecode, n, n, n)
+    # now can build the tensor
+    pr = NArray.float(n, n, n)
     for k in 0...n
-      tau[true,true,k] = t + t[[k,k,k],true].transpose(1,0)
+      pr[true,true,k] = d * x_hat[[k,k,k],true].transpose(1,0)
     end
-    tau
+
+    raise 'BUG: probabilities do not sum' unless !tol || (1 - pr.sum).abs < tol
+
+    pr.to_a
   end
 
   #
