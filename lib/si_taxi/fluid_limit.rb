@@ -77,7 +77,7 @@ module SiTaxi::FluidLimit
     n = t.shape[0]
     tau = NArray.new(t.typecode, n, n, n)
     for k in 0...n
-      tau[true,true,k] = t + t[[k,k,k],true].transpose(1,0)
+      tau[true,true,k] = t + t[[k]*n,true].transpose(1,0)
     end
     tau.to_a
   end
@@ -118,14 +118,10 @@ module SiTaxi::FluidLimit
     x = NArray[*od_empty].to_f
     raise "dimensions do not match" if d.shape != x.shape
     n = d.shape[0]
-
-    # normalize d by total demand, because we want the (unconditional)
-    # probability of a trip from i to j
-    d.div!(d.sum)
     
-    # x needs more work; first, get the trivial empty flows from each station
-    # to itself, which are given by total occupied flow out (row sums) - total
-    # occupied flow in (column sums), when it is positive
+    # first, get the trivial empty flows from each station to itself, which are
+    # given by total occupied flow out (row sums) - total occupied flow in
+    # (column sums), when it is positive
     x_diag = d.sum(0) - d.sum(1)
     x_diag[x_diag < 0] = 0
 
@@ -138,19 +134,30 @@ module SiTaxi::FluidLimit
     # that is, we want the probability of a trip to station k, conditional on
     # starting at station j; so, here we normalise by row sums
     # we also have to be careful about dividing by zero, which may happen for
-    # stations with no demand in or out (e.g. depots)
-    x_hat_norm = x_hat.sum(0).newdim(0).tile(3)
-    x_hat.div!(x_hat_norm)
-    raise unless x_hat[x_hat_norm.eq(0)].ne(x_hat[x_hat_norm.eq(0)]).all? # nan
-    x_hat[x_hat_norm.eq(0)] = 0
+    # stations with no demand in or out (e.g. depots) or balanced demand
+    x_hat_norm = x_hat.sum(0)
+    x_hat_zero = x_hat_norm.eq(0)
+    x_hat_norm[x_hat_zero] = 1.0 # the row is zero anyway
+    x_hat.div!(x_hat_norm.newdim(0).tile(n))
+    for i in 0...n; x_hat[i,i] = 1.0 if x_hat_zero[i] == 1 end
+
+    #x_hat_norm = x_hat.sum(0).newdim(0).tile(n)
+    #x_hat.div!(x_hat_norm)
+    #raise unless x_hat[x_hat_norm.eq(0)].ne(x_hat[x_hat_norm.eq(0)]).all? # nan
+    #x_hat[x_hat_norm.eq(0)] = 1.0/n # arbitrary (and wrong)
+    #p x_hat.sum(0).to_a
+
+    # normalize d by total demand, because we want the (unconditional)
+    # probability of a trip from i to j
+    d.div!(d.sum)
 
     # now can build the tensor
     pr = NArray.float(n, n, n)
     for k in 0...n
-      pr[true,true,k] = d * x_hat[[k,k,k],true].transpose(1,0)
+      pr[true,true,k] = d * x_hat[[k]*n,true].transpose(1,0)
     end
 
-    raise 'BUG: probabilities do not sum' unless !tol || (1 - pr.sum).abs < tol
+    raise "probabilities sum to #{pr.sum}" unless !tol || (1 - pr.sum).abs < tol
 
     pr.to_a
   end
