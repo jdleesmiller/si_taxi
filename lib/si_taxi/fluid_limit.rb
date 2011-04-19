@@ -1,3 +1,5 @@
+require 'discrete_event'
+
 module SiTaxi::FluidLimit
   include SiTaxi::LPSolve
 
@@ -61,7 +63,7 @@ module SiTaxi::FluidLimit
   end
 
   #
-  # Build a tensor tau with
+  # Build a tensor, tau, with
   #   tau[i][j][k] = od_time[i][j] + od_time[j][k]
   # Each such entry represents one possible vehicle trip occupied from i to j
   # and then empty from j to k.
@@ -81,7 +83,10 @@ module SiTaxi::FluidLimit
   end
 
   #
-  # NB: results may be misleading if the od_times used to compute od_empty did
+  # Build a tensor that stores the probability of each entry in the tau tensor
+  # from {#transaction_time_tensor}.
+  #
+  # NB: results may be misleading if the od_time used to compute od_empty did
   # not satisfy the strict triangle inequality. Without the strict triangle
   # inequality, the solver may decide to push flow from A to B and then B to C,
   # instead of just pushing from A to C. The calculations here assume that there
@@ -191,3 +196,57 @@ LP
     zm.map {|i| zm.map {|j| yield(i,j)}.join(' + ')}
   end
 end
+
+class SiTaxi::MGKSimulation < DiscreteEvent::Simulation
+  include SiTaxi::FluidLimit
+
+  def initialize od_time, od_occup, od_empty, num_veh, num_pax
+    super()
+
+    @tau = NArray[*transaction_time_tensor(od_time)]
+    @tau_pr = NArray[*transaction_probability_tensor(od_occup, od_empty)]
+    @od_rate = od_occup.flatten.sum # overall arrival rate
+    @num_veh = num_veh
+    @num_pax = num_pax
+
+    @obs_pax_queue = []
+    @obs_pax_wait = []
+  end
+
+  attr_accessor :obs_pax_queue, :obs_pax_wait, :pax_queued, :num_veh_idle
+
+  def start
+    @pax_queued = []
+    @num_veh_idle = @num_veh
+    new_pax
+  end
+
+  # Sample from Exponential distribution with given mean rate.
+  def rand_exp rate
+    -Math::log(rand)/rate
+  end
+
+  def new_pax
+    after rand_exp(@od_rate) do
+      @obs_pax_queue << @pax_queued.size # record queue length before arrival
+      @pax_queued << now
+      serve_pax_if_any
+      new_pax if @obs_pax_queue.size < @num_pax 
+    end
+  end
+
+  def serve_pax_if_any
+    while !@pax_queued.empty? && @num_veh_idle > 0
+      pax_arrive_time = @pax_queued.shift
+      @obs_pax_wait << now - pax_arrive_time # record pax waiting times
+
+      @num_veh_idle -= 1
+      after @tau[*@tau_pr.sample] do
+        @num_veh_idle += 1
+        raise "#{@num_veh_idle} idle vehicles" if @num_veh_idle > @num_veh
+        serve_pax_if_any
+      end
+    end
+  end
+end
+

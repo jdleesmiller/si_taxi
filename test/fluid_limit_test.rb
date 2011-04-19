@@ -107,4 +107,91 @@ LP
     assert_in_delta 10 + 30 + 20 + 50 + 40 + 50,
       fluid_limit_intensity(times, l, flows, 1), $delta
   end
+
+  def test_transaction_time_tensor 
+    t = NArray[
+      [0,1,2],
+      [2,0,1],
+      [1,2,0]].to_f # 3 station ring with unit edges
+    tau = transaction_time_tensor(t)
+    assert_equal [
+      [[0.0, 3.0, 3.0],  # T_11+T_11, T_12+T_21, T_13+T_31
+       [2.0, 2.0, 2.0],  # T_21+T_11, T_22+T_21, T_23+T_31
+       [1.0, 4.0, 1.0]], # T_31+T_11, T_32+T_21, T_33+T_31
+      [[1.0, 1.0, 4.0],
+       [3.0, 0.0, 3.0], 
+       [2.0, 2.0, 2.0]],
+      [[2.0, 2.0, 2.0],
+       [4.0, 1.0, 1.0],
+       [3.0, 3.0, 0.0]]], tau
+  end
+
+  def test_transaction_probability_tensor 
+    # need times that satisfy the triangle inequality
+    t = [[   0,1.01,2.01],
+         [2.01,   0,1.01],
+         [1.01,2.01,   0]] # 3 station ring with unit edges
+    d = [[0, 1, 1],
+         [5, 0, 0],
+         [5, 1, 0]]
+    x = solve_fluid_limit_lp(t, d)
+    assert_all_in_delta [
+      [0,3,5],
+      [0,0,0],
+      [0,0,0]].flatten, x.flatten, $delta
+
+    tau_pr = transaction_probability_tensor(d, x)
+    assert_all_in_delta [
+     [[         0,      0,      0],  # s1 is an empty source: no empties in
+      [         0,      0,      0],
+      [         0,      0,      0]],
+     [[         0, 1.0/13,      0],  # s1->s2->s2; s2 uses all of its empties
+      [5.0/13*3/8,      0,      0],  # s2->s1->s2
+      [5.0/13*3/8, 1.0/13,      0]], # s3->s1->s2, s3->s2->s2
+     [[         0,      0, 1.0/13],  # s1->s3->s3; s3 uses all of its empties
+      [5.0/13*5/8,      0,      0],  # s2->s1->s3
+      [5.0/13*5/8,      0,      0]]].flatten, tau_pr.flatten, $delta
+  end
+
+  def test_transaction_probability_tensor_depot
+    # make sure we get a sensible answer if there is a station with no demand
+    t = [[   0,1.01,2.01],
+         [2.01,   0,1.01],
+         [1.01,2.01,   0]] # 3 station ring with unit edges
+    d = [[0, 0, 0],
+         [0, 0, 0],
+         [0, 1, 0]]
+    x = solve_fluid_limit_lp(t, d)
+    assert_all_in_delta [
+      [0,0,0],
+      [0,0,1],
+      [0,0,0]].flatten, x.flatten, $delta
+
+    tau_pr = transaction_probability_tensor(d, x)
+    # only one trip is possible: s3->s2->s3
+    assert_all_in_delta [
+      [[0,0,0],[0,0,0],[0,0,0]],
+      [[0,0,0],[0,0,0],[0,0,0]],
+      [[0,0,0],[0,0,0],[0,1,0]]].flatten, tau_pr.flatten, $delta
+  end
+
+  def test_mgk_simulation
+    t = [[ 0, 10.1, 30.1], 
+         [ 20.1, 0, 50.1], 
+         [ 40.1, 50.1, 0]] # 3 station star
+    d = [[   0,   0,   0],
+         [ 0.1,   0, 0.1],
+         [ 0.1, 0.1,   0]]
+    x = solve_fluid_limit_lp(t, d)
+    assert_all_in_delta [
+      [   0, 0.1, 0.1],
+      [   0,   0,   0],
+      [   0,   0,   0]].flatten, x.flatten, $delta
+
+    sim = MGKSimulation.new(t,d,x,30,100)
+    sim.run
+    assert_equal 100, sim.obs_pax_queue.size
+    assert_equal 100, sim.obs_pax_wait.size
+  end
 end
+
