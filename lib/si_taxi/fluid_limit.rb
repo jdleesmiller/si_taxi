@@ -23,7 +23,7 @@ module SiTaxi::FluidLimit
   def solve_fluid_limit_lp od_time, od_demand
     # Solve linear program to find required number of empty vehicles.
     lp_prog = make_fluid_limit_lp(od_time, od_demand)
-    status, num_empty_veh, ev_flows = lp_solve(lp_prog)
+    status, num_empty_veh, ev_flows = SiTaxi::LPSolve::lp_solve(lp_prog)
 
     # Recover the ev flows as a matrix.
     # Sometimes rounding errors give us very small negatives.
@@ -43,10 +43,10 @@ module SiTaxi::FluidLimit
   # @param [Array<Array<Numeric>>] od_time trip times
   #
   # @param [Array<Array<Numeric>>] od_occup vehicle flows, in vehicles per unit
-  # time (in time units appropriate for od_time)
+  #        time (in time units appropriate for od_time)
   #
   # @param [Array<Array<Numeric>>] od_empty empty vehicle flows, in vehicles per
-  # unit time (in time units appropriate for od_time)
+  #        unit time (in time units appropriate for od_time)
   #
   # @param [Numeric] num_veh number of vehicles; positive
   #
@@ -58,6 +58,79 @@ module SiTaxi::FluidLimit
     od_empty = NArray[*od_empty].to_f
 
     (od_time * (od_occup + od_empty)).sum / num_veh.to_f
+  end
+
+  #
+  # Build a tensor tau with
+  #   tau[i][j][k] = od_time[i][j] + od_time[j][k]
+  # Each such entry represents one possible vehicle trip occupied from i to j
+  # and then empty from j to k.
+  #
+  # @param [Array<Array<Numeric>>] od_time trip times
+  #
+  # @return [Array<Array<Array<Numeric>>>]
+  #
+  def transaction_time_tensor od_time
+    t = NArray[*od_time]
+    n = t.shape[0]
+    tau = NArray.new(t.typecode, n, n, n)
+    for k in 0...n
+      tau[true,true,k] = t + t[[k,k,k],true].transpose(1,0)
+    end
+    tau.to_a
+  end
+
+  #
+  # NB: results may be misleading if the od_times used to compute od_empty did
+  # not satisfy the strict triangle inequality. Without the strict triangle
+  # inequality, the solver may decide to push flow from A to B and then B to C,
+  # instead of just pushing from A to C. The calculations here assume that there
+  # is only one empty trip following on from each occupied trip, so we
+  # underestimate the true empty trip time in the former case.
+  #
+  # We could potentially extend the model with a probability of a second empty
+  # trip: in the example above, if B has both inbound and outbound empty
+  # vehicle flow, this should add to the expected empty trip time from A. 
+  #
+  # The real model here is a random walk model: after a trip to j, the vehicle
+  # may do an occupied trip to some other station or an empty trip to some other
+  # station; in the latter case, it may then do another empty trip. What we
+  # really want for the service time distribution is the length of the random
+  # *empty* walk. But, when od_empty is computed using the fluid limit LP and
+  # the travel times satisfy the triangle inequality, it should always be a
+  # walk of length 1, because no station should have both inbound and outbound
+  # empty vehicle flow (always cheaper to go direct).
+  #
+  # @param [Array<Array<Numeric>>] od_occup vehicle flows, in vehicles per unit
+  #        time (in whatever time units you choose)
+  #
+  # @param [Array<Array<Numeric>>] od_empty empty vehicle flows, in vehicles per
+  #        unit time (in whatever time units you choose)
+  #
+  def transaction_probability_tensor od_occup, od_empty
+    d = NArray[*od_occup]
+    x = NArray[*od_empty]
+    raise "dimensions do not match" if d.shape != x.shape
+    n = d.shape[0]
+
+    # normalize d by total demand, because we want the (unconditional)
+    # probability of a trip from i to j
+    d.div!(d.sum)
+    
+    # x needs more work; first, patch up
+    
+    # for x, however, we want the probability of an empty trip from j to k;
+    # that is, we want the probability of a trip to station k, conditional on
+    # starting at station j; so, here we normalise by row sums
+    x.div!(x.sum(0))
+
+    # the rows of x need not sum to 1, so 
+
+    tau = NArray.new(t.typecode, n, n, n)
+    for k in 0...n
+      tau[true,true,k] = t + t[[k,k,k],true].transpose(1,0)
+    end
+    tau
   end
 
   #
