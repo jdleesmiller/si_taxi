@@ -142,15 +142,22 @@ LP
 
     tau_pr = transaction_probability_tensor(d, x)
     assert_all_in_delta [
-     [[         0,      0,      0],  # s1 is an empty source: no empties in
-      [         0,      0,      0],
-      [         0,      0,      0]],
-     [[         0, 1.0/13,      0],  # s1->s2->s2; s2 uses all of its empties
-      [5.0/13*3/8,      0,      0],  # s2->s1->s2
-      [5.0/13*3/8, 1.0/13,      0]], # s3->s1->s2, s3->s2->s2
-     [[         0,      0, 1.0/13],  # s1->s3->s3; s3 uses all of its empties
-      [5.0/13*5/8,      0,      0],  # s2->s1->s3
-      [5.0/13*5/8,      0,      0]]].flatten, tau_pr.flatten, $delta
+     [[          0,      0,      0],  # s1 is an empty source: no empties in
+      [     1.0/13,      0,      0],  # s2->s1->s1
+      [     1.0/13,      0,      0]], # s3->s1->s1
+     [[          0, 1.0/13,      0],  # s1->s2->s2; s2 uses all of its empties
+      [5.0/13*3/10,      0,      0],  # s2->s1->s2
+      [5.0/13*3/10, 1.0/13,      0]], # s3->s1->s2, s3->s2->s2
+     [[         0,      0, 1.0/13],   # s1->s3->s3; s3 uses all of its empties
+      [5.0/13*5/10,      0,      0],   # s2->s1->s3
+      [5.0/13*5/10,      0,      0]]].flatten, tau_pr.flatten, $delta
+
+    # check that we get the same fleet size estimate from the fluid limit lp
+    tau = NArray[*transaction_time_tensor(t)]
+    d_total = NArray[*d].to_f.sum
+    expected_tau = (NArray[*tau]*NArray[*tau_pr]).sum
+    lp_est = (NArray[*t]*(NArray[*d] + NArray[*x])).sum
+    assert_in_delta d_total*expected_tau, lp_est
   end
 
   def test_transaction_probability_tensor_depot
@@ -168,11 +175,46 @@ LP
       [0,0,0]].flatten, x.flatten, $delta
 
     tau_pr = transaction_probability_tensor(d, x)
+
     # only one trip is possible: s3->s2->s3
     assert_all_in_delta [
       [[0,0,0],[0,0,0],[0,0,0]],
       [[0,0,0],[0,0,0],[0,0,0]],
       [[0,0,0],[0,0,0],[0,1,0]]].flatten, tau_pr.flatten, $delta
+
+    # check that we get the same fleet size estimate from the fluid limit lp
+    tau = NArray[*transaction_time_tensor(t)]
+    d_total = NArray[*d].to_f.sum
+    expected_tau = (NArray[*tau]*NArray[*tau_pr]).sum
+    lp_est = (NArray[*t]*(NArray[*d] + NArray[*x])).sum
+    assert_in_delta d_total*expected_tau, lp_est
+  end
+
+  def test_transaction_probability_tensor_balanced
+    # check that it works when there is a station with balanced (and non-zero
+    # demand)
+    t = [[    0, 10.01, 30.01,  5.01],
+         [20.01,     0, 50.01, 25.01], 
+         [40.01, 50.01,     0, 45.01],
+         [10.01, 20.01, 40.01,     0]] # star_network([10,20],[30,40],[5,10])
+    d = [[0, 1, 1, 1],
+         [1, 0, 0, 0],
+         [1, 1, 0, 0],
+         [1, 1, 1, 0]]
+    x = solve_fluid_limit_lp(t, d)
+    assert_all_in_delta [
+      [0,0,0,0],
+      [0,0,0,2],
+      [0,0,0,0],
+      [0,0,0,0]].flatten, x.flatten, $delta
+
+    # check that we get the same fleet size estimate from the fluid limit lp
+    tau_pr = transaction_probability_tensor(d, x)
+    tau = NArray[*transaction_time_tensor(t)]
+    d_total = NArray[*d].to_f.sum
+    expected_tau = (NArray[*tau]*NArray[*tau_pr]).sum
+    lp_est = (NArray[*t]*(NArray[*d] + NArray[*x])).sum
+    assert_in_delta d_total*expected_tau, lp_est
   end
 
   def test_mgk_simulation

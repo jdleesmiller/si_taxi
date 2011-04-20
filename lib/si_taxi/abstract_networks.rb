@@ -38,9 +38,9 @@ module SiTaxi::AbstractNetworks
   # The central node is numbered 0.
   #
   # Example:
-  #   edge_weights = [1,2,3], [3,2,1]
-  # creates a star with two rings, joined at a single node, which we number 0;
-  # the ring traversal times are as given to ring_network.
+  #   star_network([1,2,3], [3,2,1])
+  # creates a star with two three-station rings, joined at a single node, which
+  # we number 0; the ring traversal times are as given to ring_network.
   #
   def star_network *edge_weights
     i = 1 # non-center node index counter

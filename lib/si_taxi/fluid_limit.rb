@@ -84,7 +84,12 @@ module SiTaxi::FluidLimit
 
   #
   # Build a tensor that stores the probability of each entry in the tau tensor
-  # from {#transaction_time_tensor}.
+  # from {#transaction_time_tensor}, with
+  #   pr[i][j][k] = (d_ij/d)(x[j][k] / t[j])
+  # when j != k, or
+  #   pr[i][j][k] = (d_ij/d)(1 - sum_{m} x[j][m] / t[j])
+  # where
+  #   t[j] = sum_{l} d[j][l] + x[j][l]
   #
   # NB: results may be misleading if the od_time used to compute od_empty did
   # not satisfy the strict triangle inequality. Without the strict triangle
@@ -118,43 +123,22 @@ module SiTaxi::FluidLimit
     x = NArray[*od_empty].to_f
     raise "dimensions do not match" if d.shape != x.shape
     n = d.shape[0]
-    
-    # first, get the trivial empty flows from each station to itself, which are
-    # given by total occupied flow out (row sums) - total occupied flow in
-    # (column sums), when it is positive
-    x_diag = d.sum(0) - d.sum(1)
-    x_diag[x_diag < 0] = 0
-
-    # store this total on the diagonal of X, which is assumed to be zero,
-    # because the X_ii terms cancel in the lp formulation
-    x_hat = x.dup
-    for i in 0...n; x_hat[i,i] = x_diag[i] end
-
-    # for x, we want the probability of an empty trip from j to k;
-    # that is, we want the probability of a trip to station k, conditional on
-    # starting at station j; so, here we normalise by row sums
-    # we also have to be careful about dividing by zero, which may happen for
-    # stations with no demand in or out (e.g. depots) or balanced demand
-    x_hat_norm = x_hat.sum(0)
-    x_hat_zero = x_hat_norm.eq(0)
-    x_hat_norm[x_hat_zero] = 1.0 # the row is zero anyway
-    x_hat.div!(x_hat_norm.newdim(0).tile(n))
-    for i in 0...n; x_hat[i,i] = 1.0 if x_hat_zero[i] == 1 end
-
-    #x_hat_norm = x_hat.sum(0).newdim(0).tile(n)
-    #x_hat.div!(x_hat_norm)
-    #raise unless x_hat[x_hat_norm.eq(0)].ne(x_hat[x_hat_norm.eq(0)]).all? # nan
-    #x_hat[x_hat_norm.eq(0)] = 1.0/n # arbitrary (and wrong)
-    #p x_hat.sum(0).to_a
 
     # normalize d by total demand, because we want the (unconditional)
     # probability of a trip from i to j
-    d.div!(d.sum)
+    d_norm = (d / d.sum)
+    x_norm = (x / (d + x).sum(0).newdim(0).tile(n))
+    
+    # stations with no demand (in or out) give NaN here, but it doesn't really
+    # matter, because the corresponding entries for X_jk are always multipled by
+    # a D_ij that is zero, so just set the NaNs to zero.
+    x_norm[x_norm.ne(x_norm)] = 0.0
 
-    # now can build the tensor
     pr = NArray.float(n, n, n)
     for k in 0...n
-      pr[true,true,k] = d * x_hat[[k]*n,true].transpose(1,0)
+      x_k = x_norm[k, true] # k'th column
+      x_k[k] = 1 - x_norm[true, k].sum # k'th row
+      pr[true,true,k] = d_norm * x_k.tile(1,n)
     end
 
     raise "probabilities sum to #{pr.sum}" unless !tol || (1 - pr.sum).abs < tol
