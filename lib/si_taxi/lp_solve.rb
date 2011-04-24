@@ -1,17 +1,15 @@
-module SiTaxi
-  #
-  # Thrown when something goes wrong in a solver routine -- if possible, the
-  # solve routine should avoid throwing out the (partial) answer when it fails.
-  #
-  class SolveError < RuntimeError
-    attr :solver_input
-    attr :solver_output
-    attr :cause
-    def initialize *opts
-      @solver_input, @solver_output, @cause = opts 
-    end
-    def message; cause.message; end
+#
+# Thrown when something goes wrong in a solver routine -- if possible, the
+# solve routine tries to output the (partial) answer when it fails.
+#
+class SiTaxi::SolveError < RuntimeError
+  attr :solver_input
+  attr :solver_output
+  attr :cause
+  def initialize *opts
+    @solver_input, @solver_output, @cause = opts 
   end
+  def message; cause.message; end
 end
 
 module SiTaxi::LPSolve
@@ -62,7 +60,7 @@ module SiTaxi::LPSolve
 
       [status, objective_value, variable_values, out]
     rescue
-      raise SolveError.new(lp_prog, out.join, $!)
+      raise SiTaxi::SolveError.new(lp_prog, (out || []).join, $!)
     end
   end
 end
