@@ -4,10 +4,8 @@
 # nodes (no merge/diverge restrictions).
 #
 # Example:
-#   disable_warnings do
-#     ring_network(1, 2, 3).write_to_graphic_file('png','ring1')
-#     star_network([1,2,3], [3,2,1]).write_to_graphic_file('png','star1')
-#   end
+#   ring_network(1, 2, 3).write_to_graphic_file('png','ring1')
+#   star_network([1,2,3], [3,2,1]).write_to_graphic_file('png','star1')
 #
 #
 require 'gratr'

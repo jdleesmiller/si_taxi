@@ -22,12 +22,10 @@ module SiTaxi::LPSolve
   #
   def lp_solve lp_prog, *args
     begin
-      out = disable_warnings {
-          IO.popen("lp_solve #{args.join(' ')}", 'r+') {|p|
-          p.puts lp_prog
-          p.close_write
-          p.readlines
-        }
+      out = IO.popen("lp_solve #{args.join(' ')}", 'r+') {|p|
+        p.puts lp_prog
+        p.close_write
+        p.readlines
       }
 
       # Return codes appear to correspond to return values of solve(.) API call.
