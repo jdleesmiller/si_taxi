@@ -44,6 +44,10 @@ SWIG_EXT_DEPS = Dir["ext/**/*.cpp}"] + ['ext/extconf.rb', SI_TAXI_WRAP]
 desc 'generate wrapper with swig'
 task :ext, [:args] => SWIG_EXT_DEPS do |t, args|
   args = args[:args] || ''
+  # HACK: save typing...
+  if `uname -n`.chomp == 'enm-jdlm'
+    args += ' --with-boost=/usr/local/include/boost-1_39'
+  end
   Dir.chdir('ext') do
     ruby "extconf.rb #{args}"
     sh "make -j#{num_processors}"
