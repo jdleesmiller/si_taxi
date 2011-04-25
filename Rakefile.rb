@@ -62,15 +62,6 @@ task 'lcov:zero' do
   end
 end
 
-# NOTE: to avoid lots of spurious leaks, it should be possible to install 
-# ruby with
-#   rvm install 1.9.2 -C --with-valgrind
-# but I haven't actually seen this work (still get lots of spurious leaks)
-desc 'run tests under valgrind'
-task 'test:valgrind' do
-  sh "valgrind --partial-loads-ok=yes --undef-value-errors=no rake test"
-end
-
 desc 'generate coverage report'
 task 'lcov:capture' do
   mkdir_p 'lcov' 
@@ -79,6 +70,15 @@ task 'lcov:capture' do
          " --capture --output-file ext.info"
     sh "genhtml ext.info"
   end
+end
+
+# NOTE: to avoid lots of spurious leaks, it should be possible to install 
+# ruby with
+#   rvm install 1.9.2 -C --with-valgrind
+# but I haven't actually seen this work (still get lots of spurious leaks)
+desc 'run tests under valgrind'
+task 'test:valgrind' do
+  sh "valgrind --partial-loads-ok=yes --undef-value-errors=no rake test"
 end
 
 desc 'build libsi_taxi'
