@@ -14,9 +14,6 @@ rescue LoadError
   puts 'Install gemma (sudo gem install gemma) for more rake tasks.'
 end
 
-# Note that you currently have to set this in extconf.rb and Eclipse, too.
-COVERAGE = !!ENV['SI_TAXI_COVERAGE']
-
 $rakefile_dir = File.dirname(__FILE__)
 CLOBBER.include('ext/*{.o,.so,.log,.cxx}')
 CLOBBER.include('ext/si_taxi/{Debug,Coverage,Release}')
@@ -31,11 +28,6 @@ def num_processors
 end
 
 SI_TAXI_DIR = File.expand_path(File.join($rakefile_dir, 'ext', 'si_taxi'))
-if COVERAGE
-  SI_TAXI_LIB = File.join(SI_TAXI_DIR, 'Coverage', 'libsi_taxi.a')
-else
-  SI_TAXI_LIB = File.join(SI_TAXI_DIR, 'Debug', 'libsi_taxi.a')
-end
 
 #
 # SWIG
@@ -48,19 +40,15 @@ file SI_TAXI_WRAP => SI_TAXI_WRAP_DEPS do |t|
   end
 end
 
-SWIG_EXT = "ext/si_taxi_ext.#{Config::CONFIG['DLEXT']}"
-SWIG_EXT_DEPS = Dir["ext/**/*.cpp}"] +
-  ['ext/extconf.rb', SI_TAXI_WRAP, SI_TAXI_LIB]
-desc "run extconf to build"
-file SWIG_EXT => SWIG_EXT_DEPS do |t|
+SWIG_EXT_DEPS = Dir["ext/**/*.cpp}"] + ['ext/extconf.rb', SI_TAXI_WRAP]
+desc 'generate wrapper with swig'
+task :ext, [:args] => SWIG_EXT_DEPS do |t, args|
+  args = args[:args] || ''
   Dir.chdir('ext') do
-    ruby "extconf.rb"
+    ruby "extconf.rb #{args}"
     sh "make -j#{num_processors}"
   end
 end
-
-desc 'generate wrapper with swig'
-task :swig => SWIG_EXT 
 
 # note: this doesn't seem to work in lcov 1.8; works with lcov 1.9, though
 LCOV_DIR = '../ext'
@@ -96,11 +84,11 @@ end
 desc 'build libsi_taxi'
 task 'eclipse:build' do
   si_taxi_project = File.join(File.expand_path('.'), 'ext', 'si_taxi')
-  sh "/usr/local/eclipse/eclipse -nosplash"\
+  # note that eclipse must be on the PATH
+  sh "eclipse -nosplash"\
     " -application org.eclipse.cdt.managedbuilder.core.headlessbuild"\
     " -import #{si_taxi_project}"\
     " -build si_taxi"
-
 end
 
 task :default => :test
