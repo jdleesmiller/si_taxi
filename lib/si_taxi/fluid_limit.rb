@@ -232,7 +232,7 @@ class SiTaxi::MGKSimulation < DiscreteEvent::Simulation
       @obs_pax_wait << now - pax_arrive_time # record pax waiting times
 
       @num_veh_idle -= 1
-      after @tau[*@tau_pr.sample] do
+      after @tau[*@tau_pr.sample_pmf] do
         @num_veh_idle += 1
         raise "#{@num_veh_idle} idle vehicles" if @num_veh_idle > @num_veh
         serve_pax_if_any
