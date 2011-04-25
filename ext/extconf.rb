@@ -51,5 +51,5 @@ si_taxi_lib = File.join(SI_TAXI_DIR, target)
 find_library('si_taxi', 'si_taxi_hello_world', si_taxi_lib) or
   raise 'could not find libsi_taxi.a'
 
-create_makefile("si_taxi_ext")
+create_makefile("siTaxi")
 

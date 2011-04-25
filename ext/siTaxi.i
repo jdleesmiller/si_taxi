@@ -1,4 +1,4 @@
-%module si_taxi_ext
+%module siTaxi
 
 %{
 #include <si_taxi/si_taxi.h>

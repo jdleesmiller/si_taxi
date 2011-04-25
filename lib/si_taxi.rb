@@ -13,15 +13,8 @@ disable_warnings do # gives one annoying warning
   require 'narray'
 end
 
-# When the gem is loaded with bundler, we get an SiTaxi constant defined, which
-# causes a warning when we remap it to Si_taxi_ext below; it would be better to
-# fix it so that the module was called SiTaxi, but I haven't been able to get
-# that working.
-Object.instance_eval { remove_const :SiTaxi if const_defined? :SiTaxi }
-
-# Load extension module as SiTaxi before doing anything else.
-require 'si_taxi_ext'
-SiTaxi = Si_taxi_ext
+# Load extension module before doing anything else.
+require 'siTaxi'
 
 require 'si_taxi/version'
 require 'si_taxi/extensions'
