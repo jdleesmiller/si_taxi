@@ -1,6 +1,6 @@
 require 'test/si_taxi_helper'
 
-class CommonTest < Test::Unit::TestCase
+class ExtensionTest < Test::Unit::TestCase
   def assert_narray_close exp, obs
     assert exp.shape == obs.shape && ((exp - obs).abs < $delta).all?,
       "#{exp.inspect} expected; got\n#{obs.inspect}"
