@@ -24,6 +24,7 @@ require 'si_taxi/bell_wong'
 require 'si_taxi/lp_solve'
 require 'si_taxi/fluid_limit'
 require 'si_taxi/natural_histogram'
+require 'si_taxi/cross_entropy'
 
 require 'si_taxi/mdp_model'
 require 'si_taxi/mdp_model_a'
