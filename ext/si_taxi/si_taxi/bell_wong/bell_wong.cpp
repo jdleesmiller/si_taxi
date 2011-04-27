@@ -201,6 +201,21 @@ void BWSimStatsDetailed::record_empty_trip(size_t empty_origin,
   ++empty_trips(empty_origin, empty_destin);
 }
 
+BWSimStatsMeanPaxWait::BWSimStatsMeanPaxWait(BWSim &sim) : BWSimStats(sim) {
+  this->mean_pax_wait = 0.0;
+  this->pax_count = 0;
+}
+
+void BWSimStatsMeanPaxWait::record_pax_served(const BWPax &pax,
+    size_t empty_origin, BWTime pickup)
+{
+  double wait = (double)(pickup - pax.arrive);
+  CHECK(wait >= 0);
+  this->mean_pax_wait = cumulative_moving_average(wait,
+      this->mean_pax_wait,
+      this->pax_count);
+}
+
 size_t BWNNHandler::handle_pax(const BWPax &pax) {
   ASSERT(pax.origin < sim.num_stations());
   ASSERT(pax.destin < sim.num_stations());

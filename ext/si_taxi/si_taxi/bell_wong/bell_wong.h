@@ -326,10 +326,10 @@ struct BWSimStats {
   BWSim &sim;
 };
 
-//
-// Collect waiting times, queue lengths and vehicle trip counts for each
-// station individually.
-//
+/**
+ * Collect waiting times, queue lengths and vehicle trip counts for each
+ * station individually.
+ */
 struct BWSimStatsDetailed : public BWSimStats {
   explicit inline BWSimStatsDetailed(BWSim &sim) : BWSimStats(sim) { }
   virtual ~BWSimStatsDetailed() { }
@@ -358,6 +358,23 @@ struct BWSimStatsDetailed : public BWSimStats {
   boost::numeric::ublas::matrix<size_t> occupied_trips;
   /// Number of empty vehicle trips observed between each pair of stations.
   boost::numeric::ublas::matrix<size_t> empty_trips;
+};
+
+/**
+ * Collect mean passenger waiting time only.
+ */
+struct BWSimStatsMeanPaxWait : public BWSimStats {
+  explicit BWSimStatsMeanPaxWait(BWSim &sim);
+  virtual ~BWSimStatsMeanPaxWait() { }
+
+  /**
+   * Record statistics for given passenger.
+   */
+  virtual void record_pax_served(const BWPax &pax, size_t empty_origin,
+      BWTime pickup);
+
+  double mean_pax_wait;
+  int pax_count;
 };
 
 /**

@@ -31,7 +31,6 @@ void BWCallTimeTracker::update(size_t ev_origin, size_t ev_destin) {
         (double)sim.trip_time(ev_origin, ev_destin),
         call_time[ev_destin],
         call[ev_destin]);
-    ++call[ev_destin];
   }
 }
 

@@ -107,12 +107,12 @@ struct NaturalHistogram {
 
 /**
  * Cumulative average, where average is the average over the last count points
- * and x is the point just observed. Note that this method doesn't update count,
- * so you will have to do that elsewhere.
+ * and x is the point just observed. Note that this method increments count.
  */
 template <typename T, typename N>
-T cumulative_moving_average(T x, T average, N count) {
-  return average + (x - average) / (count + 1);
+T cumulative_moving_average(T x, T average, N &count) {
+  ++count;
+  return average + (x - average) / count;
 }
 
 }

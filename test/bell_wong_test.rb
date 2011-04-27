@@ -274,5 +274,43 @@ class BellWongTest < Test::Unit::TestCase
       assert_queue_hists [210, 90], [210, 90], [300] # NB: stops at last pax
     end
   end
+
+  context "mean pax wait recording only" do
+    setup do
+      @sim = BWSim.new
+      @sim.trip_time = TRIP_TIMES_2ST_RING_10_20
+      @sim_stats = BWSimStatsMeanPaxWait.new(@sim)
+      @sim.stats = @sim_stats
+      @sim.init
+      put_veh_at 0
+      @sim.reactive = BWSNNHandler.new(@sim)
+      @sim.proactive = BWProactiveHandler.new(@sim) # nop
+    end
+
+    should "default to zero" do
+      assert_equal 0, @sim_stats.mean_pax_wait
+      assert_equal 0, @sim_stats.pax_count
+    end
+
+    should "record single waiting time" do
+      # no wait
+      pax         0,  1,  10 
+      assert_veh  0,  1,  20
+      assert_equal 0, @sim_stats.mean_pax_wait
+      assert_equal 1, @sim_stats.pax_count
+
+      # wait 25s
+      pax         0,  1,  15 
+      assert_veh  0,  1,  20+20+10
+      assert_in_delta 12.5, @sim_stats.mean_pax_wait, $delta
+      assert_equal 2, @sim_stats.pax_count
+
+      # wait 5s
+      pax         1,  0,  45 
+      assert_veh  1,  0,  70
+      assert_in_delta 10, @sim_stats.mean_pax_wait, $delta
+      assert_equal 3, @sim_stats.pax_count
+    end
+  end
 end
 
