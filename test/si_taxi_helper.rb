@@ -64,6 +64,8 @@ module BellWongTestHelper
   def setup_sim trip_time
     @sim = BWSim.new
     @sim.trip_time = trip_time
+    @sim_stats = BWSimStatsDetailed.new(@sim)
+    @sim.stats = @sim_stats
     @sim.init
     nil
   end
@@ -111,9 +113,9 @@ module BellWongTestHelper
       for i in 0...hists.size
         case hists[i]
         when Array then
-          assert_equal hists[i], @sim.pax_wait[i].to_a
+          assert_equal hists[i], @sim_stats.pax_wait[i].to_a
         when Hash then
-          assert_equal hists[i], @sim.pax_wait[i].to_h
+          assert_equal hists[i], @sim_stats.pax_wait[i].to_h
         else
           raise "bad type for hist #{i}: #{hists[i]}"
         end
@@ -127,6 +129,6 @@ module BellWongTestHelper
   # Assert that we get the given queue length histograms (per station).
   #
   def assert_queue_hists *hists
-    assert_equal hists, @sim.queue_len.map{|h| h.to_a}
+    assert_equal hists, @sim_stats.queue_len.map{|h| h.to_a}
   end
 end

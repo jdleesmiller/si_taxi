@@ -6,6 +6,7 @@ class BellWongTest < Test::Unit::TestCase
   context "new sim" do
     setup do
       @sim = BWSim.new
+      @sim_stats = BWSimStatsDetailed.new(@sim)
     end
 
     should "have defaults" do
@@ -15,10 +16,11 @@ class BellWongTest < Test::Unit::TestCase
       assert_equal nil, @sim.proactive
       assert_equal [], @sim.vehs.to_a
       assert_equal [], @sim.trip_time
-      assert_equal [], @sim.pax_wait.to_a
-      assert_equal [], @sim.queue_len.to_a
-      assert_equal [], @sim.occupied_trips
-      assert_equal [], @sim.empty_trips
+
+      assert_equal [], @sim_stats.pax_wait.to_a
+      assert_equal [], @sim_stats.queue_len.to_a
+      assert_equal [], @sim_stats.occupied_trips
+      assert_equal [], @sim_stats.empty_trips
     end
   end
 
@@ -43,8 +45,8 @@ class BellWongTest < Test::Unit::TestCase
 
           assert_wait_hists  [2],  [1]   # zero waiting
           assert_queue_hists [30], [30]
-          assert_equal [[2,0],[0,1]], @sim.empty_trips
-          assert_equal [[0,2],[1,0]], @sim.occupied_trips
+          assert_equal [[2,0],[0,1]], @sim_stats.empty_trips
+          assert_equal [[0,2],[1,0]], @sim_stats.occupied_trips
         end
 
         should "have zero wait with ideal arrivals (two vehicles)" do
@@ -55,8 +57,8 @@ class BellWongTest < Test::Unit::TestCase
           pax         1,  0,   1
           assert_veh  1,  0,  21
           assert_wait_hists [1], [1] # zero waiting
-          assert_equal [[1,0],[0,1]], @sim.empty_trips
-          assert_equal [[0,1],[1,0]], @sim.occupied_trips
+          assert_equal [[1,0],[0,1]], @sim_stats.empty_trips
+          assert_equal [[0,1],[1,0]], @sim_stats.occupied_trips
         end
 
         should "get waiting times; no e.v. trips; two vehicles" do
@@ -70,8 +72,8 @@ class BellWongTest < Test::Unit::TestCase
           pax         1,  0,   1
           assert_veh  1,  0,  30, 0
           assert_wait_hists({0=>1, 19=>1}, {0=>1, 9=>1})
-          assert_equal [[2,0],[0,2]], @sim.empty_trips
-          assert_equal [[0,2],[2,0]], @sim.occupied_trips
+          assert_equal [[2,0],[0,2]], @sim_stats.empty_trips
+          assert_equal [[0,2],[2,0]], @sim_stats.occupied_trips
         end
 
         should "handle tidal demand" do
@@ -83,8 +85,8 @@ class BellWongTest < Test::Unit::TestCase
           pax         0,  1,   2
           assert_veh  0,  1,  90 # 10s empty trip
           assert_wait_hists({20 => 1, 49 => 1, 78 => 1}, {})
-          assert_equal [[0,0],[3,0]], @sim.empty_trips
-          assert_equal [[0,3],[0,0]], @sim.occupied_trips
+          assert_equal [[0,0],[3,0]], @sim_stats.empty_trips
+          assert_equal [[0,3],[0,0]], @sim_stats.occupied_trips
 
           pax         0,  1, 120 # to compute queue length stats
           assert_queue_hists [10+30,30+1,30+1,20-2], [120]
@@ -113,7 +115,7 @@ class BellWongTest < Test::Unit::TestCase
           SiTaxi.seed_rng 1
           stream = BWPoissonPaxStream.new(0, [[0, 0.1],[0.2, 0]])
           @sim.handle_pax_stream 100, stream
-          assert_equal 100, @sim.pax_wait.map(&:to_a).flatten.inject(:+)
+          assert_equal 100, @sim_stats.pax_wait.map(&:to_a).flatten.inject(:+)
         end
       end
 
@@ -134,10 +136,10 @@ class BellWongTest < Test::Unit::TestCase
           assert_wait_hists({}, {10 => 1}, {29 => 1})
           assert_equal [[0,1,0],
                         [0,0,0],
-                        [0,0,1]], @sim.empty_trips
+                        [0,0,1]], @sim_stats.empty_trips
           assert_equal [[0,0,0],
                         [0,0,1],
-                        [1,0,0]], @sim.occupied_trips
+                        [1,0,0]], @sim_stats.occupied_trips
 
           pax         0,  1, 120 # to compute queue length stats
           assert_queue_hists [120], [110,10], [91,29]
@@ -173,10 +175,10 @@ class BellWongTest < Test::Unit::TestCase
           assert_wait_hists({0=>1, 25=>1},{0=>2},{0=>2})
           assert_equal [[2,0,0],
                         [0,2,0],
-                        [0,0,2]], @sim.empty_trips
+                        [0,0,2]], @sim_stats.empty_trips
           assert_equal [[0,2,0],
                         [0,0,2],
-                        [2,0,0]], @sim.occupied_trips
+                        [2,0,0]], @sim_stats.occupied_trips
         end
       end
     end

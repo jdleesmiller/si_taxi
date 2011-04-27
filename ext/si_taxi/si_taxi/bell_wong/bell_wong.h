@@ -82,6 +82,7 @@ struct BWPaxStream {
 
 struct BWReactiveHandler;  // forward declaration
 struct BWProactiveHandler; // forward declaration
+struct BWSimStats;         // forward declaration
 
 /**
  * Simulation.
@@ -119,24 +120,10 @@ struct BWSim {
   std::vector<BWVehicle> vehs;
   /// Station-station trip times in seconds; zeros on the diagonal.
   boost::numeric::ublas::matrix<int> trip_time;
+  /// Statistics collection.
+  BWSimStats *stats;
 
-  //
-  // Statistics collection.
-  //
-
-  /// Histograms of passenger waiting times, in seconds, per station.
-  std::vector<NaturalHistogram> pax_wait;
-  /// Histograms of passenger queue lengths, in seconds, per station.
-  std::vector<NaturalHistogram> queue_len;
-  /// Helper for computing queue length (queue_len) stats.
-  std::vector<std::priority_queue<BWTime,
-    std::vector<BWTime>, std::greater<BWTime> > > pickups;
-  /// Number of occupied vehicle trips observed between each pair of stations.
-  boost::numeric::ublas::matrix<size_t> occupied_trips;
-  /// Number of empty vehicle trips observed between each pair of stations.
-  boost::numeric::ublas::matrix<size_t> empty_trips;
-
-  BWSim() : now(0), strobe(0), reactive(NULL), proactive(NULL) { }
+  BWSim() : now(0), strobe(0), reactive(NULL), proactive(NULL), stats(NULL) { }
 
   /**
    * Number of stations (or zones); this is based on the trip times.
@@ -200,16 +187,6 @@ struct BWSim {
    * trip, make any required empty trip, and then make pax's trip.
    */
   void serve_pax(size_t k, const BWPax &pax);
-
-  /**
-   * Called in each time frame; records queue lengths at each station.
-   */
-  void record_queue_lengths();
-
-  /**
-   * Record statistics for given passenger.
-   */
-  void record_pax_served(const BWPax &pax, size_t empty_origin, BWTime pickup);
 
   /**
    * Number of vehicles that have destination i; these may be moving to i or
@@ -311,6 +288,76 @@ struct BWProactiveHandler {
    * The simulation to which this handler is attached.
    */
   BWSim &sim;
+};
+
+/**
+ * Interface for stats collection. By default, it collects no stats; subclasses
+ * implement various levels of detail.
+ */
+struct BWSimStats {
+  explicit inline BWSimStats(BWSim &sim) : sim(sim) { }
+  virtual ~BWSimStats() { }
+
+  /**
+   * Clear all stats counters, in preparation for a new run.
+   */
+  inline virtual void init() { };
+
+  /**
+   * Called in each time frame; records queue lengths at each station.
+   */
+  inline virtual void record_queue_lengths() { };
+
+  /**
+   * Record statistics for given passenger.
+   */
+  inline virtual void record_pax_served(const BWPax &pax, size_t empty_origin,
+      BWTime pickup) { };
+
+  /**
+   * Record an empty vehicle trip.
+   */
+  inline virtual void record_empty_trip(size_t empty_origin,
+      size_t empty_destin) { };
+
+  /**
+   * The simulation that this object is recording from.
+   */
+  BWSim &sim;
+};
+
+//
+// Collect waiting times, queue lengths and vehicle trip counts for each
+// station individually.
+//
+struct BWSimStatsDetailed : public BWSimStats {
+  explicit inline BWSimStatsDetailed(BWSim &sim) : BWSimStats(sim) { }
+  virtual ~BWSimStatsDetailed() { }
+
+  /// override
+  virtual void init();
+
+  /// override
+  virtual void record_queue_lengths();
+
+  /// override
+  virtual void record_pax_served(const BWPax &pax, size_t empty_origin,
+      BWTime pickup);
+
+  /// override
+  virtual void record_empty_trip(size_t empty_origin, size_t empty_destin);
+
+  /// Histograms of passenger waiting times, in seconds, per station.
+  std::vector<NaturalHistogram> pax_wait;
+  /// Histograms of passenger queue lengths, in seconds, per station.
+  std::vector<NaturalHistogram> queue_len;
+  /// Helper for computing queue length (queue_len) stats.
+  std::vector<std::priority_queue<BWTime,
+    std::vector<BWTime>, std::greater<BWTime> > > pickups;
+  /// Number of occupied vehicle trips observed between each pair of stations.
+  boost::numeric::ublas::matrix<size_t> occupied_trips;
+  /// Number of empty vehicle trips observed between each pair of stations.
+  boost::numeric::ublas::matrix<size_t> empty_trips;
 };
 
 /**

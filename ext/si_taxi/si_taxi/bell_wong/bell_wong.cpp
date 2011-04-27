@@ -7,28 +7,21 @@ using namespace std;
 namespace si_taxi {
 
 void BWSim::init() {
-  now = 0;
-  pax_wait.clear();
-  pax_wait.resize(num_stations());
-  queue_len.clear();
-  queue_len.resize(num_stations());
-  pickups.clear();
-  pickups.resize(num_stations());
+  ASSERT(this->stats);
 
-  occupied_trips.resize(num_stations(), num_stations());
-  occupied_trips.clear();
-  empty_trips.resize(num_stations(), num_stations());
-  empty_trips.clear();
+  now = 0;
+  this->stats->init();
 }
 
 void BWSim::run_to(BWTime t) {
   ASSERT(this->reactive);
   ASSERT(this->proactive);
+  ASSERT(this->stats);
   ASSERT(t >= now);
 
   for (; now < t; ++now) {
     // Record queue length stats.
-    record_queue_lengths();
+    stats->record_queue_lengths();
 
     // Catch up on vehicle idle events.
     for (size_t k = 0; k < vehs.size(); ++k) {
@@ -75,7 +68,7 @@ void BWSim::move_empty(size_t k, size_t destin) {
   ASSERT(destin < num_stations());
   ASSERT(veh.destin < num_stations());
 
-  ++empty_trips(veh.destin, destin);
+  stats->record_empty_trip(veh.destin, destin);
 
   veh.origin = veh.destin;
   veh.destin = destin;
@@ -100,39 +93,11 @@ void BWSim::serve_pax(size_t k, const BWPax &pax) {
   ASSERT(veh.destin < num_stations());
 
   BWTime pickup = max(veh.arrive, now) + trip_time(veh.destin, pax.origin);
-  record_pax_served(pax, veh.destin, pickup);
+  stats->record_pax_served(pax, veh.destin, pickup);
 
   veh.arrive = pickup + trip_time(pax.origin, pax.destin);
   veh.origin = pax.origin;
   veh.destin = pax.destin;
-}
-
-void BWSim::record_queue_lengths() {
-  for (size_t i = 0; i < num_stations(); ++i) {
-    // Remove passengers that have already been served.
-    while (!pickups[i].empty() && pickups[i].top() <= now)
-      pickups[i].pop();
-    // Record remaining queue; length is the number of future serve_times.
-    queue_len[i].increment(pickups[i].size());
-  }
-}
-
-void BWSim::record_pax_served(const BWPax &pax, size_t empty_origin,
-    BWTime pickup) {
-  CHECK(pickup >= pax.arrive);
-  ASSERT(empty_origin < num_stations());
-
-  // Record empty and occupied vehicle trips.
-  ++empty_trips(empty_origin, pax.origin);
-  ++occupied_trips(pax.origin, pax.destin);
-
-  // Record waiting time; update pickups so we can get queue lengths.
-  size_t wait = (size_t)(pickup - pax.arrive);
-  pax_wait.at(pax.origin).increment(wait);
-  if (wait > 0) {
-    // Don't push when wait is 0; we'd just pop it off before counting it.
-    pickups.at(pax.origin).push(pickup);
-  }
 }
 
 int BWSim::num_vehicles_inbound(size_t i) const {
@@ -185,6 +150,55 @@ void BWSim::count_idle_vehs(std::vector<int> &idle_vehs) const {
       ++(idle_vehs[vehs[k].destin]);
     }
   }
+}
+
+void BWSimStatsDetailed::init() {
+  pax_wait.clear();
+  pax_wait.resize(sim.num_stations());
+  queue_len.clear();
+  queue_len.resize(sim.num_stations());
+  pickups.clear();
+  pickups.resize(sim.num_stations());
+
+  occupied_trips.resize(sim.num_stations(), sim.num_stations());
+  occupied_trips.clear();
+  empty_trips.resize(sim.num_stations(), sim.num_stations());
+  empty_trips.clear();
+}
+
+void BWSimStatsDetailed::record_queue_lengths() {
+  for (size_t i = 0; i < sim.num_stations(); ++i) {
+    // Remove passengers that have already been served.
+    while (!pickups[i].empty() && pickups[i].top() <= sim.now)
+      pickups[i].pop();
+    // Record remaining queue; length is the number of future serve_times.
+    queue_len[i].increment(pickups[i].size());
+  }
+}
+
+void BWSimStatsDetailed::record_pax_served(const BWPax &pax,
+    size_t empty_origin, BWTime pickup)
+{
+  CHECK(pickup >= pax.arrive);
+  ASSERT(empty_origin < sim.num_stations());
+
+  // Record empty and occupied vehicle trips.
+  ++empty_trips(empty_origin, pax.origin);
+  ++occupied_trips(pax.origin, pax.destin);
+
+  // Record waiting time; update pickups so we can get queue lengths.
+  size_t wait = (size_t)(pickup - pax.arrive);
+  pax_wait.at(pax.origin).increment(wait);
+  if (wait > 0) {
+    // Don't push when wait is 0; we'd just pop it off before counting it.
+    pickups.at(pax.origin).push(pickup);
+  }
+}
+
+void BWSimStatsDetailed::record_empty_trip(size_t empty_origin,
+    size_t empty_destin)
+{
+  ++empty_trips(empty_origin, empty_destin);
 }
 
 size_t BWNNHandler::handle_pax(const BWPax &pax) {
@@ -258,7 +272,7 @@ size_t BWSNNHandler::handle_pax(const BWPax &pax) {
   size_t empty_origin = sim.vehs[k_star].destin;
   BWTime pickup = BWSNNHandler::update_veh(pax,
       sim.vehs[k_star], sim.trip_time);
-  sim.record_pax_served(pax, empty_origin, pickup);
+  sim.stats->record_pax_served(pax, empty_origin, pickup);
 
   return numeric_limits<size_t>::max(); // sim state already updated
 }

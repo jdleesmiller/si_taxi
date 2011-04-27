@@ -92,6 +92,6 @@ class DynamicTransportationProblemTest < Test::Unit::TestCase
        [  0,   0, 0.4],
        [0.2, 0.3,   0]])
     @sim.handle_pax_stream 100, stream
-    assert_equal 100, @sim.pax_wait.map(&:to_a).flatten.inject(:+)
+    assert_equal 100, @sim_stats.pax_wait.map(&:to_a).flatten.inject(:+)
   end
 end

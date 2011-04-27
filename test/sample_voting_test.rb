@@ -316,7 +316,7 @@ class SamplingVotingTest < Test::Unit::TestCase
        [0.2, 0.3,   0]])
     put_veh_at(*([0,1,2]*15))
     @sim.handle_pax_stream 100, stream
-    assert_equal 100, @sim.pax_wait.map(&:to_a).flatten.inject(:+)
+    assert_equal 100, @sim_stats.pax_wait.map(&:to_a).flatten.inject(:+)
   end
 end
 
