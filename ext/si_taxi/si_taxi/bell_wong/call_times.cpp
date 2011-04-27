@@ -9,9 +9,14 @@ namespace si_taxi {
 BWCallTimeTracker::BWCallTimeTracker(BWSim &sim) : sim(sim) {
   // One entry for each station.
   call_time.resize(sim.num_stations());
+  this->init();
+}
+
+void BWCallTimeTracker::init() {
+  call.clear();
   call.resize(sim.num_stations(), 0);
 
-  // Initialise call times according to closest upstream station.
+  // initialise call times according to closest upstream station
   for (size_t i = 0; i < sim.trip_time.size1(); ++i) {
     int min_time = numeric_limits<int>::max();
     for (size_t j = 0; j < sim.trip_time.size2(); ++j) {
@@ -32,6 +37,10 @@ void BWCallTimeTracker::update(size_t ev_origin, size_t ev_destin) {
         call_time[ev_destin],
         call[ev_destin]);
   }
+}
+
+void BWNNHandlerWithCallTimeUpdates::init() {
+  _call_time.init();
 }
 
 size_t BWNNHandlerWithCallTimeUpdates::handle_pax(const BWPax &pax) {

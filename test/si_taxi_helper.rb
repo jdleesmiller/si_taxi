@@ -66,7 +66,6 @@ module BellWongTestHelper
     @sim.trip_time = trip_time
     @sim_stats = BWSimStatsDetailed.new(@sim)
     @sim.stats = @sim_stats
-    @sim.init
     nil
   end
 

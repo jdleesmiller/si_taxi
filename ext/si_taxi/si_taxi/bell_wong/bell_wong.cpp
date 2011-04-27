@@ -7,9 +7,13 @@ using namespace std;
 namespace si_taxi {
 
 void BWSim::init() {
+  ASSERT(this->reactive);
+  ASSERT(this->proactive);
   ASSERT(this->stats);
 
   now = 0;
+  this->reactive->init();
+  this->proactive->init();
   this->stats->init();
 }
 
@@ -201,7 +205,7 @@ void BWSimStatsDetailed::record_empty_trip(size_t empty_origin,
   ++empty_trips(empty_origin, empty_destin);
 }
 
-BWSimStatsMeanPaxWait::BWSimStatsMeanPaxWait(BWSim &sim) : BWSimStats(sim) {
+void BWSimStatsMeanPaxWait::init() {
   this->mean_pax_wait = 0.0;
   this->pax_count = 0;
 }

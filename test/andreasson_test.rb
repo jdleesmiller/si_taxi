@@ -12,6 +12,7 @@ class AndreassonTest < Test::Unit::TestCase
                                                  [  0,          0]])
       @sim.reactive = @rea
       @sim.proactive = @pro
+      @sim.init
     end
 
     should "have defaults set" do
@@ -44,6 +45,17 @@ class AndreassonTest < Test::Unit::TestCase
       assert_equal 0, @pro.call_time.call[1]
       assert_in_delta 20, @pro.call_time.at(0), $delta
       assert_in_delta 10, @pro.call_time.at(1), $delta
+
+      # if we restart the sim, call times should be cleared
+      @sim.init
+      assert_equal 0, @pro.call_time.call[0]
+      assert_equal 0, @pro.call_time.call[1]
+      assert_equal 0, @rea.call_time.call[0]
+      assert_equal 0, @rea.call_time.call[1]
+      assert_in_delta 20, @pro.call_time.at(0), $delta
+      assert_in_delta 10, @pro.call_time.at(1), $delta
+      assert_in_delta 20, @rea.call_time.at(0), $delta
+      assert_in_delta 10, @rea.call_time.at(1), $delta
     end
 
     should "count inbound vehicles" do
@@ -131,6 +143,7 @@ class AndreassonTest < Test::Unit::TestCase
                                       [  0,          0, 0]])
       @sim.reactive = @rea
       @sim.proactive = @pro
+      @sim.init
     end
 
     should "have defaults set" do
@@ -164,6 +177,13 @@ class AndreassonTest < Test::Unit::TestCase
 
       assert_equal [1, 0, 0], @pro.call_time.call.to_a
       assert_in_delta 50, @pro.call_time.at(0), $delta
+      assert_in_delta 10, @pro.call_time.at(1), $delta
+      assert_in_delta 20, @pro.call_time.at(2), $delta
+
+      # if we restart the sim, call times should be cleared
+      @sim.init
+      assert_equal [0, 0, 0], @pro.call_time.call.to_a
+      assert_in_delta 30, @pro.call_time.at(0), $delta
       assert_in_delta 10, @pro.call_time.at(1), $delta
       assert_in_delta 20, @pro.call_time.at(2), $delta
     end
@@ -359,6 +379,8 @@ class AndreassonTest < Test::Unit::TestCase
       @pro.targets[1] = 1
       @pro.targets[2] = 1
 
+      assert_equal 0, @pro.call_queue.size
+
       # targets are set so that no immediate replacement is available; it is
       # placed in the call queue
       put_veh_at 0, 2
@@ -366,13 +388,42 @@ class AndreassonTest < Test::Unit::TestCase
       assert_veh 0, 1, 10
       assert_veh 2, 2,  0
 
+      assert_equal 1, @pro.call_queue.size
+
       # lower target at 0, so it no longer (thinks it) wants a vehicle, and
       # lower the target at 1, so that it's willing to give up
       @pro.targets[0] = 0
       @pro.targets[1] = 0
 
       @sim.run_to 11
+      assert_equal 0, @pro.call_queue.size
       assert_veh 1, 0, 60
+      assert_veh 2, 2,  0
+    end
+
+    should "use reset the call queue on a call to init" do
+      @pro.use_call_times_for_targets = false
+      @pro.targets[0] = 1
+      @pro.targets[1] = 1
+      @pro.targets[2] = 1
+
+      # targets are set so that no immediate replacement is available; it is
+      # placed in the call queue
+      put_veh_at 0, 2
+      pax        0, 1,  0
+      assert_veh 0, 1, 10
+      assert_veh 2, 2,  0
+
+      assert_equal 1, @pro.call_queue.size
+      @sim.run_to 9
+      assert_equal 1, @pro.call_queue.size
+
+      # reset the sim; this should reset the call queue
+      @sim.init
+      assert_equal 0, @pro.call_queue.size
+
+      # it does not change the vehicle states, however
+      assert_veh 0, 1, 10
       assert_veh 2, 2,  0
     end
 

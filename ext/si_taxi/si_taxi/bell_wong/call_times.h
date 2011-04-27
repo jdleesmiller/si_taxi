@@ -38,6 +38,11 @@ struct BWCallTimeTracker {
   std::vector<int> call;
 
   /**
+   * Reset in preparation for a new run.
+   */
+  void init();
+
+  /**
    * Shorthand to get call time of station i.
    */
   inline double at(size_t i) const {
@@ -57,7 +62,13 @@ protected:
 };
 
 /**
- * The original Bell and Wong Nearest Neighbours (BWNN) heuristic.
+ * The original Bell and Wong Nearest Neighbours (BWNN) heuristic, but it
+ * updates the given call time tracker.
+ *
+ * This is intended mainly to be used with the Andreasson proactive handler.
+ * Both handlers have to use the same call time tracker, which this class
+ * supports. One minor annoyance is that both this handler and the Andreasson
+ * handler call init() on the call time tracker, but this seems innocuous.
  */
 struct BWNNHandlerWithCallTimeUpdates : public BWNNHandler {
   explicit inline BWNNHandlerWithCallTimeUpdates(BWSim &sim,
@@ -65,6 +76,11 @@ struct BWNNHandlerWithCallTimeUpdates : public BWNNHandler {
 	      BWNNHandler(sim), _call_time(call_time) { }
   virtual ~BWNNHandlerWithCallTimeUpdates() { }
   virtual size_t handle_pax(const BWPax &pax);
+
+  /**
+   * Override.
+   */
+  virtual void init();
 
   /**
    * Call times computed so far for each station.

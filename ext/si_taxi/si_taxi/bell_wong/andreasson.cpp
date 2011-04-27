@@ -25,6 +25,12 @@ BWAndreassonHandler::BWAndreassonHandler(BWSim &sim,
   preferred.clear();
 }
 
+void BWAndreassonHandler::init() {
+  while (!this->call_queue.empty())
+    this->call_queue.pop();
+  _call_time.init();
+}
+
 void BWAndreassonHandler::handle_pax_served(size_t empty_origin) {
   size_t ev_destin = empty_origin;
 

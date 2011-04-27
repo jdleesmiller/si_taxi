@@ -35,6 +35,8 @@ using namespace si_taxi;
 %template(BWVehicleVector) std::vector<si_taxi::BWVehicle>;
 %template(BWPaxQueue) std::queue<si_taxi::BWPax>;
 
+%template(IntQueue) std::queue<int>;
+
 %include "boost_numeric_ublas_matrix.i"
 
 BOOST_NUMERIC_UBLAS_MATRIX_TYPEMAP_IN(double, NUM2DBL)

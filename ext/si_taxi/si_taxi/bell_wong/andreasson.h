@@ -21,6 +21,11 @@ struct BWAndreassonHandler : public BWProactiveHandler {
   /**
    * Override.
    */
+  virtual void init();
+
+  /**
+   * Override.
+   */
   virtual void handle_pax_served(size_t empty_origin);
 
   /**

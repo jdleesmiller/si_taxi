@@ -133,7 +133,10 @@ struct BWSim {
   }
 
   /**
-   * Prepare for run; this clears statistics and resets time to 0.
+   * Prepare for run; this clears statistics and resets time to 0. It does NOT
+   * reset the vehicle state, however; this is the responsibility of the caller.
+   *
+   * TODO need to init handlers -- call times
    */
   void init();
 
@@ -231,6 +234,13 @@ struct BWReactiveHandler {
   virtual ~BWReactiveHandler() { }
 
   /**
+   * Clear state for the next run. The number of stations and the corresponding
+   * trip times will be the same for the next run, but everything else is
+   * permitted to change.
+   */
+  inline virtual void init() { }
+
+  /**
    * Assign a vehicle to serve the given passenger.
    *
    * @param sim current system state
@@ -253,6 +263,13 @@ struct BWReactiveHandler {
 struct BWProactiveHandler {
   explicit inline BWProactiveHandler(BWSim &sim) : sim(sim) { }
   virtual ~BWProactiveHandler() { }
+
+  /**
+   * Clear state for the next run. The number of stations and the corresponding
+   * trip times will be the same for the next run, but everything else is
+   * permitted to change.
+   */
+  inline virtual void init() { }
 
   /**
    * Called after a passenger has arrived and been assigned a vehicle by the
@@ -293,6 +310,9 @@ struct BWProactiveHandler {
 /**
  * Interface for stats collection. By default, it collects no stats; subclasses
  * implement various levels of detail.
+ *
+ * Note that the constructor does NOT call init, but sim::init() does; the
+ * state is undefined until init is called.
  */
 struct BWSimStats {
   explicit inline BWSimStats(BWSim &sim) : sim(sim) { }
@@ -364,8 +384,12 @@ struct BWSimStatsDetailed : public BWSimStats {
  * Collect mean passenger waiting time only.
  */
 struct BWSimStatsMeanPaxWait : public BWSimStats {
-  explicit BWSimStatsMeanPaxWait(BWSim &sim);
+  explicit inline BWSimStatsMeanPaxWait(BWSim &sim) : BWSimStats(sim),
+      mean_pax_wait(std::numeric_limits<double>::quiet_NaN()), pax_count(0) { }
   virtual ~BWSimStatsMeanPaxWait() { }
+
+  /// override
+  virtual void init();
 
   /**
    * Record statistics for given passenger.

@@ -31,6 +31,7 @@ class BellWongTest < Test::Unit::TestCase
           setup_sim TRIP_TIMES_2ST_RING_10_20
           @sim.reactive = reactive_class.new(@sim)
           @sim.proactive = BWProactiveHandler.new(@sim) # nop
+          @sim.init
         end
 
         should "have zero wait with ideal arrivals (one vehicle) " do
@@ -124,6 +125,7 @@ class BellWongTest < Test::Unit::TestCase
           setup_sim TRIP_TIMES_3ST_RING_10_20_30
           @sim.reactive = reactive_class.new(@sim)
           @sim.proactive = BWProactiveHandler.new(@sim) # nop
+          @sim.init
         end
 
         should "handle two requests that form a round trip" do
@@ -196,6 +198,7 @@ class BellWongTest < Test::Unit::TestCase
 
     should "not move proactively with BWNN" do
       @sim.reactive  = BWNNHandler.new(@sim)
+      @sim.init
       pax 0, 1,  0
       pax 0, 1, 60
       assert_wait_hists({0=>1, 20=>1}, {})
@@ -203,6 +206,7 @@ class BellWongTest < Test::Unit::TestCase
 
     should "move proactively with SNN" do
       @sim.reactive  = BWSNNHandler.new(@sim)
+      @sim.init
       pax 0, 1,  0
       pax 0, 1, 60
       assert_wait_hists [2], [] # zero wait
@@ -210,6 +214,7 @@ class BellWongTest < Test::Unit::TestCase
 
     should "move proactively with SNN and two vehicles" do
       @sim.reactive  = BWSNNHandler.new(@sim)
+      @sim.init
       put_veh_at 0, 0
       pax 0, 1,  0
       pax 0, 1, 60
@@ -222,6 +227,7 @@ class BellWongTest < Test::Unit::TestCase
       setup_sim TRIP_TIMES_3ST_RING_10_20_30
       @sim.reactive = BWSNNHandler.new(@sim)
       @sim.proactive = BWProactiveHandler.new(@sim) # nop
+      @sim.init
       put_veh_at 0, 1
     end
 
@@ -253,6 +259,7 @@ class BellWongTest < Test::Unit::TestCase
                  [2, 2,  0]
       @sim.reactive = BWSNNHandler.new(@sim)
       @sim.proactive = BWProactiveHandler.new(@sim)
+      @sim.init
     end
 
     should "handle test sequence 1" do
@@ -281,10 +288,10 @@ class BellWongTest < Test::Unit::TestCase
       @sim.trip_time = TRIP_TIMES_2ST_RING_10_20
       @sim_stats = BWSimStatsMeanPaxWait.new(@sim)
       @sim.stats = @sim_stats
-      @sim.init
       put_veh_at 0
       @sim.reactive = BWSNNHandler.new(@sim)
       @sim.proactive = BWProactiveHandler.new(@sim) # nop
+      @sim.init
     end
 
     should "default to zero" do
@@ -310,6 +317,26 @@ class BellWongTest < Test::Unit::TestCase
       assert_veh  1,  0,  70
       assert_in_delta 10, @sim_stats.mean_pax_wait, $delta
       assert_equal 3, @sim_stats.pax_count
+
+      # should start back at zero after restart
+      @sim.init
+      assert_veh  1,  0,  70 # init does not reset this
+      put_veh_at 0
+      assert_veh  0,  0,  0
+      assert_equal 0, @sim_stats.mean_pax_wait
+      assert_equal 0, @sim_stats.pax_count
+
+      # no wait, again
+      pax         0,  1,  10 
+      assert_veh  0,  1,  20
+      assert_equal 0, @sim_stats.mean_pax_wait
+      assert_equal 1, @sim_stats.pax_count
+      
+      # wait 5s
+      pax         1,  0,  15 
+      assert_veh  1,  0,  40
+      assert_in_delta 2.5, @sim_stats.mean_pax_wait, $delta
+      assert_equal 2, @sim_stats.pax_count
     end
   end
 end

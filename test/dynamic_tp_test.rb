@@ -10,6 +10,7 @@ class DynamicTransportationProblemTest < Test::Unit::TestCase
       @pro = BWDynamicTransportationProblemHandler.new(@sim)
       @sim.reactive = @rea
       @sim.proactive = @pro
+      @sim.init
     end
 
     should "have defaults set" do
@@ -41,6 +42,7 @@ class DynamicTransportationProblemTest < Test::Unit::TestCase
       @pro = BWDynamicTransportationProblemHandler.new(@sim)
       @sim.reactive = @rea
       @sim.proactive = @pro
+      @sim.init
     end
 
     should "move proactively" do
@@ -80,6 +82,7 @@ class DynamicTransportationProblemTest < Test::Unit::TestCase
     pro = BWDynamicTransportationProblemHandler.new(@sim)
     @sim.reactive = rea
     @sim.proactive = pro
+    @sim.init
 
     pro.targets[0] = 1
     pro.targets[1] = 2

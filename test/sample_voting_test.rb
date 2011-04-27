@@ -25,6 +25,7 @@ class SamplingVotingTest < Test::Unit::TestCase
       @pro = BWSamplingVotingHandler.new(@sim, @sample_stream)
       @sim.reactive = @rea
       @sim.proactive = @pro
+      @sim.init
     end
 
     should "have defaults set" do
@@ -65,6 +66,7 @@ class SamplingVotingTest < Test::Unit::TestCase
       @pro = BWSamplingVotingHandler.new(@sim, @sample_stream)
       @sim.reactive = @rea
       @sim.proactive = @pro
+      @sim.init
     end
 
     should "handle tidal demand" do
@@ -243,6 +245,7 @@ class SamplingVotingTest < Test::Unit::TestCase
       @pro = BWSamplingVotingHandler.new(@sim, @sample_stream)
       @sim.reactive = @rea
       @sim.proactive = @pro
+      @sim.init
     end
 
     should "move proactively" do
@@ -309,6 +312,7 @@ class SamplingVotingTest < Test::Unit::TestCase
     pro.num_sequences = 3
     pro.num_pax = 5
     @sim.proactive = pro
+    @sim.init
 
     stream = BWPoissonPaxStream.new(0,
       [[  0, 0.1, 0.2],
