@@ -15,7 +15,8 @@ target = 'Release'
 getopt = GetoptLong.new(
   ['--with-boost', '-b', GetoptLong::REQUIRED_ARGUMENT],
   ['--debug', '-d', GetoptLong::NO_ARGUMENT],
-  ['--coverage', '-c', GetoptLong::NO_ARGUMENT])
+  ['--coverage', '-c', GetoptLong::NO_ARGUMENT],
+  ['--profile', '-p', GetoptLong::NO_ARGUMENT])
 getopt.each do |opt, arg|
   case opt
   when '--with-boost' then
@@ -24,6 +25,8 @@ getopt.each do |opt, arg|
     target = 'Debug'
   when '--coverage' then
     target = 'Coverage'
+  when '--profile' then
+    target = 'Profile'
   else
     raise "unknown option #{opt}"
   end
