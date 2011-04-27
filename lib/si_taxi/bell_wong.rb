@@ -4,7 +4,9 @@ module SiTaxi
     # Add num_veh vehicles, one to each station, starting at the given station.
     #
     # @param [Fixnum] num_veh
+    #
     # @param [Fixnum] station non-negative
+    #
     # @return [nil]
     #
     def add_vehicles_in_turn num_veh, station=0
@@ -15,6 +17,22 @@ module SiTaxi
         add_vehicles_in_turn num_veh - 1, station + 1
       end
       nil
+    end
+
+    #
+    # Park all existing vehicles; as with {#add_vehicles_in_turn}, the vehicles
+    # are parked one to a station, starting at the given station.
+    #
+    # Internally, this destroys and recreates all of the vehicles.
+    #
+    # @param [Fixnum] station non-negative
+    #
+    # @return [nil]
+    #
+    def park_vehicles_in_turn station=0
+      num_veh = vehs.size
+      vehs.clear
+      add_vehicles_in_turn num_veh, station
     end
   end
 

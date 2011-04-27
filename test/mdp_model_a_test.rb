@@ -8,27 +8,6 @@ class MDPModelATest < Test::Unit::TestCase
     MDPStateA.from_a(@m, state_a)
   end
 
-  def pretty_print_transition_probabilities
-    states = @m.states
-    t = @m.transitions
-    actions = t.keys.sort
-    actions.each do |action|
-      puts "action: #{action}"
-      mat = states.map {|s0|
-        if t[action].has_key?(s0)
-          s0.inspect + "\t" +
-          states.map {|s1|
-            pr = t[action][s0][s1] if t[action][s0].has_key?(s1)
-            if pr then "%.2f" % pr else '    ' end
-          }.join(" ") + "\t" + ("%.2f" % t[action][s0].values.sum)
-        else
-          s0.inspect
-        end
-      }.join("\n")
-      puts mat
-    end
-  end
-
   context "two station ring with one vehicle; max_queue=1" do
     setup do
       @m = MDPModelA.new([[0,1],[1,0]], 1,

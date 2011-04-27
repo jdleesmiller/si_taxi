@@ -339,5 +339,41 @@ class BellWongTest < Test::Unit::TestCase
       assert_equal 2, @sim_stats.pax_count
     end
   end
+
+  context "for vehicle parking" do
+    setup do
+      setup_sim TRIP_TIMES_3ST_RING_10_20_30
+      @sim.reactive = BWNNHandler.new(@sim)
+      @sim.proactive = BWProactiveHandler.new(@sim) # nop
+      @sim.init
+    end
+
+    should "be able to add vehicles and repark" do
+      assert_equal 0, @sim.vehs.size
+
+      @sim.add_vehicles_in_turn 3
+      assert_equal 3, @sim.vehs.size
+      assert_veh  0,  0,  0
+      assert_veh  1,  1,  0
+      assert_veh  2,  2,  0
+
+      @sim.add_vehicles_in_turn 1
+      assert_equal 4, @sim.vehs.size
+      assert_equal 2, @sim.vehs.to_a.select{|v| v.destin == 0}.size
+
+      pax         0,  1,  10 
+      assert_veh  0,  1,  20
+      assert_equal 1, @sim.vehs.to_a.select{|v| v.destin == 0}.size
+
+      # should go back to being parked
+      @sim.init
+      @sim.park_vehicles_in_turn
+      assert_veh  0,  0,  0
+      assert_veh  1,  1,  0
+      assert_veh  2,  2,  0
+      assert_equal 2, @sim.vehs.to_a.select{|v| v.destin == 0}.size
+
+    end
+  end
 end
 
