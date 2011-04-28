@@ -81,7 +81,10 @@ protected:
   int *costs;
   int *capacities;
   int *demands;
+  /// temporary storage used in redistribute()
+  int *idle;
   int *flows;
+
 
 public:
   /// see redistribute(...)

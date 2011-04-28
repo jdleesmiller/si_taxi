@@ -262,21 +262,16 @@ size_t BWSNNHandler::choose_veh(const BWPax &pax, const vector<BWVehicle> &vehs,
   BWTime ks_wait = max((BWTime)0, ks_arrive - pax.arrive);
   size_t ks = 0;
 
-  for (size_t k = 1; k < vehs.size(); ++k) {
+  size_t num_veh = vehs.size();
+  for (size_t k = 1; k < num_veh; ++k) {
     int k_empty = trip_time(vehs[k].destin, pax.origin);
     BWTime k_arrive = vehs[k].arrive + k_empty;
     BWTime k_wait = max((BWTime)0, k_arrive - pax.arrive);
 
-    bool new_ks = k_wait < ks_wait;
-    if (!new_ks && k_wait == ks_wait) {
-      new_ks = k_empty < ks_empty;
-      if (!new_ks && k_empty == ks_empty) {
-        new_ks = k_arrive > ks_arrive;
-        if (!new_ks)
-        new_ks = k < ks;
-      }
-    }
-
+    bool new_ks = k_wait < ks_wait || (
+        k_wait   == ks_wait   && (k_empty  < ks_empty || (
+        k_empty  == ks_empty  && (k_arrive > ks_arrive || (
+        k_arrive == ks_arrive && (k        < ks))))));
     if (new_ks) {
       ks = k;
       ks_empty = k_empty;

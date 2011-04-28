@@ -680,10 +680,9 @@
 								<option id="gnu.cpp.compiler.exe.release.option.debugging.level.620612606" name="Debug Level" superClass="gnu.cpp.compiler.exe.release.option.debugging.level" value="gnu.cpp.compiler.debugging.level.none" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.include.paths.508994123" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/si_taxi}&quot;"/>
-									<listOptionValue builtIn="false" value="/home/enjdlm/local/include"/>
 									<listOptionValue builtIn="false" value="&quot;${BOOST_INC}&quot;"/>
 								</option>
-								<option id="gnu.cpp.compiler.option.debugging.other.2144877589" superClass="gnu.cpp.compiler.option.debugging.other" value="-DNDEBUG" valueType="string"/>
+								<option id="gnu.cpp.compiler.option.debugging.other.2144877589" name="Other debugging flags" superClass="gnu.cpp.compiler.option.debugging.other" value="-DNDEBUG" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.406539480" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.exe.release.680728607" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.exe.release">
@@ -692,7 +691,7 @@
 								<option id="gnu.c.compiler.option.include.paths.1431247892" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/si_taxi}&quot;"/>
 								</option>
-								<option id="gnu.c.compiler.option.debugging.other.2083426821" superClass="gnu.c.compiler.option.debugging.other" value="-DNDEBUG" valueType="string"/>
+								<option id="gnu.c.compiler.option.debugging.other.2083426821" name="Other debugging flags" superClass="gnu.c.compiler.option.debugging.other" value="-DNDEBUG" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.2145164904" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.exe.release.944137792" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.release"/>
@@ -1351,9 +1350,9 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/si_taxi}&quot;"/>
 								</option>
 								<option id="gnu.c.compiler.option.misc.other.1961749368" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0" valueType="string"/>
-								<option id="gnu.c.compiler.option.debugging.other.1781210395" superClass="gnu.c.compiler.option.debugging.other" value="-DNDEBUG" valueType="string"/>
-								<option id="gnu.c.compiler.option.debugging.prof.533115613" superClass="gnu.c.compiler.option.debugging.prof" value="true" valueType="boolean"/>
-								<option id="gnu.c.compiler.option.debugging.gprof.2087182756" superClass="gnu.c.compiler.option.debugging.gprof" value="true" valueType="boolean"/>
+								<option id="gnu.c.compiler.option.debugging.other.1781210395" name="Other debugging flags" superClass="gnu.c.compiler.option.debugging.other" value="-DNDEBUG" valueType="string"/>
+								<option id="gnu.c.compiler.option.debugging.prof.533115613" name="Generate prof information (-p)" superClass="gnu.c.compiler.option.debugging.prof" value="true" valueType="boolean"/>
+								<option id="gnu.c.compiler.option.debugging.gprof.2087182756" name="Generate gprof information (-pg)" superClass="gnu.c.compiler.option.debugging.gprof" value="true" valueType="boolean"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1147352499" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.exe.release.1720223516" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.release"/>
@@ -1366,8 +1365,8 @@
 									<listOptionValue builtIn="false" value="dl"/>
 								</option>
 								<option id="gnu.cpp.link.option.flags.806981242" name="Linker flags" superClass="gnu.cpp.link.option.flags" value="" valueType="string"/>
-								<option id="gnu.cpp.link.option.debugging.prof.670049165" superClass="gnu.cpp.link.option.debugging.prof" value="true" valueType="boolean"/>
-								<option id="gnu.cpp.link.option.debugging.gprof.985563789" superClass="gnu.cpp.link.option.debugging.gprof" value="true" valueType="boolean"/>
+								<option id="gnu.cpp.link.option.debugging.prof.670049165" name="Generate prof information (-p)" superClass="gnu.cpp.link.option.debugging.prof" value="true" valueType="boolean"/>
+								<option id="gnu.cpp.link.option.debugging.gprof.985563789" name="Generate gprof information (-pg)" superClass="gnu.cpp.link.option.debugging.gprof" value="true" valueType="boolean"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1090501970" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>

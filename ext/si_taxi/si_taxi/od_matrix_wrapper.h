@@ -88,12 +88,15 @@ struct ODMatrixWrapper
    *
    * The interval is in the same units as the expected_interarrival_time; what
    * they actually are depends on the matrix that was passed in.
+   *
+   * The result is undefined for an empty matrix.
    */
   void sample(size_t &origin, size_t &destin, double &interval) const;
 
 private:
   boost::numeric::ublas::matrix<double> _od;
   boost::numeric::ublas::matrix<double> _trip_prob;
+  boost::numeric::ublas::unbounded_array<double> _trip_cdf;
   boost::numeric::ublas::vector<double> _rate_from;
   boost::numeric::ublas::vector<double> _rate_to;
   double _expected_interarrival_time;

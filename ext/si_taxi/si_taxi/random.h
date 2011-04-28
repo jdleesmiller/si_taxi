@@ -49,12 +49,13 @@ template<typename T, typename RNG> T genrand_o01o(RNG &rng) {
 }
 
 /**
- * Pick an entry from a stochastic matrix.
+ * Pick an entry from a matrix in which each entry is a probability; the
+ * probability that an entry is picked is the value of that entry.
  *
  * @param p stochastic matrix (entries sum to 1).
  */
 template<typename T, typename RNG>
-void sample_matrix(RNG &rng,
+void sample_pmf(RNG &rng,
     const boost::numeric::ublas::matrix<T> &p, size_t &i, size_t &j) {
   double r = genrand_c01o<T>(rng);
   double sum = 0;
@@ -74,7 +75,7 @@ void sample_matrix(RNG &rng,
  * @param p stochastic matrix (entries along row i sum to 1).
  */
 template<typename T, typename RNG>
-size_t sample_matrix_row(RNG &rng,
+size_t sample_pmf_row(RNG &rng,
     const boost::numeric::ublas::matrix<T> &p, size_t i) {
   double r = genrand_c01o<T>(rng);
   double sum = 0;

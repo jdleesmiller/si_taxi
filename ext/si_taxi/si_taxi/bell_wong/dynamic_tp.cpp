@@ -19,6 +19,7 @@ BWDynamicTransportationProblemHandler::BWDynamicTransportationProblemHandler(
   costs = new int[num_arcs()];
   capacities = new int[num_arcs()];
   demands = new int[num_nodes()];
+  idle = new int[num_nodes()];      // temporary storage used in redistribute()
   flows = new int[num_arcs()];
 
   relax4_init(num_nodes(), num_arcs(),
@@ -65,6 +66,7 @@ BWDynamicTransportationProblemHandler::
   delete[] costs;
   delete[] capacities;
   delete[] demands;
+  delete[] idle;
   delete[] flows;
 }
 
@@ -83,10 +85,34 @@ void BWDynamicTransportationProblemHandler::handle_strobe() {
 
 void BWDynamicTransportationProblemHandler::redistribute() {
   ASSERT(targets.size() == sim.num_stations());
-  for (size_t i = 0; i < sim.num_stations(); ++i) {
-    demands[i] = -min(
-        sim.num_vehicles_inbound(i) - targets[i],
-        sim.num_vehicles_idle_by(i, sim.now));
+  // This turns out to be a performance hotspot when the fleet size is large,
+  // so some clarity has been sacrificed for performance. The result is that
+  // for each station i, we set
+  //   demands[i] = -min(
+  //     sim.num_vehicles_inbound(i) - targets[i],
+  //     sim.num_vehicles_idle_by(i, sim.now));
+  // which makes two passes over the vehicle array for each station. It seems
+  // to be much faster (total time reduced by 30%) to make a single pass over
+  // the vehicle array, count up the inbound and idle vehicles separately, and
+  // then combine them together. This requires temporary storage for the idle
+  // counts, but that's not so bad.
+  size_t num_stations = sim.num_stations();
+  for (size_t i = 0; i < num_stations; ++i) {
+    demands[i] = -targets[i];
+    idle[i] = 0;
+  }
+
+  size_t num_veh = sim.vehs.size();
+  for (size_t k = 0; k < num_veh; ++k) {
+    BWVehicle &v_k = sim.vehs[k];
+    ++(demands[v_k.destin]);
+    if (v_k.arrive <= sim.now) {
+      ++(idle[v_k.destin]);
+    }
+  }
+
+  for (size_t i = 0; i < num_stations; ++i) {
+    demands[i] = -min(demands[i], idle[i]);
   }
 
   set_source_sink_demands();

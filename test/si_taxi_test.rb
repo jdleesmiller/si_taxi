@@ -198,6 +198,31 @@ class TestSiTaxi < Test::Unit::TestCase
         assert_in_delta 1-0.36787944-0.36787944,
           @w.poisson_origin_cdf_complement(1, 1), $delta
       end
+
+      should "always choose the non-zero entry" do
+        SiTaxi.seed_rng(123)
+        100.times do
+          origin, destin, interval = @w.sample
+          assert_equal 1, origin
+          assert_equal 0, destin
+          assert interval >= 0
+        end
+      end
+    end
+
+    context "2x2 matrix with zero entry (transposed)" do
+      setup do
+        @w = SiTaxi::ODMatrixWrapper.new [[0,1],[0,0]]
+      end
+      should "always choose the non-zero entry" do
+        SiTaxi.seed_rng(123)
+        100.times do
+          origin, destin, interval = @w.sample
+          assert_equal 0, origin
+          assert_equal 1, destin
+          assert interval >= 0
+        end
+      end
     end
 
     context "3x3 matrix" do
