@@ -133,10 +133,10 @@ struct BWSim {
   }
 
   /**
-   * Prepare for run; this clears statistics and resets time to 0. It does NOT
-   * reset the vehicle state, however; this is the responsibility of the caller.
-   *
-   * TODO need to init handlers -- call times
+   * Prepare for run; this clears statistics and resets time to 0. It also calls
+   * init on the proactive and reactive handlers. Note that all of these have
+   * to be set before you call this method. It does NOT reset the vehicle state,
+   * however; this is the responsibility of the caller.
    */
   void init();
 
