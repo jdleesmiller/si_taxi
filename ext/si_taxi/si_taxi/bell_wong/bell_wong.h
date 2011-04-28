@@ -141,6 +141,24 @@ struct BWSim {
   void init();
 
   /**
+   * Add num_veh vehicles, one to each station, starting at the given station.
+   *
+   * @param num_veh
+   *
+   * @param station
+   */
+  void add_vehicles_in_turn(size_t num_veh, size_t station=0);
+
+  /**
+   * Park all existing vehicles; park one vehicle at each station, starting at
+   * the given station. Whereas add_vehicles_in_turn adds new vehicles, this
+   * just moves the old ones.
+   *
+   * @param station in [0, num_stations())
+   */
+  void park_vehicles_in_turn(size_t station=0);
+
+  /**
    * Run the simulation from now (inclusive) to time t (exclusive) *without*
    * any more passenger arrivals.
    *

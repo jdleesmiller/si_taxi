@@ -1,8 +1,8 @@
 /**
  * Private utility header; not to be included in public header files.
  */
-#ifndef SI_TAXI_COMMON_H_
-#define SI_TAXI_COMMON_H_
+#ifndef SI_TAXI_UTILITY_H_
+#define SI_TAXI_UTILITY_H_
 
 /**
  * Marker for arguments passed by reference (evaluates to nothing; it's just
@@ -82,19 +82,46 @@
 // not strictly legal
 namespace std {
 template<typename S, typename T>
-ostream& operator<<(ostream &os, const std::pair<S, T> &p) {
+std::ostream& operator<<(std::ostream &os, const std::pair<S, T> &p) {
   return os << "(" << p.first << "," << p.second << ")";
 }
 template<typename T>
-ostream& operator<<(ostream &os, const std::vector<T> &v) {
-  copy(v.begin(), v.end(), ostream_iterator<T> (os, " "));
+std::ostream& operator<<(std::ostream &os, const std::vector<T> &v) {
+  std::copy(v.begin(), v.end(), std::ostream_iterator<T> (os, " "));
   return os;
 }
 template<typename T>
-ostream& operator<<(ostream &os, const std::deque<T> &v) {
-  copy(v.begin(), v.end(), ostream_iterator<T> (os, " "));
+std::ostream& operator<<(std::ostream &os, const std::deque<T> &v) {
+  std::copy(v.begin(), v.end(), std::ostream_iterator<T> (os, " "));
   return os;
 }
 } // namespace std
+
+namespace si_taxi {
+/**
+ * Print something to a string. This isn't overwhelmingly efficient.
+ */
+template<typename T> std::string to_s(const T& t) {
+  std::ostringstream os;
+  os << t;
+  return os.str();
+}
+
+/**
+ * Read something from a string using a string stream.
+ */
+template<typename T> bool from_s(T & t, const char * s) {
+  std::istringstream is(s);
+  return (bool)(is >> t);
+}
+
+/**
+ * Read something from a string using a string stream.
+ */
+template<typename T> bool from_s(T & t, const std::string &s) {
+  std::istringstream is(s);
+  return (bool)(is >> t);
+}
+}
 
 #endif /* guard */

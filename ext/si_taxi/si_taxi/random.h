@@ -69,9 +69,9 @@ void sample_matrix(RNG &rng,
 }
 
 /**
- * Pick an entry from a stochastic matrix.
+ * Pick an entry from a given row in a stochastic matrix.
  *
- * @param p stochastic matrix (entries sum to 1).
+ * @param p stochastic matrix (entries along row i sum to 1).
  */
 template<typename T, typename RNG>
 size_t sample_matrix_row(RNG &rng,

@@ -82,6 +82,7 @@ void BWDynamicTransportationProblemHandler::handle_strobe() {
 }
 
 void BWDynamicTransportationProblemHandler::redistribute() {
+  ASSERT(targets.size() == sim.num_stations());
   for (size_t i = 0; i < sim.num_stations(); ++i) {
     demands[i] = -min(
         sim.num_vehicles_inbound(i) - targets[i],
@@ -138,7 +139,7 @@ void BWDynamicTransportationProblemHandler::solve() {
 #ifndef NDEBUG
   string temp = dump_problem();
 #endif
-  CHECK(RELAX4_OK == relax4_check_inputs(RELAX4_DEFAULT_MAX_COST));
+  ASSERT(RELAX4_OK == relax4_check_inputs(RELAX4_DEFAULT_MAX_COST));
   CHECK(RELAX4_OK == relax4_init_phase_1());
   CHECK(RELAX4_OK == relax4_init_phase_2());
 #ifndef NDEBUG
@@ -149,7 +150,7 @@ void BWDynamicTransportationProblemHandler::solve() {
 #else
   CHECK(RELAX4_OK == relax4_run());
 #endif
-  CHECK(RELAX4_OK == relax4_check_output());
+  ASSERT(RELAX4_OK == relax4_check_output());
 
   //for (int a = 0; a < num_arcs(); ++a) TV(flows[a]);
 }

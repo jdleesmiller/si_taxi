@@ -17,6 +17,23 @@ void BWSim::init() {
   this->stats->init();
 }
 
+void BWSim::add_vehicles_in_turn(size_t num_veh, size_t station) {
+  if (num_veh > 0) {
+    station = station % num_stations();
+    vehs.push_back(BWVehicle(station, now));
+    add_vehicles_in_turn(num_veh - 1, station + 1);
+  }
+}
+
+void BWSim::park_vehicles_in_turn(size_t station) {
+  CHECK(station < num_stations());
+  for (size_t k = 0; k < vehs.size(); ++k) {
+    vehs[k].destin = station;
+    vehs[k].arrive = now;
+    station = (station + 1) % num_stations();
+  }
+}
+
 void BWSim::run_to(BWTime t) {
   ASSERT(this->reactive);
   ASSERT(this->proactive);

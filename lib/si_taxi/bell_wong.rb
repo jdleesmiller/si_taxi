@@ -9,15 +9,15 @@ module SiTaxi
     #
     # @return [nil]
     #
-    def add_vehicles_in_turn num_veh, station=0
-      raise "no stations defined" if num_stations < 1
-      if num_veh > 0
-        station = station % num_stations
-        vehs << BWVehicle.new(station, station, now)
-        add_vehicles_in_turn num_veh - 1, station + 1
-      end
-      nil
-    end
+    #def add_vehicles_in_turn num_veh, station=0
+    #  raise "no stations defined" if num_stations < 1
+    #  if num_veh > 0
+    #    station = station % num_stations
+    #    vehs << BWVehicle.new(station, station, now)
+    #    add_vehicles_in_turn num_veh - 1, station + 1
+    #  end
+    #  nil
+    #end
 
     #
     # Park all existing vehicles; as with {#add_vehicles_in_turn}, the vehicles
@@ -29,11 +29,11 @@ module SiTaxi
     #
     # @return [nil]
     #
-    def park_vehicles_in_turn station=0
-      num_veh = vehs.size
-      vehs.clear
-      add_vehicles_in_turn num_veh, station
-    end
+    #def park_vehicles_in_turn station=0
+    #  num_veh = vehs.size
+    #  vehs.clear
+    #  add_vehicles_in_turn num_veh, station
+    #end
   end
 
   class BWVehicle
