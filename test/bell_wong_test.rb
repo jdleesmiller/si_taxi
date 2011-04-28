@@ -228,26 +228,45 @@ class BellWongTest < Test::Unit::TestCase
       @sim.reactive = BWSNNHandler.new(@sim)
       @sim.proactive = BWProactiveHandler.new(@sim) # nop
       @sim.init
-      put_veh_at 0, 1
     end
 
-    should "break tie on ev time" do
-      pax         2,  0, 120
-      assert_veh  0,  0,   0, 0
-      assert_veh  2,  0, 150, 1 # chooses vehicle 1 (from station 1)
+    # should try both vehicle numberings
+    [[0,1], [1,0]].each do |vehicle_pos|
+      context "vehicle positions: #{vehicle_pos.join(',')}" do
+        setup do
+          put_veh_at *vehicle_pos
+        end
+
+        should "break tie on ev time" do
+          # both vehicles can reach 2 before time 120, so they give the same
+          # waiting time; however, the vehicle at 1 has a shorter ev trip
+          pax         2,  0, 120
+          assert_veh  0,  0,   0
+          assert_veh  2,  0, 150
+        end
+
+        should "then on arrival time (latest first)" do
+          pax         0,  2,   0
+          assert_veh  0,  2,  30
+          pax         1,  2,  15
+          assert_veh  1,  2,  35
+          # now have two vehicles inbound to 2; a pax there at time 40 has 0
+          # wait with either vehicle, and both have 0 empty trips; choose the
+          # one that arrived last.
+          pax         2,  0,  40
+          assert_veh  0,  2,  30
+          assert_veh  2,  0,  70
+        end
+      end
     end
 
-    should "then on arrival time (latest first)" do
-      pax         0,  2,   0
-      assert_veh  0,  2,  30, 0
-      pax         1,  2,  15
-      assert_veh  1,  2,  35, 1
-      # Now have two vehicles inbound to 2; a pax there has 0 wait with
-      # either, and both have 0 empty trips; choose the one that arrived last.
-      pax         2,  0,  40
-      assert_veh  0,  2,  30, 0
-      assert_veh  2,  0,  70, 1
+    should "finally break ties on vehicle index" do
+      put_veh_at 0, 0
+      pax         2,  0,   5
+      assert_veh  2,  0,  60, 0
+      assert_veh  0,  0,   0, 1
     end
+
   end
 
   context "SV example from UTSG slides; two vehicles" do

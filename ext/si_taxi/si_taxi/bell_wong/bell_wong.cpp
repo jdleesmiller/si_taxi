@@ -268,10 +268,13 @@ size_t BWSNNHandler::choose_veh(const BWPax &pax, const vector<BWVehicle> &vehs,
     BWTime k_arrive = vehs[k].arrive + k_empty;
     BWTime k_wait = max((BWTime)0, k_arrive - pax.arrive);
 
+    // note that because we process the vehicles in ascending order by index,
+    // the final tie breaker on vehicle index is implicit; that is, it always
+    // holds that k > ks, so even if k_arrive == ks_arrive, we would never
+    // switch from ks to k.
     bool new_ks = k_wait < ks_wait || (
         k_wait   == ks_wait   && (k_empty  < ks_empty || (
-        k_empty  == ks_empty  && (k_arrive > ks_arrive || (
-        k_arrive == ks_arrive && (k        < ks))))));
+        k_empty  == ks_empty  && (k_arrive > ks_arrive))));
     if (new_ks) {
       ks = k;
       ks_empty = k_empty;
