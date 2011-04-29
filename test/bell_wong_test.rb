@@ -234,7 +234,7 @@ class BellWongTest < Test::Unit::TestCase
     [[0,1], [1,0]].each do |vehicle_pos|
       context "vehicle positions: #{vehicle_pos.join(',')}" do
         setup do
-          put_veh_at *vehicle_pos
+          put_veh_at(*vehicle_pos)
         end
 
         should "break tie on ev time" do

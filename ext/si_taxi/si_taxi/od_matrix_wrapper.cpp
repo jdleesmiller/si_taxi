@@ -2,6 +2,7 @@
 #include "utility.h"
 #include "od_matrix_wrapper.h"
 #include "random.h"
+#include "empirical_sampler.h"
 
 #include <boost/math/distributions/poisson.hpp>
 
@@ -12,7 +13,7 @@ using namespace std;
  * we expect the last entry to be exactly 1. An error is raised if it deviates
  * from 1 by more than this amount (e.g. due to numerical problems).
  */
-#define CDF_TOL 1e-3
+//#define CDF_TOL 1e-3
 
 namespace si_taxi {
 
@@ -26,6 +27,12 @@ ODMatrixWrapper::ODMatrixWrapper(
   _rate_to = prod(ones, _od);
   _trip_prob = _od * _expected_interarrival_time;
 
+  // flatten the matrix for more efficient sampling; the sampling step is a
+  // performance hot spot for (surprise) the sampling and voting algorithm
+  _sampler = new EmpiricalSampler<
+      boost::numeric::ublas::unbounded_array<double> >(_trip_prob.data());
+
+  /*
   // sum to get the cdf for more efficient sampling; here 'cumulative' goes
   // by rows, then by columns (row major storage order).
   _trip_cdf = _trip_prob.data();
@@ -47,6 +54,11 @@ ODMatrixWrapper::ODMatrixWrapper(
     _trip_cdf[n*n - 2] = 1.0;
     _trip_cdf[n*n - 1] = 1.0;
   }
+  */
+}
+
+ODMatrixWrapper::~ODMatrixWrapper() {
+  delete _sampler;
 }
 
 // Boost's Poisson distribution doesn't like a zero rate.
@@ -95,6 +107,14 @@ void ODMatrixWrapper::sample(size_t &origin, size_t &destin,
   double u = genrand_c01o<double>(si_taxi::rng);
   interval = -log(1 - u) * _expected_interarrival_time;
 
+  size_t n = _od.size1();
+  size_t l = _sampler->sample();
+  origin = l / n;
+  destin = l % n;
+  ASSERT(origin < n);
+  ASSERT(origin != destin);
+
+  /*
   // do a binary search on the CDF; it should not be possible for us to run
   // off the end, because we set the last entry to exactly 1.0, and r is chosen
   // to be strictly less than 1; profiling shows that, particularly for the SV
@@ -109,6 +129,7 @@ void ODMatrixWrapper::sample(size_t &origin, size_t &destin,
   ASSERT(origin < n);
   destin = l % n;
   ASSERT(origin != destin);
+  */
 }
 
 }

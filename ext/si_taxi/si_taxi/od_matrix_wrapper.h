@@ -5,6 +5,8 @@
 
 namespace si_taxi {
 
+template <typename T> struct EmpiricalSampler;
+
 /**
  * Cache some commonly used figures for an OD matrix.
  *
@@ -14,6 +16,7 @@ namespace si_taxi {
 struct ODMatrixWrapper
 {
   ODMatrixWrapper(const boost::numeric::ublas::matrix<double> &od);
+  ~ODMatrixWrapper();
 
   /**
    * Expected time between requests (between any pair of stations), in time
@@ -96,10 +99,10 @@ struct ODMatrixWrapper
 private:
   boost::numeric::ublas::matrix<double> _od;
   boost::numeric::ublas::matrix<double> _trip_prob;
-  boost::numeric::ublas::unbounded_array<double> _trip_cdf;
   boost::numeric::ublas::vector<double> _rate_from;
   boost::numeric::ublas::vector<double> _rate_to;
   double _expected_interarrival_time;
+  EmpiricalSampler<boost::numeric::ublas::unbounded_array<double> > * _sampler;
 };
 
 }

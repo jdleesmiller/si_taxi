@@ -8,7 +8,6 @@
 
 #include <cmath>
 #include <cstdlib>
-#include <deque>
 #include <exception>
 #include <fstream>
 #include <iostream>

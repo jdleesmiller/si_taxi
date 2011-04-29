@@ -1,6 +1,16 @@
 require 'test/si_taxi_helper'
 
 class ExtensionTest < Test::Unit::TestCase
+  def test_array_cumsum
+    assert_equal [], [].cumsum
+    assert_equal [0], [0].cumsum
+    assert_equal [1], [1].cumsum
+    assert_equal [0,1], [0,1].cumsum
+    assert_equal [1,1], [1,0].cumsum
+    assert_equal [1,2], [1,1].cumsum
+    assert_equal [1,3,6], [1,2,3].cumsum
+  end
+
   def assert_narray_close exp, obs
     assert exp.shape == obs.shape && ((exp - obs).abs < $delta).all?,
       "#{exp.inspect} expected; got\n#{obs.inspect}"

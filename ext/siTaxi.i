@@ -2,6 +2,9 @@
 
 %{
 #include <si_taxi/si_taxi.h>
+#include <si_taxi/utility.h>
+#include <si_taxi/random.h>
+#include <si_taxi/empirical_sampler.h>
 #include <si_taxi/od_histogram.h>
 #include <si_taxi/od_matrix_wrapper.h>
 #include <si_taxi/bell_wong/bell_wong.h>
@@ -59,6 +62,9 @@ void seed_rng(unsigned int seed) {
 %}
 
 %include "si_taxi/si_taxi.h"
+%include "si_taxi/empirical_sampler.h"
+%template(VectorEmpiricalSampler) si_taxi::EmpiricalSampler<std::vector<double> >;
+
 %include "si_taxi/od_histogram.h"
 
 /* Enable multiple return values for od.sample(). */

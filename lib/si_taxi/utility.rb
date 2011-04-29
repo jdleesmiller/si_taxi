@@ -99,5 +99,28 @@ module SiTaxi::Utility
   def nil_if_nan x
     x unless x.nan?
   end
+
+  #
+  # Random sample from cumulative distribution function. This uses a binary
+  # search, so it is reasonably efficient when +cdf+ is long.
+  #
+  # @param [Array<Float>] cdf in ascending order with last value >= 1.0
+  #
+  # @param [Float] r random value to use; must be in (0, 1]; if omitted, a
+  #        random value is generated using Kernel::rand
+  #
+  def sample_cdf cdf, r=1-rand
+    lower = -1
+    upper = cdf.size
+    while upper - lower > 1
+      mid = (lower + upper) / 2
+      if cdf[mid] < r
+	lower = mid
+      else 
+	upper = mid
+      end
+    end
+    return upper
+  end
 end
 

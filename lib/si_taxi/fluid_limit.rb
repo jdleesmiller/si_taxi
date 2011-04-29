@@ -190,18 +190,30 @@ end
 
 class SiTaxi::MGKSimulation < DiscreteEvent::Simulation
   include SiTaxi::FluidLimit
+  include SiTaxi::Utility
 
   def initialize od_time, od_occup, od_empty, num_veh, num_pax
     super()
 
-    @tau = NArray[*transaction_time_tensor(od_time)]
-    @tau_pr = NArray[*transaction_probability_tensor(od_occup, od_empty)]
+    # need to be able to efficiently sample the service times; to do this, we
+    # construct the cumulative distribution function so we can sample by doing
+    # a binary search on @tau_cdf and looking up the resulting index in @tau;
+    # we set the last entry of tau_cdf to (exactly) 1, to avoid potential
+    # rounding issues (it is supposed to be 1, by definition)
+    @tau = transaction_time_tensor(od_time).flatten
+    @tau_cdf = transaction_probability_tensor(od_occup,od_empty).flatten
+    cumsum!(tau_cdf)
+    raise unless (@tau_cdf[-1] - 1).abs < 1e-4 # should be close to 1
+    @tau_cdf[-1] = 1.0
+
     @od_rate = od_occup.flatten.sum # overall arrival rate
     @num_veh = num_veh
     @num_pax = num_pax
 
     @obs_pax_queue = []
     @obs_pax_wait = []
+
+    puts "od_rate=#{@od_rate}"
   end
 
   attr_accessor :obs_pax_queue, :obs_pax_wait, :pax_queued, :num_veh_idle
@@ -219,6 +231,7 @@ class SiTaxi::MGKSimulation < DiscreteEvent::Simulation
 
   def new_pax
     after rand_exp(@od_rate) do
+      puts "arrive now=#{now}; q=#{@pax_queued.map{|q| "%.1f" % q}.join(',')}"
       @obs_pax_queue << @pax_queued.size # record queue length before arrival
       @pax_queued << now
       serve_pax_if_any
@@ -231,8 +244,12 @@ class SiTaxi::MGKSimulation < DiscreteEvent::Simulation
       pax_arrive_time = @pax_queued.shift
       @obs_pax_wait << now - pax_arrive_time # record pax waiting times
 
+      r = rand
+
       @num_veh_idle -= 1
-      after @tau[*@tau_pr.sample_pmf] do
+      srv_t = @tau[*@tau_pr.sample_pmf]
+      puts "now=#{now}\tsrv_t=#{srv_t}\tq=#{@pax_queued.map{|q| "%.1f" % q}.join(',')}\tidle=#{@num_veh_idle}"
+      after srv_t do
         @num_veh_idle += 1
         raise "#{@num_veh_idle} idle vehicles" if @num_veh_idle > @num_veh
         serve_pax_if_any
