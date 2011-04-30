@@ -232,8 +232,8 @@ LP
 
     sim = MGKSimulation.new(t,d,x,30,100)
     sim.run
-    assert_equal 100, sim.obs_pax_queue.size
-    assert_equal 100, sim.obs_pax_wait.size
+    assert_equal 100, sim.queue_len_hist.count
+    assert_equal 100, sim.pax_wait_hist.count
   end
 end
 

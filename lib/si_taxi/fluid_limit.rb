@@ -190,16 +190,11 @@ end
 
 class SiTaxi::MGKSimulation < DiscreteEvent::Simulation
   include SiTaxi::FluidLimit
-  include SiTaxi::Utility
 
   def initialize od_time, od_occup, od_empty, num_veh, num_pax
     super()
 
-    # need to be able to efficiently sample the service times; to do this, we
-    # construct the cumulative distribution function so we can sample by doing
-    # a binary search on @tau_cdf and looking up the resulting index in @tau;
-    # we set the last entry of tau_cdf to (exactly) 1, to avoid potential
-    # rounding issues (it is supposed to be 1, by definition)
+    # sample from the flattened tensor (efficiency)
     @tau = transaction_time_tensor(od_time).flatten
     @tau_pmf = transaction_probability_tensor(od_occup,od_empty).flatten
     @tau_sampler = SiTaxi::EmpiricalSampler.from_pmf(@tau_pmf)
@@ -207,12 +202,13 @@ class SiTaxi::MGKSimulation < DiscreteEvent::Simulation
     @od_rate = od_occup.flatten.sum # overall arrival rate
     @num_veh = num_veh
     @num_pax = num_pax
+    @num_pax_arrived = 0
 
-    @obs_pax_queue = []
-    @obs_pax_wait = []
+    @queue_len_hist = SiTaxi::NaturalHistogram.new
+    @pax_wait_hist = SiTaxi::NaturalHistogram.new
   end
 
-  attr_accessor :obs_pax_queue, :obs_pax_wait, :pax_queued, :num_veh_idle
+  attr_accessor :queue_len_hist, :pax_wait_hist, :pax_queued, :num_veh_idle
 
   def start
     @pax_queued = []
@@ -227,27 +223,24 @@ class SiTaxi::MGKSimulation < DiscreteEvent::Simulation
 
   def new_pax
     after rand_exp(@od_rate) do
-      puts "arrive now=#{now}; q=#{@pax_queued.map{|q| "%.1f" % q}.join(',')}"
-      @obs_pax_queue << @pax_queued.size # record queue length before arrival
+      @num_pax_arrived += 1
+      @queue_len_hist.increment(@pax_queued.size) # before arrival
       @pax_queued << now
       serve_pax_if_any
-      new_pax if @obs_pax_queue.size < @num_pax 
+      new_pax if @num_pax_arrived < @num_pax 
     end
   end
 
   def serve_pax_if_any
     while !@pax_queued.empty? && @num_veh_idle > 0
       pax_arrive_time = @pax_queued.shift
-      @obs_pax_wait << now - pax_arrive_time # record pax waiting times
-
-      r = rand
+      @pax_wait_hist.increment((now - pax_arrive_time).to_i)
 
       @num_veh_idle -= 1
-      srv_t = @tau[@tau_sampler.sample]
-      puts "now=#{now}\tsrv_t=#{srv_t}\tq=#{@pax_queued.map{|q| "%.1f" % q}.join(',')}\tidle=#{@num_veh_idle}"
-      after srv_t do
+      after @tau[@tau_sampler.sample] do
         @num_veh_idle += 1
-        raise "#{@num_veh_idle} idle vehicles" if @num_veh_idle > @num_veh
+        raise "#{@num_veh_idle} idle vehicles" if 
+          @num_veh_idle > @num_veh || @num_veh_idle < 1
         serve_pax_if_any
       end
     end
