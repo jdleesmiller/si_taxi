@@ -367,5 +367,46 @@ class TestSiTaxi < Test::Unit::TestCase
     
     assert_equal [0,0.5,1], range(0,0.5,1)
   end
+
+  def pick_from_pmf pmf, r
+    EmpiricalSampler.from_pmf(pmf).pick(r)
+  end
+
+  should "sample with EmpiricalSampler" do
+    # we can create a sampler with an empty pmf/cdf, but we can't use it
+    s = EmpiricalSampler.new([])
+    s = EmpiricalSampler.from_pmf([])
+
+    assert_equal 0, pick_from_pmf([1], 0.01)
+    assert_equal 0, pick_from_pmf([1], 1)
+
+    assert_equal 0, pick_from_pmf([1,0], 0.01)
+    assert_equal 0, pick_from_pmf([1,0], 1)
+
+    assert_equal 1, pick_from_pmf([0,1], 0.01)
+    assert_equal 1, pick_from_pmf([0,1], 1)
+
+    assert_equal 1, pick_from_pmf([0,1,0], 0.01)
+    assert_equal 1, pick_from_pmf([0,1,0], 1)
+
+    assert_equal 1, pick_from_pmf([0.0,0.5,0.0,0.5], 0.01)
+    assert_equal 1, pick_from_pmf([0.0,0.5,0.0,0.5], 0.5)
+    assert_equal 3, pick_from_pmf([0.0,0.5,0.0,0.5], 0.51)
+    assert_equal 3, pick_from_pmf([0.0,0.5,0.0,0.5], 1)
+
+    assert_equal 0, pick_from_pmf([0.5,0.0,0.5,0.0], 0.01)
+    assert_equal 0, pick_from_pmf([0.5,0.0,0.5,0.0], 0.5)
+    assert_equal 2, pick_from_pmf([0.5,0.0,0.5,0.0], 0.51)
+    assert_equal 2, pick_from_pmf([0.5,0.0,0.5,0.0], 1)
+
+    # due to rounding, we don't always get a 1 at the end; this routine will
+    # just return one past the end
+    pmf = [0.1]*10
+    assert pmf.cumsum[9] < 1
+    (0..9).each do |i|
+      assert_equal i, pick_from_pmf(pmf, i/10.0 + 0.01)
+    end
+    assert_equal 9, pick_from_pmf(pmf, 1)
+  end
 end
 

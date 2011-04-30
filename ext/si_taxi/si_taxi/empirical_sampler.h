@@ -1,6 +1,8 @@
 #ifndef SI_TAXI_EMPIRICAL_SAMPLER_H_
 #define SI_TAXI_EMPIRICAL_SAMPLER_H_
 
+#include "si_taxi.h"
+
 namespace si_taxi {
 
 /**

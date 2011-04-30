@@ -48,45 +48,6 @@ template<typename T, typename RNG> T genrand_o01o(RNG &rng) {
   /* divided by 2^32 -- taken from SFMT.h */
 }
 
-/**
- * Pick an entry from a matrix in which each entry is a probability; the
- * probability that an entry is picked is the value of that entry.
- *
- * @param p stochastic matrix (entries sum to 1).
- */
-template<typename T, typename RNG>
-void sample_pmf(RNG &rng,
-    const boost::numeric::ublas::matrix<T> &p, size_t &i, size_t &j) {
-  double r = genrand_c01o<T>(rng);
-  double sum = 0;
-  for (i = 0; i < p.size1(); ++i) {
-    for (j = 0; j < p.size2(); ++j) {
-      sum += p(i,j);
-      if (r < sum)
-      return;
-    }
-  }
-  FAIL("sampling failed; sum = " << sum);
-}
-
-/**
- * Pick an entry from a given row in a stochastic matrix.
- *
- * @param p stochastic matrix (entries along row i sum to 1).
- */
-template<typename T, typename RNG>
-size_t sample_pmf_row(RNG &rng,
-    const boost::numeric::ublas::matrix<T> &p, size_t i) {
-  double r = genrand_c01o<T>(rng);
-  double sum = 0;
-  for (size_t j = 0; j < p.size2(); ++j) {
-    sum += p(i,j);
-    if (r < sum)
-    return j;
-  }
-  FAIL("sampling failed; sum = " << sum);
-}
-
 }
 
 #endif // guard

@@ -3,40 +3,18 @@
 #
 class Array
   #
-  # The cumulative sum of this array.
+  # The cumulative sum (partial sum) of this array.
+  #
+  # @param sum value to start summing from
   #
   # @return [Array]
   #
   # @example
   #   [1,2,3].cumsum #=> [1,3,6]
   #
-  def cumsum
-    sum = 0
+  def cumsum sum=0
     self.map{|x| sum += x}
   end unless method_defined?(:cumsum)
-
-#  #
-#  # Based on +bsearch_upper_boundary+ in bsearch 1.5.0, but without the overhead
-#  # of passing a block.
-#  #
-#  # @param x comparable with '<='
-#  #
-#  # @return [Integer]
-#  #
-#  def bsearch_upper_bound x
-#    range = 0...self.length
-#    lower = range.first() -1
-#    upper = if range.exclude_end? then range.last else range.last + 1 end
-#    while lower + 1 != upper
-#      mid = ((lower + upper) / 2).to_i # for working with mathn.rb (Rational)
-#      if x <= self[mid]
-#	lower = mid
-#      else 
-#	upper = mid
-#      end
-#    end
-#    return lower
-#  end
 end
 
 #

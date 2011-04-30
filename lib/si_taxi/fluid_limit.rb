@@ -201,10 +201,8 @@ class SiTaxi::MGKSimulation < DiscreteEvent::Simulation
     # we set the last entry of tau_cdf to (exactly) 1, to avoid potential
     # rounding issues (it is supposed to be 1, by definition)
     @tau = transaction_time_tensor(od_time).flatten
-    @tau_cdf = transaction_probability_tensor(od_occup,od_empty).flatten
-    cumsum!(tau_cdf)
-    raise unless (@tau_cdf[-1] - 1).abs < 1e-4 # should be close to 1
-    @tau_cdf[-1] = 1.0
+    @tau_pmf = transaction_probability_tensor(od_occup,od_empty).flatten
+    @tau_sampler = SiTaxi::EmpiricalSampler.from_pmf(@tau_pmf)
 
     @od_rate = od_occup.flatten.sum # overall arrival rate
     @num_veh = num_veh
@@ -212,8 +210,6 @@ class SiTaxi::MGKSimulation < DiscreteEvent::Simulation
 
     @obs_pax_queue = []
     @obs_pax_wait = []
-
-    puts "od_rate=#{@od_rate}"
   end
 
   attr_accessor :obs_pax_queue, :obs_pax_wait, :pax_queued, :num_veh_idle
@@ -247,7 +243,7 @@ class SiTaxi::MGKSimulation < DiscreteEvent::Simulation
       r = rand
 
       @num_veh_idle -= 1
-      srv_t = @tau[*@tau_pr.sample_pmf]
+      srv_t = @tau[@tau_sampler.sample]
       puts "now=#{now}\tsrv_t=#{srv_t}\tq=#{@pax_queued.map{|q| "%.1f" % q}.join(',')}\tidle=#{@num_veh_idle}"
       after srv_t do
         @num_veh_idle += 1

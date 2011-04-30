@@ -217,24 +217,23 @@ LP
     assert_in_delta d_total*expected_tau, lp_est
   end
 
-  # TODO
-#  def test_mgk_simulation
-#    t = [[ 0, 10.1, 30.1], 
-#         [ 20.1, 0, 50.1], 
-#         [ 40.1, 50.1, 0]] # 3 station star
-#    d = [[   0,   0,   0],
-#         [ 0.1,   0, 0.1],
-#         [ 0.1, 0.1,   0]]
-#    x = solve_fluid_limit_lp(t, d)
-#    assert_all_in_delta [
-#      [   0, 0.1, 0.1],
-#      [   0,   0,   0],
-#      [   0,   0,   0]].flatten, x.flatten, $delta
-#
-#    sim = MGKSimulation.new(t,d,x,30,100)
-#    sim.run
-#    assert_equal 100, sim.obs_pax_queue.size
-#    assert_equal 100, sim.obs_pax_wait.size
-#  end
+  def test_mgk_simulation
+    t = [[ 0, 10.1, 30.1], 
+         [ 20.1, 0, 50.1], 
+         [ 40.1, 50.1, 0]] # 3 station star
+    d = [[   0,   0,   0],
+         [ 0.1,   0, 0.1],
+         [ 0.1, 0.1,   0]]
+    x = solve_fluid_limit_lp(t, d)
+    assert_all_in_delta [
+      [   0, 0.1, 0.1],
+      [   0,   0,   0],
+      [   0,   0,   0]].flatten, x.flatten, $delta
+
+    sim = MGKSimulation.new(t,d,x,30,100)
+    sim.run
+    assert_equal 100, sim.obs_pax_queue.size
+    assert_equal 100, sim.obs_pax_wait.size
+  end
 end
 

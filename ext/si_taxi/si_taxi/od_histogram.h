@@ -3,9 +3,6 @@
 
 #include "si_taxi.h"
 
-//#include <boost/numeric/ublas/banded.hpp>
-//#include <boost/numeric/ublas/matrix_proxy.hpp>
-
 using namespace std;
 
 namespace si_taxi {
