@@ -39,8 +39,8 @@ class FluidLimitTest < Test::Unit::TestCase
   end
 
   def test_sampler
-    s = VectorEmpiricalSampler.new([])
-    s = VectorEmpiricalSampler.new([0.5,0.0,0.5,0.0])
+    s = EmpiricalSampler.new([])
+    s = EmpiricalSampler.from_pmf([0.5,0.0,0.5,0.0])
     p s.sample
     p s.sample
     p s.sample

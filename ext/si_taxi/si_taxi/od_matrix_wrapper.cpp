@@ -28,9 +28,12 @@ ODMatrixWrapper::ODMatrixWrapper(
   _trip_prob = _od * _expected_interarrival_time;
 
   // flatten the matrix for more efficient sampling; the sampling step is a
-  // performance hot spot for (surprise) the sampling and voting algorithm
-  _sampler = new EmpiricalSampler<
-      boost::numeric::ublas::unbounded_array<double> >(_trip_prob.data());
+  // performance hot spot for (surprise) the sampling and voting algorithm;
+  // partial_sum is cumsum (cumulative sum)
+  vector<double> cdf(_trip_prob.data().size());
+  std::partial_sum(_trip_prob.data().begin(), _trip_prob.data().end(),
+      cdf.begin());
+  _sampler = EmpiricalSampler(cdf);
 
   /*
   // sum to get the cdf for more efficient sampling; here 'cumulative' goes
@@ -55,10 +58,6 @@ ODMatrixWrapper::ODMatrixWrapper(
     _trip_cdf[n*n - 1] = 1.0;
   }
   */
-}
-
-ODMatrixWrapper::~ODMatrixWrapper() {
-  delete _sampler;
 }
 
 // Boost's Poisson distribution doesn't like a zero rate.
@@ -108,7 +107,7 @@ void ODMatrixWrapper::sample(size_t &origin, size_t &destin,
   interval = -log(1 - u) * _expected_interarrival_time;
 
   size_t n = _od.size1();
-  size_t l = _sampler->sample();
+  size_t l = _sampler.sample();
   origin = l / n;
   destin = l % n;
   ASSERT(origin < n);
