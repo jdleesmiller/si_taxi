@@ -401,6 +401,47 @@ class AndreassonTest < Test::Unit::TestCase
       assert_veh 2, 2,  0
     end
 
+    should "handle vehicle becoming idle at a station with a queued call" do
+      # an edge case: if a station has a queued call, and a vehicle becomes idle
+      # there, the call should remain outstanding; the rationale is that the
+      # vehicle was already inbound when the call was made, so the station still
+      # wanted/wants more vehicles.
+      
+      # here we'll set targets instead of using the call times and od matrix
+      @pro.use_call_times_for_targets = false
+      @pro.targets[0] = 1
+      @pro.targets[1] = 1
+      @pro.targets[2] = 1
+
+      assert_equal 0, @pro.call_queue.size
+
+      # targets are set so that no immediate replacement is available; a call to
+      # station 0 is placed on the queue
+      put_veh_at 0, 2
+      pax        0, 1,  0
+      assert_veh 0, 1, 10
+      assert_veh 2, 2,  0
+
+      assert_equal 1, @pro.call_queue.size
+
+      # vehicle 0 now idle at 1; the call remains on the queue; send vehicle 1
+      # to station 0, where it becomes idle; if we lower the target at station
+      # 0, station 0 now has a surplus, so it will try to use the incoming
+      # vehicle to service a call
+      @sim.run_to 11
+      assert_equal 1, @pro.call_queue.size
+
+      pax        1, 0,  15
+      @pro.targets[0] = 0
+
+      @sim.run_to 66
+      assert_veh 1, 0, 65
+      assert_veh 2, 2,  0
+
+      # note that another call will have been queued, this time to station 1
+      assert_equal 2, @pro.call_queue.size
+    end
+
     should "use reset the call queue on a call to init" do
       @pro.use_call_times_for_targets = false
       @pro.targets[0] = 1

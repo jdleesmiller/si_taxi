@@ -68,8 +68,13 @@ void BWAndreassonHandler::handle_idle(BWVehicle &veh) {
       if (send_when_over)
         ev_destin = find_send_destin(ev_origin);
     } else {
-      ev_destin = call_queue.front();
-      call_queue.pop();
+      size_t call_destin = call_queue.front();
+      // the ev_origin may have a call outstanding; don't use this vehicle to
+      // service the call
+      if (call_destin != ev_origin) {
+        ev_destin = call_destin;
+        call_queue.pop();
+      }
     }
     if (ev_destin != numeric_limits<size_t>::max()) {
       ASSERT(ev_origin != ev_destin);
