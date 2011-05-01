@@ -429,6 +429,18 @@ struct BWNNHandler : public BWReactiveHandler {
 };
 
 /**
+ * Empty Time Nearest Neighbours (ETNN) heuristic; this is really a nearest
+ * neighbours heuristic: it assigns the empty vehicle with the minimum extra
+ * empty vehicle trip time. If there is a tie, it minimises the request's
+ * waiting time.
+ */
+struct ETNNHandler : public BWReactiveHandler {
+  explicit inline ETNNHandler(BWSim &sim) : BWReactiveHandler(sim) { }
+  virtual ~ETNNHandler() { }
+  virtual size_t handle_pax(const BWPax &pax);
+};
+
+/**
  * Static version of BWNN for comparison; this heuristic "cheats:" it is allowed
  * to move idle vehicles in the past.
  */

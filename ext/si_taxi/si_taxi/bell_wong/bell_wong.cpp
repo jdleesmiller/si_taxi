@@ -255,6 +255,30 @@ size_t BWNNHandler::handle_pax(const BWPax &pax) {
   return k_star;
 }
 
+size_t ETNNHandler::handle_pax(const BWPax &pax) {
+  ASSERT(pax.origin < sim.num_stations());
+  ASSERT(pax.destin < sim.num_stations());
+  ASSERT(pax.arrive == sim.now);
+
+  size_t ks            = numeric_limits<size_t>::max();
+  int    ks_empty      = numeric_limits<int>::max();
+  BWTime ks_extra_wait = numeric_limits<BWTime>::max();
+  for (size_t k = 0; k < sim.vehs.size(); ++k) {
+    int    k_empty      = sim.trip_time(sim.vehs[k].destin, pax.origin);
+    BWTime k_extra_wait = max((BWTime)0, sim.vehs[k].arrive - sim.now);
+
+    if (k_empty < ks_empty || (
+        k_empty == ks_empty && k_extra_wait < ks_extra_wait))
+    {
+      ks = k;
+      ks_empty = k_empty;
+      ks_extra_wait = k_extra_wait;
+    }
+  }
+  ASSERT(ks != numeric_limits<size_t>::max());
+  return ks;
+}
+
 size_t BWSNNHandler::choose_veh(const BWPax &pax, const vector<BWVehicle> &vehs,
     const boost::numeric::ublas::matrix<int> &trip_time) {
   int ks_empty = trip_time(vehs[0].destin, pax.origin);
