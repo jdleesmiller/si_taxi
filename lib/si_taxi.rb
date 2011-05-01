@@ -40,6 +40,7 @@ module SiTaxi
   def rand_seed
     rand(0x7fffffff)
   end
+  module_function :rand_seed
 
   #
   # The signum (sign) function.
