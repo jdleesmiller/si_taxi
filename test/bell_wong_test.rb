@@ -24,7 +24,7 @@ class BellWongTest < Test::Unit::TestCase
     end
   end
 
-  [BWNNHandler, BWSNNHandler].each do |reactive_class|
+  [BWNNHandler, BWETNNHandler, BWSNNHandler].each do |reactive_class|
     context "reactive algorithm #{reactive_class}" do 
       context "on two station ring (10, 20)" do
         setup do
@@ -198,6 +198,14 @@ class BellWongTest < Test::Unit::TestCase
 
     should "not move proactively with BWNN" do
       @sim.reactive  = BWNNHandler.new(@sim)
+      @sim.init
+      pax 0, 1,  0
+      pax 0, 1, 60
+      assert_wait_hists({0=>1, 20=>1}, {})
+    end
+
+    should "not move proactively with BWETNN" do
+      @sim.reactive  = BWETNNHandler.new(@sim)
       @sim.init
       pax 0, 1,  0
       pax 0, 1, 60
@@ -391,7 +399,52 @@ class BellWongTest < Test::Unit::TestCase
       assert_veh  1,  1,  0
       assert_veh  2,  2,  0
       assert_equal 2, @sim.vehs.to_a.select{|v| v.destin == 0}.size
+    end
+  end
 
+  context "BWNN vs ETNN on three station ring" do
+    # in both of the tests below, vehicle 0 is going from 0 to 2, and it could
+    # pick up a new passenger at 2 with no new empty vehicle trip, but vehicle 1
+    # is idle at station 1, and it could get there first
+    setup do
+      setup_sim TRIP_TIMES_3ST_RING_10_20_30
+      @sim.proactive = BWProactiveHandler.new(@sim) # nop
+    end
+
+    context "BWNN" do
+      setup do
+        @sim.reactive = BWNNHandler.new(@sim)
+        @sim.init
+      end
+      should "prefer vehicle with lower waiting time" do
+        put_veh_at 0, 1
+        pax         0,  2,   0 
+        assert_veh  0,  2,  30
+        assert_veh  1,  1,   0
+
+        pax         2,  0,   5
+        assert_veh  0,  2,  30
+        assert_veh  2,  0,  55
+        assert_wait_hists  [1], [], {20 => 1} # time from 1 to 2
+      end
+    end
+
+    context "ETNN" do
+      setup do
+        @sim.reactive = BWETNNHandler.new(@sim)
+        @sim.init
+      end
+      should "prefer vehicle with lower empty trip time" do
+        put_veh_at 0, 1
+        pax         0,  2,   0 
+        assert_veh  0,  2,  30
+        assert_veh  1,  1,   0
+
+        pax         2,  0,   5
+        assert_veh  2,  0,  60
+        assert_veh  1,  1,   0
+        assert_wait_hists  [1], [], {25 => 1} # time until vehicle 0 gets to 2
+      end
     end
   end
 end

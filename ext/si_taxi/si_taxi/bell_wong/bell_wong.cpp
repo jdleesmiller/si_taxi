@@ -255,7 +255,7 @@ size_t BWNNHandler::handle_pax(const BWPax &pax) {
   return k_star;
 }
 
-size_t ETNNHandler::handle_pax(const BWPax &pax) {
+size_t BWETNNHandler::handle_pax(const BWPax &pax) {
   ASSERT(pax.origin < sim.num_stations());
   ASSERT(pax.destin < sim.num_stations());
   ASSERT(pax.arrive == sim.now);

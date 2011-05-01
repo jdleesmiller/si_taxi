@@ -434,9 +434,9 @@ struct BWNNHandler : public BWReactiveHandler {
  * empty vehicle trip time. If there is a tie, it minimises the request's
  * waiting time.
  */
-struct ETNNHandler : public BWReactiveHandler {
-  explicit inline ETNNHandler(BWSim &sim) : BWReactiveHandler(sim) { }
-  virtual ~ETNNHandler() { }
+struct BWETNNHandler : public BWReactiveHandler {
+  explicit inline BWETNNHandler(BWSim &sim) : BWReactiveHandler(sim) { }
+  virtual ~BWETNNHandler() { }
   virtual size_t handle_pax(const BWPax &pax);
 };
 
