@@ -18,7 +18,8 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'facets', '~> 2.9'
 
-  s.add_development_dependency 'gemma', '>= 1.0.1', '~> 1.0'
+  # gemma now in Gemfile -- using local copy
+  #s.add_development_dependency 'gemma', '>= 1.0.1', '~> 1.0'
   s.add_development_dependency 'shoulda', '>= 2.11.3', '~> 2.11'
   s.add_development_dependency 'simplecov', '>= 0.4.0', '~> 0.4'
   s.add_development_dependency 'yard', '>= 0.6.7', '~> 0.6'
