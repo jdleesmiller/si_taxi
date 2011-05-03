@@ -15,9 +15,25 @@ class SiTaxi::DrawableNetwork
     end
   end
 
-  StationNode = Struct.new(:id, :x, :y, :index, :label)
+  #
+  # A station node.
+  #
+  # Note that the label is not included in the hashing; this makes it
+  # possible to relabel stations without rebuilding the whole graph. In fact,
+  # only the id really needs to be hashed, but this isn't causing any problems.
+  #
+  class StationNode < Struct.new(:id, :x, :y, :index)
+    include Node
+
+    def initialize id, x, y, index, label
+      super(id, x, y, index)
+      @label = label
+    end
+
+    attr_accessor :label
+  end
+
   StructuralNode = Struct.new(:id, :x, :y)
-  class StationNode; include Node; end
   class StructuralNode; include Node; end
 
   #
@@ -33,7 +49,16 @@ class SiTaxi::DrawableNetwork
   attr_reader :dist_net
 
   #
+  # Shortest-paths times matrix for both structural and station nodes.
+  #
+  # @return nil iff skip_trip_times was passed on construction
+  #
+  attr_reader :trip_times
+
+  #
   # Shortest-paths successor matrix for both structural and station nodes.
+  #
+  # @return nil iff skip_trip_times was passed on construction
   #
   attr_reader :time_succ
 
@@ -101,6 +126,26 @@ class SiTaxi::DrawableNetwork
   end
 
   #
+  # Shortest path station-to-station trip times, in seconds. Stations are listed
+  # in index order.
+  #
+  # @return [Array<Array<Float>>] in seconds; zeros on the diagonal
+  #
+  def station_trip_times
+    num_stations = stations.size
+    od_time = NArray.float(num_stations, num_stations)
+    for sn, trip_times_sn in self.trip_times
+      next unless sn.is_a? StationNode
+      for dn, time in trip_times_sn
+        next unless sn != dn && dn.is_a?(StationNode)
+        raise "got diagonal entry: #{sn.inspect}" if sn.index == dn.index
+        od_time[dn.index,sn.index] = time # column major
+      end
+    end
+    od_time.to_a
+  end
+
+  #
   # Create and do shortest path calcs.
   #
   # @param [Boolean] skip_trip_times, because this is depressingly slow
@@ -109,7 +154,7 @@ class SiTaxi::DrawableNetwork
     @dist_net, @time_net, @speeds = dist_net, time_net, speeds
     @stations = dist_net.vertices.select {|n| n.is_a?(StationNode)}.
       sort_by {|n| n.index}
-    trip_times, @time_succ = time_net.floyd_warshall unless skip_trip_times
+    @trip_times, @time_succ = time_net.floyd_warshall unless skip_trip_times
   end
 
   # Compute node-to-node times by dividing distance by given speeds.
@@ -120,6 +165,9 @@ class SiTaxi::DrawableNetwork
     end
     time_net
   end
+
+  # See {#from_atscm_xml}.
+  ATSCM_DEFAULT_SPEED = 10 # m/s
 
   #
   # Read network from an ATS/CityMobil file.
@@ -134,7 +182,9 @@ class SiTaxi::DrawableNetwork
   #
   # @return [DrawableNetwork]
   #
-  def self.from_atscm_xml file_name, speed=10, skip_trip_times=false
+  def self.from_atscm_xml file_name, speed=ATSCM_DEFAULT_SPEED,
+    skip_trip_times=false
+
     doc = Hpricot.XML(File.new(file_name))
 
     # read structural nodes; treat depots as structural

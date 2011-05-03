@@ -43,9 +43,38 @@ module SiTaxi::DataFiles
   end
 
   #
+  # Print given origin-destination matrix with given station names to the given
+  # io.  
+  #
+  # @param [Array<Array<Numeric>>] array-of-arrays matrix; square
+  #
+  # @param [Array<String>] station_name 
+  #
+  # @param [IO] io to print to
+  #
+  # @param [Boolean] no_diag ignore whatever is on the diagonal; just print
+  #        nothing
+  #
+  # @return [nil]
+  #
+  def print_annotated_od_matrix matrix, station_names, io=$STDOUT, no_diag=true
+    raise "station names do not match matrix" if
+      station_names.size != matrix.size
+
+    io.puts "\t" + station_names.join("\t")
+    matrix.each_with_index do |row, i| 
+      row = row.dup
+      row[i] = '' if no_diag
+      io.puts station_names[i] + "\t" + row.join("\t")
+    end
+
+    nil
+  end
+
+  #
   # Read in an ATS/CityMobil file as a {DrawableNetwork} and a demand matrix.
   #
-  def read_atscm_file atscm_file
+  def read_atscm_file atscm_file, skip_trip_times=false
     require 'fileutils'
     require 'tmpdir'
 
@@ -60,7 +89,8 @@ module SiTaxi::DataFiles
         raise "failed to unzip: #{$?.inspect}" unless $?.exitstatus == 0
 
         raise "could not find atscm.xml" unless File.exists?('atscm.xml')
-        network = SiTaxi::DrawableNetwork.from_atscm_xml('atscm.xml')
+        network = SiTaxi::DrawableNetwork.from_atscm_xml('atscm.xml',
+          SiTaxi::DrawableNetwork::ATSCM_DEFAULT_SPEED, skip_trip_times)
 
         demand = read_atscm_demand_from_xml(network.stations, 'atscm.xml')
       end
