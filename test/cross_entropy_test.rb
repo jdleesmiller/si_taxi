@@ -1,7 +1,12 @@
 require 'test/si_taxi_helper'
 
-class ExtensionTest < Test::Unit::TestCase
+class CrossEntropyTest < Test::Unit::TestCase
   include SiTaxi
+
+  def assert_narray_close exp, obs
+    assert exp.shape == obs.shape && ((exp - obs).abs < $delta).all?,
+      "#{exp.inspect} expected; got\n#{obs.inspect}"
+  end
 
   def test_ce_estimate_ml
     mp = CrossEntropy::MatrixProblem.new

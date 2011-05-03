@@ -1,0 +1,17 @@
+	Station 01	Station 02	Station 03	Station 04	Station 05	Station 06	Station 07	Station 08	Station 09	Station 10	Station 11	Station 12	Station 13	Station 14	Station 15
+Station 01	0	0	0	0	14	15	14	8	8	8	5	5	5	1	2
+Station 02	0	0	0	0	15	14	15	8	8	8	5	5	5	2	4
+Station 03	0	0	0	0	15	14	14	7	7	8	4	4	5	8	6
+Station 04	0	0	0	0	14	14	14	7	7	7	4	4	4	7	9
+Station 05	4	4	4	4	0	0	0	0	0	0	0	0	0	0	0
+Station 06	4	4	3	3	0	0	0	0	0	0	0	0	0	0	0
+Station 07	3	3	4	4	0	0	0	0	0	0	0	0	0	0	0
+Station 08	2	2	2	2	0	0	0	0	0	0	0	0	0	0	0
+Station 09	2	2	2	2	0	0	0	0	0	0	0	0	0	0	0
+Station 10	2	2	2	2	0	0	0	0	0	0	0	0	0	0	0
+Station 11	1	2	1	2	0	0	0	0	0	0	0	0	0	0	0
+Station 12	2	1	2	1	0	0	0	0	0	0	0	0	0	0	0
+Station 13	1	2	1	2	0	0	0	0	0	0	0	0	0	0	0
+Station 14	1	1	3	4	0	0	0	0	0	0	0	0	0	0	0
+Station 15	1	1	2	2	0	0	0	0	0	0	0	0	0	0	0
+

@@ -13,6 +13,10 @@ disable_warnings do # gives one annoying warning
   require 'narray'
 end
 
+disable_warnings do # gives one annoying warning
+  require 'hpricot'
+end
+
 # Load extension module before doing anything else.
 require 'siTaxi'
 
@@ -20,6 +24,8 @@ require 'si_taxi/version'
 require 'si_taxi/extensions'
 require 'si_taxi/utility'
 require 'si_taxi/abstract_networks'
+require 'si_taxi/data_files'
+require 'si_taxi/drawable_network'
 require 'si_taxi/bell_wong'
 require 'si_taxi/lp_solve'
 require 'si_taxi/fluid_limit'

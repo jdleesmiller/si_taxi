@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   s.rubyforge_project = 'si_taxi'
 
   s.add_runtime_dependency 'facets', '~> 2.9'
+  s.add_runtime_dependency 'hpricot', '~> 0.8.4'
 
   # gemma now in Gemfile -- using local copy
   #s.add_development_dependency 'gemma', '>= 1.0.1', '~> 1.0'
