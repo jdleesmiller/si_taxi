@@ -57,7 +57,7 @@ module SiTaxi::DataFiles
   #
   # @return [nil]
   #
-  def print_annotated_od_matrix matrix, station_names, io=$STDOUT, no_diag=true
+  def print_annotated_od_matrix matrix, station_names, io=STDOUT, no_diag=true
     raise "station names do not match matrix" if
       station_names.size != matrix.size
 
