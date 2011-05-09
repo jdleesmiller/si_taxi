@@ -255,6 +255,28 @@ size_t BWNNHandler::handle_pax(const BWPax &pax) {
   return k_star;
 }
 
+BWH1Handler::BWH1Handler(BWSim &sim, double alpha) :
+    BWReactiveHandler(sim), _alpha(alpha) {
+  using namespace boost::numeric;
+  using namespace boost::numeric::ublas;
+
+  // Let e = vector of ones.
+  scalar_vector<double> e(lambda.size1(), 1);
+
+  // Let C denote the trip times matrix, for brevity.
+  // Let C_k denote the k'th row of C, and P^j denote the j'th column of P.
+  // Then we want CPe:
+  // {CP}_kj = C_k * P^j = \sum_i C_ki P_ij
+  // {CPe}_k = \sum_j {CP}_kj
+  //         = \sum_j \sum_i C_ki P_ij
+  //         = \sum_{i,j} p_ij*c(k,i)
+  ublas::vector<double> Pe(prod(lambda.probability_of_trip, e));
+  expected_trip_time_from = prod(trip_times, Pe);
+}
+
+size_t BWH1Handler::handle_pax(const BWPax &pax) {
+}
+
 size_t BWETNNHandler::handle_pax(const BWPax &pax) {
   ASSERT(pax.origin < sim.num_stations());
   ASSERT(pax.destin < sim.num_stations());

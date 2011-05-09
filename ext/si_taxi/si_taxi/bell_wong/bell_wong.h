@@ -429,6 +429,38 @@ struct BWNNHandler : public BWReactiveHandler {
 };
 
 /**
+ * The original Bell and Wong Nearest Neighbours (BWNN) heuristic.
+ */
+struct BWH1Handler : public BWReactiveHandler {
+  explicit inline BWH1Handler(BWSim &sim, double alpha);
+  virtual ~BWH1Handler() { }
+  virtual size_t handle_pax(const BWPax &pax);
+
+  /**
+   * Factor that weights future waiting time against current waiting time.
+   *
+   * @return non-negative
+   */
+  double alpha() const {
+    return _alpha;
+  }
+
+  /**
+   * Used for forecasting; entries in vehicle trips / second.
+   */
+  const ODMatrixWrapper &od() const {
+    return _od;
+  }
+
+private:
+  /// see alpha()
+  double _alpha;
+
+  /// see od()
+  ODMatrixWrapper _od;
+};
+
+/**
  * Empty Time Nearest Neighbours (ETNN) heuristic; this is really a nearest
  * neighbours heuristic: it assigns the empty vehicle with the minimum extra
  * empty vehicle trip time. If there is a tie, it minimises the request's
