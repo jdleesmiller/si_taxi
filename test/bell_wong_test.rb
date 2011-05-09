@@ -24,12 +24,23 @@ class BellWongTest < Test::Unit::TestCase
     end
   end
 
-  [BWNNHandler, BWETNNHandler, BWSNNHandler].each do |reactive_class|
+  #
+  # Basic tests that all of the reactive handlers should pass.
+  #
+  [BWNNHandler, BWH1Handler, BWH2Handler,
+    BWETNNHandler, BWSNNHandler].each do |reactive_class|
     context "reactive algorithm #{reactive_class}" do 
       context "on two station ring (10, 20)" do
         setup do
           setup_sim TRIP_TIMES_2ST_RING_10_20
-          @sim.reactive = reactive_class.new(@sim)
+          uniform_od = [[0,1],[1,0]]
+          if reactive_class == BWH1Handler
+            @sim.reactive = BWH1Handler.new(@sim, uniform_od, 0.1)
+          elsif reactive_class == BWH2Handler
+            @sim.reactive = BWH2Handler.new(@sim, uniform_od, 0.1, 2)
+          else
+            @sim.reactive = reactive_class.new(@sim)
+          end
           @sim.proactive = BWProactiveHandler.new(@sim) # nop
           @sim.init
         end
@@ -123,7 +134,14 @@ class BellWongTest < Test::Unit::TestCase
       context "on three station ring (10s, 20s, 30s)" do
         setup do
           setup_sim TRIP_TIMES_3ST_RING_10_20_30
-          @sim.reactive = reactive_class.new(@sim)
+          uniform_od = [[0,1,1],[1,0,1],[1,1,0]]
+          if reactive_class == BWH1Handler
+            @sim.reactive = BWH1Handler.new(@sim, uniform_od, 0.1)
+          elsif reactive_class == BWH2Handler
+            @sim.reactive = BWH2Handler.new(@sim, uniform_od, 0.1, 2)
+          else
+            @sim.reactive = reactive_class.new(@sim)
+          end
           @sim.proactive = BWProactiveHandler.new(@sim) # nop
           @sim.init
         end
@@ -446,6 +464,130 @@ class BellWongTest < Test::Unit::TestCase
         assert_wait_hists  [1], [], {25 => 1} # time until vehicle 0 gets to 2
       end
     end
+  end
+
+  context "with the 'myopic' test network" do
+    # These tests demonstrate that immediately assigning a vehicle to an
+    # arriving passenger (even with later revision) can cause problems. See also
+    # 'myopic_trouble_sets' in some older code. The H1 heuristic mitigates these
+    # to some extent.
+    # The demand matrix is set so that
+    # expected_next_wait[1] = 0
+    # expected_next_wait[2] = 40
+    # so the H1 objective is
+    # for the vehicle at 1: 10 - alpha*ENW[1] = 10
+    # for the vehicle at 2: 30 - alpha*ENW[2]
+    # so alpha = 0.5 is the threshold. 
+    setup do
+      # This is derived from grid_7st_800m by choosing stations 2, 3 and 4 and
+      # scaling the travel times down by 8 (convenience).
+      setup_sim [[0, 50,10],
+                 [10, 0,20],
+                 [30,40, 0]]
+      @sim.proactive = BWProactiveHandler.new(@sim) # nop
+      @od = [[0, 0, 0],   # pax/hr
+             [0, 0, 1],
+             [0, 0, 0]]
+    end
+
+    [BWNNHandler, BWH1Handler].each do |reactive_handler|
+      should "move the wrong vehicle with #{reactive_handler} (alpha 0.4)" do
+        if reactive_handler == BWNNHandler
+          @sim.reactive = BWNNHandler.new(@sim)
+        else
+          @sim.reactive = BWH1Handler.new(@sim, @od, 0.4)
+        end
+        @sim.init
+
+        put_veh_at 1, 2
+
+        # passenger from 0 to 2 takes the vehicle from 1
+        pax         0,  2,   0 
+        assert_veh  0,  2,   0 + 10 + 10
+
+        # passenger at 1 has to take the vehicle from 2
+        pax         1,  2,   1 
+        assert_veh  1,  2,   1 + 40 + 20
+
+        assert_wait_hists({10 => 1}, {40 => 1}, {})
+      end
+    end
+
+    should "move the right vehicle with BWH1 and alpha > 0.5" do
+      @sim.reactive = BWH1Handler.new(@sim, @od, 0.6)
+      @sim.init
+
+      put_veh_at 1, 2
+
+      # passenger from 0 to 2 takes the vehicle from 2
+      pax         0,  2,   0 
+      assert_veh  0,  2,   0 + 30 + 10
+
+      # passenger from 1 to 2 takes the vehicle from 1
+      pax         1,  2,   1 
+      assert_veh  1,  2,   1 + 0 + 20
+
+      assert_wait_hists({30 => 1}, {0 => 1}, {})
+    end
+
+#  def test_myopic_1
+#    check TestRun.new {|r|
+    #    TODO this one
+#      r.with('snn', 'none') {
+#        # Makes the same trips, but starts earlier.
+#        r.want_trip        0,      0,      1,      0,      0
+#        r.want_trip        1,      0,      2,      1,      0
+#        r.want_trip        0,     :_,      0,      2,      1
+#        r.want_trip        1,     :_,      1,      2,      1
+#        r.want_waits 10, 39
+#      }
+#    }
+#  end
+#
+#  def test_myopic_2
+#    check TestRun.new {|r|
+#      r.network_name "test_3st_myopic"
+#      r.demand_matrix_name  "a"
+#      r.init_veh_pos 1,2
+#      #     origin, destin, arrive
+#      r.pax      1,      2,      0
+#      r.pax      0,      2,      1
+#      #            vehicle, depart, origin, destin,    pax
+#      r.want_trip        0,      0,      1,      2,      1
+#      r.want_trip        1,      1,      2,      0,      0
+#      r.want_trip        1,     :_,      0,      2,      1
+#      r.want_waits 0, 30
+#      r.with('bwnn', 'none')
+#      r.with('bwh1', 'none', :alpha => 0.5)
+#    }
+#  end
+#
+#  def test_bwh1_1
+#    # Put a vehicle at 2 and a vehicle at 1; when a passenger arrives at zero,
+#    # we'd ordinarily take the vehicle at 1 because it is closer. However, if
+#    # we tell the sim that pax flow out of 1 is high and pax flow out of 2 is
+#    # low, it should take the one at 2 (taken from test_bell_wong_dp_h1_1).
+#    check TestRun.new {|r|
+#      r.network_name "test_3st_star_a"
+#      r.demand_matrix_name  "a"
+#      r.init_veh_pos 0, 1
+#      #     origin, destin, arrive
+#      r.pax      0,      2,      0
+#      r.pax      0,      2,      4
+#      #            vehicle, depart, origin, destin,    pax
+#      r.want_trip        0,      0,      0,      2,      1
+#      r.want_trip        1,      4,      1,      0,      0
+#      r.want_trip        1,      6,      0,      2,      1
+#      r.want_waits 0, 2
+#      r.with('bwnn', 'none')
+#      r.with('bwh1', 'none', :alpha => 0.0)
+#      r.with('bwh1', 'none', :alpha => 0.75) {
+#        r.want_trip      0,      0,      0,      2,      1
+#        r.want_trip      0,      4,      2,      0,      0
+#        r.want_trip      0,      7,      0,      2,      1
+#        r.want_waits 0, 3
+#      }
+#    }
   end
 end
 
