@@ -237,6 +237,12 @@ void BWSimStatsMeanPaxWait::record_pax_served(const BWPax &pax,
       this->pax_count);
 }
 
+BWTime BWNNHandler::wait(const BWPax &pax, const BWVehicle &veh) const
+{
+  return max((BWTime)0, veh.arrive - pax.arrive) +
+      sim.trip_time(veh.destin, pax.origin);
+}
+
 size_t BWNNHandler::handle_pax(const BWPax &pax) {
   ASSERT(pax.origin < sim.num_stations());
   ASSERT(pax.destin < sim.num_stations());
@@ -244,8 +250,7 @@ size_t BWNNHandler::handle_pax(const BWPax &pax) {
   size_t k_star = numeric_limits<size_t>::max();
   BWTime w_star = numeric_limits<BWTime>::max();
   for (size_t k = 0; k < sim.vehs.size(); ++k) {
-    BWTime w_k = std::max((BWTime)0, sim.vehs[k].arrive - pax.arrive) +
-        sim.trip_time(sim.vehs[k].destin, pax.origin);
+    BWTime w_k = wait(pax, sim.vehs[k]);
     if (w_k < w_star) {
       k_star = k;
       w_star = w_k;
@@ -255,26 +260,99 @@ size_t BWNNHandler::handle_pax(const BWPax &pax) {
   return k_star;
 }
 
-BWH1Handler::BWH1Handler(BWSim &sim, double alpha) :
-    BWReactiveHandler(sim), _alpha(alpha) {
+size_t BWHxHandler::handle_pax(const BWPax &pax) {
+  ASSERT(pax.origin < sim.num_stations());
+  ASSERT(pax.destin < sim.num_stations());
+  ASSERT(pax.arrive == sim.now);
+  size_t k_star = SIZE_T_MAX;
+  double v_star = numeric_limits<double>::max();
+  for (size_t k = 0; k < sim.vehs.size(); ++k) {
+    double v_k = this->value(pax, k);
+    if (v_k < v_star) {
+      k_star = k;
+      v_star = v_k;
+    }
+  }
+  ASSERT(k_star != SIZE_T_MAX);
+  return k_star;
+}
+
+BWH1Handler::BWH1Handler(BWSim &sim, boost::numeric::ublas::matrix<double> od,
+    double alpha) : BWHxHandler(sim, od, alpha) {
   using namespace boost::numeric;
   using namespace boost::numeric::ublas;
 
+  //
+  // When the demand is stationary (as we assume it is), we can precompute
+  // the expected length of the next (occupied) trip from each station.
+  //
   // Let e = vector of ones.
-  scalar_vector<double> e(lambda.size1(), 1);
-
   // Let C denote the trip times matrix, for brevity.
-  // Let C_k denote the k'th row of C, and P^j denote the j'th column of P.
+  // Let C_h denote the h'th row of C, and P^j denote the j'th column of P.
   // Then we want CPe:
-  // {CP}_kj = C_k * P^j = \sum_i C_ki P_ij
-  // {CPe}_k = \sum_j {CP}_kj
-  //         = \sum_j \sum_i C_ki P_ij
-  //         = \sum_{i,j} p_ij*c(k,i)
-  ublas::vector<double> Pe(prod(lambda.probability_of_trip, e));
-  expected_trip_time_from = prod(trip_times, Pe);
+  // {CP}_{hj} = C_h * P^j = \sum_i C_hi P_ij
+  // {CPe}_h   = \sum_j {CP}_{hj}
+  //           = \sum_j \sum_i C_hi P_ij
+  //           = \sum_{i,j} p_ij*c(h,i)
+  //
+  scalar_vector<double> e(this->od().num_stations(), 1);
+  ublas::vector<double> Pe(prod(this->od().trip_prob_matrix(), e));
+  _expected_trip_time_from = prod(sim.trip_time, Pe);
 }
 
-size_t BWH1Handler::handle_pax(const BWPax &pax) {
+double BWH1Handler::expected_trip_time_from(size_t i) const
+{
+  ASSERT(i < _expected_trip_time_from.size());
+  return _expected_trip_time_from[i];
+}
+
+double BWH1Handler::value(const BWPax & pax, size_t k) const
+{
+  // When the demand is stationary, p_{ij}(t) = p_{ij}. Then
+  //   \sum_{ij} p_{ij} * w(t + h, a(k), d(k), i)
+  // = \sum_{ij} p_{ij} * [max(0, a(k) - (t + h)) + c(d(k), i)]
+  // = max(0, a(k) - (t + h)) + \sum_{ij} p_{ij}*c(d(k),i)
+  // because the p_{ij} sum to 1.
+  const BWVehicle &veh = sim.vehs[k];
+  double t = pax.arrive;
+  double h = od().expected_interarrival_time();
+  double x = expected_trip_time_from(veh.destin);
+  return wait(pax, veh) - alpha() * (max(0.0, veh.arrive - t - h) + x);
+}
+
+double BWH2Handler::value(const BWPax & pax, size_t k) const
+{
+  const BWVehicle &veh = sim.vehs[k];
+  double t = pax.arrive;
+  double h = od().expected_interarrival_time();
+  double exp_wait_max = -numeric_limits<double>::max();
+  for (size_t n = 0; n < horizon; ++n) {
+    double exp_wait_n = 0;
+
+    // a minor simplification is possible inside the 'max_n':
+    //   \sum_i \sum_j p_ij * min_{k'} w(t + nh, k', i)
+    // = \sum_i ( min_{k'} w(t + nh, k', i) ) \sum_j p_ij
+    // since w(.) depends on i but not j. This means we only have to compute
+    // the inner minimization once for each i, rather than for each i and j.
+
+    for (size_t i = 0; i < sim.num_stations(); ++i) {
+      double wait_kp_min = numeric_limits<double>::max();
+      for (size_t kp = 0; kp < sim.vehs.size(); ++kp) {
+        if (kp == k) continue;
+        const BWVehicle &veh_kp = sim.vehs[kp];
+        double wait_kp = max(0.0, veh_kp.arrive - (t + n*h)) +
+            sim.trip_time(veh_kp.destin, i);
+        wait_kp_min = min(wait_kp_min, wait_kp);
+      }
+
+      // the \sum_j p_ij factor is the total rate out of station i divided
+      // by the total demand, which is 1/h.
+      exp_wait_n += od().rate_from(i) * h * wait_kp_min;
+    }
+    exp_wait_max = max(exp_wait_max, exp_wait_n);
+  }
+
+  return wait(pax, veh) - alpha() * exp_wait_max;
 }
 
 size_t BWETNNHandler::handle_pax(const BWPax &pax) {

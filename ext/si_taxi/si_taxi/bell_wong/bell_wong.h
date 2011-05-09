@@ -426,15 +426,33 @@ struct BWNNHandler : public BWReactiveHandler {
   explicit inline BWNNHandler(BWSim &sim) : BWReactiveHandler(sim) { }
   virtual ~BWNNHandler() { }
   virtual size_t handle_pax(const BWPax &pax);
+
+  BWTime wait(const BWPax &pax, const BWVehicle &veh) const;
 };
 
 /**
- * The original Bell and Wong Nearest Neighbours (BWNN) heuristic.
+ * Common functionality for BWH1Handler and BWH2Handler, which share some
+ * structure and parameters.
  */
-struct BWH1Handler : public BWReactiveHandler {
-  explicit inline BWH1Handler(BWSim &sim, double alpha);
-  virtual ~BWH1Handler() { }
+struct BWHxHandler : public BWNNHandler {
+  explicit inline BWHxHandler(BWSim &sim,
+      boost::numeric::ublas::matrix<double> od, double alpha) :
+      BWNNHandler(sim), _od(od), _alpha(alpha) { }
+  virtual ~BWHxHandler() { }
   virtual size_t handle_pax(const BWPax &pax);
+
+  /**
+   * Objective function to be minimized by handle_pax; subclasses provide
+   * modified objective functions.
+   */
+  virtual double value(const BWPax & pax, size_t k) const = 0;
+
+  /**
+   * Used for forecasting; entries in vehicle trips / second.
+   */
+  const ODMatrixWrapper &od() const {
+    return _od;
+  }
 
   /**
    * Factor that weights future waiting time against current waiting time.
@@ -445,19 +463,60 @@ struct BWH1Handler : public BWReactiveHandler {
     return _alpha;
   }
 
-  /**
-   * Used for forecasting; entries in vehicle trips / second.
-   */
-  const ODMatrixWrapper &od() const {
-    return _od;
-  }
-
 private:
-  /// see alpha()
-  double _alpha;
-
   /// see od()
   ODMatrixWrapper _od;
+
+  /// see alpha()
+  double _alpha;
+};
+
+/**
+ * The "H1" heuristic from Bell and Wong (2005) (equation (13)). The idea is
+ * that it may be better to hold a vehicle for the next request, if it is
+ * expected to give a low waiting time for the next request, as well as the
+ * current one.
+ */
+struct BWH1Handler : public BWHxHandler {
+  explicit BWH1Handler(BWSim &sim,
+      boost::numeric::ublas::matrix<double> od, double alpha);
+  virtual ~BWH1Handler() { }
+
+  /**
+   * Expected trip time for an occupied trip from station i.
+   */
+  double expected_trip_time_from(size_t i) const;
+
+  /**
+   * The objective to be minimized (equation 13 for H1).
+   */
+  virtual double value(const BWPax & pax, size_t k) const;
+
+private:
+  /// see expected_trip_time_from
+  boost::numeric::ublas::vector<double> _expected_trip_time_from;
+};
+
+/**
+ * The "H2" heuristic from Bell and Wong (2005) (equation 14). The idea is to
+ * factor in the expected waiting time for the next few requests, assuming that
+ * the assigned vehicle is not available to serve them.
+ */
+struct BWH2Handler : public BWHxHandler {
+  explicit inline BWH2Handler(BWSim &sim,
+      boost::numeric::ublas::matrix<double> od, double alpha, size_t horizon) :
+      BWHxHandler(sim, od, alpha), horizon(horizon) { }
+  virtual ~BWH2Handler() { }
+
+  /**
+   * The objective to be minimized (equation 14 for H2).
+   */
+  virtual double value(const BWPax & pax, size_t k) const;
+
+  /**
+   * Parameter 'N' in equation 14.
+   */
+  size_t horizon;
 };
 
 /**

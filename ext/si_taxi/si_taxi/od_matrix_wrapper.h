@@ -16,6 +16,10 @@ struct ODMatrixWrapper
 {
   ODMatrixWrapper(const boost::numeric::ublas::matrix<double> &od);
 
+  inline size_t num_stations() const {
+    return _od.size1();
+  }
+
   /**
    * Expected time between requests (between any pair of stations), in time
    * units.
@@ -43,6 +47,13 @@ struct ODMatrixWrapper
    */
   inline double trip_prob(size_t i, size_t j) const {
     return _trip_prob(i, j);
+  }
+
+  /**
+   * Probability that the next trip is from i to j, for all stations i and j.
+   */
+  inline const boost::numeric::ublas::matrix<double> &trip_prob_matrix() const {
+    return _trip_prob;
   }
 
   /**
