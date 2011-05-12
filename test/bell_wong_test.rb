@@ -511,6 +511,40 @@ class BellWongTest < Test::Unit::TestCase
 
         assert_wait_hists({10 => 1}, {40 => 1}, {})
       end
+
+      should "#{reactive_handler} move right vehicle if we reverse pax order" do
+        @sim.reactive = BWH1Handler.new(@sim, @od, 0.6)
+        @sim.init
+
+        put_veh_at 1, 2
+
+        # passenger from 1 to 2 takes the vehicle from 1
+        pax         1,  2,   0 
+        assert_veh  1,  2,   20
+
+        # passenger from 0 to 2 takes the vehicle from 2
+        pax         0,  2,   1 
+        assert_veh  0,  2,   1 + 30 + 10
+
+        assert_wait_hists({30 => 1}, {0 => 1}, {})
+      end
+    end
+
+    should "move the wrong vehicle with SNN (but move it earlier)" do
+      @sim.reactive = BWSNNHandler.new(@sim)
+      @sim.init
+
+      put_veh_at 1, 2
+
+      # passenger from 0 to 2 takes the vehicle from 1
+      pax         0,  2,   0 
+      assert_veh  0,  2,   0 + 10 + 10
+
+      # passenger at 1 has to take the vehicle from 2
+      pax         1,  2,   1 
+      assert_veh  1,  2,   0 + 40 + 20
+
+      assert_wait_hists({10 => 1}, {39 => 1}, {})
     end
 
     should "move the right vehicle with BWH1 and alpha > 0.5" do
@@ -529,65 +563,66 @@ class BellWongTest < Test::Unit::TestCase
 
       assert_wait_hists({30 => 1}, {0 => 1}, {})
     end
+  end
 
-#  def test_myopic_1
-#    check TestRun.new {|r|
-    #    TODO this one
-#      r.with('snn', 'none') {
-#        # Makes the same trips, but starts earlier.
-#        r.want_trip        0,      0,      1,      0,      0
-#        r.want_trip        1,      0,      2,      1,      0
-#        r.want_trip        0,     :_,      0,      2,      1
-#        r.want_trip        1,     :_,      1,      2,      1
-#        r.want_waits 10, 39
-#      }
-#    }
-#  end
-#
-#  def test_myopic_2
-#    check TestRun.new {|r|
-#      r.network_name "test_3st_myopic"
-#      r.demand_matrix_name  "a"
-#      r.init_veh_pos 1,2
-#      #     origin, destin, arrive
-#      r.pax      1,      2,      0
-#      r.pax      0,      2,      1
-#      #            vehicle, depart, origin, destin,    pax
-#      r.want_trip        0,      0,      1,      2,      1
-#      r.want_trip        1,      1,      2,      0,      0
-#      r.want_trip        1,     :_,      0,      2,      1
-#      r.want_waits 0, 30
-#      r.with('bwnn', 'none')
-#      r.with('bwh1', 'none', :alpha => 0.5)
-#    }
-#  end
-#
-#  def test_bwh1_1
-#    # Put a vehicle at 2 and a vehicle at 1; when a passenger arrives at zero,
-#    # we'd ordinarily take the vehicle at 1 because it is closer. However, if
-#    # we tell the sim that pax flow out of 1 is high and pax flow out of 2 is
-#    # low, it should take the one at 2 (taken from test_bell_wong_dp_h1_1).
-#    check TestRun.new {|r|
-#      r.network_name "test_3st_star_a"
-#      r.demand_matrix_name  "a"
-#      r.init_veh_pos 0, 1
-#      #     origin, destin, arrive
-#      r.pax      0,      2,      0
-#      r.pax      0,      2,      4
-#      #            vehicle, depart, origin, destin,    pax
-#      r.want_trip        0,      0,      0,      2,      1
-#      r.want_trip        1,      4,      1,      0,      0
-#      r.want_trip        1,      6,      0,      2,      1
-#      r.want_waits 0, 2
-#      r.with('bwnn', 'none')
-#      r.with('bwh1', 'none', :alpha => 0.0)
-#      r.with('bwh1', 'none', :alpha => 0.75) {
-#        r.want_trip      0,      0,      0,      2,      1
-#        r.want_trip      0,      4,      2,      0,      0
-#        r.want_trip      0,      7,      0,      2,      1
-#        r.want_waits 0, 3
-#      }
-#    }
+  context "BWH1 test on three station star network" do
+    #
+    # Here we tell the heuristic that there is a large demand from station 1, so
+    # it will hold a vehicle there, even though this increases the waiting time
+    # of the given requests.
+    #
+    setup do
+      # This is derived from grid_7st_800m by choosing stations 2, 3 and 4 and
+      # scaling the travel times down by 8 (convenience).
+      setup_sim [[ 0, 2, 3],
+                 [ 2, 0, 5],
+                 [ 3, 5, 0]]
+      @sim.proactive = BWProactiveHandler.new(@sim) # nop
+      @od = [[0, 0, 1  ], # pax/hr
+             [0, 0, 100],
+             [0, 0, 0  ]]
+    end
+
+    [BWNNHandler, BWH1Handler].each do |reactive_handler|
+      should "move the vehicle at 1 with #{reactive_handler} (alpha 0.0)" do
+        if reactive_handler == BWNNHandler
+          @sim.reactive = BWNNHandler.new(@sim)
+        else
+          @sim.reactive = BWH1Handler.new(@sim, @od, 0.0)
+        end
+        @sim.init
+
+        put_veh_at 0, 1
+
+        # pax at 0 takes vehicle at 0
+        pax         0,  2,   0 
+        assert_veh  0,  2,   0 + 3
+        
+        # next pax at 0 takes vehicle at 1
+        pax         0,  2,   4 
+        assert_veh  0,  2,   4 + 2 + 3
+
+        assert_wait_hists({0 => 1, 2 => 1}, {}, {})
+      end
+    end
+
+    should "not move the vehicle at 1 if alpha is 0.75" do
+      @sim.reactive = BWH1Handler.new(@sim, @od, 0.75)
+      @sim.init
+
+      put_veh_at 0, 1
+
+      # pax at 0 takes vehicle at 0
+      pax         0,  2,   0 
+      assert_veh  0,  2,   0 + 3
+
+      # next pax at 0 uses the vehicle that just became idle at 2, even though
+      # the vehicle at 1 is closer
+      pax         0,  2,   4 
+      assert_veh  0,  2,   4 + 3 + 3
+
+      assert_wait_hists({0 => 1, 3 => 1}, {}, {})
+    end
   end
 end
 
