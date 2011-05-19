@@ -344,7 +344,7 @@ struct BWSimStats {
   /**
    * Called in each time frame; records queue lengths at each station.
    */
-  inline virtual void record_queue_lengths() { };
+  inline virtual void record_time_step_stats() { };
 
   /**
    * Record statistics for given passenger.
@@ -376,7 +376,7 @@ struct BWSimStatsDetailed : public BWSimStats {
   virtual void init();
 
   /// override
-  virtual void record_queue_lengths();
+  virtual void record_time_step_stats();
 
   /// override
   virtual void record_pax_served(const BWPax &pax, size_t empty_origin,
@@ -389,6 +389,8 @@ struct BWSimStatsDetailed : public BWSimStats {
   std::vector<NaturalHistogram> pax_wait;
   /// Histograms of passenger queue lengths, in seconds, per station.
   std::vector<NaturalHistogram> queue_len;
+  /// Histograms of number of idle vehicles per station.
+  std::vector<NaturalHistogram> idle_vehs;
   /// Helper for computing queue length (queue_len) stats.
   std::vector<std::priority_queue<BWTime,
     std::vector<BWTime>, std::greater<BWTime> > > pickups;
@@ -396,6 +398,10 @@ struct BWSimStatsDetailed : public BWSimStats {
   boost::numeric::ublas::matrix<size_t> occupied_trips;
   /// Number of empty vehicle trips observed between each pair of stations.
   boost::numeric::ublas::matrix<size_t> empty_trips;
+
+private:
+  /// internal counter used by record_time_step_stats
+  std::vector<int> idle_vehs_counter;
 };
 
 /**

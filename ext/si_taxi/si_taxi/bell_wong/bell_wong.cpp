@@ -41,8 +41,8 @@ void BWSim::run_to(BWTime t) {
   ASSERT(t >= now);
 
   for (; now < t; ++now) {
-    // Record queue length stats.
-    stats->record_queue_lengths();
+    // record queue lengths and vehicle states
+    stats->record_time_step_stats();
 
     // Catch up on vehicle idle events.
     for (size_t k = 0; k < vehs.size(); ++k) {
@@ -178,6 +178,8 @@ void BWSimStatsDetailed::init() {
   pax_wait.resize(sim.num_stations());
   queue_len.clear();
   queue_len.resize(sim.num_stations());
+  idle_vehs.clear();
+  idle_vehs.resize(sim.num_stations());
   pickups.clear();
   pickups.resize(sim.num_stations());
 
@@ -187,13 +189,26 @@ void BWSimStatsDetailed::init() {
   empty_trips.clear();
 }
 
-void BWSimStatsDetailed::record_queue_lengths() {
+void BWSimStatsDetailed::record_time_step_stats() {
+  //
+  // record passenger queue length at each station
+  //
   for (size_t i = 0; i < sim.num_stations(); ++i) {
-    // Remove passengers that have already been served.
+    // remove passengers that have already been served
     while (!pickups[i].empty() && pickups[i].top() <= sim.now)
       pickups[i].pop();
-    // Record remaining queue; length is the number of future serve_times.
+    // record remaining queue; length is the number of future serve_times
     queue_len[i].increment(pickups[i].size());
+  }
+
+  //
+  // record number of idle vehicles at each station
+  //
+  idle_vehs_counter.clear();
+  idle_vehs_counter.resize(sim.num_stations(), 0);
+  sim.count_idle_vehs(idle_vehs_counter);
+  for (size_t i = 0; i < sim.num_stations(); ++i) {
+    idle_vehs[i].increment(idle_vehs_counter[i]);
   }
 }
 
