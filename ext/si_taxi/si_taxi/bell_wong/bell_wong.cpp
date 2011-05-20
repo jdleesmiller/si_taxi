@@ -187,6 +187,7 @@ void BWSimStatsDetailed::init() {
   occupied_trips.clear();
   empty_trips.resize(sim.num_stations(), sim.num_stations());
   empty_trips.clear();
+  idle_vehs_total.clear();
 }
 
 void BWSimStatsDetailed::record_time_step_stats() {
@@ -202,7 +203,7 @@ void BWSimStatsDetailed::record_time_step_stats() {
   }
 
   //
-  // record number of idle vehicles at each station
+  // record number of idle vehicles at each station and overall
   //
   idle_vehs_counter.clear();
   idle_vehs_counter.resize(sim.num_stations(), 0);
@@ -210,6 +211,8 @@ void BWSimStatsDetailed::record_time_step_stats() {
   for (size_t i = 0; i < sim.num_stations(); ++i) {
     idle_vehs[i].increment(idle_vehs_counter[i]);
   }
+  idle_vehs_total.increment(std::accumulate(
+      idle_vehs_counter.begin(), idle_vehs_counter.end(), 0));
 }
 
 void BWSimStatsDetailed::record_pax_served(const BWPax &pax,

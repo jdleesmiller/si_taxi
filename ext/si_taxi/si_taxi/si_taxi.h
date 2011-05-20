@@ -103,6 +103,10 @@ struct NaturalHistogram {
       frequency.resize(x + 1, 0);
     frequency[x] += w;
   }
+
+  inline void clear() {
+    frequency.clear();
+  }
 };
 
 /**

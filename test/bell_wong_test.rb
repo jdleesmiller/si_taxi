@@ -59,6 +59,7 @@ class BellWongTest < Test::Unit::TestCase
           assert_queue_hists [30], [30]
           assert_equal [[2,0],[0,1]], @sim_stats.empty_trips
           assert_equal [[0,2],[1,0]], @sim_stats.occupied_trips
+          assert_equal [30], @sim_stats.idle_vehs_total.to_a # veh never idle
         end
 
         should "have zero wait with ideal arrivals (two vehicles)" do
@@ -71,6 +72,12 @@ class BellWongTest < Test::Unit::TestCase
           assert_wait_hists [1], [1] # zero waiting
           assert_equal [[1,0],[0,1]], @sim_stats.empty_trips
           assert_equal [[0,1],[1,0]], @sim_stats.occupied_trips
+          assert_queue_hists [1], [1] # no waiting
+
+          # we count the idle vehicles for frame 0 only; there's one at 1
+          assert_equal [0, 1], @sim_stats.idle_vehs_total.to_a
+          assert_equal [1], @sim_stats.idle_vehs[0].to_a
+          assert_equal [0, 1], @sim_stats.idle_vehs[1].to_a
         end
 
         should "get waiting times; no e.v. trips; two vehicles" do
@@ -102,6 +109,9 @@ class BellWongTest < Test::Unit::TestCase
 
           pax         0,  1, 120 # to compute queue length stats
           assert_queue_hists [10+30,30+1,30+1,20-2], [120]
+
+          # vehicle spends last 30s idle at 1
+          assert_equal [90, 30], @sim_stats.idle_vehs_total.to_a
         end
 
         should "count inbound vehicles" do
@@ -199,6 +209,15 @@ class BellWongTest < Test::Unit::TestCase
           assert_equal [[0,2,0],
                         [0,0,2],
                         [2,0,0]], @sim_stats.occupied_trips
+
+          # no idle vehicles at 0
+          assert_equal [25],     @sim_stats.idle_vehs[0].to_a
+          # one vehicle idle from 0s-5s, then 10s-20s
+          assert_equal [10, 15], @sim_stats.idle_vehs[1].to_a
+          # one vehicle idle from 0s-10s
+          assert_equal [15, 10], @sim_stats.idle_vehs[2].to_a
+          # two vehicles idle from 0s-5s; one vehicle from 5s-10s + 10s-20s
+          assert_equal [5, 15, 5], @sim_stats.idle_vehs_total.to_a
         end
       end
     end

@@ -391,6 +391,8 @@ struct BWSimStatsDetailed : public BWSimStats {
   std::vector<NaturalHistogram> queue_len;
   /// Histograms of number of idle vehicles per station.
   std::vector<NaturalHistogram> idle_vehs;
+  /// Histogram of number of idle vehicles for whole network.
+  NaturalHistogram idle_vehs_total;
   /// Helper for computing queue length (queue_len) stats.
   std::vector<std::priority_queue<BWTime,
     std::vector<BWTime>, std::greater<BWTime> > > pickups;
