@@ -56,8 +56,10 @@ class SiTaxi::NaturalHistogram
   # @return [self]
   #
   def merge! hist
+    self.frequency.reserve(hist.size) # avoid repeated reallocation if growing
     for i in 0...hist.size
-      self.accumulate(i, hist.frequency[i])
+      freq = hist.frequency[i] # avoid calling swig for zero frequencies
+      self.accumulate(i, freq) if freq > 0
     end
     self
   end
