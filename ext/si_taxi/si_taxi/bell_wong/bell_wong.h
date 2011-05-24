@@ -454,6 +454,15 @@ struct BWSimStatsPaxRecorder : public BWSimStats {
 
 /**
  * The original Bell and Wong Nearest Neighbours (BWNN) heuristic.
+ *
+% idea: add parameter to soften the tie-breaking rule 
+% 1) find the lowest wait (k^* as before) w_min
+% 2) consider all vehicles with w_k < w_min + c ``tied''
+% 3) choose the tied vehicle with the shortest EV trip 
+% 4) break further ties with the ETNN rules
+% the other possibility is that this rarely happens, and that it's really an
+% immediate assignment issue, but if that's true, then the BWH1 stuff should
+% have more of an effect than it does 
  */
 struct BWNNHandler : public BWReactiveHandler {
   explicit inline BWNNHandler(BWSim &sim) : BWReactiveHandler(sim) { }
