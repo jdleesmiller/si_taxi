@@ -35,6 +35,7 @@ using namespace si_taxi;
 
 %template(BWVehicleVector) std::vector<si_taxi::BWVehicle>;
 %template(BWPaxQueue) std::queue<si_taxi::BWPax>;
+%template(BWSimStatsPaxRecordVector) std::vector<si_taxi::BWSimStatsPaxRecord>;
 
 %template(IntQueue) std::queue<int>;
 

@@ -255,6 +255,22 @@ void BWSimStatsMeanPaxWait::record_pax_served(const BWPax &pax,
       this->pax_count);
 }
 
+void BWSimStatsPaxRecorder::init() {
+  this->records.clear();
+}
+
+void BWSimStatsPaxRecorder::record_pax_served(const BWPax &pax,
+    size_t empty_origin, BWTime pickup)
+{
+  BWSimStatsPaxRecord record;
+  record.origin = pax.origin;
+  record.destin = pax.destin;
+  record.arrive = pax.arrive;
+  record.empty_origin = empty_origin;
+  record.pickup = pickup;
+  this->records.push_back(record);
+}
+
 BWTime BWNNHandler::wait(const BWPax &pax, const BWVehicle &veh) const
 {
   return max((BWTime)0, veh.arrive - pax.arrive) +

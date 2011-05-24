@@ -342,7 +342,7 @@ struct BWSimStats {
   inline virtual void init() { };
 
   /**
-   * Called in each time frame; records queue lengths at each station.
+   * Called in each time frame; e.g. can record queue lengths at each station.
    */
   inline virtual void record_time_step_stats() { };
 
@@ -425,6 +425,31 @@ struct BWSimStatsMeanPaxWait : public BWSimStats {
 
   double mean_pax_wait;
   int pax_count;
+};
+
+/**
+ * Record of the service of a single passenger; see BWSimStatsPaxRecorder.
+ */
+struct BWSimStatsPaxRecord : public BWPax {
+  size_t empty_origin;
+  BWTime pickup;
+};
+
+/**
+ * Keep a record of every request and when it was served.
+ */
+struct BWSimStatsPaxRecorder : public BWSimStats {
+  explicit inline BWSimStatsPaxRecorder(BWSim &sim) : BWSimStats(sim) {}
+  virtual ~BWSimStatsPaxRecorder() { }
+
+  /// override
+  virtual void init();
+
+  /// override
+  virtual void record_pax_served(const BWPax &pax, size_t empty_origin,
+      BWTime pickup);
+
+  std::vector<BWSimStatsPaxRecord> records;
 };
 
 /**
