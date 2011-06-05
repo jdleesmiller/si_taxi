@@ -299,7 +299,7 @@ size_t BWHxHandler::handle_pax(const BWPax &pax) {
   ASSERT(pax.destin < sim.num_stations());
   ASSERT(pax.arrive == sim.now);
   size_t k_star = SIZE_T_MAX;
-  double v_star = numeric_limits<double>::max();
+  double v_star = numeric_limits<double>::infinity();
   for (size_t k = 0; k < sim.vehs.size(); ++k) {
     double v_k = this->value(pax, k);
     if (v_k < v_star) {
@@ -359,7 +359,7 @@ double BWH2Handler::value(const BWPax & pax, size_t k) const
   const BWVehicle &veh = sim.vehs[k];
   double t = pax.arrive;
   double h = od().expected_interarrival_time();
-  double exp_wait_max = -numeric_limits<double>::max();
+  double exp_wait_max = -numeric_limits<double>::infinity();
   for (size_t n = 0; n < horizon; ++n) {
     double exp_wait_n = 0;
 
@@ -370,6 +370,10 @@ double BWH2Handler::value(const BWPax & pax, size_t k) const
     // the inner minimization once for each i, rather than for each i and j.
 
     for (size_t i = 0; i < sim.num_stations(); ++i) {
+      // note: if there is only one vehicle, then the loop body never executes,
+      // so it is important that we set wait_kp_min to a finite number;
+      // otherwise, we will return an infinity, which will break the
+      // BWHxHandler::handle_pax function.
       double wait_kp_min = numeric_limits<double>::max();
       for (size_t kp = 0; kp < sim.vehs.size(); ++kp) {
         if (kp == k) continue;
@@ -386,7 +390,7 @@ double BWH2Handler::value(const BWPax & pax, size_t k) const
     exp_wait_max = max(exp_wait_max, exp_wait_n);
   }
 
-  return wait(pax, veh) - alpha() * exp_wait_max;
+  return wait(pax, veh) + alpha() * exp_wait_max;
 }
 
 size_t BWETNNHandler::handle_pax(const BWPax &pax) {
