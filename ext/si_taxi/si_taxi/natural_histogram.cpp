@@ -24,7 +24,7 @@ double si_taxi::NaturalHistogram::central_moment(size_t n) const {
     double mu = mean();
     double avg = 0.0;
     for (size_t i = 0; i < frequency.size(); ++i) {
-      avg += frequency[i] * pow(i - mu, n) / cnt;
+      avg += frequency[i] * pow(i - mu, (double)n) / cnt;
     }
     return avg;
   }
