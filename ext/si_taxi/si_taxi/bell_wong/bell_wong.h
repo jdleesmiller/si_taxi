@@ -2,6 +2,7 @@
 #define SI_TAXI_BELL_WONG_H_
 
 #include <si_taxi/si_taxi.h>
+#include <si_taxi/natural_histogram.h>
 #include <si_taxi/od_matrix_wrapper.h>
 
 #include <queue>
@@ -518,6 +519,10 @@ private:
  * that it may be better to hold a vehicle for the next request, if it is
  * expected to give a low waiting time for the next request, as well as the
  * current one.
+ *
+ * In other words, the term with the -alpha factor is a "bonus" term that
+ * rewards vehicles that are less likely to be useful for the next request. The
+ * H2 heuristic uses a penalty term to express the same idea.
  */
 struct BWH1Handler : public BWHxHandler {
   explicit BWH1Handler(BWSim &sim,
@@ -543,6 +548,9 @@ private:
  * The "H2" heuristic from Bell and Wong (2005) (equation 14). The idea is to
  * factor in the expected waiting time for the next few requests, assuming that
  * the assigned vehicle is not available to serve them.
+ *
+ * In other words, the term with the +alpha is a penalty term that penalises
+ * vehicles that are well-positioned for future requests.
  */
 struct BWH2Handler : public BWHxHandler {
   explicit inline BWH2Handler(BWSim &sim,

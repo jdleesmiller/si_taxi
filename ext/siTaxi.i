@@ -3,6 +3,7 @@
 %{
 #include <si_taxi/si_taxi.h>
 #include <si_taxi/empirical_sampler.h>
+#include <si_taxi/natural_histogram.h>
 #include <si_taxi/od_histogram.h>
 #include <si_taxi/od_matrix_wrapper.h>
 #include <si_taxi/bell_wong/bell_wong.h>
@@ -27,6 +28,8 @@ using namespace si_taxi;
     SWIG_exception(SWIG_RuntimeError, e.what());
   }
 }
+
+%apply unsigned long long { uint64_t }
 
 %template(SizeTVector) std::vector<size_t>;
 %template(DoubleVector) std::vector<double>;
@@ -62,6 +65,7 @@ void seed_rng(unsigned int seed) {
 
 %include "si_taxi/si_taxi.h"
 %include "si_taxi/empirical_sampler.h"
+%include "si_taxi/natural_histogram.h"
 %include "si_taxi/od_histogram.h"
 
 /* Enable multiple return values for od.sample(). */

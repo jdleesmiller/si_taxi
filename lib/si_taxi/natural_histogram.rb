@@ -74,15 +74,6 @@ class SiTaxi::NaturalHistogram
   end
 
   #
-  # The number of observations in the histogram.
-  #
-  # @return [Integer] non-negative 
-  #
-  def count
-    self.to_a.sum
-  end
-
-  #
   # The total of the observations in the histogram.
   #
   # @return [Numeric] 0 if histogram is empty
@@ -96,22 +87,14 @@ class SiTaxi::NaturalHistogram
   end
 
   #
-  # The average of the observations in the histogram.
-  #
-  # @return [Float] NaN if histogram is empty
-  #
-  def mean
-    total / count.to_f
-  end
-
-  #
   # The sample variance of the observations in the histogram.
   # Unlike {#variance}, this includes the sample size correction.
   #
   # @return [Float] NaN if count is less than 2
   #
   def sample_variance
-    self.count / (self.count - 1.0) * self.variance
+    cnt = self.count
+    cnt / (cnt - 1.0) * self.variance
   end
 
   #
@@ -121,28 +104,6 @@ class SiTaxi::NaturalHistogram
   #
   def variance
     central_moment(2)
-  end
-
-  #
-  # The nth central moment E[(X - mean)**n] of the observations in the
-  # histogram.
-  #
-  # @param [Integer] n positive
-  #
-  # @return [Float] NaN if histogram is empty
-  #
-  def central_moment n
-    if size == 0
-      0/0.0
-    else
-      mu = self.mean
-      cnt = self.count
-      avg = 0
-      for i in 0...size
-        avg += self.frequency[i] * (i - mu)**n / cnt
-      end
-      avg
-    end
   end
 
   #

@@ -88,28 +88,6 @@ protected:
 typedef boost::mt19937 RNG;
 
 /**
- * A histogram for non-negative integers with bin size 1 that grows to
- * accommodate the largest value recorded; backed by a std::vector.
- */
-struct NaturalHistogram {
-  std::vector<size_t> frequency;
-
-  inline void increment(size_t x) {
-    accumulate(x, 1);
-  }
-
-  inline void accumulate(size_t x, size_t w) {
-    if (x >= frequency.size())
-      frequency.resize(x + 1, 0);
-    frequency[x] += w;
-  }
-
-  inline void clear() {
-    frequency.clear();
-  }
-};
-
-/**
  * Cumulative average, where average is the average over the last count points
  * and x is the point just observed. Note that this method increments count.
  */
