@@ -63,7 +63,7 @@ void BWSurplusDeficitHandler::send_idle_veh_to_nearest_deficit(size_t origin) {
 
   if (origin != best_destin) {
     _call_time.update(origin, best_destin);
-    sim.move_empty(origin, best_destin);
+    sim.move_empty_od(origin, best_destin);
   }
 }
 

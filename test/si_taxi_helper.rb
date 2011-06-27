@@ -37,6 +37,14 @@ TRIP_TIMES_3ST_RING_10_20_30 = [[  0, 10, 30],
                                 [ 50,  0, 20],
                                 [ 30, 40,  0]]
 
+#
+# Three station star with a short lobe (4s round trip) and a long one (6s round
+# trip).
+#
+TRIP_TIMES_3ST_STAR_2_2_3_3 = [[0,2,3],
+                               [2,0,5],
+                               [3,5,0]]
+
 module TestHelper
   def assert_is_nan x
     assert x != x, "expected #{x} to be NaN"

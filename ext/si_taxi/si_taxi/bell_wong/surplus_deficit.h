@@ -52,6 +52,28 @@ struct BWSurplusDeficitHandler: public BWProactiveHandler {
    */
   void send_idle_veh_to_nearest_deficit(size_t origin);
 
+  /**
+   * Call times computed so far for each station.
+   *
+   * Note that if _call_time were a public member, it would have to have a
+   * working assignment operator, which is not possible, because it has
+   * reference members.
+   */
+  const BWCallTimeTracker &call_time() const {
+    return _call_time;
+  }
+
+  /**
+   * In vehicle trips / second.
+   *
+   * Note that if _od were a public member, it would have to have a
+   * working assignment operator, which is not possible, because it has
+   * reference members.
+   */
+  const ODMatrixWrapper &od() const {
+    return _od;
+  }
+
 protected:
   /// see call_time()
   BWCallTimeTracker &_call_time;

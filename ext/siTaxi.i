@@ -11,6 +11,7 @@
 #include <si_taxi/bell_wong/andreasson.h>
 #include <si_taxi/bell_wong/dynamic_tp.h>
 #include <si_taxi/bell_wong/sampling_voting.h>
+#include <si_taxi/bell_wong/surplus_deficit.h>
 
 using namespace si_taxi;
 %}
@@ -84,4 +85,5 @@ void seed_rng(unsigned int seed) {
 %include "si_taxi/bell_wong/andreasson.h"
 %include "si_taxi/bell_wong/dynamic_tp.h"
 %include "si_taxi/bell_wong/sampling_voting.h"
+%include "si_taxi/bell_wong/surplus_deficit.h"
 
