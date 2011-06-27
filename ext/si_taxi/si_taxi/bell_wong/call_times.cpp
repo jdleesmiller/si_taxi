@@ -6,6 +6,9 @@ using namespace std;
 
 namespace si_taxi {
 
+// Compensate for floating point errors in call time comparisons.
+const double EPSILON = 1e-3;
+
 BWCallTimeTracker::BWCallTimeTracker(BWSim &sim) : sim(sim) {
   // One entry for each station.
   call_time.resize(sim.num_stations());
@@ -38,6 +41,33 @@ void BWCallTimeTracker::update(size_t ev_origin, size_t ev_destin) {
         call[ev_destin]);
   }
 }
+
+int BWCallTimeTracker::num_vehicles_inbound_in_call_time(size_t i) const {
+  ASSERT(i < sim.num_stations());
+  int count = 0;
+  for (size_t k = 0; k < sim.vehs.size(); ++k) {
+    if (sim.vehs[k].destin == i &&
+        sim.vehs[k].arrive <= sim.now + EPSILON + this->at(i)) {
+      ++count;
+    }
+  }
+  return count;
+}
+
+int BWCallTimeTracker::num_vehicles_immediately_inbound_in_call_time(size_t i)
+const {
+  ASSERT(i < sim.num_stations());
+  int count = 0;
+  for (size_t k = 0; k < sim.vehs.size(); ++k) {
+    if (sim.vehs[k].destin == i &&
+        sim.vehs[k].arrive <= sim.now + min(EPSILON + this->at(i),
+            (double)sim.trip_time(sim.vehs[k].origin, i))) {
+      ++count;
+    }
+  }
+  return count;
+}
+
 
 void BWNNHandlerWithCallTimeUpdates::init() {
   _call_time.init();

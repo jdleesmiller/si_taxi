@@ -117,6 +117,32 @@ template<typename T> bool from_s(T & t, const std::string &s) {
   std::istringstream is(s);
   return (bool)(is >> t);
 }
+
+/*
+ * Functor for comparing with a permutation on a vector.
+ * For example, to build perm pi s.t. R[pi[.]] is sorted:
+ * vector<size_t> pi(N);
+ * for (size_t i = 0; i < N; ++i) pi[i] = i;
+ * sort(pi.begin(), pi.end(), F_compare_perm<double>(R));
+ */
+template<typename T> struct F_compare_perm {
+  const T &data;
+  F_compare_perm(const T &data) :
+    data(data) {
+  }
+
+  bool operator()(size_t pi0, size_t pi1) const {
+    return data[pi0] < data[pi1];
+  }
+};
+
+/**
+ * Wrapper for F_compare_perm.
+ */
+template <typename T> F_compare_perm<T> compare_perm(const T& data) {
+  return F_compare_perm<T>(data);
+}
+
 }
 
 #endif /* guard */

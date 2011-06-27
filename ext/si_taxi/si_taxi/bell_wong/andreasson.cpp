@@ -7,9 +7,6 @@ using namespace std;
 
 namespace si_taxi {
 
-// Compensate for floating point errors in call time comparisons.
-const double EPSILON = 1e-3;
-
 BWAndreassonHandler::BWAndreassonHandler(BWSim &sim,
     BWCallTimeTracker &call_time, boost::numeric::ublas::matrix<double> od) :
     BWProactiveHandler(sim), _call_time(call_time), _od(od) {
@@ -84,40 +81,14 @@ void BWAndreassonHandler::handle_idle(BWVehicle &veh) {
   }
 }
 
-int BWAndreassonHandler::num_vehicles_inbound_in_call_time(size_t i) const {
-  ASSERT(i < sim.num_stations());
-  int count = 0;
-  for (size_t k = 0; k < sim.vehs.size(); ++k) {
-    if (sim.vehs[k].destin == i &&
-        sim.vehs[k].arrive <= sim.now + EPSILON + _call_time.at(i)) {
-      ++count;
-    }
-  }
-  return count;
-}
-
-int BWAndreassonHandler::num_vehicles_immediately_inbound_in_call_time(size_t i)
-const {
-  ASSERT(i < sim.num_stations());
-  int count = 0;
-  for (size_t k = 0; k < sim.vehs.size(); ++k) {
-    if (sim.vehs[k].destin == i &&
-        sim.vehs[k].arrive <= sim.now + min(EPSILON + _call_time.at(i),
-            (double)sim.trip_time(sim.vehs[k].origin, i))) {
-      ++count;
-    }
-  }
-  return count;
-}
-
 int BWAndreassonHandler::supply_at(size_t i) const {
   ASSERT(i < sim.num_stations());
   if (immediate_inbound_only && use_call_times_for_inbound) {
-    return num_vehicles_immediately_inbound_in_call_time(i);
+    return _call_time.num_vehicles_immediately_inbound_in_call_time(i);
   } else if (immediate_inbound_only) {
     return sim.num_vehicles_immediately_inbound(i);
   } else if (use_call_times_for_inbound) {
-    return num_vehicles_inbound_in_call_time(i);
+    return _call_time.num_vehicles_inbound_in_call_time(i);
   } else {
     return sim.num_vehicles_inbound(i);
   }

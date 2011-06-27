@@ -34,18 +34,6 @@ struct BWAndreassonHandler : public BWProactiveHandler {
   virtual void handle_idle(BWVehicle &veh);
 
   /**
-   * As Sim::num_vehicles_inbound, but only count vehicles within the call time
-   * for station i.
-   */
-  int num_vehicles_inbound_in_call_time(size_t i) const;
-
-  /**
-   * As Sim::num_vehicles_immediately_inbound, but only count vehicles within
-   * the call time for station i.
-   */
-  int num_vehicles_immediately_inbound_in_call_time(size_t i) const;
-
-  /**
    * Compute supply at station i; see surplus for details.
    */
   int supply_at(size_t i) const;

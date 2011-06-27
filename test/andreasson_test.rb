@@ -61,27 +61,27 @@ class AndreassonTest < Test::Unit::TestCase
     should "count inbound vehicles" do
       put_veh_at 0 
 
-      assert_equal 1, @pro.num_vehicles_inbound_in_call_time(0)
-      assert_equal 1, @pro.num_vehicles_immediately_inbound_in_call_time(0)
-      assert_equal 0, @pro.num_vehicles_inbound_in_call_time(1)
-      assert_equal 0, @pro.num_vehicles_immediately_inbound_in_call_time(1)
+      assert_equal 1, @ct.num_vehicles_inbound_in_call_time(0)
+      assert_equal 1, @ct.num_vehicles_immediately_inbound_in_call_time(0)
+      assert_equal 0, @ct.num_vehicles_inbound_in_call_time(1)
+      assert_equal 0, @ct.num_vehicles_immediately_inbound_in_call_time(1)
 
       pax         0,  1,   0
       assert_veh  0,  1,  10
 
-      assert_equal 0, @pro.num_vehicles_inbound_in_call_time(0)
-      assert_equal 0, @pro.num_vehicles_immediately_inbound_in_call_time(0)
-      assert_equal 1, @pro.num_vehicles_inbound_in_call_time(1)
-      assert_equal 1, @pro.num_vehicles_immediately_inbound_in_call_time(1)
+      assert_equal 0, @ct.num_vehicles_inbound_in_call_time(0)
+      assert_equal 0, @ct.num_vehicles_immediately_inbound_in_call_time(0)
+      assert_equal 1, @ct.num_vehicles_inbound_in_call_time(1)
+      assert_equal 1, @ct.num_vehicles_immediately_inbound_in_call_time(1)
 
       pax         0,  1,   5
       assert_veh  0,  1,  40
 
       # vehicle is not yet immediately inbound, and it's outside the call time
-      assert_equal 0, @pro.num_vehicles_inbound_in_call_time(0)
-      assert_equal 0, @pro.num_vehicles_immediately_inbound_in_call_time(0)
-      assert_equal 0, @pro.num_vehicles_inbound_in_call_time(1)
-      assert_equal 0, @pro.num_vehicles_immediately_inbound_in_call_time(1)
+      assert_equal 0, @ct.num_vehicles_inbound_in_call_time(0)
+      assert_equal 0, @ct.num_vehicles_immediately_inbound_in_call_time(0)
+      assert_equal 0, @ct.num_vehicles_inbound_in_call_time(1)
+      assert_equal 0, @ct.num_vehicles_immediately_inbound_in_call_time(1)
     end
 
     should "compute demand" do
@@ -191,12 +191,12 @@ class AndreassonTest < Test::Unit::TestCase
     should "count inbound vehicles" do
       put_veh_at 0
 
-      assert_equal 1, @pro.num_vehicles_inbound_in_call_time(0)
-      assert_equal 1, @pro.num_vehicles_immediately_inbound_in_call_time(0)
-      assert_equal 0, @pro.num_vehicles_inbound_in_call_time(1)
-      assert_equal 0, @pro.num_vehicles_immediately_inbound_in_call_time(1)
-      assert_equal 0, @pro.num_vehicles_inbound_in_call_time(2)
-      assert_equal 0, @pro.num_vehicles_immediately_inbound_in_call_time(2)
+      assert_equal 1, @ct.num_vehicles_inbound_in_call_time(0)
+      assert_equal 1, @ct.num_vehicles_immediately_inbound_in_call_time(0)
+      assert_equal 0, @ct.num_vehicles_inbound_in_call_time(1)
+      assert_equal 0, @ct.num_vehicles_immediately_inbound_in_call_time(1)
+      assert_equal 0, @ct.num_vehicles_inbound_in_call_time(2)
+      assert_equal 0, @ct.num_vehicles_immediately_inbound_in_call_time(2)
 
       assert_equal 30, @pro.call_time.at(0), $delta
       assert_equal 10, @pro.call_time.at(1), $delta
@@ -214,23 +214,23 @@ class AndreassonTest < Test::Unit::TestCase
       # not "immediately" inbound, and it is outside of station 0's call time.
       assert_equal 1, @sim.num_vehicles_inbound(0)
       assert_equal 0, @sim.num_vehicles_immediately_inbound(0)
-      assert_equal 0, @pro.num_vehicles_inbound_in_call_time(0)
-      assert_equal 0, @pro.num_vehicles_immediately_inbound_in_call_time(0)
+      assert_equal 0, @ct.num_vehicles_inbound_in_call_time(0)
+      assert_equal 0, @ct.num_vehicles_immediately_inbound_in_call_time(0)
 
       # the other stations shouldn't count the vehicle
       [1, 2].each do |i|
         assert_equal 0, @sim.num_vehicles_inbound(i)
         assert_equal 0, @sim.num_vehicles_immediately_inbound(i)
-        assert_equal 0, @pro.num_vehicles_inbound_in_call_time(i)
-        assert_equal 0, @pro.num_vehicles_immediately_inbound_in_call_time(i)
+        assert_equal 0, @ct.num_vehicles_inbound_in_call_time(i)
+        assert_equal 0, @ct.num_vehicles_immediately_inbound_in_call_time(i)
       end
 
       # just before the vehicle gets to 2, the situation is the same
       @sim.run_to 29
       assert_equal 1, @sim.num_vehicles_inbound(0)
       assert_equal 0, @sim.num_vehicles_immediately_inbound(0)
-      assert_equal 0, @pro.num_vehicles_inbound_in_call_time(0)
-      assert_equal 0, @pro.num_vehicles_immediately_inbound_in_call_time(0)
+      assert_equal 0, @ct.num_vehicles_inbound_in_call_time(0)
+      assert_equal 0, @ct.num_vehicles_immediately_inbound_in_call_time(0)
 
       # once the vehicle reaches 2, it is immediately inbound; it's also inside
       # the call time, which is (still) 30
@@ -238,8 +238,8 @@ class AndreassonTest < Test::Unit::TestCase
       assert_equal 30, @pro.call_time.at(0), $delta
       assert_equal 1, @sim.num_vehicles_inbound(0)
       assert_equal 1, @sim.num_vehicles_immediately_inbound(0)
-      assert_equal 1, @pro.num_vehicles_inbound_in_call_time(0)
-      assert_equal 1, @pro.num_vehicles_immediately_inbound_in_call_time(0)
+      assert_equal 1, @ct.num_vehicles_inbound_in_call_time(0)
+      assert_equal 1, @ct.num_vehicles_immediately_inbound_in_call_time(0)
 
       # make some trips to get station 0's call time to 40s; this allows us to
       # get different behavior with and without the call times
@@ -265,22 +265,22 @@ class AndreassonTest < Test::Unit::TestCase
       @sim.run_to 199
       assert_equal 1, @sim.num_vehicles_inbound(0)
       assert_equal 0, @sim.num_vehicles_immediately_inbound(0)
-      assert_equal 0, @pro.num_vehicles_inbound_in_call_time(0)
-      assert_equal 0, @pro.num_vehicles_immediately_inbound_in_call_time(0)
+      assert_equal 0, @ct.num_vehicles_inbound_in_call_time(0)
+      assert_equal 0, @ct.num_vehicles_immediately_inbound_in_call_time(0)
 
       # vehicle not yet immediately inbound; now inside call time
       @sim.run_to 200
       assert_equal 1, @sim.num_vehicles_inbound(0)
       assert_equal 0, @sim.num_vehicles_immediately_inbound(0)
-      assert_equal 1, @pro.num_vehicles_inbound_in_call_time(0)
-      assert_equal 0, @pro.num_vehicles_immediately_inbound_in_call_time(0)
+      assert_equal 1, @ct.num_vehicles_inbound_in_call_time(0)
+      assert_equal 0, @ct.num_vehicles_immediately_inbound_in_call_time(0)
 
       # now immediately inbound, and it's inside the call time
       @sim.run_to 210
       assert_equal 1, @sim.num_vehicles_inbound(0)
       assert_equal 1, @sim.num_vehicles_immediately_inbound(0)
-      assert_equal 1, @pro.num_vehicles_inbound_in_call_time(0)
-      assert_equal 1, @pro.num_vehicles_immediately_inbound_in_call_time(0)
+      assert_equal 1, @ct.num_vehicles_inbound_in_call_time(0)
+      assert_equal 1, @ct.num_vehicles_immediately_inbound_in_call_time(0)
     end
 
     should "cope with call time rounding errors when counting inbound" do
@@ -298,23 +298,23 @@ class AndreassonTest < Test::Unit::TestCase
       assert_equal 0, @sim.num_vehicles_immediately_inbound(2)
 
       @ct.call_time[2] = 100.0 # directly modifying the call time
-      assert_equal 1, @pro.num_vehicles_inbound_in_call_time(2)
-      assert_equal 0, @pro.num_vehicles_immediately_inbound_in_call_time(2)
+      assert_equal 1, @ct.num_vehicles_inbound_in_call_time(2)
+      assert_equal 0, @ct.num_vehicles_immediately_inbound_in_call_time(2)
 
       @ct.call_time[2] = 25.0
-      assert_equal 1, @pro.num_vehicles_inbound_in_call_time(2)
-      assert_equal 0, @pro.num_vehicles_immediately_inbound_in_call_time(2)
+      assert_equal 1, @ct.num_vehicles_inbound_in_call_time(2)
+      assert_equal 0, @ct.num_vehicles_immediately_inbound_in_call_time(2)
 
       @ct.call_time[2] = 24.9999 # tolerance is 1e-3
-      assert_equal 1, @pro.num_vehicles_inbound_in_call_time(2)
-      assert_equal 0, @pro.num_vehicles_immediately_inbound_in_call_time(2)
+      assert_equal 1, @ct.num_vehicles_inbound_in_call_time(2)
+      assert_equal 0, @ct.num_vehicles_immediately_inbound_in_call_time(2)
 
       @sim.run_to 10
 
       assert_equal 1, @sim.num_vehicles_inbound(2)
       assert_equal 1, @sim.num_vehicles_immediately_inbound(2)
-      assert_equal 1, @pro.num_vehicles_inbound_in_call_time(2)
-      assert_equal 1, @pro.num_vehicles_immediately_inbound_in_call_time(2)
+      assert_equal 1, @ct.num_vehicles_inbound_in_call_time(2)
+      assert_equal 1, @ct.num_vehicles_immediately_inbound_in_call_time(2)
     end
 
     should "move proactively" do

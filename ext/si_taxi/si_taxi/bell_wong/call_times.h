@@ -56,6 +56,18 @@ struct BWCallTimeTracker {
    */
   void update(size_t ev_origin, size_t ev_destin);
 
+  /**
+   * As Sim::num_vehicles_inbound, but only count vehicles within the call time
+   * for station i.
+   */
+  int num_vehicles_inbound_in_call_time(size_t i) const;
+
+  /**
+   * As Sim::num_vehicles_immediately_inbound, but only count vehicles within
+   * the call time for station i.
+   */
+  int num_vehicles_immediately_inbound_in_call_time(size_t i) const;
+
 protected:
   /// Simulator to track call times for.
   BWSim &sim;
