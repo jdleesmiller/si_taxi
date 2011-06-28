@@ -39,12 +39,15 @@ void BWSurplusDeficitHandler::handle_pax_served(size_t empty_origin) {
 }
 
 void BWSurplusDeficitHandler::handle_idle(BWVehicle &veh) {
+  // NB: the original SD used the "in call time" definition for the vehicle
+  // supply; this might explain the discrepancy
   if (surplus_at(veh.destin) >= 1)
     send_idle_veh_to_nearest_deficit(veh.destin);
 }
 
 double BWSurplusDeficitHandler::surplus_at(size_t i) const {
-  int inbound_i = sim.num_vehicles_inbound(i);
+  //int inbound_i = sim.num_vehicles_inbound(i); SEE NOTE ABOVE
+  int inbound_i = _call_time.num_vehicles_inbound_in_call_time(i);
   double demand_i = _call_time.at(i) * _od.rate_from(i);
   return inbound_i - demand_i;
 }
