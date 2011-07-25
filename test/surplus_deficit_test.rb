@@ -74,41 +74,34 @@ class SurplusDeficitTest < Test::Unit::TestCase
       assert_in_delta 2 - 2*0.7, @pro.surplus_at(1), $delta
       assert_in_delta 1 - 3*1.1, @pro.surplus_at(2), $delta
       
-      # if we have a trip from 2 to 1, the idle vehicle at 1 goes to 2
+      # if we have a trip from 2 to 1, the idle vehicle at 1 stays where it is,
+      # because station 1's surplus stays as it is until the vehicle is within
+      # its call time. 
       pax        2, 1, 3
       assert_veh 0, 1, 5 # occupied
       assert_veh 1, 0, 5 # idle proactively moved back to 0
-      assert_veh 1, 2, 8
+      assert_veh 1, 1, 0
       assert_veh 2, 1, 8
 
-      # the empty trip is a call to 2; this changes the call time
-      assert_equal [1,1,1], @pro.call_time.call.to_a
-      assert_in_delta 2, @pro.call_time.at(0), $delta
-      assert_in_delta 2, @pro.call_time.at(1), $delta
-      assert_in_delta 5, @pro.call_time.at(2), $delta
+      # when v0 becomes idle at 1, its surplus is still less than one, because
+      # v3 is still outside of the call time (it enters at t=6), so the vehicle
+      # just stays at station 1
+      @sim.run_to 6
+      assert_equal [1,1,0], @pro.call_time.call.to_a
 
-      # surplus for 2 changes due to call time change
+      # when v3 becomes idle at 1, one vehicle goes back
+      @sim.run_to 9
+      assert_equal [1,1,1], @pro.call_time.call.to_a
+      assert_veh 1, 0, 5
+      assert_veh 1, 2, 13
+      assert_veh 1, 1, 0
+      assert_veh 2, 1, 8
+
+      # this changes the call time at station 2; the incoming vehicle is within
+      # the station's call time, because its call time is increased to 5
       assert_in_delta 1 - 2*0.3, @pro.surplus_at(0), $delta
       assert_in_delta 2 - 2*0.7, @pro.surplus_at(1), $delta
       assert_in_delta 1 - 5*1.1, @pro.surplus_at(2), $delta
-
-      # if we send an idle vehicle from 0, it should go to 2
-      @sim.run_to 10
-      @pro.send_idle_veh_to_nearest_deficit(0)
-      assert_veh 0, 2, 13
-      assert_veh 0, 1,  5
-      assert_veh 1, 2,  8
-      assert_veh 2, 1,  8
-
-      # the empty trip is a call to 2; the call time should average
-      assert_equal [1,1,2], @pro.call_time.call.to_a
-      assert_in_delta 2, @pro.call_time.at(0), $delta
-      assert_in_delta 2, @pro.call_time.at(1), $delta
-      assert_in_delta (3+5)/2.0, @pro.call_time.at(2), $delta
-
-      assert_in_delta 0 - 2*0.3, @pro.surplus_at(0), $delta
-      assert_in_delta 2 - 2*0.7, @pro.surplus_at(1), $delta
-      assert_in_delta 2 - 4*1.1, @pro.surplus_at(2), $delta
     end
   end
 end
