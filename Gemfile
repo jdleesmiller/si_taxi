@@ -10,7 +10,6 @@ gem 'gemma', '>= 1.0.1', '~> 1.0', :path => '../gemma'
 gem 'finite_mdp', '>= 0.0.1', '~> 0.0', :path => '../finite_mdp' 
 
 gem 'discrete_event', :path => '../discrete_event' 
-gem 'discrete_event', :path => '../discrete_event' 
 
 #gem 'narray', '~> 0.5.9'
 
