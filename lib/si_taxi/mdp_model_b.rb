@@ -1,4 +1,7 @@
 module SiTaxi
+  #
+  # State for {MDPModelB}.
+  #
   class MDPStateB < MDPStateBase
     def initialize model
       super(model)
@@ -64,10 +67,23 @@ module SiTaxi
   # A model without the redundant vehicle labelling of MDPModelA. This cheats
   # somewhat by just copying from an MDPModelA instead of generating itself.
   #
+  # The state representation is
+  #   q_1, ..., q_S, n_1, ..., n_S, r_1, ..., r_K
+  # where
+  #   q_i = queue length at i (just like in Model A)
+  #   n_i = number of vehicles with destination i; must satisfy \sum_i n_i = K
+  #   r_k = time remaining, aligned wrt the n_i.
+  # The time remaining bit is a bit different: the first n_0 entries are the
+  # times remaining for the n_0 vehicles inbound to or idle at station 0 (if
+  # any); moreover, they are sorted in non-decreasing order to resolve ordering
+  # ambiguity.
+  # 
+  # An action specifies the number of vehicles to move between each pair of
+  # stations. We represent it as an S-by-S matrix (where S is the number of
+  # stations) with zeros on the diagonal and non-negative integer entries
+  # elsewhere.
+  #
   class MDPModelB < MDPModelBase
-    # hash[:s]         #=> a Hash that maps actions to successor states
- #hash[:s][:a]     #=> a Hash from successor states to pairs (see next)
- #hash[:s][:a][:t] #=> an Array [probability, reward] for transition (s,a,t)
     def initialize model_a
       super(model_a.trip_time, model_a.num_veh, model_a.demand,
             model_a.max_queue)

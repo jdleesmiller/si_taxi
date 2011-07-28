@@ -1,5 +1,6 @@
 require 'test/si_taxi_helper'
 
+# TODO maybe add to gem
 module FiniteMDP::Model
   def transition_probability_sums tol=1e-6
     prs = []
@@ -16,11 +17,6 @@ end
 
 class MDPModelBTest < Test::Unit::TestCase
   include SiTaxi
-
-  # shorthand
-  def st *state_a
-    MDPStateA.from_a(@m, state_a)
-  end
 
   context "two station ring with one vehicle; max_queue=1" do
     setup do
