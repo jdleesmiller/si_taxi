@@ -40,7 +40,7 @@ class SiTaxi::MDPStateBase
   # The probabilities are not returned; see also
   # {MDPModelA#with_each_successor_state}.
   #
-  # @return [Array<MDPStateA>]
+  # @return [Array<MDPStateBase>]
   #
   def successors action
     states = []
@@ -68,8 +68,8 @@ end
 class SiTaxi::MDPModelBase
   def initialize trip_time, num_veh, demand, max_queue
     @trip_time = trip_time
-    @num_veh = num_veh
-    @demand = demand
+    @num_veh   = num_veh
+    @demand    = demand
     @max_queue = max_queue
 
     @stations = (0...trip_time.size).to_a
@@ -93,71 +93,25 @@ class SiTaxi::MDPModelBase
   def num_stations; stations.size end
 
   #
-  # @return [Array] array of states
+  # Sanity check.
   #
-  def states
-    states = []
-    with_each_state do |state|
-      states << state
-    end
-    states
-  end
-
-  #
-  # Build the explicit transition matrices (as nested Hashes).
-  #
-  # @return Hash
-  #
-  def to_hash
-    # set up nested hashes using appropriate missing value defaults
-    hash = Hash.new {|h0,k0|
-      h0[k0] = Hash.new {|h1,k1|
-        h1[k1] = Hash.new {[0,0]} } }
-
-    with_each_state do |s0|
-      with_each_action_for(s0) do |a|
-        with_each_successor_state(s0, a) do |s1, pr|
-          hash[s0][a][s1] = [pr, s0.reward]
-        end
-      end
-    end
-    hash
-  end
-
   def check_transition_probabilities_sum
     FiniteMDP::HashModel.new(self.to_hash).check_transition_probabilities_sum
   end
 
-#  #
-#  # Print transition probabilities and rewards in sparse format.
-#  #
-#  def dump io=$stdout, delim=','
-#    io.puts %w(state action new_state probability reward).join(delim)
-#
-#    tr = self.transitions
-#    ss = self.states
-#    tr.keys.sort.each do |action|
-#      tra = tr[action]
-#      ss.each do |s0|
-#        if tra.has_key?(s0)
-#          tr0 = tra[s0]
-#          ss.each do |s1|
-#            if tr0.has_key?(s1)
-#              io.puts [s0.inspect, action.inspect, s1.inspect,
-#                tr0[s1], s0.reward].map(&:inspect).join(delim)
-#            end
-#          end
-#        end
-#      end
-#    end
-#  end
+  #
+  # Create an explicit solver for the model.
+  #
+  def solver discount
+    FiniteMDP::Solver.new(FiniteMDP::HashModel.new(self.to_hash), discount)
+  end
 
   #
-  # Yield for all feasible states.
+  # Convert to hash for use with FiniteMDP models.
   #
   # @abstract
   #
-  def with_each_state
+  def to_hash
     raise NotImplementedError
   end
 end

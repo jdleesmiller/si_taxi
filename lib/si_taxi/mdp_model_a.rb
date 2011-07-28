@@ -101,6 +101,17 @@ module SiTaxi
     end
 
     #
+    # @return [Array] array of states
+    #
+    def states
+      states = []
+      with_each_state do |state|
+        states << state
+      end
+      states
+    end
+
+    #
     # Yield for each action in numeric order. Note that the actions yielded may
     # not be feasible for some states.
     #
@@ -250,10 +261,24 @@ module SiTaxi
     end
 
     #
-    # Create an explicit solver for the model.
+    # Build the explicit transition matrices (as nested Hashes).
     #
-    def solver discount
-      FiniteMDP::Solver.new(FiniteMDP::HashModel.new(self.to_hash), discount)
+    # @return Hash
+    #
+    def to_hash
+      # set up nested hashes using appropriate missing value defaults
+      hash = Hash.new {|h0,k0|
+      h0[k0] = Hash.new {|h1,k1|
+      h1[k1] = Hash.new {[0,0]} } }
+
+      with_each_state do |s0|
+        with_each_action_for(s0) do |a|
+          with_each_successor_state(s0, a) do |s1, pr|
+            hash[s0][a][s1] = [pr, s0.reward]
+          end
+        end
+      end
+      hash
     end
   end
 end
