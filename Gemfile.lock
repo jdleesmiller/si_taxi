@@ -1,0 +1,65 @@
+PATH
+  remote: .
+  specs:
+    si_taxi (0.0.1)
+      facets (~> 2.9)
+      hpricot (~> 0.8.4)
+
+PATH
+  remote: ../discrete_event
+  specs:
+    discrete_event (0.2.0)
+      pqueue (~> 1.0.0)
+
+PATH
+  remote: ../finite_mdp
+  specs:
+    finite_mdp (0.0.1)
+      narray (~> 0.5.9)
+
+PATH
+  remote: ../gemma
+  specs:
+    gemma (1.0.1)
+      highline (>= 1.6.1, ~> 1.6)
+
+PATH
+  remote: ../gratr
+  specs:
+    gratr (0.5.1)
+
+PATH
+  remote: ../narray
+  specs:
+    narray (0.5.9.9)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    facets (2.9.1)
+    highline (1.6.1)
+    hpricot (0.8.4)
+    pqueue (1.0.0)
+    rake (0.8.7)
+    rdoc (3.5.3)
+    shoulda (2.11.3)
+    simplecov (0.4.0)
+      simplecov-html (~> 0.4.0)
+    simplecov-html (0.4.3)
+    yard (0.6.7)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  discrete_event!
+  finite_mdp (>= 0.0.1, ~> 0.0)!
+  gemma (>= 1.0.1, ~> 1.0)!
+  gratr (>= 0.5.1, ~> 0.5)!
+  narray!
+  rake (>= 0.8.7, ~> 0.8)
+  rdoc (>= 3.5.3, ~> 3.5)
+  shoulda (>= 2.11.3, ~> 2.11)
+  si_taxi!
+  simplecov (>= 0.4.0, ~> 0.4)
+  yard (>= 0.6.7, ~> 0.6)
