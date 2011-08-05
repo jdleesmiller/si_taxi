@@ -88,26 +88,32 @@ module SiTaxi
       super(model_a.trip_time, model_a.num_veh, model_a.demand,
             model_a.max_queue)
 
+      # note: this routine spends much of its time hashing states, so we have to
+      # be careful to avoid hashing a state more than necessary; this is why we
+      # have the "value = hash[key] ||= default" constructs
+
       h_b = {}
       for state_a, actions_a in model_a.to_hash
         state_b  = MDPStateB.from_model_a_state(self, state_a)
-        h_b[state_b] ||= {}
+        h_b_actions = h_b[state_b] ||= {}
 
         for action_a, succs_a in actions_a
           action_b = action_from_model_a(state_a, action_a)
-          h_b[state_b][action_b] ||= {}
+          h_b_succs = h_b_actions[action_b] ||= {}
 
           for succ_a, (pr, reward) in succs_a
             succ_b = MDPStateB.from_model_a_state(self, succ_a)
+            pr_reward = h_b_succs[succ_b] ||= [nil, nil]
 
             # the probability and reward for any equivalent triple should do
-            if h_b[state_b][action_b][succ_b]
-              old_pr, old_reward = h_b[state_b][action_b][succ_b]
+            old_pr, old_reward = pr_reward
+            if old_pr
               raise "different prob" unless old_pr == pr
               raise "different rewards" unless old_reward == reward
             end
 
-            h_b[state_b][action_b][succ_b] = [pr, reward]
+            pr_reward[0] = pr
+            pr_reward[1] = reward
           end
         end
       end
