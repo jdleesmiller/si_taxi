@@ -408,5 +408,21 @@ class TestSiTaxi < Test::Unit::TestCase
     end
     assert_equal 9, pick_from_pmf(pmf, 1)
   end
+
+  should "return integer partitions" do
+    assert_equal [[0]], integer_partitions(0, 1)
+    assert_equal [[1]], integer_partitions(1, 1)
+    assert_equal [[2]], integer_partitions(2, 1)
+
+    assert_equal [[0,0]], integer_partitions(0, 2)
+    assert_equal [[0,1],[1,0]], integer_partitions(1, 2)
+    assert_equal [[0,2],[1,1],[2,0]], integer_partitions(2, 2)
+    assert_equal [[0,3],[1,2],[2,1],[3,0]], integer_partitions(3, 2)
+
+    assert_equal [[0,0,0]], integer_partitions(0, 3)
+    assert_equal [[0,0,1],[0,1,0],[1,0,0]], integer_partitions(1, 3)
+    assert_equal [[0,0,2],[0,1,1],[0,2,0],
+                  [1,0,1],[1,1,0],[2,0,0]], integer_partitions(2, 3)
+  end
 end
 

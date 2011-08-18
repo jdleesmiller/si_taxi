@@ -92,6 +92,22 @@ module SiTaxi::Utility
   end
 
   #
+  # All permutations of +length+ non-negative integers that add to +sum+. 
+  #
+  # @param [Integer] sum non-negative
+  # @param [Integer] length positive
+  #
+  def integer_partitions sum, length
+    if sum == 0 || length <= 1
+      [[sum]*length]
+    else
+      (0..sum).map {|i|
+        integer_partitions(sum-i, length-1).map{|s| [i] + s}
+      }.flatten(1)
+    end
+  end
+
+  #
   # Return nil if x is NaN (not a number).
   #
   # @return [Float, nil]
