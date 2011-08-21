@@ -256,9 +256,17 @@ module SiTaxi
 
       # enumerate actions for each state, then possible successor states
       for state, state_actions in h
+        reward = state.reward
         for action in Utility::cartesian_product(*state.idle.map{|sum|
           Utility::integer_partitions(sum, model.num_stations)})
-          state_actions[action] = model.transitions(state, action)
+          # zero diagonals to make this easier to read
+          model.stations.each do |i|
+            action[i][i] = 0
+          end
+          pr_rewards = state_actions[action] = {}
+          for next_state, pr in model.transitions(state, action)
+            pr_rewards[next_state] = [pr, reward]
+          end
         end
       end
 
@@ -285,23 +293,20 @@ module SiTaxi
     # @param [MDPStateB] state not nil; not modified
     #
     def transitions state, action
-      result = {}
-
-      p state
-      p state.dup
+      results = []
 
       # advance moving vehicles closer to their destinations
       new_state = state.dup.advance_vehicles!
-      p new_state
+      #p new_state
 
       # move idle vehicles according to the specified action
       new_state.apply_action! action
-      p new_state
+      #p new_state
 
       # the remaining idle vehicles are 'available'
       available = new_state.idle
-      puts "state: #{state.inspect}; action: #{action.inspect}"
-      puts "available: #{available.inspect}"
+      #puts "state: #{state.inspect}; action: #{action.inspect}"
+      #puts "available: #{available.inspect}"
       
       # for each station, the basic relationship is:
       #   new_queue = max(0, queue + new_pax - (idle + landing - leaving))
@@ -342,7 +347,7 @@ module SiTaxi
           #puts "journey_product:\n#{journey_product.inspect}"
           if journey_product.empty?
             # no passengers served; just return new_state
-            result[next_state] = [next_state_pr, next_state.reward]
+            results << [next_state, next_state_pr]
           else
             Utility.cartesian_product(*journey_product).each do |journeys|
               #available_for_pax = available.map{|ai| ai.dup}
@@ -355,12 +360,12 @@ module SiTaxi
                 #puts "pax_state: #{pax_state.inspect}"
               end
               #puts "pax_state: #{pax_state.inspect}"
-              result[pax_state] = [pax_state_pr, pax_state.reward]
+              results << [pax_state, pax_state_pr]
             end
           end
         end
       end while Utility.spin_array(new_pax, max_new_pax)
-      result
+      results
     end
   end
 end

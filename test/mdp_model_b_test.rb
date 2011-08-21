@@ -18,7 +18,7 @@ end
 class MDPModelBTest < Test::Unit::TestCase
   include SiTaxi
 
-  context "two station ring with one vehicle; max_queue=1" do
+  context "models on two station ring with one vehicle; max_queue=1" do
     setup do
       od = ODMatrixWrapper.new([[0,0.2],[0.3,0]])
       @m_a  = MDPModelA.new([[0,1],[1,0]], 1, od, 1)
@@ -27,68 +27,85 @@ class MDPModelBTest < Test::Unit::TestCase
       @m_b  = MDPModelB.new_from_model_a(@m_a)
       @hm_b = FiniteMDP::HashModel.new(@m_b.to_hash)
       @tm_b = FiniteMDP::TableModel.from_model(@hm_b)
+      @m_b_scratch  = MDPModelB.new_from_scratch([[0,1],[1,0]], 1, od, 1)
+      @hm_b_scratch = FiniteMDP::HashModel.new(@m_b_scratch.to_hash)
+      @tm_b_scratch = FiniteMDP::TableModel.from_model(@hm_b_scratch)
     end
 
-    should "have same number of state-action pairs" do
+    should "match up" do
+      # only one vehicle: same number of transitions in all models
       assert_equal @tm_a.rows.size, @tm_b.rows.size
-    end
+      assert_equal @tm_a.rows.size, @tm_b_scratch.rows.size
 
-    should "have valid transition probabilities" do
+      # should all be valid
       @m_a.check_transition_probabilities_sum
       @m_b.check_transition_probabilities_sum
+      @m_b_scratch.check_transition_probabilities_sum
       @tm_b.check_transition_probabilities_sum
-    end
 
-    should "have 12 feasible states" do
-      assert_equal [[0, 0, 0, 1, 0], # idle at 1
-                    [0, 0, 0, 1, 1], # going to 1
-                    [0, 0, 1, 0, 0], # idle at 0
-                    [0, 0, 1, 0, 1], # going to 0
-                    [0, 1, 0, 1, 1],
-                    [0, 1, 1, 0, 0],
-                    [0, 1, 1, 0, 1],
-                    [1, 0, 0, 1, 0],
-                    [1, 0, 0, 1, 1],
-                    [1, 0, 1, 0, 1],
-                    [1, 1, 0, 1, 1],
-                    [1, 1, 1, 0, 1]], @hm_b.states.uniq.sort.map{|s| s.to_a}
-    end
+      # the model B's should both have same states and actions
+      for model in [@hm_b, @hm_b_scratch]
+        assert_equal [[0, 0, 0, 1, 0], # idle at 1
+                      [0, 0, 0, 1, 1], # going to 1
+                      [0, 0, 1, 0, 0], # idle at 0
+                      [0, 0, 1, 0, 1], # going to 0
+                      [0, 1, 0, 1, 1],
+                      [0, 1, 1, 0, 0],
+                      [0, 1, 1, 0, 1],
+                      [1, 0, 0, 1, 0],
+                      [1, 0, 0, 1, 1],
+                      [1, 0, 1, 0, 1],
+                      [1, 1, 0, 1, 1],
+                      [1, 1, 1, 0, 1]], model.states.map(&:to_a).sort!
 
-    should "cover action space" do
-      assert_equal [[[0, 0], [0, 0]],  # do nothing 
-                    [[0, 1], [0, 0]],  # move from 0 to 1 
-                    [[0, 0], [1, 0]]], # move from 1 to 0
-        @hm_b.states.map {|s| @hm_b.actions(s)}.flatten(1).uniq!
-    end
+        assert_equal [[[0, 0], [0, 0]],  # do nothing 
+                      [[0, 0], [1, 0]],  # move from 0 to 1 
+                      [[0, 1], [0, 0]]], # move from 1 to 0
+          model.states.map {|s| model.actions(s)}.flatten(1).sort!.uniq
+      end
 
+      # should get same rows for both B models
+      assert_equal Set[*@tm_b.rows], Set[*@tm_b_scratch.rows]
+    end
   end
 
-  context "two station ring with one vehicle; max_queue=2" do
+  context "models on the two station ring with one vehicle; max_queue=2" do
     setup do
       od = ODMatrixWrapper.new([[0,0.2],[0.3,0]])
-      @m_a = MDPModelA.new([[0,1],[1,0]], 1, od, 2)
+      @m_a  = MDPModelA.new([[0,1],[1,0]], 1, od, 2)
       @hm_a = FiniteMDP::HashModel.new(@m_a.to_hash)
       @tm_a = FiniteMDP::TableModel.from_model(@hm_a)
       @m_b  = MDPModelB.new_from_model_a(@m_a)
       @hm_b = FiniteMDP::HashModel.new(@m_b.to_hash)
       @tm_b = FiniteMDP::TableModel.from_model(@hm_b)
+      @m_b_scratch  = MDPModelB.new_from_scratch([[0,1],[1,0]], 1, od, 2)
+      @hm_b_scratch = FiniteMDP::HashModel.new(@m_b_scratch.to_hash)
+      @tm_b_scratch = FiniteMDP::TableModel.from_model(@hm_b_scratch)
     end
 
-    should "have 24 states" do
-      # same as the MDPModelA model
+    should "match up" do
+      # one vehicle, so should have same number of states as MDPModelA model
+      assert_equal 24, @hm_a.states.size
       assert_equal 24, @hm_b.states.size
-    end
-
-    should "have same number of transitions" do
+      assert_equal 24, @hm_b_scratch.states.size
+      
+      # and the same number of transitions
       assert_equal @tm_a.rows.size, @tm_b.rows.size
-    end
+      assert_equal @tm_a.rows.size, @tm_b_scratch.rows.size
 
-    should "have valid transition matrix" do
+      # states from_scratch should match from_a 
+      assert_equal Set[*@hm_b.states], Set[*@hm_b_scratch.states]
+
+      # should all be valid
       @m_b.check_transition_probabilities_sum
+      @m_b_scratch.check_transition_probabilities_sum
+
+      # should get same rows for both B models
+      assert_equal Set[*@tm_b.rows], Set[*@tm_b_scratch.rows]
     end
   end
 
-  context "two station ring with two vehicles" do
+  context "models for two station ring with two vehicles" do
     setup do
       od = ODMatrixWrapper.new([[0,0.2],[0.3,0]])
       @m_a = MDPModelA.new([[0,1],[1,0]], 2, od, 1)
@@ -97,47 +114,50 @@ class MDPModelBTest < Test::Unit::TestCase
       @m_b  = MDPModelB.new_from_model_a(@m_a)
       @hm_b = FiniteMDP::HashModel.new(@m_b.to_hash)
       @tm_b = FiniteMDP::TableModel.from_model(@hm_b)
+      @m_b_scratch  = MDPModelB.new_from_scratch([[0,1],[1,0]], 2, od, 1)
+      @hm_b_scratch = FiniteMDP::HashModel.new(@m_b_scratch.to_hash)
+      @tm_b_scratch = FiniteMDP::TableModel.from_model(@hm_b_scratch)
     end
     
-    should "have valid transition matrix" do
+    should "match up" do
+      # should all be valid
       @m_a.check_transition_probabilities_sum
       @m_b.check_transition_probabilities_sum
-    end
+      @m_b_scratch.check_transition_probabilities_sum
 
-    should "have 25 states" do
-      assert_equal [[0, 0, 0, 2, 0, 0],
-                    [0, 0, 0, 2, 0, 1],
-                    [0, 0, 0, 2, 1, 1],
-                    [0, 0, 1, 1, 0, 0],
-                    [0, 0, 1, 1, 0, 1],
-                    [0, 0, 1, 1, 1, 0],
-                    [0, 0, 1, 1, 1, 1],
-                    [0, 0, 2, 0, 0, 0],
-                    [0, 0, 2, 0, 0, 1],
-                    [0, 0, 2, 0, 1, 1],
-                    [0, 1, 0, 2, 1, 1],
-                    [0, 1, 1, 1, 0, 1],
-                    [0, 1, 1, 1, 1, 1],
-                    [0, 1, 2, 0, 0, 0],
-                    [0, 1, 2, 0, 0, 1],
-                    [0, 1, 2, 0, 1, 1],
-                    [1, 0, 0, 2, 0, 0],
-                    [1, 0, 0, 2, 0, 1],
-                    [1, 0, 0, 2, 1, 1],
-                    [1, 0, 1, 1, 1, 0],
-                    [1, 0, 1, 1, 1, 1],
-                    [1, 0, 2, 0, 1, 1],
-                    [1, 1, 0, 2, 1, 1],
-                    [1, 1, 1, 1, 1, 1],
-                    [1, 1, 2, 0, 1, 1]], @hm_b.states.sort.map{|s| s.to_a}
-    end
+      # should get same states for the B models
+      for model in [@hm_b, @hm_b_scratch]
+        assert_equal [[0, 0, 0, 2, 0, 0],
+                      [0, 0, 0, 2, 0, 1],
+                      [0, 0, 0, 2, 1, 1],
+                      [0, 0, 1, 1, 0, 0],
+                      [0, 0, 1, 1, 0, 1],
+                      [0, 0, 1, 1, 1, 0],
+                      [0, 0, 1, 1, 1, 1],
+                      [0, 0, 2, 0, 0, 0],
+                      [0, 0, 2, 0, 0, 1],
+                      [0, 0, 2, 0, 1, 1],
+                      [0, 1, 0, 2, 1, 1],
+                      [0, 1, 1, 1, 0, 1],
+                      [0, 1, 1, 1, 1, 1],
+                      [0, 1, 2, 0, 0, 0],
+                      [0, 1, 2, 0, 0, 1],
+                      [0, 1, 2, 0, 1, 1],
+                      [1, 0, 0, 2, 0, 0],
+                      [1, 0, 0, 2, 0, 1],
+                      [1, 0, 0, 2, 1, 1],
+                      [1, 0, 1, 1, 1, 0],
+                      [1, 0, 1, 1, 1, 1],
+                      [1, 0, 2, 0, 1, 1],
+                      [1, 1, 0, 2, 1, 1],
+                      [1, 1, 1, 1, 1, 1],
+                      [1, 1, 2, 0, 1, 1]], model.states.map(&:to_a).sort!
+      end
 
-    should "do value iteration" do
+      # should be able to solve either one
       solver = @m_b.solver(0.95)
       assert solver.evaluate_policy >= 0
-      assert_equal 25, solver.value.size
       solver.improve_policy
-      assert_equal 25, solver.policy.size
     end
   end
 
@@ -146,8 +166,6 @@ class MDPModelBTest < Test::Unit::TestCase
       setup do
         od = ODMatrixWrapper.new([[0,0.2],[0.3,0]])
         @m_b  = MDPModelB.new_from_scratch([[0,1],[1,0]], 1, od, 1)
-        #@hm_b = FiniteMDP::HashModel.new(@m_b.to_hash)
-        #@tm_b = FiniteMDP::TableModel.from_model(@hm_b)
       end
 
       should "create new states" do
@@ -162,33 +180,6 @@ class MDPModelBTest < Test::Unit::TestCase
         assert_equal [1,0], s.num_inbound
         assert_equal [1,0], s.idle
       end
-
-      #should "have valid transition probabilities" do
-      #  @m_b.check_transition_probabilities_sum
-      #  @tm_b.check_transition_probabilities_sum
-      #end
-
-      #should "have 12 feasible states" do
-      #  assert_equal [[0, 0, 0, 1, 0], # idle at 1
-      #                [0, 0, 0, 1, 1], # going to 1
-      #                [0, 0, 1, 0, 0], # idle at 0
-      #                [0, 0, 1, 0, 1], # going to 0
-      #                [0, 1, 0, 1, 1],
-      #                [0, 1, 1, 0, 0],
-      #                [0, 1, 1, 0, 1],
-      #                [1, 0, 0, 1, 0],
-      #                [1, 0, 0, 1, 1],
-      #                [1, 0, 1, 0, 1],
-      #                [1, 1, 0, 1, 1],
-      #                [1, 1, 1, 0, 1]], @hm_b.states.uniq.sort.map{|s| s.to_a}
-      #end
-
-      #should "cover action space" do
-      #  assert_equal [[[0, 0], [0, 0]],  # do nothing 
-      #                [[0, 1], [0, 0]],  # move from 0 to 1 
-      #                [[0, 0], [1, 0]]], # move from 1 to 0
-      #    @hm_b.states.map {|s| @hm_b.actions(s)}.flatten(1).uniq!
-      #end
     end
 
     context "two station ring with two vehicles; max_queue=1" do
