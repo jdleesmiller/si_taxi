@@ -177,12 +177,11 @@ module SiTaxi
         #puts "pax_temp: #{pax_temp}"
         #puts "pax_served: #{pax_served}"
 
-        # update queue states and vehicles due to actions
+        # update queue states
         new_state = state.dup
         new_state_pr = 1.0
         stations.each do |i|
           new_state.queue[i] = pax_temp[i] - pax_served[i]
-          new_state.destin = action.dup # TODO move out of loop
 
           pr_i = demand.poisson_origin_pmf(i, new_pax[i])
           pr_i += demand.poisson_origin_cdf_complement(i, new_pax[i]) if
@@ -190,6 +189,9 @@ module SiTaxi
           raise "bug: pr_i > 1" if pr_i > 1
           new_state_pr *= pr_i
         end
+
+        # update vehicles due action
+        new_state.destin = action.dup
 
         # the above generates states with non-zero queues at stations with zero
         # arrival rates, which would cause us to generate infeasible states
