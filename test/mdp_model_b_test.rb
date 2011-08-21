@@ -150,14 +150,16 @@ class MDPModelBTest < Test::Unit::TestCase
         #@tm_b = FiniteMDP::TableModel.from_model(@hm_b)
       end
 
-      should "" do
+      should "create new states" do
         s = MDPStateB.new(@m_b)
 
-        assert_equal [0,0], s.inbound
-        assert_equal [0,0], s.idle
+        # not valid when first constructed in this way 
+        assert_equal [], s.inbound
 
-        s.inbound[0] = 1
-        assert_equal [1,0], s.inbound
+        # can make it valid by adding some vehicles in
+        s.inbound[0] = [0]
+        s.inbound[1] = []
+        assert_equal [1,0], s.num_inbound
         assert_equal [1,0], s.idle
       end
 
@@ -193,37 +195,31 @@ class MDPModelBTest < Test::Unit::TestCase
       setup do
         od = ODMatrixWrapper.new([[0,0.2],[0.3,0]])
         @m_b  = MDPModelB.new_from_scratch([[0,1],[1,0]], 2, od, 1)
-        p @m_b.to_hash
       end
 
       should "count idle vehicles in state" do
         s = MDPStateB.new(@m_b)
 
-        # default state is not feasible: no inbound vehicles
-        assert_equal [0,0], s.inbound
-        assert_equal [0,0], s.eta
-        assert_equal [0,0], s.idle
-        assert_equal [], s.destin
-        assert !s.feasible?
+        # initial state is invalid: no inbound vehicles
+        assert_equal [], s.inbound
 
         # make inbound feasible; should get one idle vehicles at each station
-        s.inbound[0] = 1
-        s.inbound[1] = 1
+        s.inbound[0] = [0]
+        s.inbound[1] = [0]
         assert s.feasible?
         assert_equal [1,1], s.idle
 
         # set one vehicle to move to 1; the other remains idle at 0
-        s.eta[1] = 1
+        s.inbound[1][0] = 1
         assert_equal [1,0], s.idle
 
-        # try the other way around
-        s.eta[0] = 1
-        s.eta[1] = 0
-        assert_equal [0,1], s.idle
-
-        # and finally try with no idle vehicles
-        s.eta[1] = 1
+        # try with no idle vehicles
+        s.inbound[0][0] = 1
         assert_equal [0,0], s.idle
+
+        # try the final permutation
+        s.inbound[1][0] = 0
+        assert_equal [0,1], s.idle
       end
     end
   end

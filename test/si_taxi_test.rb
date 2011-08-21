@@ -409,7 +409,7 @@ class TestSiTaxi < Test::Unit::TestCase
     assert_equal 9, pick_from_pmf(pmf, 1)
   end
 
-  should "return integer partitions" do
+  should "list integer partitions" do
     assert_equal [[0]], integer_partitions(0, 1)
     assert_equal [[1]], integer_partitions(1, 1)
     assert_equal [[2]], integer_partitions(2, 1)
@@ -423,6 +423,18 @@ class TestSiTaxi < Test::Unit::TestCase
     assert_equal [[0,0,1],[0,1,0],[1,0,0]], integer_partitions(1, 3)
     assert_equal [[0,0,2],[0,1,1],[0,2,0],
                   [1,0,1],[1,1,0],[2,0,0]], integer_partitions(2, 3)
+  end
+
+  should "check ordering of arrays" do
+    assert is_nondescending?([])
+    assert is_nondescending?([1])
+    assert is_nondescending?([1,1])
+    assert is_nondescending?([1,2])
+    assert is_nondescending?([1,2,2])
+    assert is_nondescending?([1,2,3])
+
+    assert !is_nondescending?([2,1])
+    assert !is_nondescending?([1,2,1])
   end
 end
 

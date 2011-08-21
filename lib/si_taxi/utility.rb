@@ -23,7 +23,8 @@ module SiTaxi::Utility
 
   #
   # Cycle through all possible arrays with entries less than the given maxima;
-  # this modifies +array+ so that it is the next value in the sequence.
+  # this modifies +array+ so that it is the next value in the sequence. This is
+  # a successor function for mixed-radix integers.
   #
   # @param [Array<Integer>] array modified in place
   # @param [Integer, Array<Integer>] array_max maximum for each entry in array
@@ -52,6 +53,18 @@ module SiTaxi::Utility
       end
       return false
     end
+  end
+
+  #
+  # Enumerator over all numbers with the given (mixed) radices.
+  #
+  def mixed_radix_sequence radices
+    array = [0] * radices.size
+    Enumerator.new {|y|
+      begin 
+        y << array.dup
+      end while spin_array(array, radices)
+    }
   end
 
   #
@@ -114,6 +127,20 @@ module SiTaxi::Utility
   #
   def nil_if_nan x
     x unless x.nan?
+  end
+
+  #
+  # @param [Enumerable] a all elements comparable
+  #
+  # @return [Boolean] true iff +a+ is sorted in non-descending order
+  #
+  def is_nondescending? a
+    prev, *a = a
+    for curr in a
+      return false if prev > curr
+      prev = curr
+    end
+    return true
   end
 end
 

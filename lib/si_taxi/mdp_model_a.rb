@@ -182,7 +182,7 @@ module SiTaxi
         new_state_pr = 1.0
         stations.each do |i|
           new_state.queue[i] = pax_temp[i] - pax_served[i]
-          new_state.destin = action.dup
+          new_state.destin = action.dup # TODO move out of loop
 
           pr_i = demand.poisson_origin_pmf(i, new_pax[i])
           pr_i += demand.poisson_origin_cdf_complement(i, new_pax[i]) if
