@@ -1,4 +1,4 @@
-%module siTaxi
+%module(directors="1") siTaxi
 
 %{
 #include <si_taxi/si_taxi.h>
@@ -80,6 +80,8 @@ void seed_rng(unsigned int seed) {
 %clear size_t &origin;
 %clear size_t &destin;
 %clear double &interval;
+
+%feature("director") BWProactiveHandler;
 
 %include "si_taxi/bell_wong/bell_wong.h"
 %include "si_taxi/bell_wong/call_times.h"

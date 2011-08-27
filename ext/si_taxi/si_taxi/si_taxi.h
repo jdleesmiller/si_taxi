@@ -17,6 +17,7 @@
 #else
 #include <boost/numeric/ublas/matrix.hpp>
 #endif
+#include <boost/unordered_map.hpp>
 
 namespace si_taxi {
 

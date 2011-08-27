@@ -190,6 +190,10 @@ void BWSimStatsDetailed::init() {
   idle_vehs_total.clear();
 }
 
+int BWSimStatsDetailed::queue_at(size_t i) const {
+  return pickups[i].size();
+}
+
 void BWSimStatsDetailed::record_time_step_stats() {
   //
   // record passenger queue length at each station

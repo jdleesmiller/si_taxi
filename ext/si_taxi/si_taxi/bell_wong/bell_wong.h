@@ -386,6 +386,13 @@ struct BWSimStatsDetailed : public BWSimStats {
   /// override
   virtual void record_empty_trip(size_t empty_origin, size_t empty_destin);
 
+  /**
+   * The number of queued requests at station i.
+   *
+   * @return non-negative
+   */
+  int queue_at(size_t i) const;
+
   /// Histograms of passenger waiting times, in seconds, per station.
   std::vector<NaturalHistogram> pax_wait;
   /// Histograms of passenger queue lengths, in seconds, per station.
