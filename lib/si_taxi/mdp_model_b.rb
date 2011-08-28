@@ -368,5 +368,123 @@ module SiTaxi
       results
     end
   end
+
+  #
+  # Use a policy for a {MDPModelB} to make proactive movements in the
+  # corresponding {BWSim}, for comparison purposes.
+  # 
+  # Due to the order of operations within each timestep, the {BWSim} state is
+  # sometimes not a valid MDP state. In particular, +handle_pax_served+ can see
+  # the wrong queue lengths and trip times (because they haven't been updated
+  # yet). We work around this using a modified simulation driver,
+  # {#handle_pax_stream}. It advances the simulation by one time step after a
+  # passenger arrival (or a batch of arrivals in the same time step), and then
+  # it applies the policy. The {#handle_idle} handler works as expected.
+  #
+  # Here we rely on SWIG's 'director' feature, which us to override the virtual
+  # methods of C++ classes (namely BWProactiveHandler) in ruby. It is all rather
+  # slow, however.
+  #
+  class BWMDPModelBHandler < BWProactiveHandler
+    def initialize sim, detailed_stats, model, policy
+      super(sim)
+      @detailed_stats = detailed_stats
+      @model = model
+      @policy = policy
+    end
+
+    #
+    # Override; called by {BWSim} after a passenger is served.
+    #
+    def handle_pax_served empty_origin
+      puts "pax : #{current_state.inspect}=>#{@policy[current_state].inspect}"
+      apply @policy[current_state]
+    end
+
+    #
+    # Override; called by {BWSim} when a vehicle becomes idle.
+    #
+    def handle_idle veh
+      puts "idle: #{current_state.inspect}=>#{@policy[current_state].inspect}"
+      apply @policy[current_state]
+    end
+
+    #
+    # Modified simulation driver to work around problems with computing the
+    # system state in +handle_pax_served+ (see {BWMDPModelBHandler}).
+    #
+    # Note: using tail-recursion; may blow stack if VM doesn't optimise
+    # 
+    # @param [BWPaxStream] pax_stream not nil; may have to generate more than
+    #        num_pax passengers from the stream, in order to finish the current
+    #        time step 
+    # @param [Integer] num_pax to generate; non-negative
+    #
+    #def handle_pax_stream pax_stream, num_pax, next_pax=pax_stream.next_pax
+    #  # handle passenger and generate (but don't yet handle) the second
+    #  p next_pax
+    #  sim.handle_pax next_pax
+    #  num_pax -= 1
+    #  next_pax = pax_stream.next_pax
+
+    #  # there may be several arrivals in the current time step (particularly
+    #  # when we have unit travel times and a moderately large fleet); generate
+    #  # passengers until now is strictly < next arrival
+    #  until sim.now < next_pax.arrive
+    #    p next_pax
+    #    sim.handle_pax next_pax
+    #    num_pax -= 1
+    #    next_pax = pax_stream.next_pax
+    #  end
+
+    #  # advance simulation by one time step to get updated queues and valid
+    #  # travel times
+    #  sim.run_to sim.now + 1
+
+    #  # apply action according to the MDP policy; note that if a vehicle
+    #  # became idle in the time step that just elapsed, we'll already have
+    #  # applied an action, but it's not too bad to apply one again
+    #  puts "pax:  #{current_state.inspect}=>#{@policy[current_state].inspect}"
+    #  apply @policy[current_state]
+
+    #  handle_pax_stream pax_stream, num_pax, next_pax if num_pax > 0
+    #end
+
+    #
+    # Map the current simulation state to an {MDPStateB}. Queues are truncated
+    # to {MDPModelB#max_queue}, and ETA times are truncated to
+    # {#MDPModelB#max_time} for the appropriate destination station.
+    #
+    # @return [MDPStateB] not nil
+    #
+    def current_state
+      vehs_by_destin = sim.vehs.group_by {|v| v.destin}.mash! {|destin, vs|
+        [destin, vs.map{|v| [v.arrive - sim.now, 0].max}.sort]}
+
+      state = MDPStateB.new(@model)
+      stations = (0...sim.num_stations)
+      state.queue = stations.map{|i|
+        [@detailed_stats.queue_at(i), @model.max_queue].min}
+      state.inbound = stations.map{|i|
+        (vehs_by_destin[i] || []).map {|eta| [eta, @model.max_time[i]].min}}
+      state
+    end
+
+    #
+    # Move idle vehicles according to the given action matrix (see {MDPModelB}).
+    #
+    # @return [nil]
+    #
+    def apply action
+      for i in 0...sim.num_stations
+        for j in 0...sim.num_stations
+          action[i][j].times do
+            sim.move_empty_od(i, j)
+          end
+        end
+      end
+      nil
+    end
+  end
 end
 

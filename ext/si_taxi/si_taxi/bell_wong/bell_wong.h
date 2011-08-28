@@ -389,9 +389,10 @@ struct BWSimStatsDetailed : public BWSimStats {
   /**
    * The number of queued requests at station i.
    *
-   * @return non-negative
+   * This updates the internal pickups priority queue for station i; all past
+   * and present (that is, with pickup time <= now) pickup times are deleted.
    */
-  int queue_at(size_t i) const;
+  size_t queue_at(size_t i);
 
   /// Histograms of passenger waiting times, in seconds, per station.
   std::vector<NaturalHistogram> pax_wait;

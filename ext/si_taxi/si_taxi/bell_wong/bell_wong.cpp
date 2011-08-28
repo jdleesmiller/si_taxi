@@ -190,7 +190,10 @@ void BWSimStatsDetailed::init() {
   idle_vehs_total.clear();
 }
 
-int BWSimStatsDetailed::queue_at(size_t i) const {
+size_t BWSimStatsDetailed::queue_at(size_t i) {
+  // remove passengers that have already been served
+  while (!pickups[i].empty() && pickups[i].top() <= sim.now)
+    pickups[i].pop();
   return pickups[i].size();
 }
 
@@ -199,11 +202,8 @@ void BWSimStatsDetailed::record_time_step_stats() {
   // record passenger queue length at each station
   //
   for (size_t i = 0; i < sim.num_stations(); ++i) {
-    // remove passengers that have already been served
-    while (!pickups[i].empty() && pickups[i].top() <= sim.now)
-      pickups[i].pop();
     // record remaining queue; length is the number of future serve_times
-    queue_len[i].increment(pickups[i].size());
+    queue_len[i].increment(queue_at(i));
   }
 
   //
