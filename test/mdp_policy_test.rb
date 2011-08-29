@@ -4,7 +4,7 @@ require 'test/si_taxi_helper'
 class MDPPolicyTest < Test::Unit::TestCase
   include BellWongTestHelper
 
-  context "two-station ring with one vehicle; nearly tidal 1 -> 0" do
+  context "two-station ring with one vehicle; nearly tidal from 1 to 0" do
     setup do
       times = [[0,1],[1,0]] # unit travel times
 
@@ -13,7 +13,6 @@ class MDPPolicyTest < Test::Unit::TestCase
       @m_b = MDPModelB.new_from_scratch(times, 1, od, 1)
 
       # solve MDP model -- might as well use optimal policy for testing
-      # solve the MDP model
       @hm_b = FiniteMDP::HashModel.new(@m_b.to_hash)
       discount = 0.99
       max_iters = 5
@@ -33,7 +32,11 @@ class MDPPolicyTest < Test::Unit::TestCase
 
     should "move vehicles according to policy" do
       put_veh_at 0
+
+      # handle first request at 0; vehicle left idle at 1
       pax         0,  1,   0
+      assert_veh  0,  1,   1
+
       pax         1,  0,   0 # try with pax at same time, diff. stations
       pax         0,  1,   1
       pax         1,  0,   1
