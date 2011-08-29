@@ -28,6 +28,5 @@
 #include <boost/numeric/ublas/io.hpp>
 #include <boost/random.hpp>
 #include <boost/math/distributions/poisson.hpp>
-#include <boost/unordered_map.hpp>
 
 #endif /* guard */
