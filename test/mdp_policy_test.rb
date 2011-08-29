@@ -4,7 +4,7 @@ require 'test/si_taxi_helper'
 class MDPPolicyTest < Test::Unit::TestCase
   include BellWongTestHelper
 
-  context "two-station ring with one vehicle; nearly tidal from 1 to 0" do
+  context "MDP policy on two-station ring with one vehicle; ~ tidal 1 to 0" do
     setup do
       times = [[0,1],[1,0]] # unit travel times
 
@@ -17,69 +17,99 @@ class MDPPolicyTest < Test::Unit::TestCase
       discount = 0.99
       max_iters = 5
       solver = FiniteMDP::Solver.new(@hm_b, discount)
-      unless solver.policy_iteration_exact(max_iters) {|num_iters|
-        $stderr.puts "iters=%4d" % num_iters if num_iters % 2 == 0}
-        $stderr.puts "NO STABLE POLICY OBTAINED"
-      end
+      raise "solve failed" unless solver.policy_iteration_exact(max_iters)
 
       setup_sim times
       @rea = BWNNHandler.new(@sim)
-      @pro = BWMDPModelBHandler.new(@sim, @sim_stats, @m_b, solver.policy)
+      @pro = BWMDPModelBHandler.new(@sim, @m_b, solver.policy)
       @sim.reactive = @rea
       @sim.proactive = @pro
       @sim.init
     end
 
-    should "move vehicles according to policy" do
+    should "move idle vehicles according to policy" do
       put_veh_at 0
 
       # handle first request at 0; vehicle left idle at 1
       pax         0,  1,   0
       assert_veh  0,  1,   1
 
-      pax         1,  0,   0 # try with pax at same time, diff. stations
+      # handle a second request at 0; vehicle has to make a round trip
       pax         0,  1,   1
-      pax         1,  0,   1
-      @sim.run_to 10
+      assert_veh  0,  1,   3
 
-      ## no queued requests; one vehicle at station 0
-      #assert_equal [0, 0, 1, 0, 0], @pro.current_state.to_a
+      # request from 1 to 0; vehicle doesn't initially move back to 1, because
+      # we can only send it a new trip when it becomes idle
+      pax         1,  0,   4
+      assert_veh  1,  0,   5
 
-      ## have to use custom sim driver to put passengers in
-      #pax_stream = BWTestPaxStream.new
-      ##                             origin, destin, arrive
-      #pax_stream.pax.push BWPax.new(     0,      1,      0) 
-      #pax_stream.pax.push BWPax.new(     0,      1,      2) # gets thrown away
-      #pax_stream.pax.push BWPax.new(     0,      1,      2) 
-      #pax_stream.pax.push BWPax.new(     0,      1,      3) # gets thrown away
-      #pax_stream.pax.push BWPax.new(     1,      0,      5)
-      #pax_stream.pax.push BWPax.new(     1,      0,      6) # gets thrown away
-      #pax_stream.pax.push BWPax.new(     1,      0,      8) 
-      #pax_stream.pax.push BWPax.new(     1,      0,      8) 
-      #pax_stream.pax.push BWPax.new(     1,      0,      9) # gets thrown away
+      @sim.run_to 6
+      assert_veh  0,  1,   6
 
-      ## handle first request at 0; vehicle left idle at 1
-      #@pro.handle_pax_stream pax_stream, 1
-      #assert_equal 1, @sim.now             # have to finish timestep 0
-      #assert_equal [0, 0, 0, 1, 0], @pro.current_state.to_a
+      # try two requests in the same timestep; the ETA for the vehicle (now
+      # inbound to 1) is > the max travel time, so we should truncate it
+      pax         0,  1,   8
+      pax         0,  1,   8
+      assert_veh  0,  1,  12 # two round trips now scheduled
+      assert_equal 2, @sim_stats.queue_at(0)
+      assert_equal [0, 0, 0, 1, 1], @pro.current_state.to_a
 
-      ## handle second request at 0; vehicle was idle at 1, so it takes two time
-      ## steps to finish serving this passenger
-      #@pro.handle_pax_stream pax_stream, 1
-      #assert_equal 3, @sim.now             # have to finish timestep 2
-      #assert_equal [1, 0, 0, 1, 1], @pro.current_state.to_a
+      # this generates one handle_idle call, and it leaves the vehicle at 1
+      @sim.run_to 13
+      assert_veh  0,  1,  12
+    end
+  end
 
-      ## handle first request at 1; vehicle was idle at 1, so there's no delay;
-      ## the vehicle moves back to 1 (after the pax_served event)
-      #@pro.handle_pax_stream pax_stream, 1
-      #assert_equal 6, @sim.now             # have to finish timestep 5
-      #assert_equal [0, 0, 0, 1, 1], @pro.current_state.to_a
+  context "MDP policy on two-station ring with two vehicles; ~ tidal 0 to 1" do
+    setup do
+      times = [[0,1],[1,0]] # unit travel times
 
-      ## handle the next two requests at 1; they happen in the same time step
-      #@pro.handle_pax_stream pax_stream, 1
-      #p @sim.now
-      #p @pro.current_state
+      # create MDP model
+      od = ODMatrixWrapper.new([[0,0.9],[0.1,0]])
+      @m_b = MDPModelB.new_from_scratch(times, 2, od, 1)
 
+      # solve MDP model -- might as well use optimal policy for testing
+      @hm_b = FiniteMDP::HashModel.new(@m_b.to_hash)
+      discount = 0.99
+      max_iters = 5
+      solver = FiniteMDP::Solver.new(@hm_b, discount)
+      raise "solve failed" unless solver.policy_iteration_exact(max_iters)
+
+      setup_sim times
+      @rea = BWNNHandler.new(@sim)
+      @pro = BWMDPModelBHandler.new(@sim, @m_b, solver.policy)
+      @sim.reactive = @rea
+      @sim.proactive = @pro
+      @sim.init
+    end
+
+    should "move idle vehicles according to policy" do
+      put_veh_at 0, 1
+      assert_equal [0, 0, 1, 1, 0, 0], @pro.current_state.to_a
+
+      # request from 0 to 1; policy is to move the other vehicle from 1 to 0
+      pax         0,  1,   0
+      assert_veh  0,  1,   1
+      assert_veh  1,  0,   1
+      assert_equal [0, 0, 1, 1, 1, 1], @pro.current_state.to_a
+
+      # both vehicles become idle at t=1; we want them both at 0
+      @sim.run_to 2
+      assert_veh  1,  0,   1
+      assert_veh  1,  0,   2
+      assert_equal [0, 0, 2, 0, 0, 0], @pro.current_state.to_a
+
+      # two requests at 1; no empty vehicle movements required
+      pax         1,  0,   4
+      assert_equal [0, 0, 2, 0, 0, 1], @pro.current_state.to_a
+      pax         1,  0,   4
+      assert_veh  1,  0,   6, 0
+      assert_veh  1,  0,   6, 1
+      assert_equal [0, 0, 2, 0, 1, 1], @pro.current_state.to_a
+
+      # both vehicles become idle at 0; no further movements
+      @sim.run_to 7
+      assert_equal [0, 0, 2, 0, 0, 0], @pro.current_state.to_a
     end
   end
 end

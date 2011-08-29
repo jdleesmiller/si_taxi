@@ -10,7 +10,6 @@
 #include <si_taxi/bell_wong/call_times.h>
 #include <si_taxi/bell_wong/andreasson.h>
 #include <si_taxi/bell_wong/dynamic_tp.h>
-#include <si_taxi/bell_wong/mdp_policy.h>
 #include <si_taxi/bell_wong/sampling_voting.h>
 #include <si_taxi/bell_wong/surplus_deficit.h>
 
@@ -87,7 +86,6 @@ void seed_rng(unsigned int seed) {
 %include "si_taxi/bell_wong/call_times.h"
 %include "si_taxi/bell_wong/andreasson.h"
 %include "si_taxi/bell_wong/dynamic_tp.h"
-%include "si_taxi/bell_wong/mdp_policy.h"
 %include "si_taxi/bell_wong/sampling_voting.h"
 %include "si_taxi/bell_wong/surplus_deficit.h"
 
