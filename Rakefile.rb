@@ -1,18 +1,8 @@
-require 'rake/clean'
+require 'rubygems'
+require 'bundler/setup'
+require 'gemma'
 
-begin
-  require 'rubygems'
-  require 'bundler/setup'
-  require 'gemma'
-
-  Gemma::RakeTasks.with_gemspec_file 'si_taxi.gemspec' do |g|
-#    g.test.with_test_task do |tt|
-#      tt.warning = false
-#    end
-  end
-rescue LoadError
-  puts 'Install gemma (sudo gem install gemma) for more rake tasks.'
-end
+Gemma::RakeTasks.with_gemspec_file 'si_taxi.gemspec'
 
 $rakefile_dir = File.dirname(__FILE__)
 CLOBBER.include('ext/*{.o,.so,.log,.cxx}')
@@ -52,6 +42,7 @@ task :ext, [:args] => SWIG_EXT_DEPS do |t, args|
     ruby "extconf.rb #{args}"
     sh "make -j#{num_processors}"
   end
+  cp "ext/siTaxi.so", "lib"
 end
 
 # note: this doesn't seem to work in lcov 1.8; works with lcov 1.9, though

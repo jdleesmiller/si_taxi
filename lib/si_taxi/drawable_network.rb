@@ -166,7 +166,7 @@ class SiTaxi::DrawableNetwork
     time_net
   end
 
-  # See {#from_atscm_xml}.
+  # See {from_atscm_xml}.
   ATSCM_DEFAULT_SPEED = 10 # m/s
 
   #

@@ -1,4 +1,4 @@
-require 'test/si_taxi_helper'
+require 'si_taxi/test_helper'
 
 class ExtensionTest < Test::Unit::TestCase
   def test_array_cumsum

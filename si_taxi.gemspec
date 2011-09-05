@@ -20,20 +20,14 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'hpricot', '~> 0.8.4'
 
   # gemma now in Gemfile -- using local copy
-  #s.add_development_dependency 'gemma', '>= 1.0.1', '~> 1.0'
+  #s.add_development_dependency 'gemma', '~> 2.0.0'
   s.add_development_dependency 'shoulda', '>= 2.11.3', '~> 2.11'
   s.add_development_dependency 'simplecov', '>= 0.4.0', '~> 0.4'
-  s.add_development_dependency 'yard', '>= 0.6.7', '~> 0.6'
-
-  # TODO need to rethink how gemma does this...
-  s.add_development_dependency 'rdoc', '>= 3.5.3', '~> 3.5'
 
   s.files       = Dir.glob('{lib,bin}/**/*.rb') + %w(README.rdoc)
-  s.test_files  = Dir.glob('test/*_test.rb')
+  s.test_files  = Dir.glob('test/si_taxi/*_test.rb')
   s.executables = Dir.glob('bin/*').map{|f| File.basename(f)}
-
-  s.extensions = "ext/extconf.rb"
-  s.require_paths << 'ext'
+  s.extensions = ["ext/extconf.rb"]
 
   s.rdoc_options = [
     "--main",    "README.rdoc",

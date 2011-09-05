@@ -1,4 +1,4 @@
-require 'test/si_taxi_helper'
+require 'si_taxi/test_helper'
 
 class SamplingVotingTest < Test::Unit::TestCase
   include BellWongTestHelper
