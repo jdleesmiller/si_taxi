@@ -32,7 +32,7 @@ class NArray
   # @param [Integer] index non-negative
   #
   # @return [Array<Integer>] subscript corresponding to the given linear index;
-  #         this is the same size as {#shape}
+  #         this is the same size as +shape+
   #
   def index_to_subscript index
     raise IndexError.new("out of bounds: index=#{index} for shape=#{
@@ -55,7 +55,7 @@ class NArray
   #        used for testing; must be have shape <tt>[1]</tt> if specified
   #
   # @return [Array<Integer>] subscripts of a randomly selected into the array;  
-  #         this is the same size as {#shape}
+  #         this is the same size as +shape+
   #
   def sample_pmf r=nil
     self.index_to_subscript(self.flatten.sample_pmf_dim(0, r))

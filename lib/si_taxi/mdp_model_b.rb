@@ -291,7 +291,7 @@ module SiTaxi
   # To map from {BWSim} states to MDP states, we take the following approach:
   #
   # 1. Ignore the queues. While we can measure the queues in {BWSim}, the
-  #    problem is that the {BWReactiveHandler} has already assigned vehicles to
+  #    problem is that the +BWReactiveHandler+ has already assigned vehicles to
   #    serve the queued requests, and the vehicles' destinations are the
   #    requests' destinations. This means that we only use a small part of the
   #    policy: that for when the system is empty.

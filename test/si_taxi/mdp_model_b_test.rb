@@ -1,4 +1,4 @@
-require 'test/si_taxi_helper'
+require 'si_taxi/test_helper'
 
 # TODO maybe add to gem
 module FiniteMDP::Model
