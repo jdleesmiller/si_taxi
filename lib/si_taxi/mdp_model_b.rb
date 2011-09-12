@@ -37,25 +37,6 @@ module SiTaxi
     end
 
     #
-    # Create an equivalent model B state from an {MDPModelA} state; this
-    # unlabels the vehicles.
-    #
-    def self.from_model_a_state model, a_state
-      b_state = self.new(model)
-      ns, nv = model.num_stations, model.num_veh
-
-      # group vehicles by destination and sort their ETAs to eliminate the
-      # dependence on vehicle index order
-      inbound = (0...ns).map {|j| 
-        (0...nv).select {|k| a_state.destin[k] == j}.
-          map{|k| a_state.eta[k]}.sort}
-
-      b_state.queue   = a_state.queue.dup
-      b_state.inbound = inbound
-      b_state
-    end
-
-    #
     # Number of vehicles inboudn to each station.
     #
     # @return [Array<Integer>] not nil; length num_stations; entries
@@ -96,7 +77,7 @@ module SiTaxi
       @model.stations.all? {|i|
         (queue[i] == 0 || (idle[i] == 0 && @model.demand.rate_from(i) > 0)) &&
           Utility::is_nondescending?(inbound[i]) &&
-          inbound[i].all?{|eta| eta <= @model.max_time[i]}} &&
+          inbound[i].all?{|eta| eta < @model.max_time[i]}} &&
         inbound.flatten.size == @model.num_veh
     end
     
@@ -181,109 +162,43 @@ module SiTaxi
   # elsewhere.
   #
   class MDPModelB < MDPModelBase
-
-    def initialize *params
-      super(*params)
+    def initialize trip_time, num_veh, demand, max_queue
+      super(trip_time, num_veh, demand, max_queue)
       @hash = {}
+
+      # enumerate feasible states; the approach we take here is to enumerate a
+      # larger set of states and filter out the infeasible ones; this could
+      # probably be improved
+      feas_queues  = Utility.mixed_radix_sequence([max_queue]*num_stations).to_a
+      feas_inbound = Utility.integer_partitions(num_veh, num_stations)
+      feas_etas    = Utility.mixed_radix_sequence([max_time.max]*num_veh).to_a
+      Utility.cartesian_product(feas_queues, feas_inbound, feas_etas).each do
+        |state_array|
+        state = MDPStateB.from_a(self, state_array.flatten)
+        @hash[state] = {} if state.feasible?
+      end
+
+      # enumerate actions for each state, then possible successor states
+      for state, state_actions in @hash
+        reward = state.reward
+        for action in Utility::cartesian_product(*state.idle.map{|sum|
+          Utility::integer_partitions(sum, num_stations)})
+          # zero diagonals to make this easier to read
+          stations.each do |i|
+            action[i][i] = 0
+          end
+          pr_rewards = state_actions[action] = {}
+          for next_state, pr in transitions(state, action)
+            pr_rewards[next_state] = [pr, reward]
+          end
+        end
+      end
     end
 
     attr_reader :hash
 
     def to_hash
       @hash
-    end
-
-    #
-    # Build a model B from a model A.
-    #
-    def self.new_from_model_a model_a
-      model_b = MDPModelB.new(model_a.trip_time, model_a.num_veh,
-                              model_a.demand, model_a.max_queue)
-
-      # note: this routine spends much of its time hashing states, so we have to
-      # be careful to avoid hashing a state more than necessary; this is why we
-      # have the "value = hash[key] ||= default" constructs
-
-      for state_a, actions_a in model_a.to_hash
-        state_b  = MDPStateB.from_model_a_state(model_b, state_a)
-        h_b_actions = model_b.hash[state_b] ||= {}
-
-        for action_a, succs_a in actions_a
-          action_b = model_b.action_from_model_a(state_a, action_a)
-          h_b_succs = h_b_actions[action_b] ||= {}
-
-          for succ_a, (pr, reward) in succs_a
-            succ_b = MDPStateB.from_model_a_state(model_b, succ_a)
-            pr_reward = h_b_succs[succ_b] ||= [nil, nil]
-
-            # the probability and reward for any equivalent triple should do
-            old_pr, old_reward = pr_reward
-            if old_pr
-              raise "different prob" unless old_pr == pr
-              raise "different rewards" unless old_reward == reward
-            end
-
-            pr_reward[0] = pr
-            pr_reward[1] = reward
-          end
-        end
-      end
-
-      model_b
-    end
-
-    #
-    # Build a new model B without building a model A first.
-    #
-    def self.new_from_scratch trip_time, num_veh, demand, max_queue
-      model = MDPModelB.new(trip_time, num_veh, demand, max_queue)
-      h = model.hash
-
-      # enumerate feasible states; the approach we take here is to enumerate a
-      # larger set of states and filter out the infeasible ones; this could
-      # probably be improved
-      feas_queues  = Utility.mixed_radix_sequence([model.max_queue]*
-                                                  model.num_stations).to_a
-      feas_inbound = Utility.integer_partitions(model.num_veh,
-                                                model.num_stations)
-      feas_etas    = Utility.mixed_radix_sequence([model.max_time.max]*
-                                                  model.num_veh).to_a
-      Utility.cartesian_product(feas_queues, feas_inbound, feas_etas).each do
-        |state_array|
-        state = MDPStateB.from_a(model, state_array.flatten)
-        h[state] = {} if state.feasible?
-      end
-
-      # enumerate actions for each state, then possible successor states
-      for state, state_actions in h
-        reward = state.reward
-        for action in Utility::cartesian_product(*state.idle.map{|sum|
-          Utility::integer_partitions(sum, model.num_stations)})
-          # zero diagonals to make this easier to read
-          model.stations.each do |i|
-            action[i][i] = 0
-          end
-          pr_rewards = state_actions[action] = {}
-          for next_state, pr in model.transitions(state, action)
-            pr_rewards[next_state] = [pr, reward]
-          end
-        end
-      end
-
-      model
-    end
-
-    #
-    # Convert a (state, action) pair from MDPModelA into an action for model B.
-    #
-    def action_from_model_a state_a, action_a
-      action_b = stations.map{stations.map{0}}
-      for old_destin, new_destin in state_a.destin.zip(action_a)
-        if old_destin != new_destin
-          action_b[old_destin][new_destin] += 1
-        end
-      end
-      action_b
     end
 
     #
@@ -295,13 +210,13 @@ module SiTaxi
     def transitions state, action
       results = []
 
-      # advance moving vehicles closer to their destinations
-      new_state = state.dup.advance_vehicles!
-      #p new_state
-
-      # move idle vehicles according to the specified action
-      new_state.apply_action! action
-      #p new_state
+      # move idle vehicles according to the specified action; this occurs at
+      # time 't'
+      new_state = state.dup.apply_action! action
+      
+      # the rest of this method happens after time 't'; advance the vehicles one
+      # time step toward their destinations
+      new_state.advance_vehicles!
 
       # the remaining idle vehicles are 'available'
       available = new_state.idle
@@ -346,7 +261,7 @@ module SiTaxi
 
           #puts "journey_product:\n#{journey_product.inspect}"
           if journey_product.empty?
-            # no passengers served; just return new_state
+            # no passengers served; just return next_state
             results << [next_state, next_state_pr]
           else
             Utility.cartesian_product(*journey_product).each do |journeys|
