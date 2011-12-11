@@ -264,6 +264,23 @@ class SiTaxi::DrawableNetwork
   end
 
   #
+  # Print given OD matrix with station names.
+  #
+  # @param [Array<Array<Float>>] matrix diagonal is ignored
+  #
+  def print_annotated_matrix matrix, io=$stdout
+    labels = self.stations.map {|s| s.label}
+
+    # clear diagonal
+    (0...(matrix.size)).each do |i| matrix[i][i] = ""; end
+
+    io.puts <<OD
+\t#{labels.join("\t")}
+#{labels.zip(matrix).map {|row| row.flatten.join("\t")}.join("\n")}
+OD
+  end
+
+  #
   # Representation of network in GraphML format.
   #
   # The graphml includes coordinates (x and y, in meters) for all nodes; station
