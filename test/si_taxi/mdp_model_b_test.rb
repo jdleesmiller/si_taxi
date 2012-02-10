@@ -2,7 +2,7 @@ require 'si_taxi/test_helper'
 
 # TODO maybe add to gem
 module FiniteMDP::Model
-  def transition_probability_sums tol=1e-6
+  def transition_probability_sums tol=1e-6 # TODO unused param
     prs = []
     states.each do |state|
       actions(state).each do |action|
@@ -30,7 +30,7 @@ class MDPModelBTest < Test::Unit::TestCase
       @model.check_transition_probabilities_sum
       @hash_model.check_transition_probabilities_sum
 
-      p @table_model
+      #p @table_model # TODO
 
 #      # the model B's should both have same states and actions
 #      for model in [@hm_b, @hm_b_scratch]

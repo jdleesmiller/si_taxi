@@ -5,7 +5,7 @@ gemspec
 # https://github.com/jdleesmiller/gratr
 gem 'gratr', '>= 0.5.1', '~> 0.5', :path => '../gratr' 
 
-gem 'gemma', '~> 2.0.0', :path => '../gemma' 
+gem 'gemma', :path => '../gemma' 
 
 gem 'finite_mdp', '>= 0.0.1', '~> 0.0', :path => '../finite_mdp' 
 

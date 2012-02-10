@@ -2,3 +2,16 @@
 .yardoc
 yard
 rdoc
+/ext/*.log
+/ext/*.so
+/ext/*.o
+/lib/*.so
+*.h.gch
+/ext/si_taxi/Debug
+/ext/si_taxi/Coverage
+/ext/si_taxi/Profile
+/ext/si_taxi/Release
+/ext/si_taxi_test/Debug
+/ext/si_taxi_test/Coverage
+/ext/si_taxi_test/Profile
+/ext/si_taxi_test/Release

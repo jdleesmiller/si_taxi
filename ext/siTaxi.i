@@ -12,6 +12,7 @@
 #include <si_taxi/bell_wong/dynamic_tp.h>
 #include <si_taxi/bell_wong/sampling_voting.h>
 #include <si_taxi/bell_wong/surplus_deficit.h>
+#include <si_taxi/mdp_sim/mdp_sim.h>
 
 using namespace si_taxi;
 %}
@@ -20,6 +21,7 @@ using namespace si_taxi;
 %include exception.i
 %include std_vector.i
 %include std_queue.i
+%include std_deque.i
 
 %exceptionclass si_taxi::Exception;
 %exception {
@@ -35,13 +37,12 @@ using namespace si_taxi;
 %template(SizeTVector) std::vector<size_t>;
 %template(DoubleVector) std::vector<double>;
 %template(IntVector) std::vector<int>;
+%template(IntQueue) std::queue<int>;
 %template(NaturalHistogramVector) std::vector<si_taxi::NaturalHistogram>;
 
 %template(BWVehicleVector) std::vector<si_taxi::BWVehicle>;
 %template(BWPaxQueue) std::queue<si_taxi::BWPax>;
 %template(BWSimStatsPaxRecordVector) std::vector<si_taxi::BWSimStatsPaxRecord>;
-
-%template(IntQueue) std::queue<int>;
 
 %include "boost_numeric_ublas_matrix.i"
 
@@ -88,4 +89,11 @@ void seed_rng(unsigned int seed) {
 %include "si_taxi/bell_wong/dynamic_tp.h"
 %include "si_taxi/bell_wong/sampling_voting.h"
 %include "si_taxi/bell_wong/surplus_deficit.h"
+
+%template(BWPaxVector) std::vector<si_taxi::BWPax>;
+%template(BWPaxDeque) std::deque<si_taxi::BWPax>;
+%template(BWTimeDeque) std::deque<si_taxi::BWTime>;
+%template(BWTimeDequeVector) std::vector<std::deque<si_taxi::BWTime> >;
+%template(BWPaxDequeVector) std::vector<std::deque<si_taxi::BWPax> >;
+%include "si_taxi/mdp_sim/mdp_sim.h"
 

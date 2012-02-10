@@ -4,6 +4,8 @@
 #ifndef SI_TAXI_UTILITY_H_
 #define SI_TAXI_UTILITY_H_
 
+#include "si_taxi.h"
+
 /**
  * Marker for arguments passed by reference (evaluates to nothing; it's just
  * a marker).
@@ -141,6 +143,23 @@ template<typename T> struct F_compare_perm {
  */
 template <typename T> F_compare_perm<T> compare_perm(const T& data) {
   return F_compare_perm<T>(data);
+}
+
+/**
+ * Minimum of elements in a (non-empty) vector is at least x.
+ * The intention is that this be used with boost::numeric::ublas::vector<int>,
+ * which apparently doesn't have a 'min' or logical 'all' operation built-in,
+ * and is apparently quite hard to use.
+ */
+template <typename T> bool vector_all_at_least(const T &v, int x) {
+  CHECK(v.size() > 0);
+  int min_val = v(0);
+  for (size_t i = 1; i < v.size(); ++i) {
+    if (v(i) < min_val) {
+      min_val = v(i);
+    }
+  }
+  return min_val >= x;
 }
 
 }
