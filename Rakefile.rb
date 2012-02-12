@@ -87,3 +87,44 @@ task 'eclipse:build' do
 end
 
 task :default => :test
+
+task :sarsa do
+  gamma = 0.95
+  od = [[0, 0.2],[0.0, 0]]
+
+  require 'si_taxi'
+
+  include SiTaxi
+  SiTaxi.seed_rng 41 # (rand(0x7fffffff))
+  m = MDPSim.new
+  m.trip_time = [[0, 1], [1, 0]]
+  m.queue_max = 2
+  m.init
+  m.add_vehicles_in_turn 1
+
+  solver = TabularSarsaSolver.new(m)
+  actor = EpsilonGreedySarsaActor.new(solver)
+  solver.actor = actor
+  solver.gamma = gamma
+  solver.init
+
+  scheme = [
+    [0.1, 0.1, 50000],
+    [0.05, 0.05, 50000],
+    [0.01, 0.01, 50000],
+    [0.001, 0.001, 50000]]*3
+
+  for epsilon, alpha, num_pax in scheme
+    p [epsilon, alpha, num_pax]
+    actor.epsilon = epsilon
+    solver.alpha = alpha
+    stream = BWPoissonPaxStream.new(m.now, od) # NB must reset stream from now
+    solver.handle_pax_stream(num_pax, stream)
+
+    p solver.q_size
+    p solver.policy([0,0,1,0,0])
+    p solver.policy([0,0,0,1,0])
+    solver.dump_q
+  end
+end
+

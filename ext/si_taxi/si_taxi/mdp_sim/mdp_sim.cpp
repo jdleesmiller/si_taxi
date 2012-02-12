@@ -6,7 +6,7 @@ using namespace std;
 
 namespace si_taxi {
 
-MDPSim::MDPSim() : now(-1) { }
+MDPSim::MDPSim() : now(-1), queue_max(0) { }
 
 void MDPSim::add_vehicles_in_turn(size_t num_veh, size_t station) {
   if (num_veh > 0) {
@@ -34,6 +34,13 @@ void MDPSim::init() {
 void MDPSim::tick(const int_od_t &empty_trips,
     const std::vector<BWPax> &requests)
 {
+  // check that the requests are in the right time interval; this checks
+  // that the arrivals are in [t, t+1], because we might have one at t=0.
+  for (std::vector<BWPax>::const_iterator it = requests.begin();
+      it != requests.end(); ++it) {
+    CHECK(now <= it->arrive && it->arrive <= now + 1);
+  }
+
   // validate the action; can't move more idle vehicles than we have; this is
   // the only reason we have to count idle vehicles
   fill(idle.begin(), idle.end(), 0);
@@ -81,6 +88,13 @@ void MDPSim::tick(const int_od_t &empty_trips,
     }
   }
 
+  // truncate queues if required
+  if (queue_max > 0) {
+    for (std::vector<std::deque<BWPax> >::iterator it = queue.begin();
+        it != queue.end(); ++it)
+      while (it->size() > queue_max)
+        it->pop_back();
+  }
 }
 
 void MDPSim::count_idle_by(BWTime time, int_vector_t &num_vehicles) const
@@ -127,35 +141,9 @@ void MDPSim::move(size_t origin, size_t destin, size_t count)
   CHECK(destin < trip_time.size2());
   BWTime time = now + trip_time(origin, destin);
   deque<BWTime> & destin_inbound = inbound[destin];
-  deque<BWTime>::iterator ub = upper_bound(destin_inbound.begin(), destin_inbound.end(), time);
+  deque<BWTime>::iterator ub = upper_bound(destin_inbound.begin(),
+      destin_inbound.end(), time);
   destin_inbound.insert(ub, count, time);
 }
 
-    /* select_action(state):
- *   the Q(s, a) have to be initialised somehow
- *   we'd like to initialise them to the expected one-step reward, but this
- *   means we'd have to enumerate all possible states whenever we got a Q(s,a)
- *   that wasn't yet initialised -- even the very unlikely ones; moreover, we
- *   have an infinite number of successor states. One idea would be to bias
- *   the reward according to how far a is from the fluid limit solution.
- *
- * sarsa:
- * s = sim.state
- * a = select_action(s)
- * while (t < t_end) {
- *   tick(action, generate_demand())
- *   s_p = sim.state
- *   r_p = reward(s_p)
- *   a_p = select_action(s_p)
- *   Q(s,a) = Q(s,a) + alpha[r_p + gamma*Q(s',a') - Q(s,a)]
- *   s = s_p
- *   a = a_p
- * }
- *
- * thoughts:
- *   - maybe it converges with gamma=1 if not over capacity
- *   - want to test out the two different action structures; we only have to
- *     solve the TP for the selected action
- */
 }
-

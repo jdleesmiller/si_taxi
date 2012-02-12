@@ -13,6 +13,7 @@
 #include <si_taxi/bell_wong/sampling_voting.h>
 #include <si_taxi/bell_wong/surplus_deficit.h>
 #include <si_taxi/mdp_sim/mdp_sim.h>
+#include <si_taxi/mdp_sim/tabular_sarsa_solver.h>
 
 using namespace si_taxi;
 %}
@@ -22,6 +23,8 @@ using namespace si_taxi;
 %include std_vector.i
 %include std_queue.i
 %include std_deque.i
+%include std_functors.i
+%include std_pair.i
 
 %exceptionclass si_taxi::Exception;
 %exception {
@@ -95,5 +98,8 @@ void seed_rng(unsigned int seed) {
 %template(BWTimeDeque) std::deque<si_taxi::BWTime>;
 %template(BWTimeDequeVector) std::vector<std::deque<si_taxi::BWTime> >;
 %template(BWPaxDequeVector) std::vector<std::deque<si_taxi::BWPax> >;
+%feature("director") SarsaActor;
 %include "si_taxi/mdp_sim/mdp_sim.h"
+%template(PolicyPair) std::pair<std::vector<int>, double>;
+%include "si_taxi/mdp_sim/tabular_sarsa_solver.h"
 

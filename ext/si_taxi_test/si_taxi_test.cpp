@@ -2,6 +2,9 @@
  * These are intended mainly for profiling, because accurately profiling code
  * in shared objects turns out to be quite tricky. These can just be run with
  * gprof.
+ *
+ * Also home to tests for some functions that are too hard to expose via
+ * the ruby interface.
  */
 #include <si_taxi/stdafx.h>
 #include <si_taxi/si_taxi.h>
@@ -9,6 +12,8 @@
 #include <si_taxi/bell_wong/bell_wong.h>
 #include <si_taxi/bell_wong/dynamic_tp.h>
 #include <si_taxi/bell_wong/sampling_voting.h>
+#include <si_taxi/mdp_sim/mdp_sim.h>
+#include <si_taxi/mdp_sim/tabular_sarsa_solver.h>
 
 using namespace std;
 using namespace si_taxi;
@@ -273,6 +278,142 @@ void test_5_bell_wong_sampling_voting_grid() {
   sim.handle_pax_stream(num_pax, &pax_stream);
 }
 
+// helper for test_6_enumerate_square_matrices
+struct F_get_matrix_from_data {
+  typedef boost::numeric::ublas::matrix<int> result_t;
+  std::vector<result_t> &results;
+  size_t n, start;
+  F_get_matrix_from_data(
+      std::vector<result_t> &results, size_t n, size_t start) :
+    results(results), n(n), start(start) { }
+  void operator()(vector<int> &data) {
+    CHECK(data.size() == start + n*n);
+    result_t result(n, n);
+    std::copy(data.begin() + start, data.end(), result.data().begin());
+    results.push_back(result);
+  }
+};
+
+std::vector<boost::numeric::ublas::matrix<int> >
+list_square_matrices_with_row_sums_lte(const std::vector<int> &row_sums) {
+  std::vector<boost::numeric::ublas::matrix<int> > results;
+  size_t start = 10; // more accurate test -- don't start at zero
+  size_t n = row_sums.size();
+  std::vector<int> data(start + n*n);
+  F_get_matrix_from_data f(results, n, start);
+  each_square_matrix_with_row_sums_lte(data, start, 0, 0, row_sums, f);
+  return results;
+}
+
+void test_6_enumerate_square_matrices() {
+  std::vector<boost::numeric::ublas::matrix<int> > results;
+  std::vector<int> row_sums(2);
+  row_sums[0] = 1;
+  row_sums[1] = 1;
+  results = list_square_matrices_with_row_sums_lte(row_sums);
+
+  CHECK(results.size() == 4);
+  CHECK(to_s(results[0]) == "[2,2]((0,0),(0,0))");
+  CHECK(to_s(results[1]) == "[2,2]((0,0),(1,0))");
+  CHECK(to_s(results[2]) == "[2,2]((0,1),(0,0))");
+  CHECK(to_s(results[3]) == "[2,2]((0,1),(1,0))");
+
+  row_sums[0] = 2;
+  results = list_square_matrices_with_row_sums_lte(row_sums);
+  CHECK(results.size() == 6);
+  CHECK(to_s(results[0]) == "[2,2]((0,0),(0,0))");
+  CHECK(to_s(results[1]) == "[2,2]((0,0),(1,0))");
+  CHECK(to_s(results[2]) == "[2,2]((0,1),(0,0))");
+  CHECK(to_s(results[3]) == "[2,2]((0,1),(1,0))");
+  CHECK(to_s(results[4]) == "[2,2]((0,2),(0,0))");
+  CHECK(to_s(results[5]) == "[2,2]((0,2),(1,0))");
+
+  row_sums[1] = 2;
+  results = list_square_matrices_with_row_sums_lte(row_sums);
+  CHECK(results.size() == 9);
+  CHECK(to_s(results[0]) == "[2,2]((0,0),(0,0))");
+  CHECK(to_s(results[1]) == "[2,2]((0,0),(1,0))");
+  CHECK(to_s(results[2]) == "[2,2]((0,0),(2,0))");
+  CHECK(to_s(results[3]) == "[2,2]((0,1),(0,0))");
+  CHECK(to_s(results[4]) == "[2,2]((0,1),(1,0))");
+  CHECK(to_s(results[5]) == "[2,2]((0,1),(2,0))");
+  CHECK(to_s(results[6]) == "[2,2]((0,2),(0,0))");
+  CHECK(to_s(results[7]) == "[2,2]((0,2),(1,0))");
+  CHECK(to_s(results[8]) == "[2,2]((0,2),(2,0))");
+
+  row_sums.push_back(1);
+  results = list_square_matrices_with_row_sums_lte(row_sums);
+  CHECK(results.size() == 18*6);
+  CHECK(to_s(results[ 0]) == "[3,3]((0,0,0),(0,0,0),(0,0,0))");
+  CHECK(to_s(results[ 1]) == "[3,3]((0,0,0),(0,0,0),(0,1,0))");
+  CHECK(to_s(results[ 2]) == "[3,3]((0,0,0),(0,0,0),(1,0,0))");
+  CHECK(to_s(results[ 3]) == "[3,3]((0,0,0),(0,0,1),(0,0,0))");
+  CHECK(to_s(results[ 4]) == "[3,3]((0,0,0),(0,0,1),(0,1,0))");
+  CHECK(to_s(results[ 5]) == "[3,3]((0,0,0),(0,0,1),(1,0,0))");
+  CHECK(to_s(results[ 6]) == "[3,3]((0,0,0),(0,0,2),(0,0,0))");
+  CHECK(to_s(results[ 7]) == "[3,3]((0,0,0),(0,0,2),(0,1,0))");
+  CHECK(to_s(results[ 8]) == "[3,3]((0,0,0),(0,0,2),(1,0,0))");
+  CHECK(to_s(results[ 9]) == "[3,3]((0,0,0),(1,0,0),(0,0,0))");
+  CHECK(to_s(results[10]) == "[3,3]((0,0,0),(1,0,0),(0,1,0))");
+  CHECK(to_s(results[11]) == "[3,3]((0,0,0),(1,0,0),(1,0,0))");
+  CHECK(to_s(results[12]) == "[3,3]((0,0,0),(1,0,1),(0,0,0))");
+  CHECK(to_s(results[13]) == "[3,3]((0,0,0),(1,0,1),(0,1,0))");
+  CHECK(to_s(results[14]) == "[3,3]((0,0,0),(1,0,1),(1,0,0))");
+  CHECK(to_s(results[15]) == "[3,3]((0,0,0),(2,0,0),(0,0,0))");
+  CHECK(to_s(results[16]) == "[3,3]((0,0,0),(2,0,0),(0,1,0))");
+  CHECK(to_s(results[17]) == "[3,3]((0,0,0),(2,0,0),(1,0,0))");
+
+  row_sums[0] = 0;
+  results = list_square_matrices_with_row_sums_lte(row_sums);
+  CHECK(results.size() == 18);
+  CHECK(to_s(results[ 0]) == "[3,3]((0,0,0),(0,0,0),(0,0,0))");
+  CHECK(to_s(results[ 1]) == "[3,3]((0,0,0),(0,0,0),(0,1,0))");
+  CHECK(to_s(results[ 2]) == "[3,3]((0,0,0),(0,0,0),(1,0,0))");
+  CHECK(to_s(results[ 3]) == "[3,3]((0,0,0),(0,0,1),(0,0,0))");
+  CHECK(to_s(results[ 4]) == "[3,3]((0,0,0),(0,0,1),(0,1,0))");
+  CHECK(to_s(results[ 5]) == "[3,3]((0,0,0),(0,0,1),(1,0,0))");
+  CHECK(to_s(results[ 6]) == "[3,3]((0,0,0),(0,0,2),(0,0,0))");
+  CHECK(to_s(results[ 7]) == "[3,3]((0,0,0),(0,0,2),(0,1,0))");
+  CHECK(to_s(results[ 8]) == "[3,3]((0,0,0),(0,0,2),(1,0,0))");
+  CHECK(to_s(results[ 9]) == "[3,3]((0,0,0),(1,0,0),(0,0,0))");
+  CHECK(to_s(results[10]) == "[3,3]((0,0,0),(1,0,0),(0,1,0))");
+  CHECK(to_s(results[11]) == "[3,3]((0,0,0),(1,0,0),(1,0,0))");
+  CHECK(to_s(results[12]) == "[3,3]((0,0,0),(1,0,1),(0,0,0))");
+  CHECK(to_s(results[13]) == "[3,3]((0,0,0),(1,0,1),(0,1,0))");
+  CHECK(to_s(results[14]) == "[3,3]((0,0,0),(1,0,1),(1,0,0))");
+  CHECK(to_s(results[15]) == "[3,3]((0,0,0),(2,0,0),(0,0,0))");
+  CHECK(to_s(results[16]) == "[3,3]((0,0,0),(2,0,0),(0,1,0))");
+  CHECK(to_s(results[17]) == "[3,3]((0,0,0),(2,0,0),(1,0,0))");
+
+  row_sums[1] = 0;
+  results = list_square_matrices_with_row_sums_lte(row_sums);
+  CHECK(results.size() == 3);
+  CHECK(to_s(results[ 0]) == "[3,3]((0,0,0),(0,0,0),(0,0,0))");
+  CHECK(to_s(results[ 1]) == "[3,3]((0,0,0),(0,0,0),(0,1,0))");
+  CHECK(to_s(results[ 2]) == "[3,3]((0,0,0),(0,0,0),(1,0,0))");
+
+  row_sums[2] = 0;
+  results = list_square_matrices_with_row_sums_lte(row_sums);
+  CHECK(results.size() == 1);
+  CHECK(to_s(results[ 0]) == "[3,3]((0,0,0),(0,0,0),(0,0,0))");
+
+  //for (size_t i = 0; i < results.size(); ++i) TV(results[i]);
+}
+
+void test_7_run_tabular_sarsa() {
+  MDPSim sim;
+  CHECK(from_s(sim.trip_time, "[2,2]((0,1),(1,0))"));
+  sim.init();
+  sim.add_vehicles_in_turn(1);
+
+  TabularSarsaSolver solver(&sim);
+  EpsilonGreedySarsaActor actor(solver);
+  solver.actor = &actor;
+  std::vector<BWPax> requests;
+  requests.push_back(BWPax(0,1,1));
+  solver.tick(requests);
+}
+
 int main(int argc, char **argv) {
   if (argc == 2) {
     int test = atoi(argv[1]);
@@ -286,6 +427,10 @@ int main(int argc, char **argv) {
     case 4: test_4_bell_wong_dynamic_tp_grid();
       break;
     case 5: test_5_bell_wong_sampling_voting_grid();
+      break;
+    case 6: test_6_enumerate_square_matrices();
+      break;
+    case 7: test_7_run_tabular_sarsa();
       break;
     default:
       cout << "unknown test: " << argv[1] << endl;

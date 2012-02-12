@@ -8,15 +8,10 @@
 // we re-use several of the primitives (including BWTime and BWPax) here
 #include <si_taxi/bell_wong/bell_wong.h>
 
-#include <queue>
-
 namespace si_taxi {
 
 /// Origin-destination matrix of counts.
 typedef boost::numeric::ublas::matrix<int> int_od_t;
-
-struct MDPState { // TODO probably not a good idea
-};
 
 /**
  *
@@ -60,6 +55,12 @@ struct MDPSim {
    * arrival times in the past.
    */
   std::vector<std::deque<BWTime> > inbound;
+
+  /**
+   * If positive, truncate any queue longer than this. This is for comparison
+   * with explicit solution methods that require a finite state space.
+   */
+  size_t queue_max;
 
   /**
    * For internal use. Undefined before init is called. After that, size is

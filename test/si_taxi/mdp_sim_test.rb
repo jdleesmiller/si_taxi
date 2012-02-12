@@ -88,6 +88,16 @@ class MDPSimTest < Test::Unit::TestCase
       assert_equal [0,0], @m.queue.map(&:size)
       assert_equal [[],[9]], @m.inbound.to_a
     end
+
+    should "respect queue_max limit" do
+      @m.queue_max = 1
+
+      # add two pax at 1; only one will remain
+      @m.tick [[0,0],[0,0]], [BWPax.new(1,0,1),BWPax.new(1,0,1)]
+      assert_equal 1, @m.now
+      assert_equal [0,1], @m.queue.map(&:size)
+      assert_equal [[0],[]], @m.inbound.to_a
+    end
   end
 
   context "two station ring with one vehicle and multi-tick travel times" do
@@ -194,13 +204,13 @@ class MDPSimTest < Test::Unit::TestCase
 
       # the queued request at 1 can now be served, the other vehicle is still on
       # its first trip from 1 to 0, and it will continue
-      @m.tick [[0,0],[0,0]], [BWPax.new(0,1,2), BWPax.new(1,0,2)]
+      @m.tick [[0,0],[0,0]], [BWPax.new(0,1,4), BWPax.new(1,0,4)]
       assert_equal 4, @m.now
       assert_equal [2, 1], @m.queue.map(&:size)
       assert_equal [[5,7],[]], @m.inbound.to_a
 
       # now the first queued request at 0 will be served
-      @m.tick [[0,0],[0,0]], [BWPax.new(0,1,2), BWPax.new(1,0,2)]
+      @m.tick [[0,0],[0,0]], [BWPax.new(0,1,5), BWPax.new(1,0,5)]
       assert_equal 5, @m.now
       assert_equal [2, 2], @m.queue.map(&:size)
       assert_equal [[7],[7]], @m.inbound.to_a

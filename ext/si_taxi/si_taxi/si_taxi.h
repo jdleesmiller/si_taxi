@@ -17,7 +17,6 @@
 #else
 #include <boost/numeric/ublas/matrix.hpp>
 #endif
-#include <boost/unordered_map.hpp>
 
 namespace si_taxi {
 
@@ -31,6 +30,11 @@ void register_sigsegv_handler();
  * Used for 'no index' values.
  */
 const size_t SIZE_T_MAX = std::numeric_limits<size_t>::max();
+
+/**
+ * Ruby doesn't make it easy to find this out.
+ */
+const double DOUBLE_MAX = std::numeric_limits<double>::max();
 
 /**
  * We'll just keep one global rng for now. Storage in si_taxi.cpp.

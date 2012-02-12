@@ -34,7 +34,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/si_taxi}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${BOOST_INC}&quot;"/>
 								</option>
-								<option id="gnu.cpp.compiler.option.other.other.1028538741" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -fPIC" valueType="string"/>
+								<option id="gnu.cpp.compiler.option.other.other.1028538741" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -fPIC -std=c++0x" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.369428459" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool command="gcc" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG}${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}" id="cdt.managedbuild.tool.gnu.c.compiler.lib.debug.1484708804" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.lib.debug">
@@ -1183,7 +1183,7 @@
 								<option id="gnu.c.compiler.lib.release.option.debugging.level.1811852454" name="Debug Level" superClass="gnu.c.compiler.lib.release.option.debugging.level" value="gnu.c.debugging.level.none" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.misc.other.25191601" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -fPIC" valueType="string"/>
 								<option id="gnu.c.compiler.option.debugging.other.2017531737" name="Other debugging flags" superClass="gnu.c.compiler.option.debugging.other" value="-DNDEBUG" valueType="string"/>
-								<option id="gnu.c.compiler.option.include.paths.1387499234" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
+								<option id="gnu.c.compiler.option.include.paths.1387499234" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${BOOST_INC}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1555616715" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
@@ -3472,7 +3472,7 @@
 								<option id="gnu.c.compiler.option.debugging.other.2019832434" name="Other debugging flags" superClass="gnu.c.compiler.option.debugging.other" value="-DNDEBUG" valueType="string"/>
 								<option id="gnu.c.compiler.option.debugging.prof.1906968457" name="Generate prof information (-p)" superClass="gnu.c.compiler.option.debugging.prof" value="true" valueType="boolean"/>
 								<option id="gnu.c.compiler.option.debugging.gprof.219009106" name="Generate gprof information (-pg)" superClass="gnu.c.compiler.option.debugging.gprof" value="true" valueType="boolean"/>
-								<option id="gnu.c.compiler.option.include.paths.417517196" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
+								<option id="gnu.c.compiler.option.include.paths.417517196" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${BOOST_INC}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1019246825" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>

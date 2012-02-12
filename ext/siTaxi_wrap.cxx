@@ -2210,79 +2210,87 @@ namespace Swig {
 #define SWIGTYPE_p_container_type swig_types[9]
 #define SWIGTYPE_p_difference_type swig_types[10]
 #define SWIGTYPE_p_double swig_types[11]
-#define SWIGTYPE_p_int_vector_t swig_types[12]
-#define SWIGTYPE_p_long swig_types[13]
-#define SWIGTYPE_p_p_void swig_types[14]
-#define SWIGTYPE_p_si_taxi__BWAndreassonHandler swig_types[15]
-#define SWIGTYPE_p_si_taxi__BWCallTimeTracker swig_types[16]
-#define SWIGTYPE_p_si_taxi__BWDynamicTransportationProblemHandler swig_types[17]
-#define SWIGTYPE_p_si_taxi__BWETNNHandler swig_types[18]
-#define SWIGTYPE_p_si_taxi__BWH1Handler swig_types[19]
-#define SWIGTYPE_p_si_taxi__BWH2Handler swig_types[20]
-#define SWIGTYPE_p_si_taxi__BWHxHandler swig_types[21]
-#define SWIGTYPE_p_si_taxi__BWNNHandler swig_types[22]
-#define SWIGTYPE_p_si_taxi__BWNNHandlerWithCallTimeUpdates swig_types[23]
-#define SWIGTYPE_p_si_taxi__BWPax swig_types[24]
-#define SWIGTYPE_p_si_taxi__BWPaxStream swig_types[25]
-#define SWIGTYPE_p_si_taxi__BWPoissonPaxStream swig_types[26]
-#define SWIGTYPE_p_si_taxi__BWProactiveHandler swig_types[27]
-#define SWIGTYPE_p_si_taxi__BWReactiveHandler swig_types[28]
-#define SWIGTYPE_p_si_taxi__BWSNNHandler swig_types[29]
-#define SWIGTYPE_p_si_taxi__BWSamplingVotingHandler swig_types[30]
-#define SWIGTYPE_p_si_taxi__BWSim swig_types[31]
-#define SWIGTYPE_p_si_taxi__BWSimStats swig_types[32]
-#define SWIGTYPE_p_si_taxi__BWSimStatsDetailed swig_types[33]
-#define SWIGTYPE_p_si_taxi__BWSimStatsMeanPaxWait swig_types[34]
-#define SWIGTYPE_p_si_taxi__BWSimStatsPaxRecord swig_types[35]
-#define SWIGTYPE_p_si_taxi__BWSimStatsPaxRecorder swig_types[36]
-#define SWIGTYPE_p_si_taxi__BWSurplusDeficitHandler swig_types[37]
-#define SWIGTYPE_p_si_taxi__BWTestPaxStream swig_types[38]
-#define SWIGTYPE_p_si_taxi__BWVehicle swig_types[39]
-#define SWIGTYPE_p_si_taxi__EmpiricalSampler swig_types[40]
-#define SWIGTYPE_p_si_taxi__Error swig_types[41]
-#define SWIGTYPE_p_si_taxi__Exception swig_types[42]
-#define SWIGTYPE_p_si_taxi__MDPSim swig_types[43]
-#define SWIGTYPE_p_si_taxi__MDPState swig_types[44]
-#define SWIGTYPE_p_si_taxi__NaturalHistogram swig_types[45]
-#define SWIGTYPE_p_si_taxi__ODHistogram swig_types[46]
-#define SWIGTYPE_p_si_taxi__ODMatrixWrapper swig_types[47]
-#define SWIGTYPE_p_size_t swig_types[48]
-#define SWIGTYPE_p_size_type swig_types[49]
-#define SWIGTYPE_p_std__allocatorT_double_t swig_types[50]
-#define SWIGTYPE_p_std__allocatorT_int_t swig_types[51]
-#define SWIGTYPE_p_std__allocatorT_long_t swig_types[52]
-#define SWIGTYPE_p_std__allocatorT_si_taxi__BWPax_t swig_types[53]
-#define SWIGTYPE_p_std__allocatorT_si_taxi__BWSimStatsPaxRecord_t swig_types[54]
-#define SWIGTYPE_p_std__allocatorT_si_taxi__BWVehicle_t swig_types[55]
-#define SWIGTYPE_p_std__allocatorT_si_taxi__NaturalHistogram_t swig_types[56]
-#define SWIGTYPE_p_std__allocatorT_size_t_t swig_types[57]
-#define SWIGTYPE_p_std__allocatorT_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t_t swig_types[58]
-#define SWIGTYPE_p_std__allocatorT_std__dequeT_si_taxi__BWTime_std__allocatorT_si_taxi__BWTime_t_t_t swig_types[59]
-#define SWIGTYPE_p_std__dequeT_int_std__allocatorT_int_t_t swig_types[60]
-#define SWIGTYPE_p_std__dequeT_long_std__allocatorT_long_t_t swig_types[61]
-#define SWIGTYPE_p_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t swig_types[62]
-#define SWIGTYPE_p_std__exception swig_types[63]
-#define SWIGTYPE_p_std__ostream swig_types[64]
-#define SWIGTYPE_p_std__queueT_int_std__dequeT_int_std__allocatorT_int_t_t_t swig_types[65]
-#define SWIGTYPE_p_std__queueT_si_taxi__BWPax_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t_t swig_types[66]
-#define SWIGTYPE_p_std__string swig_types[67]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[68]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[69]
-#define SWIGTYPE_p_std__vectorT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t swig_types[70]
-#define SWIGTYPE_p_std__vectorT_si_taxi__BWSimStatsPaxRecord_std__allocatorT_si_taxi__BWSimStatsPaxRecord_t_t swig_types[71]
-#define SWIGTYPE_p_std__vectorT_si_taxi__BWVehicle_std__allocatorT_si_taxi__BWVehicle_t_t swig_types[72]
-#define SWIGTYPE_p_std__vectorT_si_taxi__NaturalHistogram_std__allocatorT_si_taxi__NaturalHistogram_t_t swig_types[73]
-#define SWIGTYPE_p_std__vectorT_size_t_std__allocatorT_size_t_t_t swig_types[74]
-#define SWIGTYPE_p_std__vectorT_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t_std__allocatorT_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t_t_t swig_types[75]
-#define SWIGTYPE_p_std__vectorT_std__dequeT_si_taxi__BWTime_std__allocatorT_si_taxi__BWTime_t_t_std__allocatorT_std__dequeT_si_taxi__BWTime_std__allocatorT_si_taxi__BWTime_t_t_t_t swig_types[76]
-#define SWIGTYPE_p_std__vectorT_std__priority_queueT_long_std__vectorT_long_std__allocatorT_long_t_t_std__greaterT_long_t_t_std__allocatorT_std__priority_queueT_long_std__vectorT_long_std__allocatorT_long_t_t_std__greaterT_long_t_t_t_t swig_types[77]
-#define SWIGTYPE_p_swig__ConstIterator swig_types[78]
-#define SWIGTYPE_p_swig__GC_VALUE swig_types[79]
-#define SWIGTYPE_p_swig__Iterator swig_types[80]
-#define SWIGTYPE_p_value_type swig_types[81]
-#define SWIGTYPE_p_void swig_types[82]
-static swig_type_info *swig_types[84];
-static swig_module_info swig_module = {swig_types, 83, 0, 0, 0, 0};
+#define SWIGTYPE_p_first_type swig_types[12]
+#define SWIGTYPE_p_int_vector_t swig_types[13]
+#define SWIGTYPE_p_long swig_types[14]
+#define SWIGTYPE_p_p_void swig_types[15]
+#define SWIGTYPE_p_q_t swig_types[16]
+#define SWIGTYPE_p_sa_t swig_types[17]
+#define SWIGTYPE_p_second_type swig_types[18]
+#define SWIGTYPE_p_si_taxi__BWAndreassonHandler swig_types[19]
+#define SWIGTYPE_p_si_taxi__BWCallTimeTracker swig_types[20]
+#define SWIGTYPE_p_si_taxi__BWDynamicTransportationProblemHandler swig_types[21]
+#define SWIGTYPE_p_si_taxi__BWETNNHandler swig_types[22]
+#define SWIGTYPE_p_si_taxi__BWH1Handler swig_types[23]
+#define SWIGTYPE_p_si_taxi__BWH2Handler swig_types[24]
+#define SWIGTYPE_p_si_taxi__BWHxHandler swig_types[25]
+#define SWIGTYPE_p_si_taxi__BWNNHandler swig_types[26]
+#define SWIGTYPE_p_si_taxi__BWNNHandlerWithCallTimeUpdates swig_types[27]
+#define SWIGTYPE_p_si_taxi__BWPax swig_types[28]
+#define SWIGTYPE_p_si_taxi__BWPaxStream swig_types[29]
+#define SWIGTYPE_p_si_taxi__BWPoissonPaxStream swig_types[30]
+#define SWIGTYPE_p_si_taxi__BWProactiveHandler swig_types[31]
+#define SWIGTYPE_p_si_taxi__BWReactiveHandler swig_types[32]
+#define SWIGTYPE_p_si_taxi__BWSNNHandler swig_types[33]
+#define SWIGTYPE_p_si_taxi__BWSamplingVotingHandler swig_types[34]
+#define SWIGTYPE_p_si_taxi__BWSim swig_types[35]
+#define SWIGTYPE_p_si_taxi__BWSimStats swig_types[36]
+#define SWIGTYPE_p_si_taxi__BWSimStatsDetailed swig_types[37]
+#define SWIGTYPE_p_si_taxi__BWSimStatsMeanPaxWait swig_types[38]
+#define SWIGTYPE_p_si_taxi__BWSimStatsPaxRecord swig_types[39]
+#define SWIGTYPE_p_si_taxi__BWSimStatsPaxRecorder swig_types[40]
+#define SWIGTYPE_p_si_taxi__BWSurplusDeficitHandler swig_types[41]
+#define SWIGTYPE_p_si_taxi__BWTestPaxStream swig_types[42]
+#define SWIGTYPE_p_si_taxi__BWVehicle swig_types[43]
+#define SWIGTYPE_p_si_taxi__EmpiricalSampler swig_types[44]
+#define SWIGTYPE_p_si_taxi__EpsilonGreedySarsaActor swig_types[45]
+#define SWIGTYPE_p_si_taxi__Error swig_types[46]
+#define SWIGTYPE_p_si_taxi__Exception swig_types[47]
+#define SWIGTYPE_p_si_taxi__MDPSim swig_types[48]
+#define SWIGTYPE_p_si_taxi__NaturalHistogram swig_types[49]
+#define SWIGTYPE_p_si_taxi__ODHistogram swig_types[50]
+#define SWIGTYPE_p_si_taxi__ODMatrixWrapper swig_types[51]
+#define SWIGTYPE_p_si_taxi__SarsaActor swig_types[52]
+#define SWIGTYPE_p_si_taxi__TabularSarsaSolver swig_types[53]
+#define SWIGTYPE_p_size_t swig_types[54]
+#define SWIGTYPE_p_size_type swig_types[55]
+#define SWIGTYPE_p_std__allocatorT_double_t swig_types[56]
+#define SWIGTYPE_p_std__allocatorT_int_t swig_types[57]
+#define SWIGTYPE_p_std__allocatorT_long_t swig_types[58]
+#define SWIGTYPE_p_std__allocatorT_si_taxi__BWPax_t swig_types[59]
+#define SWIGTYPE_p_std__allocatorT_si_taxi__BWSimStatsPaxRecord_t swig_types[60]
+#define SWIGTYPE_p_std__allocatorT_si_taxi__BWVehicle_t swig_types[61]
+#define SWIGTYPE_p_std__allocatorT_si_taxi__NaturalHistogram_t swig_types[62]
+#define SWIGTYPE_p_std__allocatorT_size_t_t swig_types[63]
+#define SWIGTYPE_p_std__allocatorT_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t_t swig_types[64]
+#define SWIGTYPE_p_std__allocatorT_std__dequeT_si_taxi__BWTime_std__allocatorT_si_taxi__BWTime_t_t_t swig_types[65]
+#define SWIGTYPE_p_std__dequeT_int_std__allocatorT_int_t_t swig_types[66]
+#define SWIGTYPE_p_std__dequeT_long_std__allocatorT_long_t_t swig_types[67]
+#define SWIGTYPE_p_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t swig_types[68]
+#define SWIGTYPE_p_std__exception swig_types[69]
+#define SWIGTYPE_p_std__ostream swig_types[70]
+#define SWIGTYPE_p_std__pairT_std__vectorT_int_std__allocatorT_int_t_t_double_t swig_types[71]
+#define SWIGTYPE_p_std__queueT_int_std__dequeT_int_std__allocatorT_int_t_t_t swig_types[72]
+#define SWIGTYPE_p_std__queueT_si_taxi__BWPax_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t_t swig_types[73]
+#define SWIGTYPE_p_std__string swig_types[74]
+#define SWIGTYPE_p_std__unordered_mapT_std__vectorT_int_std__allocatorT_int_t_t_double_boost__hashT_si_taxi__TabularSarsaSolver__sa_t_t_t swig_types[75]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[76]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[77]
+#define SWIGTYPE_p_std__vectorT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t swig_types[78]
+#define SWIGTYPE_p_std__vectorT_si_taxi__BWSimStatsPaxRecord_std__allocatorT_si_taxi__BWSimStatsPaxRecord_t_t swig_types[79]
+#define SWIGTYPE_p_std__vectorT_si_taxi__BWVehicle_std__allocatorT_si_taxi__BWVehicle_t_t swig_types[80]
+#define SWIGTYPE_p_std__vectorT_si_taxi__NaturalHistogram_std__allocatorT_si_taxi__NaturalHistogram_t_t swig_types[81]
+#define SWIGTYPE_p_std__vectorT_size_t_std__allocatorT_size_t_t_t swig_types[82]
+#define SWIGTYPE_p_std__vectorT_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t_std__allocatorT_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t_t_t swig_types[83]
+#define SWIGTYPE_p_std__vectorT_std__dequeT_si_taxi__BWTime_std__allocatorT_si_taxi__BWTime_t_t_std__allocatorT_std__dequeT_si_taxi__BWTime_std__allocatorT_si_taxi__BWTime_t_t_t_t swig_types[84]
+#define SWIGTYPE_p_std__vectorT_std__priority_queueT_long_std__vectorT_long_std__allocatorT_long_t_t_std__greaterT_long_t_t_std__allocatorT_std__priority_queueT_long_std__vectorT_long_std__allocatorT_long_t_t_std__greaterT_long_t_t_t_t swig_types[85]
+#define SWIGTYPE_p_swig__ConstIterator swig_types[86]
+#define SWIGTYPE_p_swig__GC_VALUE swig_types[87]
+#define SWIGTYPE_p_swig__Iterator swig_types[88]
+#define SWIGTYPE_p_value_type swig_types[89]
+#define SWIGTYPE_p_void swig_types[90]
+static swig_type_info *swig_types[92];
+static swig_module_info swig_module = {swig_types, 91, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -2320,6 +2328,7 @@ static VALUE mSiTaxi;
 #include <si_taxi/bell_wong/sampling_voting.h>
 #include <si_taxi/bell_wong/surplus_deficit.h>
 #include <si_taxi/mdp_sim/mdp_sim.h>
+#include <si_taxi/mdp_sim/tabular_sarsa_solver.h>
 
 using namespace si_taxi;
 
@@ -3020,20 +3029,6 @@ SWIG_From_ptrdiff_t  (ptrdiff_t value)
 #include <deque>
 
 
-SWIGINTERNINLINE VALUE
-SWIG_From_unsigned_SS_long  (unsigned long value)
-{
-  return ULONG2NUM(value); 
-}
-
-
-SWIGINTERNINLINE VALUE
-SWIG_From_size_t  (size_t value)
-{    
-  return SWIG_From_unsigned_SS_long  (static_cast< unsigned long >(value));
-}
-
-
 namespace swig {  
   template <class Type>
   struct noconst_traits {
@@ -3294,6 +3289,97 @@ namespace swig {
   inline bool check(VALUE obj) {
     return traits_check<Type, typename traits<Type>::category>::check(obj);
   }
+}
+
+
+namespace swig {
+
+  static ID call_id = rb_intern("call");
+
+  template <class _T = GC_VALUE, class _DefaultFunc = std::less<GC_VALUE> >
+  struct BinaryPredicate : GC_VALUE, std::binary_function< _T, _T, bool >
+  {
+    BinaryPredicate(VALUE obj = Qnil) : GC_VALUE(obj) { }
+    bool operator()(_T a, _T b) const
+    {
+      if (_obj != Qnil) {
+        SWIG_RUBY_THREAD_BEGIN_BLOCK;
+	VALUE arg1 = swig::from(a);
+	VALUE arg2 = swig::from(b);
+	VALUE res = rb_funcall( _obj, swig::call_id, 2, arg1, arg2);
+        SWIG_RUBY_THREAD_END_BLOCK;
+        return RTEST(res);
+      } else {
+        return _DefaultFunc()(a, b);
+      }
+    }
+  };
+
+  template <class _T = GC_VALUE, class _DefaultFunc = std::less< _T > >
+  struct BinaryFunction : GC_VALUE, std::binary_function< _T, _T, _T >
+  {
+    BinaryFunction(VALUE obj = Qnil) : GC_VALUE(obj) { }
+    _T operator()(_T a, _T b) const
+    {
+      if (_obj != Qnil) {
+        SWIG_RUBY_THREAD_BEGIN_BLOCK;
+	VALUE arg1 = swig::from(a);
+	VALUE arg2 = swig::from(b);
+	VALUE res = rb_funcall( _obj, swig::call_id, 2, arg1, arg2);
+        SWIG_RUBY_THREAD_END_BLOCK;
+        return swig::as<_T >(res);
+      } else {
+        return _DefaultFunc()(a, b);
+      }
+    }
+  };
+
+  template< class _T = GC_VALUE >
+  struct UnaryPredicate : GC_VALUE, std::unary_function< _T, bool >
+  {
+    UnaryPredicate(VALUE obj = Qnil) : GC_VALUE(obj) { }
+    bool operator()(_T a) const
+    {
+      SWIG_RUBY_THREAD_BEGIN_BLOCK;
+      VALUE arg1 = swig::from<_T >(a);
+      VALUE res = rb_funcall( _obj, swig::call_id, 1, arg1);
+      SWIG_RUBY_THREAD_END_BLOCK;
+      return RTEST(res);
+    }
+  };
+
+  template< class _T = GC_VALUE >
+  struct UnaryFunction : GC_VALUE, std::unary_function< _T, _T >
+  {
+    UnaryFunction(VALUE obj = Qnil) : GC_VALUE(obj) { }
+    _T operator()(_T a) const
+    {
+      SWIG_RUBY_THREAD_BEGIN_BLOCK;
+      VALUE arg1 = swig::from(a);
+      VALUE res = rb_funcall( _obj, swig::call_id, 1, VALUE(arg1));
+      SWIG_RUBY_THREAD_END_BLOCK;
+      return swig::as< _T >(res);
+    }
+  };
+
+} // namespace swig
+
+
+
+#include <utility>
+
+
+SWIGINTERNINLINE VALUE
+SWIG_From_unsigned_SS_long  (unsigned long value)
+{
+  return ULONG2NUM(value); 
+}
+
+
+SWIGINTERNINLINE VALUE
+SWIG_From_size_t  (size_t value)
+{    
+  return SWIG_From_unsigned_SS_long  (static_cast< unsigned long >(value));
 }
 
 
@@ -8166,6 +8252,190 @@ SWIGINTERN std::vector< std::deque< si_taxi::BWPax,std::allocator< si_taxi::BWPa
 
       return self;
     }
+
+  namespace swig {
+
+    template <class T, class U >
+    struct traits_asval<std::pair<T,U> >  {
+      typedef std::pair<T,U> value_type;
+
+      static int get_pair(VALUE first, VALUE second,
+			  std::pair<T,U> *val)
+      {
+	if (val) {
+	  T *pfirst = &(val->first);
+	  int res1 = swig::asval((VALUE)first, pfirst);
+	  if (!SWIG_IsOK(res1)) return res1;
+	  U *psecond = &(val->second);
+	  int res2 = swig::asval((VALUE)second, psecond);
+	  if (!SWIG_IsOK(res2)) return res2;
+	  return res1 > res2 ? res1 : res2;
+	} else {
+	  T *pfirst = 0;
+	  int res1 = swig::asval((VALUE)first, pfirst);
+	  if (!SWIG_IsOK(res1)) return res1;
+	  U *psecond = 0;
+	  int res2 = swig::asval((VALUE)second, psecond);
+	  if (!SWIG_IsOK(res2)) return res2;
+	  return res1 > res2 ? res1 : res2;
+	}	
+      }
+
+      static int asval(VALUE obj, std::pair<T,U> *val) {
+	int res = SWIG_ERROR;
+	if ( TYPE(obj) == T_ARRAY ) {
+	  if (RARRAY_LEN(obj) == 2) {
+	    VALUE first = rb_ary_entry(obj,0);
+	    VALUE second = rb_ary_entry(obj,1);
+	    res = get_pair(first, second, val);
+	  }
+	} else {
+	  value_type *p;
+	  res = SWIG_ConvertPtr(obj,(void**)&p,
+				swig::type_info<value_type>(),0);
+	  if (SWIG_IsOK(res) && val)  *val = *p;
+	}
+	return res;
+      }
+    };
+
+    template <class T, class U >
+    struct traits_asptr<std::pair<T,U> >  {
+      typedef std::pair<T,U> value_type;
+
+      static int get_pair(VALUE first, VALUE second,
+			  std::pair<T,U> **val) 
+      {
+	if (val) {
+	  value_type *vp = (new std::pair<T,U>);
+	  T *pfirst = &(vp->first);
+	  int res1 = swig::asval((VALUE)first, pfirst);
+	  if (!SWIG_IsOK(res1)) return res1;
+	  U *psecond = &(vp->second);
+	  int res2 = swig::asval((VALUE)second, psecond);
+	  if (!SWIG_IsOK(res2)) return res2;
+	  *val = vp;
+	  return SWIG_AddNewMask(res1 > res2 ? res1 : res2);
+	} else {
+	  T *pfirst = 0;
+	  int res1 = swig::asval((VALUE)first, pfirst);
+	  if (!SWIG_IsOK(res1)) return res1;
+	  U *psecond = 0;
+	  int res2 = swig::asval((VALUE)second, psecond);
+	  if (!SWIG_IsOK(res2)) return res2;
+	  return res1 > res2 ? res1 : res2;
+	}	
+      }
+
+      static int asptr(VALUE obj, std::pair<T,U> **val) {
+	int res = SWIG_ERROR;
+	if ( TYPE(obj) == T_ARRAY ) {
+	  if ( RARRAY_LEN(obj) == 2) {
+	    VALUE first = rb_ary_entry(obj,0);
+	    VALUE second = rb_ary_entry(obj,1);
+	    res = get_pair(first, second, val);
+	  }
+	} else {
+	  value_type *p;
+	  res = SWIG_ConvertPtr(obj,(void**)&p,
+				swig::type_info<value_type>(),0);
+	  if (SWIG_IsOK(res) && val)  *val = p;
+	}
+	return res;
+      }
+    };
+
+
+
+    template <class T, class U >
+    struct traits_from<std::pair<T,U> >   {
+      static VALUE _wrap_pair_second( VALUE self )
+      {
+	std::pair< typename swig::noconst_traits<T >::noconst_type,U>* p = NULL;
+	swig::asptr( self, &p );
+	return swig::from( p->second );
+      }
+
+      static VALUE _wrap_pair_second_eq( VALUE self, VALUE arg )
+      {
+	std::pair< typename swig::noconst_traits<T >::noconst_type,U>* p = NULL;
+	swig::asptr( self, &p );
+	return swig::from( p->second );
+      }
+
+      static VALUE from(const std::pair<T,U>& val) {
+	VALUE obj = rb_ary_new2(2);
+	rb_ary_push(obj, swig::from<typename swig::noconst_traits<T >::noconst_type>(val.first));
+	rb_ary_push(obj, swig::from(val.second));
+	rb_define_singleton_method(obj, "second",
+				   VALUEFUNC(_wrap_pair_second), 0 );
+	rb_define_singleton_method(obj, "second=",
+				   VALUEFUNC(_wrap_pair_second_eq), 1 );
+	rb_obj_freeze(obj); // treat as immutable tuple
+	return obj;
+      }
+    };
+
+  }
+
+
+      namespace swig {
+	template <>  struct traits<std::pair<std::vector< int,std::allocator< int > >,double > > {
+	  typedef pointer_category category;
+	  static const char* type_name() {
+	    return "std::pair<" "std::vector< int,std::allocator< int > >" "," "double" " >";
+	  }
+	};
+      }
+    
+SWIGINTERN VALUE std_pair_Sl_std_vector_Sl_int_Sg__Sc_double_Sg__inspect(std::pair< std::vector< int >,double > const *self){
+      VALUE tmp;
+      const char *type_name = swig::type_name< std::pair<std::vector< int,std::allocator< int > >,double > >();
+      VALUE str = rb_str_new2( type_name );
+      str = rb_str_cat2( str, " (" );
+      tmp = swig::from( self->first );
+      tmp = rb_obj_as_string( tmp );
+      str = rb_str_buf_append( str, tmp );
+      str = rb_str_cat2( str, "," );
+      tmp = swig::from( self->second );
+      tmp = rb_obj_as_string( tmp );
+      str = rb_str_buf_append( str, tmp );
+      str = rb_str_cat2( str, ")" );
+      return str;
+    }
+SWIGINTERN VALUE std_pair_Sl_std_vector_Sl_int_Sg__Sc_double_Sg__to_s(std::pair< std::vector< int >,double > const *self){
+      VALUE tmp;
+      VALUE str = rb_str_new2( "(" );
+      tmp = swig::from( self->first );
+      tmp = rb_obj_as_string( tmp );
+      str = rb_str_buf_append( str, tmp );
+      str = rb_str_cat2( str, "," );
+      tmp = swig::from( self->second );
+      tmp = rb_obj_as_string( tmp );
+      str = rb_str_buf_append( str, tmp );
+      str = rb_str_cat2( str, ")" );
+      return str;
+    }
+SWIGINTERN VALUE std_pair_Sl_std_vector_Sl_int_Sg__Sc_double_Sg____getitem__(std::pair< std::vector< int >,double > *self,int index){ 
+      if (( index % 2 ) == 0 )
+	return swig::from( self->first );
+      else
+	return swig::from( self->second );
+    }
+SWIGINTERN VALUE std_pair_Sl_std_vector_Sl_int_Sg__Sc_double_Sg____setitem__(std::pair< std::vector< int >,double > *self,int index,VALUE obj){ 
+      int res;
+      if (( index % 2 ) == 0 )
+	{
+	  res = swig::asval( obj, &(self->first) );
+	}
+      else
+	{
+	  res = swig::asval(obj, &(self->second) );
+	}
+      if (!SWIG_IsOK(res))
+	rb_raise( rb_eArgError, "invalid item for ""std::std::pair<std::vector< int,std::allocator< int > >,double ><std::vector< int,std::allocator< int > >,double >" );
+      return obj;
+    }
 /* ---------------------------------------------------
  * C++ director class helpers
  * --------------------------------------------------- */
@@ -8216,6 +8486,24 @@ void SwigDirector_BWProactiveHandler::handle_strobe() {
   VALUE result;
   
   result = rb_funcall(swig_get_self(), rb_intern("handle_strobe"), 0, NULL);
+}
+
+
+SwigDirector_SarsaActor::SwigDirector_SarsaActor(VALUE self, si_taxi::TabularSarsaSolver &solver): si_taxi::SarsaActor(solver), Swig::Director(self) {
+  
+}
+
+
+
+SwigDirector_SarsaActor::~SwigDirector_SarsaActor() {
+}
+
+void SwigDirector_SarsaActor::select_action(si_taxi::TabularSarsaSolver::sa_t &sa) {
+  VALUE obj0 = Qnil ;
+  VALUE result;
+  
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&sa), SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t,  0 );
+  result = rb_funcall(swig_get_self(), rb_intern("select_action"), 1,obj0);
 }
 
 
@@ -24931,6 +25219,15 @@ _wrap_SIZE_T_MAX_get(VALUE self) {
   VALUE _val;
   
   _val = SWIG_From_size_t(static_cast< size_t >(si_taxi::SIZE_T_MAX));
+  return _val;
+}
+
+
+SWIGINTERN VALUE
+_wrap_DOUBLE_MAX_get(VALUE self) {
+  VALUE _val;
+  
+  _val = SWIG_From_double(static_cast< double >(si_taxi::DOUBLE_MAX));
   return _val;
 }
 
@@ -47078,52 +47375,6 @@ free_std_vector_Sl_std_deque_Sl_si_taxi_BWPax_Sg__Sg_(std::vector< std::deque< s
     delete arg1;
 }
 
-swig_class SwigClassMDPState;
-
-#ifdef HAVE_RB_DEFINE_ALLOC_FUNC
-SWIGINTERN VALUE
-_wrap_MDPState_allocate(VALUE self) {
-#else
-  SWIGINTERN VALUE
-  _wrap_MDPState_allocate(int argc, VALUE *argv, VALUE self) {
-#endif
-    
-    
-    VALUE vresult = SWIG_NewClassInstance(self, SWIGTYPE_p_si_taxi__MDPState);
-#ifndef HAVE_RB_DEFINE_ALLOC_FUNC
-    rb_obj_call_init(vresult, argc, argv);
-#endif
-    return vresult;
-  }
-  
-
-SWIGINTERN VALUE
-_wrap_new_MDPState(int argc, VALUE *argv, VALUE self) {
-  const char *classname SWIGUNUSED = "SiTaxi::MDPState";
-  si_taxi::MDPState *result = 0 ;
-  
-  if ((argc < 0) || (argc > 0)) {
-    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
-  }
-  {
-    try {
-      result = (si_taxi::MDPState *)new si_taxi::MDPState();
-      DATA_PTR(self) = result;
-    } catch (const std::exception& e) {
-      SWIG_exception(SWIG_RuntimeError, e.what());
-    }
-  }
-  return self;
-fail:
-  return Qnil;
-}
-
-
-SWIGINTERN void
-free_si_taxi_MDPState(si_taxi::MDPState *arg1) {
-    delete arg1;
-}
-
 swig_class SwigClassMDPSim;
 
 SWIGINTERN VALUE
@@ -47365,6 +47616,59 @@ _wrap_MDPSim_inbound_get(int argc, VALUE *argv, VALUE self) {
   arg1 = reinterpret_cast< si_taxi::MDPSim * >(argp1);
   result = (std::vector< std::deque< si_taxi::BWTime,std::allocator< si_taxi::BWTime > >,std::allocator< std::deque< si_taxi::BWTime,std::allocator< si_taxi::BWTime > > > > *)& ((arg1)->inbound);
   vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_std__dequeT_si_taxi__BWTime_std__allocatorT_si_taxi__BWTime_t_t_std__allocatorT_std__dequeT_si_taxi__BWTime_std__allocatorT_si_taxi__BWTime_t_t_t_t, 0 |  0 );
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_MDPSim_queue_max_set(int argc, VALUE *argv, VALUE self) {
+  si_taxi::MDPSim *arg1 = (si_taxi::MDPSim *) 0 ;
+  size_t arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__MDPSim, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::MDPSim *","queue_max", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::MDPSim * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "size_t","queue_max", 2, argv[0] ));
+  } 
+  arg2 = static_cast< size_t >(val2);
+  if (arg1) (arg1)->queue_max = arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_MDPSim_queue_max_get(int argc, VALUE *argv, VALUE self) {
+  si_taxi::MDPSim *arg1 = (si_taxi::MDPSim *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__MDPSim, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::MDPSim *","queue_max", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::MDPSim * >(argp1);
+  result =  ((arg1)->queue_max);
+  vresult = SWIG_From_size_t(static_cast< size_t >(result));
   return vresult;
 fail:
   return Qnil;
@@ -48098,6 +48402,1963 @@ free_si_taxi_MDPSim(si_taxi::MDPSim *arg1) {
     delete arg1;
 }
 
+swig_class SwigClassPolicyPair;
+
+SWIGINTERN VALUE
+_wrap_new_PolicyPair__SWIG_0(int argc, VALUE *argv, VALUE self) {
+  const char *classname SWIGUNUSED = "SiTaxi::PolicyPair";
+  std::pair< std::vector< int >,double > *result = 0 ;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  {
+    try {
+      result = (std::pair< std::vector< int >,double > *)new std::pair< std::vector< int >,double >();
+      DATA_PTR(self) = result;
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  return self;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_new_PolicyPair__SWIG_1(int argc, VALUE *argv, VALUE self) {
+  std::vector< int,std::allocator< int > > arg1 ;
+  double arg2 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  const char *classname SWIGUNUSED = "SiTaxi::PolicyPair";
+  std::pair< std::vector< int >,double > *result = 0 ;
+  
+  if ((argc < 2) || (argc > 2)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 2)",argc); SWIG_fail;
+  }
+  {
+    std::vector<int,std::allocator< int > > *ptr = (std::vector<int,std::allocator< int > > *)0;
+    int res = swig::asptr(argv[0], &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), Ruby_Format_TypeError( "", "std::vector< int,std::allocator< int > >","std::pair<(std::vector<(int)>,double)>", 1, argv[0] )); 
+    }
+    arg1 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  ecode2 = SWIG_AsVal_double(argv[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "double","std::pair<(std::vector<(int)>,double)>", 2, argv[1] ));
+  } 
+  arg2 = static_cast< double >(val2);
+  {
+    try {
+      result = (std::pair< std::vector< int >,double > *)new std::pair< std::vector< int >,double >(arg1,arg2);
+      DATA_PTR(self) = result;
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  return self;
+fail:
+  return Qnil;
+}
+
+
+#ifdef HAVE_RB_DEFINE_ALLOC_FUNC
+SWIGINTERN VALUE
+_wrap_PolicyPair_allocate(VALUE self) {
+#else
+  SWIGINTERN VALUE
+  _wrap_PolicyPair_allocate(int argc, VALUE *argv, VALUE self) {
+#endif
+    
+    
+    VALUE vresult = SWIG_NewClassInstance(self, SWIGTYPE_p_std__pairT_std__vectorT_int_std__allocatorT_int_t_t_double_t);
+#ifndef HAVE_RB_DEFINE_ALLOC_FUNC
+    rb_obj_call_init(vresult, argc, argv);
+#endif
+    return vresult;
+  }
+  
+
+SWIGINTERN VALUE
+_wrap_new_PolicyPair__SWIG_2(int argc, VALUE *argv, VALUE self) {
+  std::pair< std::vector< int,std::allocator< int > >,double > *arg1 = 0 ;
+  int res1 = SWIG_OLDOBJ ;
+  const char *classname SWIGUNUSED = "SiTaxi::PolicyPair";
+  std::pair< std::vector< int >,double > *result = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  {
+    std::pair<std::vector< int,std::allocator< int > >,double > *ptr = (std::pair<std::vector< int,std::allocator< int > >,double > *)0;
+    res1 = swig::asptr(argv[0], &ptr);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::pair< std::vector< int,std::allocator< int > >,double > const &","std::pair<(std::vector<(int)>,double)>", 1, argv[0] )); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "std::pair< std::vector< int,std::allocator< int > >,double > const &","std::pair<(std::vector<(int)>,double)>", 1, argv[0])); 
+    }
+    arg1 = ptr;
+  }
+  {
+    try {
+      result = (std::pair< std::vector< int >,double > *)new std::pair< std::vector< int >,double >((std::pair< std::vector< int,std::allocator< int > >,double > const &)*arg1);
+      DATA_PTR(self) = result;
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return self;
+fail:
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE _wrap_new_PolicyPair(int nargs, VALUE *args, VALUE self) {
+  int argc;
+  VALUE argv[2];
+  int ii;
+  
+  argc = nargs;
+  if (argc > 2) SWIG_fail;
+  for (ii = 0; (ii < argc); ++ii) {
+    argv[ii] = args[ii];
+  }
+  if (argc == 0) {
+    return _wrap_new_PolicyPair__SWIG_0(nargs, args, self);
+  }
+  if (argc == 1) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::pair<std::vector< int,std::allocator< int > >,double >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_new_PolicyPair__SWIG_2(nargs, args, self);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector<int,std::allocator< int > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_new_PolicyPair__SWIG_1(nargs, args, self);
+      }
+    }
+  }
+  
+fail:
+  Ruby_Format_OverloadedError( argc, 2, "PolicyPair.new", 
+    "    PolicyPair.new()\n"
+    "    PolicyPair.new(std::vector< int,std::allocator< int > > first, double second)\n"
+    "    PolicyPair.new(std::pair< std::vector< int,std::allocator< int > >,double > const &p)\n");
+  
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::PolicyPair.first
+
+  call-seq:
+    first -> IntVector
+
+Return the first element in PolicyPair.
+*/
+
+/*
+  Document-method: SiTaxi::PolicyPair.first=
+
+  call-seq:
+    first=(x) -> IntVector
+
+Return the first element in PolicyPair.
+*/
+SWIGINTERN VALUE
+_wrap_PolicyPair_first_set(int argc, VALUE *argv, VALUE self) {
+  std::pair< std::vector< int >,double > *arg1 = (std::pair< std::vector< int >,double > *) 0 ;
+  std::vector< int,std::allocator< int > > *arg2 = (std::vector< int,std::allocator< int > > *) 0 ;
+  int res1 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  {
+    res1 = swig::asptr( self, &arg1 );
+    if (!SWIG_IsOK(res1))
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::pair< std::vector< int >,double > *","first", 1, self )); 
+  }
+  res2 = SWIG_ConvertPtr(argv[0], &argp2,SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "std::vector< int,std::allocator< int > > *","first", 2, argv[0] )); 
+  }
+  arg2 = reinterpret_cast< std::vector< int,std::allocator< int > > * >(argp2);
+  if (arg1) (arg1)->first = *arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_PolicyPair_first_get(int argc, VALUE *argv, VALUE self) {
+  std::pair< std::vector< int >,double > *arg1 = (std::pair< std::vector< int >,double > *) 0 ;
+  int res1 ;
+  std::vector< int,std::allocator< int > > *result = 0 ;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  {
+    res1 = swig::asptr( self, &arg1 );
+    if (!SWIG_IsOK(res1))
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::pair< std::vector< int >,double > *","first", 1, self )); 
+  }
+  result = (std::vector< int,std::allocator< int > > *)& ((arg1)->first);
+  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t, 0 |  0 );
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::PolicyPair.second
+
+  call-seq:
+    second -> double
+
+Return the second element in PolicyPair.
+*/
+
+/*
+  Document-method: SiTaxi::PolicyPair.second=
+
+  call-seq:
+    second=(x) -> double
+
+Return the second element in PolicyPair.
+*/
+SWIGINTERN VALUE
+_wrap_PolicyPair_second_set(int argc, VALUE *argv, VALUE self) {
+  std::pair< std::vector< int >,double > *arg1 = (std::pair< std::vector< int >,double > *) 0 ;
+  double arg2 ;
+  int res1 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  {
+    res1 = swig::asptr( self, &arg1 );
+    if (!SWIG_IsOK(res1))
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::pair< std::vector< int >,double > *","second", 1, self )); 
+  }
+  ecode2 = SWIG_AsVal_double(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "double","second", 2, argv[0] ));
+  } 
+  arg2 = static_cast< double >(val2);
+  if (arg1) (arg1)->second = arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_PolicyPair_second_get(int argc, VALUE *argv, VALUE self) {
+  std::pair< std::vector< int >,double > *arg1 = (std::pair< std::vector< int >,double > *) 0 ;
+  int res1 ;
+  double result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  {
+    res1 = swig::asptr( self, &arg1 );
+    if (!SWIG_IsOK(res1))
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::pair< std::vector< int >,double > *","second", 1, self )); 
+  }
+  result = (double) ((arg1)->second);
+  vresult = SWIG_From_double(static_cast< double >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::PolicyPair.inspect
+
+  call-seq:
+    inspect -> VALUE
+
+Inspect class and its contents.
+*/
+SWIGINTERN VALUE
+_wrap_PolicyPair_inspect(int argc, VALUE *argv, VALUE self) {
+  std::pair< std::vector< int >,double > *arg1 = (std::pair< std::vector< int >,double > *) 0 ;
+  int res1 ;
+  VALUE result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  {
+    res1 = swig::asptr( self, &arg1 );
+    if (!SWIG_IsOK(res1))
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::pair< std::vector< int >,double > const *","inspect", 1, self )); 
+  }
+  {
+    try {
+      result = (VALUE)std_pair_Sl_std_vector_Sl_int_Sg__Sc_double_Sg__inspect((std::pair< std::vector< int >,double > const *)arg1);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = result;
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::PolicyPair.to_s
+
+  call-seq:
+    to_s -> VALUE
+
+Convert class to a String representation.
+*/
+SWIGINTERN VALUE
+_wrap_PolicyPair_to_s(int argc, VALUE *argv, VALUE self) {
+  std::pair< std::vector< int >,double > *arg1 = (std::pair< std::vector< int >,double > *) 0 ;
+  int res1 ;
+  VALUE result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  {
+    res1 = swig::asptr( self, &arg1 );
+    if (!SWIG_IsOK(res1))
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::pair< std::vector< int >,double > const *","to_s", 1, self )); 
+  }
+  {
+    try {
+      result = (VALUE)std_pair_Sl_std_vector_Sl_int_Sg__Sc_double_Sg__to_s((std::pair< std::vector< int >,double > const *)arg1);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = result;
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::PolicyPair.[]
+
+  call-seq:
+    [](index) -> VALUE
+
+Element accessor/slicing.
+*/
+SWIGINTERN VALUE
+_wrap_PolicyPair___getitem__(int argc, VALUE *argv, VALUE self) {
+  std::pair< std::vector< int >,double > *arg1 = (std::pair< std::vector< int >,double > *) 0 ;
+  int arg2 ;
+  int res1 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  VALUE result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  {
+    res1 = swig::asptr( self, &arg1 );
+    if (!SWIG_IsOK(res1))
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::pair< std::vector< int >,double > *","__getitem__", 1, self )); 
+  }
+  ecode2 = SWIG_AsVal_int(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "int","__getitem__", 2, argv[0] ));
+  } 
+  arg2 = static_cast< int >(val2);
+  {
+    try {
+      result = (VALUE)std_pair_Sl_std_vector_Sl_int_Sg__Sc_double_Sg____getitem__(arg1,arg2);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = result;
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::PolicyPair.[]=
+
+  call-seq:
+    []=(index, obj) -> VALUE
+
+Element setter/slicing.
+*/
+SWIGINTERN VALUE
+_wrap_PolicyPair___setitem__(int argc, VALUE *argv, VALUE self) {
+  std::pair< std::vector< int >,double > *arg1 = (std::pair< std::vector< int >,double > *) 0 ;
+  int arg2 ;
+  VALUE arg3 = (VALUE) 0 ;
+  int res1 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  VALUE result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 2) || (argc > 2)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 2)",argc); SWIG_fail;
+  }
+  {
+    res1 = swig::asptr( self, &arg1 );
+    if (!SWIG_IsOK(res1))
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::pair< std::vector< int >,double > *","__setitem__", 1, self )); 
+  }
+  ecode2 = SWIG_AsVal_int(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "int","__setitem__", 2, argv[0] ));
+  } 
+  arg2 = static_cast< int >(val2);
+  arg3 = argv[1];
+  {
+    try {
+      result = (VALUE)std_pair_Sl_std_vector_Sl_int_Sg__Sc_double_Sg____setitem__(arg1,arg2,arg3);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = result;
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN void
+free_std_pair_Sl_std_vector_Sl_int_Sg__Sc_double_Sg_(std::pair< std::vector< int >,double > *arg1) {
+    delete arg1;
+}
+
+swig_class SwigClassTabularSarsaSolver;
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_sim_set(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  si_taxi::MDPSim *arg2 = (si_taxi::MDPSim *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver *","sim", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  res2 = SWIG_ConvertPtr(argv[0], &argp2,SWIGTYPE_p_si_taxi__MDPSim, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "si_taxi::MDPSim *","sim", 2, argv[0] )); 
+  }
+  arg2 = reinterpret_cast< si_taxi::MDPSim * >(argp2);
+  if (arg1) (arg1)->sim = arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_sim_get(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  si_taxi::MDPSim *result = 0 ;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver *","sim", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  result = (si_taxi::MDPSim *) ((arg1)->sim);
+  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_si_taxi__MDPSim, 0 |  0 );
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_actor_set(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  si_taxi::SarsaActor *arg2 = (si_taxi::SarsaActor *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver *","actor", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  res2 = SWIG_ConvertPtr(argv[0], &argp2,SWIGTYPE_p_si_taxi__SarsaActor, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "si_taxi::SarsaActor *","actor", 2, argv[0] )); 
+  }
+  arg2 = reinterpret_cast< si_taxi::SarsaActor * >(argp2);
+  if (arg1) (arg1)->actor = arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_actor_get(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  si_taxi::SarsaActor *result = 0 ;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver *","actor", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  result = (si_taxi::SarsaActor *) ((arg1)->actor);
+  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_si_taxi__SarsaActor, 0 |  0 );
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_alpha_set(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver *","alpha", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  ecode2 = SWIG_AsVal_double(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "double","alpha", 2, argv[0] ));
+  } 
+  arg2 = static_cast< double >(val2);
+  if (arg1) (arg1)->alpha = arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_alpha_get(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver *","alpha", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  result = (double) ((arg1)->alpha);
+  vresult = SWIG_From_double(static_cast< double >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_gamma_set(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver *","gamma", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  ecode2 = SWIG_AsVal_double(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "double","gamma", 2, argv[0] ));
+  } 
+  arg2 = static_cast< double >(val2);
+  if (arg1) (arg1)->gamma = arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_gamma_get(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver *","gamma", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  result = (double) ((arg1)->gamma);
+  vresult = SWIG_From_double(static_cast< double >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_state_action_set(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  si_taxi::TabularSarsaSolver::sa_t *arg2 = (si_taxi::TabularSarsaSolver::sa_t *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver *","state_action", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  res2 = SWIG_ConvertPtr(argv[0], &argp2,SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver::sa_t *","state_action", 2, argv[0] )); 
+  }
+  arg2 = reinterpret_cast< si_taxi::TabularSarsaSolver::sa_t * >(argp2);
+  if (arg1) (arg1)->state_action = *arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_state_action_get(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  si_taxi::TabularSarsaSolver::sa_t *result = 0 ;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver *","state_action", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  result = (si_taxi::TabularSarsaSolver::sa_t *)& ((arg1)->state_action);
+  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t, 0 |  0 );
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_next_state_action_set(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  si_taxi::TabularSarsaSolver::sa_t *arg2 = (si_taxi::TabularSarsaSolver::sa_t *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver *","next_state_action", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  res2 = SWIG_ConvertPtr(argv[0], &argp2,SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver::sa_t *","next_state_action", 2, argv[0] )); 
+  }
+  arg2 = reinterpret_cast< si_taxi::TabularSarsaSolver::sa_t * >(argp2);
+  if (arg1) (arg1)->next_state_action = *arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_next_state_action_get(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  si_taxi::TabularSarsaSolver::sa_t *result = 0 ;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver *","next_state_action", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  result = (si_taxi::TabularSarsaSolver::sa_t *)& ((arg1)->next_state_action);
+  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t, 0 |  0 );
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_action_set(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  si_taxi::int_od_t arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver *","action", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  {
+    int i, j, rows, cols;
+    VALUE row;
+    
+    if (!rb_obj_is_kind_of(argv[0], rb_cArray)) {
+      SWIG_exception_fail(SWIG_ERROR, "not an array");
+    }
+    
+    rows = RARRAY_LEN(argv[0]);
+    if (rows > 0) {
+      cols = RARRAY_LEN(rb_ary_entry(argv[0], 0));
+    } else {
+      cols = 0;
+    }
+    
+    arg2 = boost::numeric::ublas::matrix<int>(rows, cols);
+    for (i = 0; i < rows; ++i) {
+      row = rb_ary_entry(argv[0], i);
+      if (RARRAY_LEN(row) != cols) {
+        SWIG_exception_fail(SWIG_ERROR, "ragged array not allowed");
+      }
+      for (j = 0; j < cols; ++j) {
+        arg2(i, j) = NUM2INT(rb_ary_entry(row, j));
+      }
+    }
+  }
+  if (arg1) (arg1)->action = arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_action_get(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  si_taxi::int_od_t result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver *","action", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  result =  ((arg1)->action);
+  {
+    int i, j, rows, cols;
+    VALUE row;
+    
+    rows = (int) (&result)->size1();
+    cols = (int) (&result)->size2();
+    vresult = rb_ary_new2(rows);
+    for (i = 0; i < rows; ++i) {
+      row = rb_ary_new2(cols);
+      rb_ary_push(vresult, row);
+      for (j = 0; j < cols; ++j) {
+        rb_ary_push(row, INT2NUM(result(i, j)));
+      }
+    }
+  }
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_q_set(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  si_taxi::TabularSarsaSolver::q_t arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver *","q", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  {
+    res2 = SWIG_ConvertPtr(argv[0], &argp2, SWIGTYPE_p_std__unordered_mapT_std__vectorT_int_std__allocatorT_int_t_t_double_boost__hashT_si_taxi__TabularSarsaSolver__sa_t_t_t,  0 );
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver::q_t","q", 2, argv[0] )); 
+    }  
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "si_taxi::TabularSarsaSolver::q_t","q", 2, argv[0]));
+    } else {
+      arg2 = *(reinterpret_cast< si_taxi::TabularSarsaSolver::q_t * >(argp2));
+    }
+  }
+  if (arg1) (arg1)->q = arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_q_get(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  si_taxi::TabularSarsaSolver::q_t result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver *","q", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  result =  ((arg1)->q);
+  vresult = SWIG_NewPointerObj((new si_taxi::TabularSarsaSolver::q_t(static_cast< const si_taxi::TabularSarsaSolver::q_t& >(result))), SWIGTYPE_p_std__unordered_mapT_std__vectorT_int_std__allocatorT_int_t_t_double_boost__hashT_si_taxi__TabularSarsaSolver__sa_t_t_t, SWIG_POINTER_OWN |  0 );
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+#ifdef HAVE_RB_DEFINE_ALLOC_FUNC
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_allocate(VALUE self) {
+#else
+  SWIGINTERN VALUE
+  _wrap_TabularSarsaSolver_allocate(int argc, VALUE *argv, VALUE self) {
+#endif
+    
+    
+    VALUE vresult = SWIG_NewClassInstance(self, SWIGTYPE_p_si_taxi__TabularSarsaSolver);
+#ifndef HAVE_RB_DEFINE_ALLOC_FUNC
+    rb_obj_call_init(vresult, argc, argv);
+#endif
+    return vresult;
+  }
+  
+
+SWIGINTERN VALUE
+_wrap_new_TabularSarsaSolver(int argc, VALUE *argv, VALUE self) {
+  si_taxi::MDPSim *arg1 = (si_taxi::MDPSim *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  const char *classname SWIGUNUSED = "SiTaxi::TabularSarsaSolver";
+  si_taxi::TabularSarsaSolver *result = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(argv[0], &argp1,SWIGTYPE_p_si_taxi__MDPSim, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::MDPSim *","si_taxi::TabularSarsaSolver", 1, argv[0] )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::MDPSim * >(argp1);
+  {
+    try {
+      result = (si_taxi::TabularSarsaSolver *)new si_taxi::TabularSarsaSolver(arg1);
+      DATA_PTR(self) = result;
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  return self;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_state_size(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver const *","state_size", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  {
+    try {
+      result = ((si_taxi::TabularSarsaSolver const *)arg1)->state_size();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = SWIG_From_size_t(static_cast< size_t >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_action_size(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver const *","action_size", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  {
+    try {
+      result = ((si_taxi::TabularSarsaSolver const *)arg1)->action_size();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = SWIG_From_size_t(static_cast< size_t >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_state_action_size(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver const *","state_action_size", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  {
+    try {
+      result = ((si_taxi::TabularSarsaSolver const *)arg1)->state_action_size();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = SWIG_From_size_t(static_cast< size_t >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_init(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver *","init", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  {
+    try {
+      (arg1)->init();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_tick(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  std::vector< si_taxi::BWPax,std::allocator< si_taxi::BWPax > > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver *","tick", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  {
+    std::vector<si_taxi::BWPax,std::allocator< si_taxi::BWPax > > *ptr = (std::vector<si_taxi::BWPax,std::allocator< si_taxi::BWPax > > *)0;
+    res2 = swig::asptr(argv[0], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "std::vector< si_taxi::BWPax,std::allocator< si_taxi::BWPax > > const &","tick", 2, argv[0] )); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "std::vector< si_taxi::BWPax,std::allocator< si_taxi::BWPax > > const &","tick", 2, argv[0])); 
+    }
+    arg2 = ptr;
+  }
+  {
+    try {
+      (arg1)->tick((std::vector< si_taxi::BWPax,std::allocator< si_taxi::BWPax > > const &)*arg2);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return Qnil;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_handle_pax_stream(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  size_t arg2 ;
+  si_taxi::BWPaxStream *arg3 = (si_taxi::BWPaxStream *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  
+  if ((argc < 2) || (argc > 2)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 2)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver *","handle_pax_stream", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "size_t","handle_pax_stream", 2, argv[0] ));
+  } 
+  arg2 = static_cast< size_t >(val2);
+  res3 = SWIG_ConvertPtr(argv[1], &argp3,SWIGTYPE_p_si_taxi__BWPaxStream, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), Ruby_Format_TypeError( "", "si_taxi::BWPaxStream *","handle_pax_stream", 3, argv[1] )); 
+  }
+  arg3 = reinterpret_cast< si_taxi::BWPaxStream * >(argp3);
+  {
+    try {
+      (arg1)->handle_pax_stream(arg2,arg3);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_fill_state_action_state(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  si_taxi::TabularSarsaSolver::sa_t *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver *","fill_state_action_state", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  res2 = SWIG_ConvertPtr(argv[0], &argp2, SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver::sa_t &","fill_state_action_state", 2, argv[0] )); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "si_taxi::TabularSarsaSolver::sa_t &","fill_state_action_state", 2, argv[0])); 
+  }
+  arg2 = reinterpret_cast< si_taxi::TabularSarsaSolver::sa_t * >(argp2);
+  {
+    try {
+      (arg1)->fill_state_action_state(*arg2);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_fill_state_action_action(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  si_taxi::TabularSarsaSolver::sa_t *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver *","fill_state_action_action", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  res2 = SWIG_ConvertPtr(argv[0], &argp2, SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver::sa_t &","fill_state_action_action", 2, argv[0] )); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "si_taxi::TabularSarsaSolver::sa_t &","fill_state_action_action", 2, argv[0])); 
+  }
+  arg2 = reinterpret_cast< si_taxi::TabularSarsaSolver::sa_t * >(argp2);
+  {
+    try {
+      (arg1)->fill_state_action_action(*arg2);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_select_action(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  si_taxi::TabularSarsaSolver::sa_t *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver *","select_action", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  res2 = SWIG_ConvertPtr(argv[0], &argp2, SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver::sa_t &","select_action", 2, argv[0] )); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "si_taxi::TabularSarsaSolver::sa_t &","select_action", 2, argv[0])); 
+  }
+  arg2 = reinterpret_cast< si_taxi::TabularSarsaSolver::sa_t * >(argp2);
+  {
+    try {
+      (arg1)->select_action(*arg2);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_reward(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  si_taxi::TabularSarsaSolver::sa_t *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  int result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver const *","reward", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  {
+    std::vector<int,std::allocator< int > > *ptr = (std::vector<int,std::allocator< int > > *)0;
+    res2 = swig::asptr(argv[0], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver::sa_t const &","reward", 2, argv[0] )); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "si_taxi::TabularSarsaSolver::sa_t const &","reward", 2, argv[0])); 
+    }
+    arg2 = ptr;
+  }
+  {
+    try {
+      result = (int)((si_taxi::TabularSarsaSolver const *)arg1)->reward((si_taxi::TabularSarsaSolver::sa_t const &)*arg2);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = SWIG_From_int(static_cast< int >(result));
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return vresult;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_lookup_q(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  si_taxi::TabularSarsaSolver::sa_t *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  double result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver const *","lookup_q", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  {
+    std::vector<int,std::allocator< int > > *ptr = (std::vector<int,std::allocator< int > > *)0;
+    res2 = swig::asptr(argv[0], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver::sa_t const &","lookup_q", 2, argv[0] )); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "si_taxi::TabularSarsaSolver::sa_t const &","lookup_q", 2, argv[0])); 
+    }
+    arg2 = ptr;
+  }
+  {
+    try {
+      result = (double)((si_taxi::TabularSarsaSolver const *)arg1)->lookup_q((si_taxi::TabularSarsaSolver::sa_t const &)*arg2);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = SWIG_From_double(static_cast< double >(result));
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return vresult;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_update_q(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver *","update_q", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  {
+    try {
+      (arg1)->update_q();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_q_size(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver const *","q_size", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  {
+    try {
+      result = ((si_taxi::TabularSarsaSolver const *)arg1)->q_size();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = SWIG_From_size_t(static_cast< size_t >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_policy(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  std::vector< int,std::allocator< int > > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  std::pair< std::vector< int,std::allocator< int > >,double > result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver const *","policy", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  {
+    std::vector<int,std::allocator< int > > *ptr = (std::vector<int,std::allocator< int > > *)0;
+    res2 = swig::asptr(argv[0], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "std::vector< int,std::allocator< int > > const &","policy", 2, argv[0] )); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "std::vector< int,std::allocator< int > > const &","policy", 2, argv[0])); 
+    }
+    arg2 = ptr;
+  }
+  {
+    try {
+      result = ((si_taxi::TabularSarsaSolver const *)arg1)->policy((std::vector< int,std::allocator< int > > const &)*arg2);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = swig::from(static_cast< std::pair<std::vector< int,std::allocator< int > >,double > >(result));
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return vresult;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_dump_q__SWIG_0(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver const *","dump_q", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  res2 = SWIG_ConvertPtr(argv[0], &argp2, SWIGTYPE_p_std__ostream,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "std::ostream &","dump_q", 2, argv[0] )); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "std::ostream &","dump_q", 2, argv[0])); 
+  }
+  arg2 = reinterpret_cast< std::ostream * >(argp2);
+  {
+    try {
+      ((si_taxi::TabularSarsaSolver const *)arg1)->dump_q(*arg2);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_TabularSarsaSolver_dump_q__SWIG_1(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = (si_taxi::TabularSarsaSolver *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver const *","dump_q", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  {
+    try {
+      ((si_taxi::TabularSarsaSolver const *)arg1)->dump_q();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE _wrap_TabularSarsaSolver_dump_q(int nargs, VALUE *args, VALUE self) {
+  int argc;
+  VALUE argv[3];
+  int ii;
+  
+  argc = nargs + 1;
+  argv[0] = self;
+  if (argc > 3) SWIG_fail;
+  for (ii = 1; (ii < argc); ++ii) {
+    argv[ii] = args[ii-1];
+  }
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_TabularSarsaSolver_dump_q__SWIG_1(nargs, args, self);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_std__ostream, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_TabularSarsaSolver_dump_q__SWIG_0(nargs, args, self);
+      }
+    }
+  }
+  
+fail:
+  Ruby_Format_OverloadedError( argc, 3, "TabularSarsaSolver.dump_q", 
+    "    void TabularSarsaSolver.dump_q(std::ostream &os)\n"
+    "    void TabularSarsaSolver.dump_q()\n");
+  
+  return Qnil;
+}
+
+
+SWIGINTERN void
+free_si_taxi_TabularSarsaSolver(si_taxi::TabularSarsaSolver *arg1) {
+    delete arg1;
+}
+
+swig_class SwigClassSarsaActor;
+
+SWIGINTERN VALUE
+_wrap_SarsaActor_solver_set(int argc, VALUE *argv, VALUE self) {
+  si_taxi::SarsaActor *arg1 = (si_taxi::SarsaActor *) 0 ;
+  si_taxi::TabularSarsaSolver *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__SarsaActor, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::SarsaActor *","solver", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::SarsaActor * >(argp1);
+  res2 = SWIG_ConvertPtr(argv[0], &argp2, SWIGTYPE_p_si_taxi__TabularSarsaSolver,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver &","solver", 2, argv[0] )); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "si_taxi::TabularSarsaSolver &","solver", 2, argv[0])); 
+  }
+  arg2 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp2);
+  if (arg1) (arg1)->solver = *arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_SarsaActor_solver_get(int argc, VALUE *argv, VALUE self) {
+  si_taxi::SarsaActor *arg1 = (si_taxi::SarsaActor *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  si_taxi::TabularSarsaSolver *result = 0 ;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__SarsaActor, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::SarsaActor *","solver", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::SarsaActor * >(argp1);
+  result = (si_taxi::TabularSarsaSolver *) &(si_taxi::TabularSarsaSolver &) ((arg1)->solver);
+  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_si_taxi__TabularSarsaSolver, 0 |  0 );
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+#ifdef HAVE_RB_DEFINE_ALLOC_FUNC
+SWIGINTERN VALUE
+_wrap_SarsaActor_allocate(VALUE self) {
+#else
+  SWIGINTERN VALUE
+  _wrap_SarsaActor_allocate(int argc, VALUE *argv, VALUE self) {
+#endif
+    
+    
+    VALUE vresult = SWIG_NewClassInstance(self, SWIGTYPE_p_si_taxi__SarsaActor);
+#ifndef HAVE_RB_DEFINE_ALLOC_FUNC
+    rb_obj_call_init(vresult, argc, argv);
+#endif
+    return vresult;
+  }
+  
+
+SWIGINTERN VALUE
+_wrap_new_SarsaActor(int argc, VALUE *argv, VALUE self) {
+  VALUE arg1 = (VALUE) 0 ;
+  si_taxi::TabularSarsaSolver *arg2 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  const char *classname SWIGUNUSED = "SiTaxi::SarsaActor";
+  si_taxi::SarsaActor *result = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  arg1 = self;
+  res2 = SWIG_ConvertPtr(argv[0], &argp2, SWIGTYPE_p_si_taxi__TabularSarsaSolver,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver &","si_taxi::SarsaActor", 2, argv[0] )); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "si_taxi::TabularSarsaSolver &","si_taxi::SarsaActor", 2, argv[0])); 
+  }
+  arg2 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp2);
+  {
+    try {
+      if ( strcmp(rb_obj_classname(self), classname) != 0 ) {
+        /* subclassed */
+        result = (si_taxi::SarsaActor *)new SwigDirector_SarsaActor(arg1,*arg2); 
+      } else {
+        rb_raise(rb_eNameError,"accessing abstract class or protected constructor"); 
+        return Qnil;
+      }
+      
+      DATA_PTR(self) = result;
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  return self;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN void
+free_si_taxi_SarsaActor(si_taxi::SarsaActor *arg1) {
+    delete arg1;
+}
+
+SWIGINTERN VALUE
+_wrap_SarsaActor_select_action(int argc, VALUE *argv, VALUE self) {
+  si_taxi::SarsaActor *arg1 = (si_taxi::SarsaActor *) 0 ;
+  si_taxi::TabularSarsaSolver::sa_t *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  Swig::Director *director = 0;
+  bool upcall = false;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__SarsaActor, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::SarsaActor *","select_action", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::SarsaActor * >(argp1);
+  res2 = SWIG_ConvertPtr(argv[0], &argp2, SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver::sa_t &","select_action", 2, argv[0] )); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "si_taxi::TabularSarsaSolver::sa_t &","select_action", 2, argv[0])); 
+  }
+  arg2 = reinterpret_cast< si_taxi::TabularSarsaSolver::sa_t * >(argp2);
+  director = dynamic_cast<Swig::Director *>(arg1);
+  upcall = (director && (director->swig_get_self() == self));
+  try {
+    {
+      try {
+        if (upcall) {
+          Swig::DirectorPureVirtualException::raise("si_taxi::SarsaActor::select_action");
+        } else {
+          (arg1)->select_action(*arg2);
+        }
+      } catch (const std::exception& e) {
+        SWIG_exception(SWIG_RuntimeError, e.what());
+      }
+    }
+  } catch (Swig::DirectorException& e) {
+    rb_exc_raise(e.getError());
+    SWIG_fail;
+  }
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_disown_SarsaActor(int argc, VALUE *argv, VALUE self) {
+  si_taxi::SarsaActor *arg1 = (si_taxi::SarsaActor *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(argv[0], &argp1,SWIGTYPE_p_si_taxi__SarsaActor, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::SarsaActor *","disown_SarsaActor", 1, argv[0] )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::SarsaActor * >(argp1);
+  {
+    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
+    if (director) director->swig_disown();
+  }
+  
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+swig_class SwigClassEpsilonGreedySarsaActor;
+
+SWIGINTERN VALUE
+_wrap_EpsilonGreedySarsaActor_epsilon_set(int argc, VALUE *argv, VALUE self) {
+  si_taxi::EpsilonGreedySarsaActor *arg1 = (si_taxi::EpsilonGreedySarsaActor *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__EpsilonGreedySarsaActor, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::EpsilonGreedySarsaActor *","epsilon", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::EpsilonGreedySarsaActor * >(argp1);
+  ecode2 = SWIG_AsVal_double(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "double","epsilon", 2, argv[0] ));
+  } 
+  arg2 = static_cast< double >(val2);
+  if (arg1) (arg1)->epsilon = arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_EpsilonGreedySarsaActor_epsilon_get(int argc, VALUE *argv, VALUE self) {
+  si_taxi::EpsilonGreedySarsaActor *arg1 = (si_taxi::EpsilonGreedySarsaActor *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__EpsilonGreedySarsaActor, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::EpsilonGreedySarsaActor *","epsilon", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::EpsilonGreedySarsaActor * >(argp1);
+  result = (double) ((arg1)->epsilon);
+  vresult = SWIG_From_double(static_cast< double >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+#ifdef HAVE_RB_DEFINE_ALLOC_FUNC
+SWIGINTERN VALUE
+_wrap_EpsilonGreedySarsaActor_allocate(VALUE self) {
+#else
+  SWIGINTERN VALUE
+  _wrap_EpsilonGreedySarsaActor_allocate(int argc, VALUE *argv, VALUE self) {
+#endif
+    
+    
+    VALUE vresult = SWIG_NewClassInstance(self, SWIGTYPE_p_si_taxi__EpsilonGreedySarsaActor);
+#ifndef HAVE_RB_DEFINE_ALLOC_FUNC
+    rb_obj_call_init(vresult, argc, argv);
+#endif
+    return vresult;
+  }
+  
+
+SWIGINTERN VALUE
+_wrap_new_EpsilonGreedySarsaActor(int argc, VALUE *argv, VALUE self) {
+  si_taxi::TabularSarsaSolver *arg1 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  const char *classname SWIGUNUSED = "SiTaxi::EpsilonGreedySarsaActor";
+  si_taxi::EpsilonGreedySarsaActor *result = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(argv[0], &argp1, SWIGTYPE_p_si_taxi__TabularSarsaSolver,  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver &","si_taxi::EpsilonGreedySarsaActor", 1, argv[0] )); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "si_taxi::TabularSarsaSolver &","si_taxi::EpsilonGreedySarsaActor", 1, argv[0])); 
+  }
+  arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
+  {
+    try {
+      result = (si_taxi::EpsilonGreedySarsaActor *)new si_taxi::EpsilonGreedySarsaActor(*arg1);
+      DATA_PTR(self) = result;
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  return self;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_EpsilonGreedySarsaActor_select_action(int argc, VALUE *argv, VALUE self) {
+  si_taxi::EpsilonGreedySarsaActor *arg1 = (si_taxi::EpsilonGreedySarsaActor *) 0 ;
+  si_taxi::TabularSarsaSolver::sa_t *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__EpsilonGreedySarsaActor, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::EpsilonGreedySarsaActor *","select_action", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::EpsilonGreedySarsaActor * >(argp1);
+  res2 = SWIG_ConvertPtr(argv[0], &argp2, SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver::sa_t &","select_action", 2, argv[0] )); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "si_taxi::TabularSarsaSolver::sa_t &","select_action", 2, argv[0])); 
+  }
+  arg2 = reinterpret_cast< si_taxi::TabularSarsaSolver::sa_t * >(argp2);
+  {
+    try {
+      (arg1)->select_action(*arg2);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN void
+free_si_taxi_EpsilonGreedySarsaActor(si_taxi::EpsilonGreedySarsaActor *arg1) {
+    delete arg1;
+}
+
 
 /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (BEGIN) -------- */
 
@@ -48176,6 +50437,9 @@ static void *_p_si_taxi__BWSimStatsPaxRecorderTo_p_si_taxi__BWSimStats(void *x, 
 static void *_p_si_taxi__BWSimStatsMeanPaxWaitTo_p_si_taxi__BWSimStats(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((si_taxi::BWSimStats *)  ((si_taxi::BWSimStatsMeanPaxWait *) x));
 }
+static void *_p_si_taxi__EpsilonGreedySarsaActorTo_p_si_taxi__SarsaActor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((si_taxi::SarsaActor *)  ((si_taxi::EpsilonGreedySarsaActor *) x));
+}
 static void *_p_si_taxi__BWPoissonPaxStreamTo_p_si_taxi__BWPaxStream(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((si_taxi::BWPaxStream *)  ((si_taxi::BWPoissonPaxStream *) x));
 }
@@ -48194,9 +50458,13 @@ static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_container_type = {"_p_container_type", "container_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_difference_type = {"_p_difference_type", "difference_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_double = {"_p_double", "double *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_first_type = {"_p_first_type", "first_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_int_vector_t = {"_p_int_vector_t", "int_vector_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_long = {"_p_long", "long *|si_taxi::BWTime *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_p_void = {"_p_p_void", "void **|VALUE *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_q_t = {"_p_q_t", "q_t *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_sa_t = {"_p_sa_t", "sa_t *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_second_type = {"_p_second_type", "second_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_si_taxi__BWAndreassonHandler = {"_p_si_taxi__BWAndreassonHandler", "si_taxi::BWAndreassonHandler *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_si_taxi__BWCallTimeTracker = {"_p_si_taxi__BWCallTimeTracker", "si_taxi::BWCallTimeTracker *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_si_taxi__BWDynamicTransportationProblemHandler = {"_p_si_taxi__BWDynamicTransportationProblemHandler", "si_taxi::BWDynamicTransportationProblemHandler *", 0, 0, (void*)0, 0};
@@ -48223,13 +50491,15 @@ static swig_type_info _swigt__p_si_taxi__BWSurplusDeficitHandler = {"_p_si_taxi_
 static swig_type_info _swigt__p_si_taxi__BWTestPaxStream = {"_p_si_taxi__BWTestPaxStream", "si_taxi::BWTestPaxStream *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_si_taxi__BWVehicle = {"_p_si_taxi__BWVehicle", "std::vector< si_taxi::BWVehicle >::value_type *|si_taxi::BWVehicle *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_si_taxi__EmpiricalSampler = {"_p_si_taxi__EmpiricalSampler", "si_taxi::EmpiricalSampler *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_si_taxi__EpsilonGreedySarsaActor = {"_p_si_taxi__EpsilonGreedySarsaActor", "si_taxi::EpsilonGreedySarsaActor *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_si_taxi__Error = {"_p_si_taxi__Error", "si_taxi::Error *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_si_taxi__Exception = {"_p_si_taxi__Exception", "si_taxi::Exception *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_si_taxi__MDPSim = {"_p_si_taxi__MDPSim", "si_taxi::MDPSim *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_si_taxi__MDPState = {"_p_si_taxi__MDPState", "si_taxi::MDPState *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_si_taxi__NaturalHistogram = {"_p_si_taxi__NaturalHistogram", "si_taxi::NaturalHistogram *|std::vector< si_taxi::NaturalHistogram >::value_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_si_taxi__ODHistogram = {"_p_si_taxi__ODHistogram", "si_taxi::ODHistogram *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_si_taxi__ODMatrixWrapper = {"_p_si_taxi__ODMatrixWrapper", "si_taxi::ODMatrixWrapper *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_si_taxi__SarsaActor = {"_p_si_taxi__SarsaActor", "si_taxi::SarsaActor *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_si_taxi__TabularSarsaSolver = {"_p_si_taxi__TabularSarsaSolver", "si_taxi::TabularSarsaSolver *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_size_t = {"_p_size_t", "size_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_size_type = {"_p_size_type", "size_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__allocatorT_double_t = {"_p_std__allocatorT_double_t", "std::vector< double >::allocator_type *|std::allocator< double > *", 0, 0, (void*)0, 0};
@@ -48247,11 +50517,13 @@ static swig_type_info _swigt__p_std__dequeT_long_std__allocatorT_long_t_t = {"_p
 static swig_type_info _swigt__p_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t = {"_p_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t", "std::deque< si_taxi::BWPax > *|std::deque< si_taxi::BWPax,std::allocator< si_taxi::BWPax > > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__exception = {"_p_std__exception", "std::exception *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__ostream = {"_p_std__ostream", "std::ostream *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__pairT_std__vectorT_int_std__allocatorT_int_t_t_double_t = {"_p_std__pairT_std__vectorT_int_std__allocatorT_int_t_t_double_t", "std::pair< std::vector< int,std::allocator< int > >,double > *|std::pair< std::vector< int >,double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__queueT_int_std__dequeT_int_std__allocatorT_int_t_t_t = {"_p_std__queueT_int_std__dequeT_int_std__allocatorT_int_t_t_t", "std::queue< int,std::deque< int,std::allocator< int > > > *|std::queue< int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__queueT_si_taxi__BWPax_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t_t = {"_p_std__queueT_si_taxi__BWPax_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t_t", "std::queue< si_taxi::BWPax > *|std::queue< si_taxi::BWPax,std::deque< si_taxi::BWPax,std::allocator< si_taxi::BWPax > > > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__string = {"_p_std__string", "std::string *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__unordered_mapT_std__vectorT_int_std__allocatorT_int_t_t_double_boost__hashT_si_taxi__TabularSarsaSolver__sa_t_t_t = {"_p_std__unordered_mapT_std__vectorT_int_std__allocatorT_int_t_t_double_boost__hashT_si_taxi__TabularSarsaSolver__sa_t_t_t", "std::unordered_map< std::vector< int,std::allocator< int > >,double,boost::hash< si_taxi::TabularSarsaSolver::sa_t > > *|si_taxi::TabularSarsaSolver::q_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_double_std__allocatorT_double_t_t = {"_p_std__vectorT_double_std__allocatorT_double_t_t", "std::vector< double,std::allocator< double > > *|std::vector< double > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__vectorT_int_std__allocatorT_int_t_t = {"_p_std__vectorT_int_std__allocatorT_int_t_t", "std::vector< int,std::allocator< int > > *|std::vector< int > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__vectorT_int_std__allocatorT_int_t_t = {"_p_std__vectorT_int_std__allocatorT_int_t_t", "si_taxi::TabularSarsaSolver::sa_t *|std::vector< int,std::allocator< int > > *|std::vector< int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t = {"_p_std__vectorT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t", "std::vector< si_taxi::BWPax > *|std::vector< si_taxi::BWPax,std::allocator< si_taxi::BWPax > > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_si_taxi__BWSimStatsPaxRecord_std__allocatorT_si_taxi__BWSimStatsPaxRecord_t_t = {"_p_std__vectorT_si_taxi__BWSimStatsPaxRecord_std__allocatorT_si_taxi__BWSimStatsPaxRecord_t_t", "std::vector< si_taxi::BWSimStatsPaxRecord,std::allocator< si_taxi::BWSimStatsPaxRecord > > *|std::vector< si_taxi::BWSimStatsPaxRecord > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_si_taxi__BWVehicle_std__allocatorT_si_taxi__BWVehicle_t_t = {"_p_std__vectorT_si_taxi__BWVehicle_std__allocatorT_si_taxi__BWVehicle_t_t", "std::vector< si_taxi::BWVehicle,std::allocator< si_taxi::BWVehicle > > *|std::vector< si_taxi::BWVehicle > *", 0, 0, (void*)0, 0};
@@ -48279,9 +50551,13 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_container_type,
   &_swigt__p_difference_type,
   &_swigt__p_double,
+  &_swigt__p_first_type,
   &_swigt__p_int_vector_t,
   &_swigt__p_long,
   &_swigt__p_p_void,
+  &_swigt__p_q_t,
+  &_swigt__p_sa_t,
+  &_swigt__p_second_type,
   &_swigt__p_si_taxi__BWAndreassonHandler,
   &_swigt__p_si_taxi__BWCallTimeTracker,
   &_swigt__p_si_taxi__BWDynamicTransportationProblemHandler,
@@ -48308,13 +50584,15 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_si_taxi__BWTestPaxStream,
   &_swigt__p_si_taxi__BWVehicle,
   &_swigt__p_si_taxi__EmpiricalSampler,
+  &_swigt__p_si_taxi__EpsilonGreedySarsaActor,
   &_swigt__p_si_taxi__Error,
   &_swigt__p_si_taxi__Exception,
   &_swigt__p_si_taxi__MDPSim,
-  &_swigt__p_si_taxi__MDPState,
   &_swigt__p_si_taxi__NaturalHistogram,
   &_swigt__p_si_taxi__ODHistogram,
   &_swigt__p_si_taxi__ODMatrixWrapper,
+  &_swigt__p_si_taxi__SarsaActor,
+  &_swigt__p_si_taxi__TabularSarsaSolver,
   &_swigt__p_size_t,
   &_swigt__p_size_type,
   &_swigt__p_std__allocatorT_double_t,
@@ -48332,9 +50610,11 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t,
   &_swigt__p_std__exception,
   &_swigt__p_std__ostream,
+  &_swigt__p_std__pairT_std__vectorT_int_std__allocatorT_int_t_t_double_t,
   &_swigt__p_std__queueT_int_std__dequeT_int_std__allocatorT_int_t_t_t,
   &_swigt__p_std__queueT_si_taxi__BWPax_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t_t,
   &_swigt__p_std__string,
+  &_swigt__p_std__unordered_mapT_std__vectorT_int_std__allocatorT_int_t_t_double_boost__hashT_si_taxi__TabularSarsaSolver__sa_t_t_t,
   &_swigt__p_std__vectorT_double_std__allocatorT_double_t_t,
   &_swigt__p_std__vectorT_int_std__allocatorT_int_t_t,
   &_swigt__p_std__vectorT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t,
@@ -48364,9 +50644,13 @@ static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0,
 static swig_cast_info _swigc__p_container_type[] = {  {&_swigt__p_container_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_difference_type[] = {  {&_swigt__p_difference_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_double[] = {  {&_swigt__p_double, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_first_type[] = {  {&_swigt__p_first_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_int_vector_t[] = {  {&_swigt__p_int_vector_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_long[] = {  {&_swigt__p_long, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_p_void[] = {  {&_swigt__p_p_void, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_q_t[] = {  {&_swigt__p_q_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_sa_t[] = {  {&_swigt__p_sa_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_second_type[] = {  {&_swigt__p_second_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_si_taxi__BWAndreassonHandler[] = {  {&_swigt__p_si_taxi__BWAndreassonHandler, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_si_taxi__BWCallTimeTracker[] = {  {&_swigt__p_si_taxi__BWCallTimeTracker, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_si_taxi__BWDynamicTransportationProblemHandler[] = {  {&_swigt__p_si_taxi__BWDynamicTransportationProblemHandler, 0, 0, 0},{0, 0, 0, 0}};
@@ -48393,13 +50677,15 @@ static swig_cast_info _swigc__p_si_taxi__BWSurplusDeficitHandler[] = {  {&_swigt
 static swig_cast_info _swigc__p_si_taxi__BWTestPaxStream[] = {  {&_swigt__p_si_taxi__BWTestPaxStream, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_si_taxi__BWVehicle[] = {  {&_swigt__p_si_taxi__BWVehicle, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_si_taxi__EmpiricalSampler[] = {  {&_swigt__p_si_taxi__EmpiricalSampler, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_si_taxi__EpsilonGreedySarsaActor[] = {  {&_swigt__p_si_taxi__EpsilonGreedySarsaActor, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_si_taxi__Error[] = {  {&_swigt__p_si_taxi__Error, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_si_taxi__Exception[] = {  {&_swigt__p_si_taxi__Exception, 0, 0, 0},  {&_swigt__p_si_taxi__Error, _p_si_taxi__ErrorTo_p_si_taxi__Exception, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_si_taxi__MDPSim[] = {  {&_swigt__p_si_taxi__MDPSim, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_si_taxi__MDPState[] = {  {&_swigt__p_si_taxi__MDPState, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_si_taxi__NaturalHistogram[] = {  {&_swigt__p_si_taxi__NaturalHistogram, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_si_taxi__ODHistogram[] = {  {&_swigt__p_si_taxi__ODHistogram, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_si_taxi__ODMatrixWrapper[] = {  {&_swigt__p_si_taxi__ODMatrixWrapper, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_si_taxi__SarsaActor[] = {  {&_swigt__p_si_taxi__SarsaActor, 0, 0, 0},  {&_swigt__p_si_taxi__EpsilonGreedySarsaActor, _p_si_taxi__EpsilonGreedySarsaActorTo_p_si_taxi__SarsaActor, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_si_taxi__TabularSarsaSolver[] = {  {&_swigt__p_si_taxi__TabularSarsaSolver, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_size_t[] = {  {&_swigt__p_size_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_size_type[] = {  {&_swigt__p_size_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__allocatorT_double_t[] = {  {&_swigt__p_std__allocatorT_double_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -48417,9 +50703,11 @@ static swig_cast_info _swigc__p_std__dequeT_long_std__allocatorT_long_t_t[] = { 
 static swig_cast_info _swigc__p_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t[] = {  {&_swigt__p_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__exception[] = {  {&_swigt__p_std__exception, 0, 0, 0},  {&_swigt__p_si_taxi__Exception, _p_si_taxi__ExceptionTo_p_std__exception, 0, 0},  {&_swigt__p_si_taxi__Error, _p_si_taxi__ErrorTo_p_std__exception, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__ostream[] = {  {&_swigt__p_std__ostream, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__pairT_std__vectorT_int_std__allocatorT_int_t_t_double_t[] = {  {&_swigt__p_std__pairT_std__vectorT_int_std__allocatorT_int_t_t_double_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__queueT_int_std__dequeT_int_std__allocatorT_int_t_t_t[] = {  {&_swigt__p_std__queueT_int_std__dequeT_int_std__allocatorT_int_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__queueT_si_taxi__BWPax_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t_t[] = {  {&_swigt__p_std__queueT_si_taxi__BWPax_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__string[] = {  {&_swigt__p_std__string, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__unordered_mapT_std__vectorT_int_std__allocatorT_int_t_t_double_boost__hashT_si_taxi__TabularSarsaSolver__sa_t_t_t[] = {  {&_swigt__p_std__unordered_mapT_std__vectorT_int_std__allocatorT_int_t_t_double_boost__hashT_si_taxi__TabularSarsaSolver__sa_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_double_std__allocatorT_double_t_t[] = {  {&_swigt__p_std__vectorT_double_std__allocatorT_double_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_int_std__allocatorT_int_t_t[] = {  {&_swigt__p_std__vectorT_int_std__allocatorT_int_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t[] = {  {&_swigt__p_std__vectorT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -48449,9 +50737,13 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_container_type,
   _swigc__p_difference_type,
   _swigc__p_double,
+  _swigc__p_first_type,
   _swigc__p_int_vector_t,
   _swigc__p_long,
   _swigc__p_p_void,
+  _swigc__p_q_t,
+  _swigc__p_sa_t,
+  _swigc__p_second_type,
   _swigc__p_si_taxi__BWAndreassonHandler,
   _swigc__p_si_taxi__BWCallTimeTracker,
   _swigc__p_si_taxi__BWDynamicTransportationProblemHandler,
@@ -48478,13 +50770,15 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_si_taxi__BWTestPaxStream,
   _swigc__p_si_taxi__BWVehicle,
   _swigc__p_si_taxi__EmpiricalSampler,
+  _swigc__p_si_taxi__EpsilonGreedySarsaActor,
   _swigc__p_si_taxi__Error,
   _swigc__p_si_taxi__Exception,
   _swigc__p_si_taxi__MDPSim,
-  _swigc__p_si_taxi__MDPState,
   _swigc__p_si_taxi__NaturalHistogram,
   _swigc__p_si_taxi__ODHistogram,
   _swigc__p_si_taxi__ODMatrixWrapper,
+  _swigc__p_si_taxi__SarsaActor,
+  _swigc__p_si_taxi__TabularSarsaSolver,
   _swigc__p_size_t,
   _swigc__p_size_type,
   _swigc__p_std__allocatorT_double_t,
@@ -48502,9 +50796,11 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t,
   _swigc__p_std__exception,
   _swigc__p_std__ostream,
+  _swigc__p_std__pairT_std__vectorT_int_std__allocatorT_int_t_t_double_t,
   _swigc__p_std__queueT_int_std__dequeT_int_std__allocatorT_int_t_t_t,
   _swigc__p_std__queueT_si_taxi__BWPax_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t_t,
   _swigc__p_std__string,
+  _swigc__p_std__unordered_mapT_std__vectorT_int_std__allocatorT_int_t_t_double_boost__hashT_si_taxi__TabularSarsaSolver__sa_t_t_t,
   _swigc__p_std__vectorT_double_std__allocatorT_double_t_t,
   _swigc__p_std__vectorT_int_std__allocatorT_int_t_t,
   _swigc__p_std__vectorT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t,
@@ -49136,6 +51432,7 @@ SWIGEXPORT void Init_siTaxi(void) {
   rb_define_module_function(mSiTaxi, "seed_rng", VALUEFUNC(_wrap_seed_rng), -1);
   rb_define_module_function(mSiTaxi, "register_sigsegv_handler", VALUEFUNC(_wrap_register_sigsegv_handler), -1);
   rb_define_singleton_method(mSiTaxi, "SIZE_T_MAX", VALUEFUNC(_wrap_SIZE_T_MAX_get), 0);
+  rb_define_singleton_method(mSiTaxi, "DOUBLE_MAX", VALUEFUNC(_wrap_DOUBLE_MAX_get), 0);
   rb_define_singleton_method(mSiTaxi, "rng", VALUEFUNC(_wrap_rng_get), 0);
   rb_define_singleton_method(mSiTaxi, "rng=", VALUEFUNC(_wrap_rng_set), 1);
   
@@ -49836,14 +52133,6 @@ SWIGEXPORT void Init_siTaxi(void) {
   SwigClassBWPaxDequeVector.destroy = (void (*)(void *)) free_std_vector_Sl_std_deque_Sl_si_taxi_BWPax_Sg__Sg_;
   SwigClassBWPaxDequeVector.trackObjects = 0;
   
-  SwigClassMDPState.klass = rb_define_class_under(mSiTaxi, "MDPState", rb_cObject);
-  SWIG_TypeClientData(SWIGTYPE_p_si_taxi__MDPState, (void *) &SwigClassMDPState);
-  rb_define_alloc_func(SwigClassMDPState.klass, _wrap_MDPState_allocate);
-  rb_define_method(SwigClassMDPState.klass, "initialize", VALUEFUNC(_wrap_new_MDPState), -1);
-  SwigClassMDPState.mark = 0;
-  SwigClassMDPState.destroy = (void (*)(void *)) free_si_taxi_MDPState;
-  SwigClassMDPState.trackObjects = 0;
-  
   SwigClassMDPSim.klass = rb_define_class_under(mSiTaxi, "MDPSim", rb_cObject);
   SWIG_TypeClientData(SWIGTYPE_p_si_taxi__MDPSim, (void *) &SwigClassMDPSim);
   rb_define_alloc_func(SwigClassMDPSim.klass, _wrap_MDPSim_allocate);
@@ -49856,6 +52145,8 @@ SWIGEXPORT void Init_siTaxi(void) {
   rb_define_method(SwigClassMDPSim.klass, "queue", VALUEFUNC(_wrap_MDPSim_queue_get), -1);
   rb_define_method(SwigClassMDPSim.klass, "inbound=", VALUEFUNC(_wrap_MDPSim_inbound_set), -1);
   rb_define_method(SwigClassMDPSim.klass, "inbound", VALUEFUNC(_wrap_MDPSim_inbound_get), -1);
+  rb_define_method(SwigClassMDPSim.klass, "queue_max=", VALUEFUNC(_wrap_MDPSim_queue_max_set), -1);
+  rb_define_method(SwigClassMDPSim.klass, "queue_max", VALUEFUNC(_wrap_MDPSim_queue_max_get), -1);
   rb_define_method(SwigClassMDPSim.klass, "available=", VALUEFUNC(_wrap_MDPSim_available_set), -1);
   rb_define_method(SwigClassMDPSim.klass, "available", VALUEFUNC(_wrap_MDPSim_available_get), -1);
   rb_define_method(SwigClassMDPSim.klass, "idle=", VALUEFUNC(_wrap_MDPSim_idle_set), -1);
@@ -49872,5 +52163,83 @@ SWIGEXPORT void Init_siTaxi(void) {
   SwigClassMDPSim.mark = 0;
   SwigClassMDPSim.destroy = (void (*)(void *)) free_si_taxi_MDPSim;
   SwigClassMDPSim.trackObjects = 0;
+  
+  SwigClassPolicyPair.klass = rb_define_class_under(mSiTaxi, "PolicyPair", rb_cObject);
+  SWIG_TypeClientData(SWIGTYPE_p_std__pairT_std__vectorT_int_std__allocatorT_int_t_t_double_t, (void *) &SwigClassPolicyPair);
+  rb_define_alloc_func(SwigClassPolicyPair.klass, _wrap_PolicyPair_allocate);
+  rb_define_method(SwigClassPolicyPair.klass, "initialize", VALUEFUNC(_wrap_new_PolicyPair), -1);
+  rb_define_method(SwigClassPolicyPair.klass, "first=", VALUEFUNC(_wrap_PolicyPair_first_set), -1);
+  rb_define_method(SwigClassPolicyPair.klass, "first", VALUEFUNC(_wrap_PolicyPair_first_get), -1);
+  rb_define_method(SwigClassPolicyPair.klass, "second=", VALUEFUNC(_wrap_PolicyPair_second_set), -1);
+  rb_define_method(SwigClassPolicyPair.klass, "second", VALUEFUNC(_wrap_PolicyPair_second_get), -1);
+  rb_define_method(SwigClassPolicyPair.klass, "inspect", VALUEFUNC(_wrap_PolicyPair_inspect), -1);
+  rb_define_method(SwigClassPolicyPair.klass, "to_s", VALUEFUNC(_wrap_PolicyPair_to_s), -1);
+  rb_define_method(SwigClassPolicyPair.klass, "[]", VALUEFUNC(_wrap_PolicyPair___getitem__), -1);
+  rb_define_method(SwigClassPolicyPair.klass, "[]=", VALUEFUNC(_wrap_PolicyPair___setitem__), -1);
+  SwigClassPolicyPair.mark = 0;
+  SwigClassPolicyPair.destroy = (void (*)(void *)) free_std_pair_Sl_std_vector_Sl_int_Sg__Sc_double_Sg_;
+  SwigClassPolicyPair.trackObjects = 0;
+  
+  SwigClassTabularSarsaSolver.klass = rb_define_class_under(mSiTaxi, "TabularSarsaSolver", rb_cObject);
+  SWIG_TypeClientData(SWIGTYPE_p_si_taxi__TabularSarsaSolver, (void *) &SwigClassTabularSarsaSolver);
+  rb_define_alloc_func(SwigClassTabularSarsaSolver.klass, _wrap_TabularSarsaSolver_allocate);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "initialize", VALUEFUNC(_wrap_new_TabularSarsaSolver), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "sim=", VALUEFUNC(_wrap_TabularSarsaSolver_sim_set), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "sim", VALUEFUNC(_wrap_TabularSarsaSolver_sim_get), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "actor=", VALUEFUNC(_wrap_TabularSarsaSolver_actor_set), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "actor", VALUEFUNC(_wrap_TabularSarsaSolver_actor_get), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "alpha=", VALUEFUNC(_wrap_TabularSarsaSolver_alpha_set), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "alpha", VALUEFUNC(_wrap_TabularSarsaSolver_alpha_get), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "gamma=", VALUEFUNC(_wrap_TabularSarsaSolver_gamma_set), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "gamma", VALUEFUNC(_wrap_TabularSarsaSolver_gamma_get), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "state_action=", VALUEFUNC(_wrap_TabularSarsaSolver_state_action_set), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "state_action", VALUEFUNC(_wrap_TabularSarsaSolver_state_action_get), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "next_state_action=", VALUEFUNC(_wrap_TabularSarsaSolver_next_state_action_set), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "next_state_action", VALUEFUNC(_wrap_TabularSarsaSolver_next_state_action_get), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "action=", VALUEFUNC(_wrap_TabularSarsaSolver_action_set), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "action", VALUEFUNC(_wrap_TabularSarsaSolver_action_get), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "q=", VALUEFUNC(_wrap_TabularSarsaSolver_q_set), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "q", VALUEFUNC(_wrap_TabularSarsaSolver_q_get), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "state_size", VALUEFUNC(_wrap_TabularSarsaSolver_state_size), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "action_size", VALUEFUNC(_wrap_TabularSarsaSolver_action_size), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "state_action_size", VALUEFUNC(_wrap_TabularSarsaSolver_state_action_size), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "init", VALUEFUNC(_wrap_TabularSarsaSolver_init), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "tick", VALUEFUNC(_wrap_TabularSarsaSolver_tick), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "handle_pax_stream", VALUEFUNC(_wrap_TabularSarsaSolver_handle_pax_stream), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "fill_state_action_state", VALUEFUNC(_wrap_TabularSarsaSolver_fill_state_action_state), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "fill_state_action_action", VALUEFUNC(_wrap_TabularSarsaSolver_fill_state_action_action), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "select_action", VALUEFUNC(_wrap_TabularSarsaSolver_select_action), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "reward", VALUEFUNC(_wrap_TabularSarsaSolver_reward), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "lookup_q", VALUEFUNC(_wrap_TabularSarsaSolver_lookup_q), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "update_q", VALUEFUNC(_wrap_TabularSarsaSolver_update_q), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "q_size", VALUEFUNC(_wrap_TabularSarsaSolver_q_size), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "policy", VALUEFUNC(_wrap_TabularSarsaSolver_policy), -1);
+  rb_define_method(SwigClassTabularSarsaSolver.klass, "dump_q", VALUEFUNC(_wrap_TabularSarsaSolver_dump_q), -1);
+  SwigClassTabularSarsaSolver.mark = 0;
+  SwigClassTabularSarsaSolver.destroy = (void (*)(void *)) free_si_taxi_TabularSarsaSolver;
+  SwigClassTabularSarsaSolver.trackObjects = 0;
+  rb_define_module_function(mSiTaxi, "disown_SarsaActor", VALUEFUNC(_wrap_disown_SarsaActor), -1);
+  
+  SwigClassSarsaActor.klass = rb_define_class_under(mSiTaxi, "SarsaActor", rb_cObject);
+  SWIG_TypeClientData(SWIGTYPE_p_si_taxi__SarsaActor, (void *) &SwigClassSarsaActor);
+  rb_define_alloc_func(SwigClassSarsaActor.klass, _wrap_SarsaActor_allocate);
+  rb_define_method(SwigClassSarsaActor.klass, "initialize", VALUEFUNC(_wrap_new_SarsaActor), -1);
+  rb_define_method(SwigClassSarsaActor.klass, "solver=", VALUEFUNC(_wrap_SarsaActor_solver_set), -1);
+  rb_define_method(SwigClassSarsaActor.klass, "solver", VALUEFUNC(_wrap_SarsaActor_solver_get), -1);
+  rb_define_method(SwigClassSarsaActor.klass, "select_action", VALUEFUNC(_wrap_SarsaActor_select_action), -1);
+  SwigClassSarsaActor.mark = 0;
+  SwigClassSarsaActor.destroy = (void (*)(void *)) free_si_taxi_SarsaActor;
+  SwigClassSarsaActor.trackObjects = 0;
+  
+  SwigClassEpsilonGreedySarsaActor.klass = rb_define_class_under(mSiTaxi, "EpsilonGreedySarsaActor", ((swig_class *) SWIGTYPE_p_si_taxi__SarsaActor->clientdata)->klass);
+  SWIG_TypeClientData(SWIGTYPE_p_si_taxi__EpsilonGreedySarsaActor, (void *) &SwigClassEpsilonGreedySarsaActor);
+  rb_define_alloc_func(SwigClassEpsilonGreedySarsaActor.klass, _wrap_EpsilonGreedySarsaActor_allocate);
+  rb_define_method(SwigClassEpsilonGreedySarsaActor.klass, "initialize", VALUEFUNC(_wrap_new_EpsilonGreedySarsaActor), -1);
+  rb_define_method(SwigClassEpsilonGreedySarsaActor.klass, "epsilon=", VALUEFUNC(_wrap_EpsilonGreedySarsaActor_epsilon_set), -1);
+  rb_define_method(SwigClassEpsilonGreedySarsaActor.klass, "epsilon", VALUEFUNC(_wrap_EpsilonGreedySarsaActor_epsilon_get), -1);
+  rb_define_method(SwigClassEpsilonGreedySarsaActor.klass, "select_action", VALUEFUNC(_wrap_EpsilonGreedySarsaActor_select_action), -1);
+  SwigClassEpsilonGreedySarsaActor.mark = 0;
+  SwigClassEpsilonGreedySarsaActor.destroy = (void (*)(void *)) free_si_taxi_EpsilonGreedySarsaActor;
+  SwigClassEpsilonGreedySarsaActor.trackObjects = 0;
 }
 

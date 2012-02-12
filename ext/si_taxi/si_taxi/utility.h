@@ -162,6 +162,37 @@ template <typename T> bool vector_all_at_least(const T &v, int x) {
   return min_val >= x;
 }
 
+/**
+ * Go through all possible action matrices recursively, and call the given
+ * functor when a complete sequence has been obtained.
+ */
+template <typename MatData, typename RowSums, typename F>
+void each_square_matrix_with_row_sums_lte(MatData &mat,
+    size_t start, size_t offset, size_t used, const RowSums &row_sums, F &f)
+{
+  if (start + offset >= mat.size()) {
+    // base case: whole mat now intialised
+    f(mat);
+  } else {
+    size_t n = row_sums.size();
+    size_t origin = offset / n;
+    size_t destin = offset % n;
+    if (origin == destin) {
+      // skip the diagonal
+      each_square_matrix_with_row_sums_lte(
+          mat, start, offset + 1, used, row_sums, f);
+    } else {
+      CHECK(row_sums[origin] >= (int)used);
+      bool new_row = destin == n - 1;
+      for (size_t i = 0; i <= row_sums[origin] - used; ++i) {
+        mat[start + offset] = i;
+        each_square_matrix_with_row_sums_lte(
+            mat, start, offset + 1, new_row ? 0 : used + i, row_sums, f);
+      }
+    }
+  }
+}
+
 }
 
 #endif /* guard */
