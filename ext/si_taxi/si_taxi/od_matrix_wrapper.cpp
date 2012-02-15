@@ -53,6 +53,10 @@ double ODMatrixWrapper::poisson_origin_pmf(size_t i, double n) const {
   return poisson_pmf(this->rate_from(i), n);
 }
 
+double ODMatrixWrapper::poisson_destin_pmf(size_t j, double n) const {
+  return poisson_pmf(this->rate_to(j), n);
+}
+
 double ODMatrixWrapper::poisson_trip_pmf(size_t i, size_t j, double n) const {
   return poisson_pmf(this->at(i, j), n);
 }

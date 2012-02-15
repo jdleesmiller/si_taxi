@@ -7,7 +7,7 @@ gem 'gratr', '>= 0.5.1', '~> 0.5', :path => '../gratr'
 
 gem 'gemma', :path => '../gemma' 
 
-gem 'finite_mdp', '>= 0.0.1', '~> 0.0', :path => '../finite_mdp' 
+gem 'finite_mdp', :path => '../finite_mdp' 
 
 gem 'discrete_event', :path => '../discrete_event' 
 

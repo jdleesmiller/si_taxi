@@ -14,7 +14,7 @@ PATH
 PATH
   remote: ../finite_mdp
   specs:
-    finite_mdp (0.0.1)
+    finite_mdp (0.1.1)
       narray (~> 0.5.9)
 
 PATH
@@ -61,7 +61,7 @@ PLATFORMS
 
 DEPENDENCIES
   discrete_event!
-  finite_mdp (~> 0.0, >= 0.0.1)!
+  finite_mdp!
   gemma!
   gratr (~> 0.5, >= 0.5.1)!
   narray!

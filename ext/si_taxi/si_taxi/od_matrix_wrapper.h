@@ -76,6 +76,11 @@ struct ODMatrixWrapper
   double poisson_origin_pmf(size_t i, double n) const;
 
   /**
+   * Probability of exactly n trips (per unit time) to station j.
+   */
+  double poisson_destin_pmf(size_t j, double n) const;
+
+  /**
    * Probability of exactly n requests (per unit time) from station i to
    * station j.
    */

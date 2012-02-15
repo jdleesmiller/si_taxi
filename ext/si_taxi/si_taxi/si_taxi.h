@@ -32,7 +32,7 @@ void register_sigsegv_handler();
 const size_t SIZE_T_MAX = std::numeric_limits<size_t>::max();
 
 /**
- * Ruby doesn't make it easy to find this out.
+ * Same as Float::MAX in ruby.
  */
 const double DOUBLE_MAX = std::numeric_limits<double>::max();
 
@@ -101,6 +101,14 @@ T cumulative_moving_average(T x, T average, N &count) {
   ++count;
   return average + (x - average) / count;
 }
+
+/**
+ * List all matrices with non-negative integer entries, zeros on the diagonal,
+ * and row sums less than or equal to the given sums. The matrices are returned
+ * as vectors in row-major order.
+ */
+std::vector<std::vector<int> > all_square_matrices_with_row_sums_lte(
+    const std::vector<int> &row_sums);
 
 }
 

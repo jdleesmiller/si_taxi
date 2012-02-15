@@ -109,5 +109,41 @@ class MDPTabularSarsaSolverTest < Test::Unit::TestCase
         @s.lookup_q(IntVector.new([1,0,0,1,0, 0,0,1,0]))
     end
   end
+
+  context "two station (2,2) ring with one vehicle" do
+    setup do
+      @m = MDPSim.new
+      @m.trip_time = [[0, 2], [2, 0]]
+      @m.init
+      @m.add_vehicles_in_turn 1
+    end
+
+    should "work" do
+      @s = TabularSarsaSolver.new(@m)
+      @actor = FakeSarsaActor.new(@s, [[0,0],[0,0]], *[[[0,0],[0,0]]]*5)
+      @s.actor = @actor
+      @s.init
+
+      @s.tick [BWPax.new(0,1,1)]
+      p @m.now
+      p @m.inbound
+      p @s.state_action
+      @s.tick []
+      p @m.now
+      p @m.inbound
+      p @s.state_action
+      @s.tick []
+      p @m.now
+      p @m.inbound
+      p @s.state_action
+      @s.tick []
+      p @m.now
+      p @m.inbound
+      p @s.state_action
+      @s.tick []
+      p @m.inbound
+      p @s.state_action
+    end
+  end
 end
 

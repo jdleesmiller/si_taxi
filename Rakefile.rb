@@ -89,42 +89,114 @@ end
 task :default => :test
 
 task :sarsa do
-  gamma = 0.95
-  od = [[0, 0.2],[0.0, 0]]
-
   require 'si_taxi'
-
   include SiTaxi
-  SiTaxi.seed_rng 41 # (rand(0x7fffffff))
-  m = MDPSim.new
-  m.trip_time = [[0, 1], [1, 0]]
-  m.queue_max = 2
-  m.init
-  m.add_vehicles_in_turn 1
 
-  solver = TabularSarsaSolver.new(m)
-  actor = EpsilonGreedySarsaActor.new(solver)
-  solver.actor = actor
-  solver.gamma = gamma
-  solver.init
+  gamma = 0.95
+  od = [[0,0.0],[0.1,0]]
+  od_wrapper = ODMatrixWrapper.new(od)
+  trip_time = [[0, 2], [2, 0]]
+  max_queue = 1
+  num_veh = 1
 
-  scheme = [
-    [0.1, 0.1, 50000],
-    [0.05, 0.05, 50000],
-    [0.01, 0.01, 50000],
-    [0.001, 0.001, 50000]]*3
+  mdp_model = MDPModelB.new(trip_time, num_veh, od_wrapper, max_queue)
+  hash_model = FiniteMDP::HashModel.new(mdp_model.to_hash)
+  #p FiniteMDP::TableModel.from_model(hash_model)
+  
+  dp_solver = FiniteMDP::Solver.new(hash_model, gamma)
+  dp_solver.policy_iteration_exact 
 
-  for epsilon, alpha, num_pax in scheme
-    p [epsilon, alpha, num_pax]
-    actor.epsilon = epsilon
-    solver.alpha = alpha
-    stream = BWPoissonPaxStream.new(m.now, od) # NB must reset stream from now
-    solver.handle_pax_stream(num_pax, stream)
+  ruby_sarsa_solver = FiniteMDP::SarsaSolver.new(hash_model, gamma)
+  ruby_sarsa_solver.action_selection = :epsilon_greedy
+  ruby_sarsa_solver.alpha = 0.05
+  ruby_sarsa_solver.epsilon = 1.0
+  1.upto(100000) do |t|
+    p ruby_sarsa_solver.q if t % 10000 == 0
+    ruby_sarsa_solver.epsilon *= 0.99992
+    #ruby_sarsa_solver.temperature *= 0.99995
+    ruby_sarsa_solver.sarsa_step
+  end
 
-    p solver.q_size
-    p solver.policy([0,0,1,0,0])
-    p solver.policy([0,0,0,1,0])
-    solver.dump_q
+  #SiTaxi.seed_rng 42 # (rand(0x7fffffff))
+  #m = MDPSim.new
+  #m.trip_time = trip_time
+  #m.queue_max = max_queue
+  #m.init
+  #m.add_vehicles_in_turn num_veh
+
+  #solver = TabularSarsaSolver.new(m)
+  #actor = EpsilonGreedySarsaActor.new(solver)
+  #solver.actor = actor
+  #solver.gamma = gamma
+  #solver.init
+
+  #scheme = [
+  #  [0.05, 0.1, 50000],
+  #  [0.01, 0.05, 50000],
+  #  [0.001, 0.01, 50000],
+  #  [0.0001, 0.001, 100000]]*2 + [[0.0001, 0.001, 100000]]
+
+  #for epsilon, alpha, num_pax in scheme
+  #  p [epsilon, alpha, num_pax]
+  #  actor.epsilon = epsilon
+  #  solver.alpha = alpha
+  #  stream = BWPoissonPaxStream.new(m.now, od) # NB must reset stream from now
+  #  solver.handle_pax_stream(num_pax, stream)
+
+  #  p solver.q_size
+  #  p solver.policy([0,0,1,0,0])
+  #  p solver.policy([0,0,0,1,0])
+  #  solver.dump_q
+  #end
+
+  #dp_solver.state_action_value.
+  #  sort_by{|(s,a),q_dp| [s.to_a + a.flatten]}.each do |(s,a), q_dp|
+  #  q_sarsa = solver.lookup_q(s.to_a + a.flatten)
+  #  sarsa_action, _ = solver.policy(s.to_a)
+  #  dp_opt = (a == dp_solver.policy[s]) ? '*' : ' '
+  #  sarsa_opt = (a.flatten == sarsa_action.to_a) ? '*' : ' '
+  #  err = 100*(q_dp - q_sarsa) / q_dp
+
+  #  puts "#{s.inspect}, #{a.inspect}: %.4f  %.4f  %.1f\t#{dp_opt} #{sarsa_opt}"\
+  #    % [q_dp, q_sarsa, err]
+  #end
+end
+
+task :foo do
+  require 'si_taxi'
+  include SiTaxi
+  
+  #p Utility.all_non_descending_sequences(0, 0, 0)
+  #p Utility.all_non_descending_sequences(0, 0, 1)
+  #p Utility.all_non_descending_sequences(0, 0, 2)
+
+  #p Utility.all_non_descending_sequences(0, 1, 0)
+  #p Utility.all_non_descending_sequences(0, 1, 1)
+  #p Utility.all_non_descending_sequences(0, 1, 2)
+
+  #p Utility.all_non_descending_sequences(1, 1, 0)
+  #p Utility.all_non_descending_sequences(1, 1, 1)
+  #p Utility.all_non_descending_sequences(1, 1, 2)
+
+  #p Utility.all_non_descending_sequences(0, 2, 0)
+  #p Utility.all_non_descending_sequences(0, 2, 1)
+  #p Utility.all_non_descending_sequences(0, 2, 2)
+
+  m = MDPModelC.new
+  #tm = FiniteMDP::TableModel.from_model(m)
+  #puts tm.rows.map{|s,a,ss,pr,r|
+  #  "[#{s.inspect},#{a.to_a.inspect},#{ss.inspect},%.4f,#{r}]" % pr
+  #}
+  #p tm.transition_probability_sums
+
+  m_states = m.states
+  m_states.each do |s|
+    puts "STATE: #{s.inspect}"
+    m.actions(s).each do |a|
+      puts "ACTION: #{a.inspect}"
+      puts m.next_states(s, a).map(&:inspect)
+    end
+    exit
   end
 end
 

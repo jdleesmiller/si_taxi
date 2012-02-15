@@ -122,4 +122,22 @@ si_taxi::Error::Error(const char* message, int line, const char* file,
   _what += os.str();
 }
 
+// helper for all_square_matrices_with_row_sums_lte
+struct F_get_matrix_data {
+  std::vector<std::vector<int> > results;
+  void operator()(vector<int> &data) {
+    results.push_back(std::vector<int>(data.begin(), data.end()));
+  }
+};
+
+std::vector<std::vector<int> > all_square_matrices_with_row_sums_lte(
+    const std::vector<int> &row_sums)
+{
+  size_t n = row_sums.size();
+  std::vector<int> data(n*n);
+  F_get_matrix_data f;
+  each_square_matrix_with_row_sums_lte(data, 0, 0, 0, row_sums, f);
+  return f.results;
+}
+
 }

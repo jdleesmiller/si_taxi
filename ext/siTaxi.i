@@ -40,6 +40,7 @@ using namespace si_taxi;
 %template(SizeTVector) std::vector<size_t>;
 %template(DoubleVector) std::vector<double>;
 %template(IntVector) std::vector<int>;
+%template(IntVectorVector) std::vector<std::vector<int> >;
 %template(IntQueue) std::queue<int>;
 %template(NaturalHistogramVector) std::vector<si_taxi::NaturalHistogram>;
 

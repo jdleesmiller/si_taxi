@@ -36,6 +36,7 @@ require 'si_taxi/cross_entropy'
 require 'si_taxi/mdp_model'
 require 'si_taxi/mdp_model_a'
 require 'si_taxi/mdp_model_b'
+require 'si_taxi/mdp_model_c'
 
 module SiTaxi
   #

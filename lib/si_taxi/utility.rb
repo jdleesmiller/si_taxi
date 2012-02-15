@@ -121,6 +121,22 @@ module SiTaxi::Utility
   end
 
   #
+  # All sequences of non-descending integers, each between min and max, of the
+  # given length.
+  #
+  def all_non_descending_sequences min, max, length
+    if length == 0
+      [[]]
+    elsif min >= max
+      [[max]*length]
+    else
+      (min..max).map {|i|
+        all_non_descending_sequences(i, max, length-1).map {|s| [i] + s}
+      }.flatten(1)
+    end
+  end
+
+  #
   # Return nil if x is NaN (not a number).
   #
   # @return [Float, nil]

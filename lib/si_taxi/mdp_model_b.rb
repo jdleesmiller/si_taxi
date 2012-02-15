@@ -77,7 +77,7 @@ module SiTaxi
       @model.stations.all? {|i|
         (queue[i] == 0 || (idle[i] == 0 && @model.demand.rate_from(i) > 0)) &&
           Utility::is_nondescending?(inbound[i]) &&
-          inbound[i].all?{|eta| eta < @model.max_time[i]}} &&
+          inbound[i].all?{|eta| eta <= @model.max_time[i]}} &&
         inbound.flatten.size == @model.num_veh
     end
     
