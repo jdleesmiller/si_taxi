@@ -1174,7 +1174,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/si_taxi}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${BOOST_INC}&quot;"/>
 								</option>
-								<option id="gnu.cpp.compiler.option.other.other.886844431" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -fPIC" valueType="string"/>
+								<option id="gnu.cpp.compiler.option.other.other.886844431" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -fPIC -std=c++0x" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.debugging.other.1483062485" name="Other debugging flags" superClass="gnu.cpp.compiler.option.debugging.other" value="-DNDEBUG" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.644723480" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
@@ -2318,7 +2318,7 @@
 									<listOptionValue builtIn="false" value="&quot;${BOOST_INC}&quot;"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.debugging.gprof.707881531" name="Generate gprof information (-pg)" superClass="gnu.cpp.compiler.option.debugging.gprof" value="false" valueType="boolean"/>
-								<option id="gnu.cpp.compiler.option.other.other.1199353833" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -fPIC -fprofile-arcs -ftest-coverage" valueType="string"/>
+								<option id="gnu.cpp.compiler.option.other.other.1199353833" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -fPIC -fprofile-arcs -ftest-coverage -std=c++0x" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1436147899" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.lib.debug.1427523556" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.lib.debug">
@@ -3459,7 +3459,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/si_taxi}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${BOOST_INC}&quot;"/>
 								</option>
-								<option id="gnu.cpp.compiler.option.other.other.72949284" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -fPIC" valueType="string"/>
+								<option id="gnu.cpp.compiler.option.other.other.72949284" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -fPIC -std=c++0x" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.debugging.prof.1008201898" name="Generate prof information (-p)" superClass="gnu.cpp.compiler.option.debugging.prof" value="true" valueType="boolean"/>
 								<option id="gnu.cpp.compiler.option.debugging.gprof.1507641594" name="Generate gprof information (-pg)" superClass="gnu.cpp.compiler.option.debugging.gprof" value="true" valueType="boolean"/>
 								<option id="gnu.cpp.compiler.option.debugging.other.577099852" name="Other debugging flags" superClass="gnu.cpp.compiler.option.debugging.other" value="-DNDEBUG" valueType="string"/>

@@ -92,8 +92,8 @@ COPY = cp
 
 preload = 
 
-libpath = . $(libdir) /home/john/si_taxi/ext/si_taxi/Debug
-LIBPATH =  -L. -L$(libdir) -Wl,-R$(libdir) -L/home/john/si_taxi/ext/si_taxi/Debug -Wl,-R/home/john/si_taxi/ext/si_taxi/Debug
+libpath = . $(libdir) /home/john/si_taxi/ext/si_taxi/Release
+LIBPATH =  -L. -L$(libdir) -Wl,-R$(libdir) -L/home/john/si_taxi/ext/si_taxi/Release -Wl,-R/home/john/si_taxi/ext/si_taxi/Release
 DEFFILE = 
 
 CLEANFILES = mkmf.log
