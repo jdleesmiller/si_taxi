@@ -140,4 +140,14 @@ std::vector<std::vector<int> > all_square_matrices_with_row_sums_lte(
   return f.results;
 }
 
+std::vector<std::vector<int> > all_square_matrices_with_row_sums(
+    const std::vector<int> &row_sums)
+{
+  size_t n = row_sums.size();
+  std::vector<int> data(n*n);
+  F_get_matrix_data f;
+  each_square_matrix_with_row_sums(data, 0, 0, 0, row_sums, f);
+  return f.results;
+}
+
 }

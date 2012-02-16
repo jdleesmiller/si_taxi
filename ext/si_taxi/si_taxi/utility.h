@@ -193,6 +193,43 @@ void each_square_matrix_with_row_sums_lte(MatData &mat,
   }
 }
 
+/**
+ * Go through all possible vehicle movement matrices recursively, and call the
+ * given functor when a complete sequence has been obtained.
+ */
+template <typename MatData, typename RowSums, typename F>
+void each_square_matrix_with_row_sums(MatData &mat,
+    size_t start, size_t offset, size_t used, const RowSums &row_sums, F &f)
+{
+  CHECK(row_sums.size() >= 2);
+  if (start + offset >= mat.size()) {
+    // base case: whole mat now intialised
+    f(mat);
+  } else {
+    size_t n = row_sums.size();
+    size_t origin = offset / n;
+    size_t destin = offset % n;
+    if ((origin  < n - 1 && destin == n - 1) ||
+        (origin == n - 1 && destin == n - 2)) {
+      // end of a row; the value of the last entry is fixed
+      mat[start + offset] = row_sums[origin] - used;
+      each_square_matrix_with_row_sums(
+          mat, start, offset + 1, 0, row_sums, f);
+    } else if (origin == destin) {
+      // skip the diagonal
+      each_square_matrix_with_row_sums(
+          mat, start, offset + 1, used, row_sums, f);
+    } else {
+      CHECK(row_sums[origin] >= (int)used);
+      for (size_t i = 0; i <= row_sums[origin] - used; ++i) {
+        mat[start + offset] = i;
+        each_square_matrix_with_row_sums(
+            mat, start, offset + 1, used + i, row_sums, f);
+      }
+    }
+  }
+}
+
 }
 
 #endif /* guard */

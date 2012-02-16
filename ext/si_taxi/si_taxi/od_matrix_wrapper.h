@@ -9,6 +9,9 @@ namespace si_taxi {
 /**
  * Cache some commonly used figures for an OD matrix.
  *
+ * It is assumed that there is at least one non-zero entry in the matrix and
+ * that all entries are non-negative. Rows or columns of zeros are OK.
+ *
  * This class doesn't require any particular units for the entries (depends
  * where it's used).
  */
@@ -97,6 +100,14 @@ struct ODMatrixWrapper
    * station i to station j.
    */
   double poisson_trip_cdf_complement(size_t i, size_t j, double n) const;
+
+  /**
+   * Probability of the given numbers of trips from i to each destination,
+   * given that the total number of trips from i is known.
+   *
+   * @param x trip counts; size() == num_stations()
+   */
+  double multinomial_trip_pmf(size_t i, const std::vector<int> &x) const;
 
   /**
    * Generate a request. The origin and destination are chosen according to

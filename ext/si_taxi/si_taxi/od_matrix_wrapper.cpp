@@ -71,6 +71,38 @@ double ODMatrixWrapper::poisson_trip_cdf_complement(
   return poisson_cdf_complement(this->at(i, j), n);
 }
 
+double ODMatrixWrapper::multinomial_trip_pmf(size_t i, const std::vector<int> &x) const
+{
+  // based on dmultinom from R 2.13.1, which uses lgamma
+  CHECK(x.size() == num_stations());
+
+  // handle zeros as a special case
+  bool all_probs_zero = true;
+  bool all_counts_zero = true;
+  for (size_t j = 0; j < x.size(); ++j) {
+    CHECK(x[j] >= 0);
+    if (_od(i, j) == 0 && x[j] > 0)
+      return 0;
+    if (x[j] > 0)
+      all_counts_zero = false;
+    if (_od(i, j) > 0)
+      all_probs_zero = false;
+  }
+  if (all_probs_zero)
+    return all_counts_zero ? 1 : 0;
+
+  int N = accumulate(x.begin(), x.end(), 0);
+  double log_p = boost::math::lgamma(N + 1);
+  for (size_t j = 0; j < x.size(); ++j) {
+    double p_j = _od(i, j) / _rate_from(i);
+    int x_j = x[j];
+    if (p_j != 0 && x_j != 0) {
+      log_p += x_j * log(p_j) - boost::math::lgamma(x_j + 1);
+    }
+  }
+  return exp(log_p);
+}
+
 void ODMatrixWrapper::sample(size_t &origin, size_t &destin,
     double &interval) const {
   // Having 64-bit portability problems with variate_generator and

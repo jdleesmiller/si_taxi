@@ -110,6 +110,14 @@ T cumulative_moving_average(T x, T average, N &count) {
 std::vector<std::vector<int> > all_square_matrices_with_row_sums_lte(
     const std::vector<int> &row_sums);
 
+/**
+ * List all matrices with non-negative integer entries, zeros on the diagonal,
+ * and row sums equal to the given sums. The matrices are returned as vectors
+ * in row-major order.
+ */
+std::vector<std::vector<int> > all_square_matrices_with_row_sums(
+    const std::vector<int> &row_sums);
+
 }
 
 #endif

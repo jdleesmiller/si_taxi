@@ -28,7 +28,7 @@ module SiTaxi
     # Return a new state that is the result of
     #
     def transition queue_change, m, trip_time
-      puts "m: #{m.inspect}"
+      #puts "m: #{m.inspect}"
       # move vehicles according to m
       n = inbound.size
       new_queue = (0...n).map {|i| queue[i] + queue_change[i]}
@@ -37,7 +37,7 @@ module SiTaxi
         (0...n).each do |j|
           m_ij = m[j,i] # column major
           if m_ij > 0
-            puts "i: #{i}, j: #{j}, m_ij: #{m_ij}"
+            #puts "i: #{i}, j: #{j}, m_ij: #{m_ij}"
             raise "nonzero diagonal" if i == j
             shifted = new_inbound[i].shift(m_ij)
             raise "moved vehicle too early" unless shifted.all?(&:zero?)
@@ -74,20 +74,23 @@ module SiTaxi
   class MDPModelC
     include FiniteMDP::Model
 
-    def initialize queue_max_nominal=1
-      @num_veh = 1
-      @trip_time = [[0,1],[1,0]]
-      @demand = NArray[[0,0.1],[0.2,0]]
-      @demand_od = ODMatrixWrapper.new(@demand.to_a)
+    #
+    # @param [Array<Array<Float>>] demand
+    #
+    def initialize trip_time, num_veh, demand, queue_max_nominal
+      @trip_time = trip_time
+      @num_veh = num_veh
+      @demand = ODMatrixWrapper.new(demand)
 
       # convenient to set queue_max[i] = 0 if there is no demand out
-      demand_out = demand.sum(0)
+      demand_out = NArray[*demand].sum(0)
       @queue_max = NArray[*[queue_max_nominal]*num_stations]
       @queue_max[demand_out.eq(0)] = 0
 
       # maximum time for j is the max_i T_ij
       @max_time = NArray[trip_time].max(1).to_a.first
 
+      # used to memoize in next_states
       @next_states = {}
       @transition_probability = Hash.new {0}
     end
@@ -137,6 +140,8 @@ module SiTaxi
     end
 
     def next_states state, action
+      #puts "STATE: #{state.inspect}"
+      #puts "ACTION: #{action.inspect}"
       # easier to build the transition probabilities at the same time
       result = @next_states[[state, action]]
       unless result
@@ -145,10 +150,9 @@ module SiTaxi
         num_queued    = NArray[*state.queue]
         num_veh_at    = NArray[*state.num_veh_at]
         num_veh_moved = action.sum(0)
-        num_veh_left  = num_veh_at - num_queued - num_veh_moved
-        num_veh_left[num_veh_left < 0] = 0
 
-        max_pax = num_veh_left + queue_max - num_queued
+        max_pax = (queue_max - num_queued) + (num_veh_at - num_veh_moved)
+        #puts "max_pax: #{max_pax.inspect}"
         raise "negative max_pax: #{max_pax.inspect}" unless (max_pax >= 0).all?
         Utility.mixed_radix_sequence(max_pax.to_a).each do |num_pax|
           # num_pax[i] is the number of new passengers at i; we only need to
@@ -158,25 +162,24 @@ module SiTaxi
           num_queued_change = (0...num_stations).map {|i|
             num_pax[i] - num_served[i]}
 
-          puts "-"
-          p num_pax
-          p num_served
-          p num_queued_change 
+          #puts "-"
+          #p num_pax
+          #p num_served
+          #p num_queued_change 
 
           # work out probability of given numbers of new pax arrivals
-          pr_origin = (0...num_stations).map {|i|
-            pr_i  = @demand_od.poisson_origin_pmf(i, num_pax[i])
-            pr_i += @demand_od.poisson_origin_cdf_complement(i, num_pax[i]) if
+          pr_pax = (0...num_stations).map {|i|
+            pr_i  = demand.poisson_origin_pmf(i, num_pax[i])
+            pr_i += demand.poisson_origin_cdf_complement(i, num_pax[i]) if
               num_queued[i] + num_queued_change[i] == queue_max[i]
             pr_i
           }.inject(:*)
-          raise "pr_origin > 1" if pr_origin > 1
+          raise "pr_pax > 1" if pr_pax > 1
+          #puts "pr_pax: #{pr_pax}"
 
           # now need destinations for served passengers
-          puts "num_served: #{num_served}"
-          # TODO we want exact sums here, not lte
-          SiTaxi.all_square_matrices_with_row_sums_lte(num_served).each do |ov|
-            p ov
+          #puts "num_served: #{num_served}"
+          SiTaxi.all_square_matrices_with_row_sums(num_served).each do |ov|
             occup = NArray[*ov].reshape!(num_stations, num_stations)
             new_state = state.transition(
               num_queued_change, action + occup, trip_time)
@@ -185,19 +188,27 @@ module SiTaxi
             raise "queue too long" if
               (0...num_stations).any?{|i| new_state.queue[i] > queue_max[i]}
 
-            num_to = occup.sum(1)
-            # TODO need i here too
-            pr_destin = (0...num_stations).map {|j|
-              @demand_od.poisson_destin_pmf(j, num_to[j])
+            pr_od = (0...num_stations).map {|i|
+              demand.multinomial_trip_pmf(i, occup[true,i].to_a)
             }.inject(:*)
-            raise "pr_destin > 1" if pr_destin > 1
+
+            if pr_od > 1
+              puts "pr_od: #{pr_od}"
+              p num_served
+              p occup
+              p (0...num_stations).map {|i|
+                p occup[true,i]
+                p demand.multinomial_trip_pmf(i, occup[true,i].to_a)
+              }
+            end
+            raise "pr_od > 1" if pr_od > 1
 
             result << new_state
-            puts "new_state: #{new_state.inspect}"
+            #puts "new_state: #{new_state.inspect}"
 
             # note that multiple transitions can lead to the same state, so we
             # have to accumulate probabilities
-            pr = pr_origin*pr_destin
+            pr = pr_pax * pr_od
             @transition_probability[[state, action, new_state]] += pr
           end
         end

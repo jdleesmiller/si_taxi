@@ -8,6 +8,11 @@ disable_warnings do # gives some annoying warnings
 end
 
 #
+# Tolerance for floating point comparison.
+#
+$delta = 1e-6
+
+#
 # Two station ring network.
 #   +->--10-->-+
 #  (0)        (1)
@@ -50,6 +55,10 @@ module TestHelper
     assert x != x, "expected #{x} to be NaN"
   end
 
+  def assert_close expected, actual, message=''
+    assert_in_delta expected, actual, $delta, message
+  end
+
   def assert_all_in_delta expected, actual, delta, message=""
     expected.zip(actual).each do |e,a|
       assert_in_delta(e,a,delta,message)
@@ -60,11 +69,6 @@ end
 module BellWongTestHelper
   include TestHelper
   include SiTaxi
-
-  #
-  # Tolerance for floating point comparison.
-  #
-  $delta = 1e-6
 
   #
   # Create sim with given trip times and call init.

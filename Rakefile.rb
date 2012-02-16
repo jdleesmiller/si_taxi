@@ -88,7 +88,7 @@ end
 
 task :default => :test
 
-task :sarsa do
+task :sim_sarsa do
   require 'si_taxi'
   include SiTaxi
 
@@ -162,41 +162,79 @@ task :sarsa do
   #end
 end
 
-task :foo do
+#
+# Compare SARSA and DP on small example.
+#
+task :finite_mdp_sarsa do
   require 'si_taxi'
   include SiTaxi
+
+  trip_time = [[0,2],[2,0]]
+  num_veh   = 3
+  demand    = [[0,0.1],[0.4,0]]
+  queue_max = 5
+  gamma     = 0.99
+
+  puts "BUILDING"
+  mdp_model  = MDPModelC.new(trip_time, num_veh, demand, queue_max)
+  hash_model = FiniteMDP::HashModel.from_model(mdp_model)
+  #p FiniteMDP::TableModel.from_model(hash_model)
   
-  #p Utility.all_non_descending_sequences(0, 0, 0)
-  #p Utility.all_non_descending_sequences(0, 0, 1)
-  #p Utility.all_non_descending_sequences(0, 0, 2)
+  puts "SOLVING WITH DP (#{hash_model.states.size} states)"
+  dp_solver = FiniteMDP::Solver.new(hash_model, gamma)
+  dp_solver.policy_iteration_exact 
 
-  #p Utility.all_non_descending_sequences(0, 1, 0)
-  #p Utility.all_non_descending_sequences(0, 1, 1)
-  #p Utility.all_non_descending_sequences(0, 1, 2)
+  puts "SOLVING WITH SARSA"
+  ruby_sarsa_solver = FiniteMDP::SarsaSolver.new(hash_model, gamma)
+  ruby_sarsa_solver.action_selection = :epsilon_greedy
+  ruby_sarsa_solver.alpha = 0.02
+  ruby_sarsa_solver.epsilon = 1.0
+  ruby_sarsa_solver.lambda_e = 0.95
+  1.upto(1000000) do |t|
+    ruby_sarsa_solver.epsilon *= 0.999993
+    ruby_sarsa_solver.sarsa_step
+  end
+  puts "FINAL EPSILON: #{ruby_sarsa_solver.epsilon}"
 
-  #p Utility.all_non_descending_sequences(1, 1, 0)
-  #p Utility.all_non_descending_sequences(1, 1, 1)
-  #p Utility.all_non_descending_sequences(1, 1, 2)
+  puts "RESULTS"
+  dp_pi = dp_solver.policy
+  dp_q = dp_solver.state_action_value
+  sarsa_pi = ruby_sarsa_solver.policy
+  sarsa_q = ruby_sarsa_solver.state_action_value
+  hash_model.states.each do |state|
+    state_actions = hash_model.actions(state)
+    if state_actions.size > 1
+      state_actions.each do |action|
+        dp_q_sa = dp_q[[state,action]]
+        dp_opt = dp_pi[state] == action ? '*' : ' '
+        sarsa_q_sa = sarsa_q[[state,action]]
+        sarsa_opt = sarsa_pi[state] == action ? '*' : ' '
+        puts "#{state.inspect}\t#{action.to_a.inspect}\t"\
+          "%.4f\t%.4f\t#{dp_opt}\t#{sarsa_opt}" % [dp_q_sa, sarsa_q_sa]
+      end
+      puts
+    end
+  end
 
-  #p Utility.all_non_descending_sequences(0, 2, 0)
-  #p Utility.all_non_descending_sequences(0, 2, 1)
-  #p Utility.all_non_descending_sequences(0, 2, 2)
+  #dp_solver.policy.each do |state, action|
+  #  puts "#{state.inspect}\t#{action.to_a.inspect}"
+  #end
 
-  m = MDPModelC.new
+  #m = MDPModelC.new
   #tm = FiniteMDP::TableModel.from_model(m)
   #puts tm.rows.map{|s,a,ss,pr,r|
   #  "[#{s.inspect},#{a.to_a.inspect},#{ss.inspect},%.4f,#{r}]" % pr
   #}
-  #p tm.transition_probability_sums
+  #tm.check_transition_probabilities_sum
 
-  m_states = m.states
-  m_states.each do |s|
-    puts "STATE: #{s.inspect}"
-    m.actions(s).each do |a|
-      puts "ACTION: #{a.inspect}"
-      puts m.next_states(s, a).map(&:inspect)
-    end
-    exit
-  end
+  #m_states = m.states
+  #m_states.each do |s|
+  #  puts "STATE: #{s.inspect}"
+  #  m.actions(s).each do |a|
+  #    puts "ACTION: #{a.inspect}"
+  #    puts m.next_states(s, a).map(&:inspect)
+  #  end
+  #  exit
+  #end
 end
 

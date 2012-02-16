@@ -28419,6 +28419,43 @@ fail:
 }
 
 
+SWIGINTERN VALUE
+_wrap_all_square_matrices_with_row_sums(int argc, VALUE *argv, VALUE self) {
+  std::vector< int,std::allocator< int > > *arg1 = 0 ;
+  int res1 = SWIG_OLDOBJ ;
+  std::vector< std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > > result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  {
+    std::vector<int,std::allocator< int > > *ptr = (std::vector<int,std::allocator< int > > *)0;
+    res1 = swig::asptr(argv[0], &ptr);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< int,std::allocator< int > > const &","si_taxi::all_square_matrices_with_row_sums", 1, argv[0] )); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "std::vector< int,std::allocator< int > > const &","si_taxi::all_square_matrices_with_row_sums", 1, argv[0])); 
+    }
+    arg1 = ptr;
+  }
+  {
+    try {
+      result = si_taxi::all_square_matrices_with_row_sums((std::vector< int,std::allocator< int > > const &)*arg1);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = swig::from(static_cast< std::vector<std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > > >(result));
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return vresult;
+fail:
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return Qnil;
+}
+
+
 swig_class SwigClassEmpiricalSampler;
 
 SWIGINTERN VALUE
@@ -30192,6 +30229,59 @@ _wrap_ODMatrixWrapper_poisson_trip_cdf_complement(int argc, VALUE *argv, VALUE s
   vresult = SWIG_From_double(static_cast< double >(result));
   return vresult;
 fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_ODMatrixWrapper_multinomial_trip_pmf(int argc, VALUE *argv, VALUE self) {
+  si_taxi::ODMatrixWrapper *arg1 = (si_taxi::ODMatrixWrapper *) 0 ;
+  size_t arg2 ;
+  std::vector< int,std::allocator< int > > *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  int res3 = SWIG_OLDOBJ ;
+  double result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 2) || (argc > 2)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 2)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__ODMatrixWrapper, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::ODMatrixWrapper const *","multinomial_trip_pmf", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::ODMatrixWrapper * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "size_t","multinomial_trip_pmf", 2, argv[0] ));
+  } 
+  arg2 = static_cast< size_t >(val2);
+  {
+    std::vector<int,std::allocator< int > > *ptr = (std::vector<int,std::allocator< int > > *)0;
+    res3 = swig::asptr(argv[1], &ptr);
+    if (!SWIG_IsOK(res3)) {
+      SWIG_exception_fail(SWIG_ArgError(res3), Ruby_Format_TypeError( "", "std::vector< int,std::allocator< int > > const &","multinomial_trip_pmf", 3, argv[1] )); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "std::vector< int,std::allocator< int > > const &","multinomial_trip_pmf", 3, argv[1])); 
+    }
+    arg3 = ptr;
+  }
+  {
+    try {
+      result = (double)((si_taxi::ODMatrixWrapper const *)arg1)->multinomial_trip_pmf(arg2,(std::vector< int,std::allocator< int > > const &)*arg3);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = SWIG_From_double(static_cast< double >(result));
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return vresult;
+fail:
+  if (SWIG_IsNewObj(res3)) delete arg3;
   return Qnil;
 }
 
@@ -54368,6 +54458,7 @@ SWIGEXPORT void Init_siTaxi(void) {
   SwigClassError.destroy = (void (*)(void *)) free_si_taxi_Error;
   SwigClassError.trackObjects = 0;
   rb_define_module_function(mSiTaxi, "all_square_matrices_with_row_sums_lte", VALUEFUNC(_wrap_all_square_matrices_with_row_sums_lte), -1);
+  rb_define_module_function(mSiTaxi, "all_square_matrices_with_row_sums", VALUEFUNC(_wrap_all_square_matrices_with_row_sums), -1);
   
   SwigClassEmpiricalSampler.klass = rb_define_class_under(mSiTaxi, "EmpiricalSampler", rb_cObject);
   SWIG_TypeClientData(SWIGTYPE_p_si_taxi__EmpiricalSampler, (void *) &SwigClassEmpiricalSampler);
@@ -54431,6 +54522,7 @@ SWIGEXPORT void Init_siTaxi(void) {
   rb_define_method(SwigClassODMatrixWrapper.klass, "poisson_trip_pmf", VALUEFUNC(_wrap_ODMatrixWrapper_poisson_trip_pmf), -1);
   rb_define_method(SwigClassODMatrixWrapper.klass, "poisson_origin_cdf_complement", VALUEFUNC(_wrap_ODMatrixWrapper_poisson_origin_cdf_complement), -1);
   rb_define_method(SwigClassODMatrixWrapper.klass, "poisson_trip_cdf_complement", VALUEFUNC(_wrap_ODMatrixWrapper_poisson_trip_cdf_complement), -1);
+  rb_define_method(SwigClassODMatrixWrapper.klass, "multinomial_trip_pmf", VALUEFUNC(_wrap_ODMatrixWrapper_multinomial_trip_pmf), -1);
   rb_define_method(SwigClassODMatrixWrapper.klass, "sample", VALUEFUNC(_wrap_ODMatrixWrapper_sample), -1);
   SwigClassODMatrixWrapper.mark = 0;
   SwigClassODMatrixWrapper.destroy = (void (*)(void *)) free_si_taxi_ODMatrixWrapper;

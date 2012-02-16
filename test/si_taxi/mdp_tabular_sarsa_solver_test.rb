@@ -3,6 +3,7 @@ require 'si_taxi/test_helper'
 class MDPTabularSarsaSolverTest < Test::Unit::TestCase
   include SiTaxi
 
+=begin
   class FakeSarsaActor < SarsaActor
     def initialize solver, *actions
       super solver
@@ -145,5 +146,6 @@ class MDPTabularSarsaSolverTest < Test::Unit::TestCase
       p @s.state_action
     end
   end
+=end 
 end
 

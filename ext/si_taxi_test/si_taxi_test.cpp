@@ -305,6 +305,17 @@ list_square_matrices_with_row_sums_lte(const std::vector<int> &row_sums) {
   return results;
 }
 
+std::vector<boost::numeric::ublas::matrix<int> >
+list_square_matrices_with_row_sums(const std::vector<int> &row_sums) {
+  std::vector<boost::numeric::ublas::matrix<int> > results;
+  size_t start = 10; // more accurate test -- don't start at zero
+  size_t n = row_sums.size();
+  std::vector<int> data(start + n*n);
+  F_get_matrix_from_data f(results, n, start);
+  each_square_matrix_with_row_sums(data, start, 0, 0, row_sums, f);
+  return results;
+}
+
 void test_6_enumerate_square_matrices() {
   std::vector<boost::numeric::ublas::matrix<int> > results;
   std::vector<int> row_sums(2);
@@ -318,6 +329,10 @@ void test_6_enumerate_square_matrices() {
   CHECK(to_s(results[2]) == "[2,2]((0,1),(0,0))");
   CHECK(to_s(results[3]) == "[2,2]((0,1),(1,0))");
 
+  results = list_square_matrices_with_row_sums(row_sums);
+  CHECK(results.size() == 1);
+  CHECK(to_s(results[0]) == "[2,2]((0,1),(1,0))");
+
   row_sums[0] = 2;
   results = list_square_matrices_with_row_sums_lte(row_sums);
   CHECK(results.size() == 6);
@@ -327,6 +342,10 @@ void test_6_enumerate_square_matrices() {
   CHECK(to_s(results[3]) == "[2,2]((0,1),(1,0))");
   CHECK(to_s(results[4]) == "[2,2]((0,2),(0,0))");
   CHECK(to_s(results[5]) == "[2,2]((0,2),(1,0))");
+
+  results = list_square_matrices_with_row_sums(row_sums);
+  CHECK(results.size() == 1);
+  CHECK(to_s(results[0]) == "[2,2]((0,2),(1,0))");
 
   row_sums[1] = 2;
   results = list_square_matrices_with_row_sums_lte(row_sums);
@@ -340,6 +359,10 @@ void test_6_enumerate_square_matrices() {
   CHECK(to_s(results[6]) == "[2,2]((0,2),(0,0))");
   CHECK(to_s(results[7]) == "[2,2]((0,2),(1,0))");
   CHECK(to_s(results[8]) == "[2,2]((0,2),(2,0))");
+
+  results = list_square_matrices_with_row_sums(row_sums);
+  CHECK(results.size() == 1);
+  CHECK(to_s(results[0]) == "[2,2]((0,2),(2,0))");
 
   row_sums.push_back(1);
   results = list_square_matrices_with_row_sums_lte(row_sums);
@@ -363,6 +386,27 @@ void test_6_enumerate_square_matrices() {
   CHECK(to_s(results[16]) == "[3,3]((0,0,0),(2,0,0),(0,1,0))");
   CHECK(to_s(results[17]) == "[3,3]((0,0,0),(2,0,0),(1,0,0))");
 
+  results = list_square_matrices_with_row_sums(row_sums);
+  CHECK(results.size() == 18);
+  CHECK(to_s(results[ 0]) == "[3,3]((0,0,2),(0,0,2),(0,1,0))");
+  CHECK(to_s(results[ 1]) == "[3,3]((0,0,2),(0,0,2),(1,0,0))");
+  CHECK(to_s(results[ 2]) == "[3,3]((0,0,2),(1,0,1),(0,1,0))");
+  CHECK(to_s(results[ 3]) == "[3,3]((0,0,2),(1,0,1),(1,0,0))");
+  CHECK(to_s(results[ 4]) == "[3,3]((0,0,2),(2,0,0),(0,1,0))");
+  CHECK(to_s(results[ 5]) == "[3,3]((0,0,2),(2,0,0),(1,0,0))");
+  CHECK(to_s(results[ 6]) == "[3,3]((0,1,1),(0,0,2),(0,1,0))");
+  CHECK(to_s(results[ 7]) == "[3,3]((0,1,1),(0,0,2),(1,0,0))");
+  CHECK(to_s(results[ 8]) == "[3,3]((0,1,1),(1,0,1),(0,1,0))");
+  CHECK(to_s(results[ 9]) == "[3,3]((0,1,1),(1,0,1),(1,0,0))");
+  CHECK(to_s(results[10]) == "[3,3]((0,1,1),(2,0,0),(0,1,0))");
+  CHECK(to_s(results[11]) == "[3,3]((0,1,1),(2,0,0),(1,0,0))");
+  CHECK(to_s(results[12]) == "[3,3]((0,2,0),(0,0,2),(0,1,0))");
+  CHECK(to_s(results[13]) == "[3,3]((0,2,0),(0,0,2),(1,0,0))");
+  CHECK(to_s(results[14]) == "[3,3]((0,2,0),(1,0,1),(0,1,0))");
+  CHECK(to_s(results[15]) == "[3,3]((0,2,0),(1,0,1),(1,0,0))");
+  CHECK(to_s(results[16]) == "[3,3]((0,2,0),(2,0,0),(0,1,0))");
+  CHECK(to_s(results[17]) == "[3,3]((0,2,0),(2,0,0),(1,0,0))");
+
   row_sums[0] = 0;
   results = list_square_matrices_with_row_sums_lte(row_sums);
   CHECK(results.size() == 18);
@@ -385,6 +429,15 @@ void test_6_enumerate_square_matrices() {
   CHECK(to_s(results[16]) == "[3,3]((0,0,0),(2,0,0),(0,1,0))");
   CHECK(to_s(results[17]) == "[3,3]((0,0,0),(2,0,0),(1,0,0))");
 
+  results = list_square_matrices_with_row_sums(row_sums);
+  CHECK(results.size() == 6);
+  CHECK(to_s(results[ 0]) == "[3,3]((0,0,0),(0,0,2),(0,1,0))");
+  CHECK(to_s(results[ 1]) == "[3,3]((0,0,0),(0,0,2),(1,0,0))");
+  CHECK(to_s(results[ 2]) == "[3,3]((0,0,0),(1,0,1),(0,1,0))");
+  CHECK(to_s(results[ 3]) == "[3,3]((0,0,0),(1,0,1),(1,0,0))");
+  CHECK(to_s(results[ 4]) == "[3,3]((0,0,0),(2,0,0),(0,1,0))");
+  CHECK(to_s(results[ 5]) == "[3,3]((0,0,0),(2,0,0),(1,0,0))");
+
   row_sums[1] = 0;
   results = list_square_matrices_with_row_sums_lte(row_sums);
   CHECK(results.size() == 3);
@@ -392,8 +445,17 @@ void test_6_enumerate_square_matrices() {
   CHECK(to_s(results[ 1]) == "[3,3]((0,0,0),(0,0,0),(0,1,0))");
   CHECK(to_s(results[ 2]) == "[3,3]((0,0,0),(0,0,0),(1,0,0))");
 
+  results = list_square_matrices_with_row_sums(row_sums);
+  CHECK(results.size() == 2);
+  CHECK(to_s(results[ 0]) == "[3,3]((0,0,0),(0,0,0),(0,1,0))");
+  CHECK(to_s(results[ 1]) == "[3,3]((0,0,0),(0,0,0),(1,0,0))");
+
   row_sums[2] = 0;
   results = list_square_matrices_with_row_sums_lte(row_sums);
+  CHECK(results.size() == 1);
+  CHECK(to_s(results[ 0]) == "[3,3]((0,0,0),(0,0,0),(0,0,0))");
+
+  results = list_square_matrices_with_row_sums(row_sums);
   CHECK(results.size() == 1);
   CHECK(to_s(results[ 0]) == "[3,3]((0,0,0),(0,0,0),(0,0,0))");
 

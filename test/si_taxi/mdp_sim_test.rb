@@ -3,6 +3,7 @@ require 'si_taxi/test_helper'
 class MDPSimTest < Test::Unit::TestCase
   include SiTaxi
 
+=begin
   context "two station ring with one vehicle" do
     setup do
       @m = MDPSim.new
@@ -302,6 +303,7 @@ class MDPSimTest < Test::Unit::TestCase
       assert_equal [[],[8],[10]], @m.inbound.to_a
     end
   end
+=end
 end
 
 =begin

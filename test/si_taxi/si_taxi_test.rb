@@ -174,6 +174,19 @@ class TestSiTaxi < Test::Unit::TestCase
         assert_in_delta 1-0.1353353-0.2706706,
           @w.poisson_origin_cdf_complement(1, 1), $delta
       end
+      should "compute multinomial probabilities" do
+        # there is only one way to start trips for a 2x2 matrix
+        assert_equal 1.0, @w.multinomial_trip_pmf(0, [0, 0])
+        assert_equal 1.0, @w.multinomial_trip_pmf(0, [0, 1])
+        assert_equal 1.0, @w.multinomial_trip_pmf(0, [0, 2])
+        assert_equal 1.0, @w.multinomial_trip_pmf(1, [0, 0])
+        assert_equal 1.0, @w.multinomial_trip_pmf(1, [1, 0]) 
+        assert_equal 1.0, @w.multinomial_trip_pmf(1, [2, 0]) 
+
+        # these are impossible due to zeros on the diagonal 
+        assert_equal 0, @w.multinomial_trip_pmf(0, [1, 0])
+        assert_equal 0, @w.multinomial_trip_pmf(1, [0, 1])
+      end
     end
 
     context "2x2 matrix with zero entry" do
@@ -207,6 +220,18 @@ class TestSiTaxi < Test::Unit::TestCase
           assert_equal 0, destin
           assert interval >= 0
         end
+      end
+
+      should "compute multinomial probabilities" do
+        # cannot generate trips in first row
+        assert_equal 1.0, @w.multinomial_trip_pmf(0, [0, 0])
+        assert_equal 0.0, @w.multinomial_trip_pmf(0, [0, 1])
+        assert_equal 0.0, @w.multinomial_trip_pmf(0, [0, 2])
+
+        # can generate trips in second row
+        assert_equal 1.0, @w.multinomial_trip_pmf(1, [0, 0])
+        assert_equal 1.0, @w.multinomial_trip_pmf(1, [1, 0])
+        assert_equal 1.0, @w.multinomial_trip_pmf(1, [2, 0])
       end
     end
 
@@ -253,6 +278,27 @@ class TestSiTaxi < Test::Unit::TestCase
           assert origin != destin
           assert interval >= 0
         end
+      end
+
+      should "compute multinomial probabilities" do
+        # from R: dmultinom(x=c(...), prob=c(0,1/3,2/3))
+        # only one way to produce zero trips
+        assert_equal 1.0, @w.multinomial_trip_pmf(0, [0, 0, 0])
+
+        # two ways to get one trip
+        assert_close 2.0/3, @w.multinomial_trip_pmf(0, [0, 0, 1])
+        assert_close 1.0/3, @w.multinomial_trip_pmf(0, [0, 1, 0])
+
+        # three ways to get two trips
+        assert_close 4.0/9, @w.multinomial_trip_pmf(0, [0, 1, 1])
+        assert_close 4.0/9, @w.multinomial_trip_pmf(0, [0, 0, 2])
+        assert_close 1.0/9, @w.multinomial_trip_pmf(0, [0, 2, 0])
+
+        # four ways to get two trips
+        assert_close  8.0/27, @w.multinomial_trip_pmf(0, [0, 0, 3])
+        assert_close 12.0/27, @w.multinomial_trip_pmf(0, [0, 1, 2])
+        assert_close  6.0/27, @w.multinomial_trip_pmf(0, [0, 2, 1])
+        assert_close  1.0/27, @w.multinomial_trip_pmf(0, [0, 3, 0])
       end
     end
 
