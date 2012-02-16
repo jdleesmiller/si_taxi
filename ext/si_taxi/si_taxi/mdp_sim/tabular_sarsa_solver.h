@@ -1,8 +1,8 @@
 #ifndef SI_TAXI_TABULAR_SARSA_H_
 #define SI_TAXI_TABULAR_SARSA_H_
 
-#include <unordered_map>
 #include <boost/functional/hash.hpp>
+#include <boost/unordered_map.hpp>
 
 #include "mdp_sim.h"
 
@@ -60,7 +60,7 @@ struct TabularSarsaSolver {
    */
   int_od_t action;
 
-  typedef std::unordered_map<sa_t, double, boost::hash<sa_t> > q_t;
+  typedef boost::unordered_map<sa_t, double, boost::hash<sa_t> > q_t;
 
   /**
    * Map from (state, action) pairs to state-action values.

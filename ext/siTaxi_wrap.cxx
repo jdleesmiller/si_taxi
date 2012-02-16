@@ -2206,75 +2206,75 @@ namespace Swig {
 #define SWIGTYPE_p_boost__numeric__ublas__matrixT_size_t_t swig_types[5]
 #define SWIGTYPE_p_boost__numeric__ublas__scalar_vectorT_int_t swig_types[6]
 #define SWIGTYPE_p_boost__numeric__ublas__vectorT_int_t swig_types[7]
-#define SWIGTYPE_p_char swig_types[8]
-#define SWIGTYPE_p_container_type swig_types[9]
-#define SWIGTYPE_p_difference_type swig_types[10]
-#define SWIGTYPE_p_double swig_types[11]
-#define SWIGTYPE_p_first_type swig_types[12]
-#define SWIGTYPE_p_int_vector_t swig_types[13]
-#define SWIGTYPE_p_long swig_types[14]
-#define SWIGTYPE_p_p_void swig_types[15]
-#define SWIGTYPE_p_q_t swig_types[16]
-#define SWIGTYPE_p_sa_t swig_types[17]
-#define SWIGTYPE_p_second_type swig_types[18]
-#define SWIGTYPE_p_si_taxi__BWAndreassonHandler swig_types[19]
-#define SWIGTYPE_p_si_taxi__BWCallTimeTracker swig_types[20]
-#define SWIGTYPE_p_si_taxi__BWDynamicTransportationProblemHandler swig_types[21]
-#define SWIGTYPE_p_si_taxi__BWETNNHandler swig_types[22]
-#define SWIGTYPE_p_si_taxi__BWH1Handler swig_types[23]
-#define SWIGTYPE_p_si_taxi__BWH2Handler swig_types[24]
-#define SWIGTYPE_p_si_taxi__BWHxHandler swig_types[25]
-#define SWIGTYPE_p_si_taxi__BWNNHandler swig_types[26]
-#define SWIGTYPE_p_si_taxi__BWNNHandlerWithCallTimeUpdates swig_types[27]
-#define SWIGTYPE_p_si_taxi__BWPax swig_types[28]
-#define SWIGTYPE_p_si_taxi__BWPaxStream swig_types[29]
-#define SWIGTYPE_p_si_taxi__BWPoissonPaxStream swig_types[30]
-#define SWIGTYPE_p_si_taxi__BWProactiveHandler swig_types[31]
-#define SWIGTYPE_p_si_taxi__BWReactiveHandler swig_types[32]
-#define SWIGTYPE_p_si_taxi__BWSNNHandler swig_types[33]
-#define SWIGTYPE_p_si_taxi__BWSamplingVotingHandler swig_types[34]
-#define SWIGTYPE_p_si_taxi__BWSim swig_types[35]
-#define SWIGTYPE_p_si_taxi__BWSimStats swig_types[36]
-#define SWIGTYPE_p_si_taxi__BWSimStatsDetailed swig_types[37]
-#define SWIGTYPE_p_si_taxi__BWSimStatsMeanPaxWait swig_types[38]
-#define SWIGTYPE_p_si_taxi__BWSimStatsPaxRecord swig_types[39]
-#define SWIGTYPE_p_si_taxi__BWSimStatsPaxRecorder swig_types[40]
-#define SWIGTYPE_p_si_taxi__BWSurplusDeficitHandler swig_types[41]
-#define SWIGTYPE_p_si_taxi__BWTestPaxStream swig_types[42]
-#define SWIGTYPE_p_si_taxi__BWVehicle swig_types[43]
-#define SWIGTYPE_p_si_taxi__EmpiricalSampler swig_types[44]
-#define SWIGTYPE_p_si_taxi__EpsilonGreedySarsaActor swig_types[45]
-#define SWIGTYPE_p_si_taxi__Error swig_types[46]
-#define SWIGTYPE_p_si_taxi__Exception swig_types[47]
-#define SWIGTYPE_p_si_taxi__MDPSim swig_types[48]
-#define SWIGTYPE_p_si_taxi__NaturalHistogram swig_types[49]
-#define SWIGTYPE_p_si_taxi__ODHistogram swig_types[50]
-#define SWIGTYPE_p_si_taxi__ODMatrixWrapper swig_types[51]
-#define SWIGTYPE_p_si_taxi__SarsaActor swig_types[52]
-#define SWIGTYPE_p_si_taxi__TabularSarsaSolver swig_types[53]
-#define SWIGTYPE_p_size_t swig_types[54]
-#define SWIGTYPE_p_size_type swig_types[55]
-#define SWIGTYPE_p_std__allocatorT_double_t swig_types[56]
-#define SWIGTYPE_p_std__allocatorT_int_t swig_types[57]
-#define SWIGTYPE_p_std__allocatorT_long_t swig_types[58]
-#define SWIGTYPE_p_std__allocatorT_si_taxi__BWPax_t swig_types[59]
-#define SWIGTYPE_p_std__allocatorT_si_taxi__BWSimStatsPaxRecord_t swig_types[60]
-#define SWIGTYPE_p_std__allocatorT_si_taxi__BWVehicle_t swig_types[61]
-#define SWIGTYPE_p_std__allocatorT_si_taxi__NaturalHistogram_t swig_types[62]
-#define SWIGTYPE_p_std__allocatorT_size_t_t swig_types[63]
-#define SWIGTYPE_p_std__allocatorT_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t_t swig_types[64]
-#define SWIGTYPE_p_std__allocatorT_std__dequeT_si_taxi__BWTime_std__allocatorT_si_taxi__BWTime_t_t_t swig_types[65]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[66]
-#define SWIGTYPE_p_std__dequeT_int_std__allocatorT_int_t_t swig_types[67]
-#define SWIGTYPE_p_std__dequeT_long_std__allocatorT_long_t_t swig_types[68]
-#define SWIGTYPE_p_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t swig_types[69]
-#define SWIGTYPE_p_std__exception swig_types[70]
-#define SWIGTYPE_p_std__ostream swig_types[71]
-#define SWIGTYPE_p_std__pairT_std__vectorT_int_std__allocatorT_int_t_t_double_t swig_types[72]
-#define SWIGTYPE_p_std__queueT_int_std__dequeT_int_std__allocatorT_int_t_t_t swig_types[73]
-#define SWIGTYPE_p_std__queueT_si_taxi__BWPax_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t_t swig_types[74]
-#define SWIGTYPE_p_std__string swig_types[75]
-#define SWIGTYPE_p_std__unordered_mapT_std__vectorT_int_std__allocatorT_int_t_t_double_boost__hashT_si_taxi__TabularSarsaSolver__sa_t_t_t swig_types[76]
+#define SWIGTYPE_p_boost__unordered_mapT_si_taxi__TabularSarsaSolver__sa_t_double_boost__hashT_si_taxi__TabularSarsaSolver__sa_t_t_t swig_types[8]
+#define SWIGTYPE_p_char swig_types[9]
+#define SWIGTYPE_p_container_type swig_types[10]
+#define SWIGTYPE_p_difference_type swig_types[11]
+#define SWIGTYPE_p_double swig_types[12]
+#define SWIGTYPE_p_first_type swig_types[13]
+#define SWIGTYPE_p_int_vector_t swig_types[14]
+#define SWIGTYPE_p_long swig_types[15]
+#define SWIGTYPE_p_p_void swig_types[16]
+#define SWIGTYPE_p_q_t swig_types[17]
+#define SWIGTYPE_p_sa_t swig_types[18]
+#define SWIGTYPE_p_second_type swig_types[19]
+#define SWIGTYPE_p_si_taxi__BWAndreassonHandler swig_types[20]
+#define SWIGTYPE_p_si_taxi__BWCallTimeTracker swig_types[21]
+#define SWIGTYPE_p_si_taxi__BWDynamicTransportationProblemHandler swig_types[22]
+#define SWIGTYPE_p_si_taxi__BWETNNHandler swig_types[23]
+#define SWIGTYPE_p_si_taxi__BWH1Handler swig_types[24]
+#define SWIGTYPE_p_si_taxi__BWH2Handler swig_types[25]
+#define SWIGTYPE_p_si_taxi__BWHxHandler swig_types[26]
+#define SWIGTYPE_p_si_taxi__BWNNHandler swig_types[27]
+#define SWIGTYPE_p_si_taxi__BWNNHandlerWithCallTimeUpdates swig_types[28]
+#define SWIGTYPE_p_si_taxi__BWPax swig_types[29]
+#define SWIGTYPE_p_si_taxi__BWPaxStream swig_types[30]
+#define SWIGTYPE_p_si_taxi__BWPoissonPaxStream swig_types[31]
+#define SWIGTYPE_p_si_taxi__BWProactiveHandler swig_types[32]
+#define SWIGTYPE_p_si_taxi__BWReactiveHandler swig_types[33]
+#define SWIGTYPE_p_si_taxi__BWSNNHandler swig_types[34]
+#define SWIGTYPE_p_si_taxi__BWSamplingVotingHandler swig_types[35]
+#define SWIGTYPE_p_si_taxi__BWSim swig_types[36]
+#define SWIGTYPE_p_si_taxi__BWSimStats swig_types[37]
+#define SWIGTYPE_p_si_taxi__BWSimStatsDetailed swig_types[38]
+#define SWIGTYPE_p_si_taxi__BWSimStatsMeanPaxWait swig_types[39]
+#define SWIGTYPE_p_si_taxi__BWSimStatsPaxRecord swig_types[40]
+#define SWIGTYPE_p_si_taxi__BWSimStatsPaxRecorder swig_types[41]
+#define SWIGTYPE_p_si_taxi__BWSurplusDeficitHandler swig_types[42]
+#define SWIGTYPE_p_si_taxi__BWTestPaxStream swig_types[43]
+#define SWIGTYPE_p_si_taxi__BWVehicle swig_types[44]
+#define SWIGTYPE_p_si_taxi__EmpiricalSampler swig_types[45]
+#define SWIGTYPE_p_si_taxi__EpsilonGreedySarsaActor swig_types[46]
+#define SWIGTYPE_p_si_taxi__Error swig_types[47]
+#define SWIGTYPE_p_si_taxi__Exception swig_types[48]
+#define SWIGTYPE_p_si_taxi__MDPSim swig_types[49]
+#define SWIGTYPE_p_si_taxi__NaturalHistogram swig_types[50]
+#define SWIGTYPE_p_si_taxi__ODHistogram swig_types[51]
+#define SWIGTYPE_p_si_taxi__ODMatrixWrapper swig_types[52]
+#define SWIGTYPE_p_si_taxi__SarsaActor swig_types[53]
+#define SWIGTYPE_p_si_taxi__TabularSarsaSolver swig_types[54]
+#define SWIGTYPE_p_size_t swig_types[55]
+#define SWIGTYPE_p_size_type swig_types[56]
+#define SWIGTYPE_p_std__allocatorT_double_t swig_types[57]
+#define SWIGTYPE_p_std__allocatorT_int_t swig_types[58]
+#define SWIGTYPE_p_std__allocatorT_long_t swig_types[59]
+#define SWIGTYPE_p_std__allocatorT_si_taxi__BWPax_t swig_types[60]
+#define SWIGTYPE_p_std__allocatorT_si_taxi__BWSimStatsPaxRecord_t swig_types[61]
+#define SWIGTYPE_p_std__allocatorT_si_taxi__BWVehicle_t swig_types[62]
+#define SWIGTYPE_p_std__allocatorT_si_taxi__NaturalHistogram_t swig_types[63]
+#define SWIGTYPE_p_std__allocatorT_size_t_t swig_types[64]
+#define SWIGTYPE_p_std__allocatorT_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t_t swig_types[65]
+#define SWIGTYPE_p_std__allocatorT_std__dequeT_si_taxi__BWTime_std__allocatorT_si_taxi__BWTime_t_t_t swig_types[66]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[67]
+#define SWIGTYPE_p_std__dequeT_int_std__allocatorT_int_t_t swig_types[68]
+#define SWIGTYPE_p_std__dequeT_long_std__allocatorT_long_t_t swig_types[69]
+#define SWIGTYPE_p_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t swig_types[70]
+#define SWIGTYPE_p_std__exception swig_types[71]
+#define SWIGTYPE_p_std__ostream swig_types[72]
+#define SWIGTYPE_p_std__pairT_std__vectorT_int_std__allocatorT_int_t_t_double_t swig_types[73]
+#define SWIGTYPE_p_std__queueT_int_std__dequeT_int_std__allocatorT_int_t_t_t swig_types[74]
+#define SWIGTYPE_p_std__queueT_si_taxi__BWPax_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t_t swig_types[75]
+#define SWIGTYPE_p_std__string swig_types[76]
 #define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[77]
 #define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[78]
 #define SWIGTYPE_p_std__vectorT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t swig_types[79]
@@ -52250,7 +52250,7 @@ _wrap_TabularSarsaSolver_q_set(int argc, VALUE *argv, VALUE self) {
   }
   arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
   {
-    res2 = SWIG_ConvertPtr(argv[0], &argp2, SWIGTYPE_p_std__unordered_mapT_std__vectorT_int_std__allocatorT_int_t_t_double_boost__hashT_si_taxi__TabularSarsaSolver__sa_t_t_t,  0 );
+    res2 = SWIG_ConvertPtr(argv[0], &argp2, SWIGTYPE_p_boost__unordered_mapT_si_taxi__TabularSarsaSolver__sa_t_double_boost__hashT_si_taxi__TabularSarsaSolver__sa_t_t_t,  0 );
     if (!SWIG_IsOK(res2)) {
       SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "si_taxi::TabularSarsaSolver::q_t","q", 2, argv[0] )); 
     }  
@@ -52284,7 +52284,7 @@ _wrap_TabularSarsaSolver_q_get(int argc, VALUE *argv, VALUE self) {
   }
   arg1 = reinterpret_cast< si_taxi::TabularSarsaSolver * >(argp1);
   result =  ((arg1)->q);
-  vresult = SWIG_NewPointerObj((new si_taxi::TabularSarsaSolver::q_t(static_cast< const si_taxi::TabularSarsaSolver::q_t& >(result))), SWIGTYPE_p_std__unordered_mapT_std__vectorT_int_std__allocatorT_int_t_t_double_boost__hashT_si_taxi__TabularSarsaSolver__sa_t_t_t, SWIG_POINTER_OWN |  0 );
+  vresult = SWIG_NewPointerObj((new si_taxi::TabularSarsaSolver::q_t(static_cast< const si_taxi::TabularSarsaSolver::q_t& >(result))), SWIGTYPE_p_boost__unordered_mapT_si_taxi__TabularSarsaSolver__sa_t_double_boost__hashT_si_taxi__TabularSarsaSolver__sa_t_t_t, SWIG_POINTER_OWN |  0 );
   return vresult;
 fail:
   return Qnil;
@@ -53401,6 +53401,7 @@ static swig_type_info _swigt__p_boost__numeric__ublas__matrixT_int_t = {"_p_boos
 static swig_type_info _swigt__p_boost__numeric__ublas__matrixT_size_t_t = {"_p_boost__numeric__ublas__matrixT_size_t_t", "boost::numeric::ublas::matrix< size_t > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_boost__numeric__ublas__scalar_vectorT_int_t = {"_p_boost__numeric__ublas__scalar_vectorT_int_t", "boost::numeric::ublas::scalar_vector< int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_boost__numeric__ublas__vectorT_int_t = {"_p_boost__numeric__ublas__vectorT_int_t", "si_taxi::MDPSim::int_vector_t *|boost::numeric::ublas::vector< int > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_boost__unordered_mapT_si_taxi__TabularSarsaSolver__sa_t_double_boost__hashT_si_taxi__TabularSarsaSolver__sa_t_t_t = {"_p_boost__unordered_mapT_si_taxi__TabularSarsaSolver__sa_t_double_boost__hashT_si_taxi__TabularSarsaSolver__sa_t_t_t", "boost::unordered_map< si_taxi::TabularSarsaSolver::sa_t,double,boost::hash< si_taxi::TabularSarsaSolver::sa_t > > *|si_taxi::TabularSarsaSolver::q_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_container_type = {"_p_container_type", "container_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_difference_type = {"_p_difference_type", "difference_type *", 0, 0, (void*)0, 0};
@@ -53469,7 +53470,6 @@ static swig_type_info _swigt__p_std__pairT_std__vectorT_int_std__allocatorT_int_
 static swig_type_info _swigt__p_std__queueT_int_std__dequeT_int_std__allocatorT_int_t_t_t = {"_p_std__queueT_int_std__dequeT_int_std__allocatorT_int_t_t_t", "std::queue< int,std::deque< int,std::allocator< int > > > *|std::queue< int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__queueT_si_taxi__BWPax_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t_t = {"_p_std__queueT_si_taxi__BWPax_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t_t", "std::queue< si_taxi::BWPax > *|std::queue< si_taxi::BWPax,std::deque< si_taxi::BWPax,std::allocator< si_taxi::BWPax > > > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__string = {"_p_std__string", "std::string *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__unordered_mapT_std__vectorT_int_std__allocatorT_int_t_t_double_boost__hashT_si_taxi__TabularSarsaSolver__sa_t_t_t = {"_p_std__unordered_mapT_std__vectorT_int_std__allocatorT_int_t_t_double_boost__hashT_si_taxi__TabularSarsaSolver__sa_t_t_t", "std::unordered_map< std::vector< int,std::allocator< int > >,double,boost::hash< si_taxi::TabularSarsaSolver::sa_t > > *|si_taxi::TabularSarsaSolver::q_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_double_std__allocatorT_double_t_t = {"_p_std__vectorT_double_std__allocatorT_double_t_t", "std::vector< double,std::allocator< double > > *|std::vector< double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_int_std__allocatorT_int_t_t = {"_p_std__vectorT_int_std__allocatorT_int_t_t", "si_taxi::TabularSarsaSolver::sa_t *|std::vector< int,std::allocator< int > > *|std::vector< int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t = {"_p_std__vectorT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t", "std::vector< si_taxi::BWPax > *|std::vector< si_taxi::BWPax,std::allocator< si_taxi::BWPax > > *", 0, 0, (void*)0, 0};
@@ -53496,6 +53496,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_boost__numeric__ublas__matrixT_size_t_t,
   &_swigt__p_boost__numeric__ublas__scalar_vectorT_int_t,
   &_swigt__p_boost__numeric__ublas__vectorT_int_t,
+  &_swigt__p_boost__unordered_mapT_si_taxi__TabularSarsaSolver__sa_t_double_boost__hashT_si_taxi__TabularSarsaSolver__sa_t_t_t,
   &_swigt__p_char,
   &_swigt__p_container_type,
   &_swigt__p_difference_type,
@@ -53564,7 +53565,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_std__queueT_int_std__dequeT_int_std__allocatorT_int_t_t_t,
   &_swigt__p_std__queueT_si_taxi__BWPax_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t_t,
   &_swigt__p_std__string,
-  &_swigt__p_std__unordered_mapT_std__vectorT_int_std__allocatorT_int_t_t_double_boost__hashT_si_taxi__TabularSarsaSolver__sa_t_t_t,
   &_swigt__p_std__vectorT_double_std__allocatorT_double_t_t,
   &_swigt__p_std__vectorT_int_std__allocatorT_int_t_t,
   &_swigt__p_std__vectorT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t,
@@ -53591,6 +53591,7 @@ static swig_cast_info _swigc__p_boost__numeric__ublas__matrixT_int_t[] = {  {&_s
 static swig_cast_info _swigc__p_boost__numeric__ublas__matrixT_size_t_t[] = {  {&_swigt__p_boost__numeric__ublas__matrixT_size_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_boost__numeric__ublas__scalar_vectorT_int_t[] = {  {&_swigt__p_boost__numeric__ublas__scalar_vectorT_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_boost__numeric__ublas__vectorT_int_t[] = {  {&_swigt__p_boost__numeric__ublas__vectorT_int_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_boost__unordered_mapT_si_taxi__TabularSarsaSolver__sa_t_double_boost__hashT_si_taxi__TabularSarsaSolver__sa_t_t_t[] = {  {&_swigt__p_boost__unordered_mapT_si_taxi__TabularSarsaSolver__sa_t_double_boost__hashT_si_taxi__TabularSarsaSolver__sa_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_container_type[] = {  {&_swigt__p_container_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_difference_type[] = {  {&_swigt__p_difference_type, 0, 0, 0},{0, 0, 0, 0}};
@@ -53659,7 +53660,6 @@ static swig_cast_info _swigc__p_std__pairT_std__vectorT_int_std__allocatorT_int_
 static swig_cast_info _swigc__p_std__queueT_int_std__dequeT_int_std__allocatorT_int_t_t_t[] = {  {&_swigt__p_std__queueT_int_std__dequeT_int_std__allocatorT_int_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__queueT_si_taxi__BWPax_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t_t[] = {  {&_swigt__p_std__queueT_si_taxi__BWPax_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__string[] = {  {&_swigt__p_std__string, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__unordered_mapT_std__vectorT_int_std__allocatorT_int_t_t_double_boost__hashT_si_taxi__TabularSarsaSolver__sa_t_t_t[] = {  {&_swigt__p_std__unordered_mapT_std__vectorT_int_std__allocatorT_int_t_t_double_boost__hashT_si_taxi__TabularSarsaSolver__sa_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_double_std__allocatorT_double_t_t[] = {  {&_swigt__p_std__vectorT_double_std__allocatorT_double_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_int_std__allocatorT_int_t_t[] = {  {&_swigt__p_std__vectorT_int_std__allocatorT_int_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t[] = {  {&_swigt__p_std__vectorT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -53686,6 +53686,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_boost__numeric__ublas__matrixT_size_t_t,
   _swigc__p_boost__numeric__ublas__scalar_vectorT_int_t,
   _swigc__p_boost__numeric__ublas__vectorT_int_t,
+  _swigc__p_boost__unordered_mapT_si_taxi__TabularSarsaSolver__sa_t_double_boost__hashT_si_taxi__TabularSarsaSolver__sa_t_t_t,
   _swigc__p_char,
   _swigc__p_container_type,
   _swigc__p_difference_type,
@@ -53754,7 +53755,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_std__queueT_int_std__dequeT_int_std__allocatorT_int_t_t_t,
   _swigc__p_std__queueT_si_taxi__BWPax_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t_t,
   _swigc__p_std__string,
-  _swigc__p_std__unordered_mapT_std__vectorT_int_std__allocatorT_int_t_t_double_boost__hashT_si_taxi__TabularSarsaSolver__sa_t_t_t,
   _swigc__p_std__vectorT_double_std__allocatorT_double_t_t,
   _swigc__p_std__vectorT_int_std__allocatorT_int_t_t,
   _swigc__p_std__vectorT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t,

@@ -57,7 +57,7 @@ cflags   =  $(optflags) $(debugflags) $(warnflags)
 optflags = -O3
 debugflags = -ggdb
 warnflags = -Wextra -Wno-unused-parameter -Wno-parentheses -Wpointer-arith -Wwrite-strings -Wno-missing-field-initializers -Wno-long-long
-CFLAGS   = -fPIC $(cflags)  -fPIC -std=c++0x 
+CFLAGS   = -fPIC $(cflags)  -fPIC 
 INCFLAGS = -I. -I$(arch_hdrdir) -I$(hdrdir)/ruby/backward -I$(hdrdir) -I$(srcdir) -I/home/john/si_taxi/ext/si_taxi
 DEFS     = -D_FILE_OFFSET_BITS=64
 CPPFLAGS =   $(DEFS) $(cppflags)
@@ -92,8 +92,8 @@ COPY = cp
 
 preload = 
 
-libpath = . $(libdir) /home/john/si_taxi/ext/si_taxi/Release
-LIBPATH =  -L. -L$(libdir) -Wl,-R$(libdir) -L/home/john/si_taxi/ext/si_taxi/Release -Wl,-R/home/john/si_taxi/ext/si_taxi/Release
+libpath = . $(libdir) /home/john/si_taxi/ext/si_taxi/Debug
+LIBPATH =  -L. -L$(libdir) -Wl,-R$(libdir) -L/home/john/si_taxi/ext/si_taxi/Debug -Wl,-R/home/john/si_taxi/ext/si_taxi/Debug
 DEFFILE = 
 
 CLEANFILES = mkmf.log

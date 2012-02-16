@@ -38,9 +38,6 @@ SI_TAXI_DIR = File.expand_path(File.join(File.dirname(__FILE__),'si_taxi'))
 Config::CONFIG['CPP'] = 'g++ -E'
 $LIBS += " -lstdc++"
 
-# need c++0x for unordered_map
-$CFLAGS += " -std=c++0x"
-
 # need gcov for a coverage build
 $LIBS += " -lgcov" if target == 'Coverage'
 
