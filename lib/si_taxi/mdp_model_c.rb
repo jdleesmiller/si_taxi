@@ -66,6 +66,10 @@ module SiTaxi
         inbound.map{|inb| inb.join(' ')}.join('|') + "]"
     end
 
+    def <=> other
+      self.inspect <=> other.inspect
+    end
+
     def to_a
       (queue + inbound.map(&:size) + inbound).flatten
     end
