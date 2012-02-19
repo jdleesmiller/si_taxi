@@ -94,13 +94,14 @@ void seed_rng(unsigned int seed) {
 %include "si_taxi/bell_wong/sampling_voting.h"
 %include "si_taxi/bell_wong/surplus_deficit.h"
 
-%template(BWPaxVector) std::vector<si_taxi::BWPax>;
-%template(BWPaxDeque) std::deque<si_taxi::BWPax>;
-%template(BWTimeDeque) std::deque<si_taxi::BWTime>;
-%template(BWTimeDequeVector) std::vector<std::deque<si_taxi::BWTime> >;
-%template(BWPaxDequeVector) std::vector<std::deque<si_taxi::BWPax> >;
-%feature("director") SarsaActor;
+%include "si_taxi/mdp_sim/mdp_pax.h"
+%template(MDPPaxVector) std::vector<si_taxi::MDPPax>;
+%template(MDPPaxDeque) std::deque<si_taxi::MDPPax>;
+%template(MDPTimeDeque) std::deque<si_taxi::MDPTime>;
+%template(MDPTimeDequeVector) std::vector<std::deque<si_taxi::MDPTime> >;
+%template(MDPPaxDequeVector) std::vector<std::deque<si_taxi::MDPPax> >;
 %include "si_taxi/mdp_sim/mdp_sim.h"
+%feature("director") SarsaActor;
 %template(PolicyPair) std::pair<std::vector<int>, double>;
 %include "si_taxi/mdp_sim/tabular_sarsa_solver.h"
 

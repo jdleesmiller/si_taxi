@@ -8,6 +8,8 @@
 
 namespace si_taxi {
 
+#if 0
+
 // forward declaration
 struct SarsaActor;
 
@@ -187,6 +189,8 @@ struct EpsilonGreedySarsaActor : public SarsaActor {
 
   virtual void select_action(TabularSarsaSolver::sa_t &sa);
 };
+
+#endif
 
 }
 

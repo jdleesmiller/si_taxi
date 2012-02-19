@@ -107,6 +107,11 @@ module SiTaxi
       2 * num_stations + num_veh
     end
 
+    def action_size
+      # leaving the diagonal in for convenience
+      num_stations**2
+    end
+
     attr_reader :queue_max, :num_veh, :trip_time, :demand, :max_time
 
     def states

@@ -3,6 +3,7 @@
 #include <si_taxi/random.h>
 #include "tabular_sarsa_solver.h"
 
+#if 0
 namespace si_taxi {
 
 TabularSarsaSolver::TabularSarsaSolver(MDPSim *sim) :
@@ -86,6 +87,8 @@ void TabularSarsaSolver::handle_pax_stream(size_t num_pax,
 
 void TabularSarsaSolver::fill_state_action_state(sa_t &sa) {
   sa_t::iterator it = sa.begin();
+
+  // TODO see model_c_state in MDPSim
 
   // queue lengths
   for(std::vector<std::deque<BWPax> >::const_iterator it_q = sim->queue.begin();
@@ -225,25 +228,26 @@ void EpsilonGreedySarsaActor::select_action(TabularSarsaSolver::sa_t &sa) {
   std::fill(sa.begin() + solver.state_size(), sa.end(), 0);
 
   // count up idle vehicles
-  fill(solver.sim->idle.begin(), solver.sim->idle.end(), 0);
-  solver.sim->count_idle_by(solver.sim->now, solver.sim->idle);
+  fill(solver.sim->available.begin(), solver.sim->available.end(), 0);
+  solver.sim->count_idle_by(solver.sim->now, solver.sim->available);
 
   // now ready to select action
   if (genrand_c01o<double>(rng) < epsilon) {
     // make a list of all feasible actions and choose a random one
     F_random_qsa f(solver);
     each_square_matrix_with_row_sums_lte(sa,
-        solver.state_size(), 0, 0, solver.sim->idle, f);
+        solver.state_size(), 0, 0, solver.sim->available, f);
     f.select_random_action();
   } else {
     // enumerate all possible actions; functor sets sa's action to the best one
     F_max_qsa f(solver);
     each_square_matrix_with_row_sums_lte(sa,
-        solver.state_size(), 0, 0, solver.sim->idle, f);
+        solver.state_size(), 0, 0, solver.sim->available, f);
   }
 }
 
 }
+#endif
 
 /* select_action(state):
  *   the Q(s, a) have to be initialised somehow

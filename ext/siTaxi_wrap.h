@@ -28,13 +28,4 @@ public:
 };
 
 
-struct SwigDirector_SarsaActor : public si_taxi::SarsaActor, public Swig::Director {
-
-public:
-    SwigDirector_SarsaActor(VALUE self, si_taxi::TabularSarsaSolver &solver);
-    virtual ~SwigDirector_SarsaActor();
-    virtual void select_action(si_taxi::TabularSarsaSolver::sa_t &sa);
-};
-
-
 #endif

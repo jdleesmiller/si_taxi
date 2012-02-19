@@ -37,6 +37,7 @@ require 'si_taxi/mdp_model'
 require 'si_taxi/mdp_model_a'
 require 'si_taxi/mdp_model_b'
 require 'si_taxi/mdp_model_c'
+require 'si_taxi/mdp_sim'
 
 module SiTaxi
   #
