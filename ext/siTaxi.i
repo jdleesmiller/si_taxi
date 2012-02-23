@@ -43,6 +43,7 @@ using namespace si_taxi;
 %template(IntVectorVector) std::vector<std::vector<int> >;
 %template(IntQueue) std::queue<int>;
 %template(NaturalHistogramVector) std::vector<si_taxi::NaturalHistogram>;
+%template(LongLongVector) std::vector<long long>;
 
 %template(BWVehicleVector) std::vector<si_taxi::BWVehicle>;
 %template(BWPaxQueue) std::queue<si_taxi::BWPax>;

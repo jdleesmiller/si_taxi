@@ -170,6 +170,103 @@ void MDPSim::model_c_state(std::vector<int> &state) const
     }
   }
 }
+size_t MDPSim::run_with_model_c_policy(
+    const std::vector<std::vector<int> > &policy,
+    MDPPaxStream &pax_stream, size_t num_pax,
+    int policy_queue_max, double policy_step_size)
+{
+  typedef std::vector<int> state_t;
+  typedef int_od_t action_t;
+  typedef boost::unordered_map<state_t, action_t, boost::hash<state_t> >
+	  policy_t;
+
+  CHECK(policy_step_size >= 1);
+
+  // hash the policy for faster lookup
+  state_t state(2*num_stations() + num_vehicles());
+  action_t action(num_stations(), num_stations());
+  policy_t pi;
+
+  for (std::vector<std::vector<int> >::const_iterator it = policy.begin();
+      it != policy.end(); ++it)
+  {
+    CHECK(it->size() == state.size() + action.data().size());
+    std::copy(it->begin(), it->begin() + state.size(), state.begin());
+    std::copy(it->begin() + state.size(), it->end(), action.data().begin());
+    pi[state] = action;
+  }
+
+  size_t pax_generated = 0;
+  std::vector<bool> truncated_queue(num_stations());
+  while (pax_generated < num_pax) {
+    // get current state
+    model_c_state(state);
+
+    // may have to truncate queues to be compatible with the policy
+    for (size_t i = 0; i < num_stations(); ++i) {
+      if (state[i] > policy_queue_max) {
+        state[i] = policy_queue_max;
+        truncated_queue[i] = true;
+      } else {
+        truncated_queue[i] = false;
+      }
+    }
+
+    // may have to scale policy time steps into sim timesteps
+    if (policy_step_size != 1) {
+      size_t b_offset = num_stations();
+      size_t r_offset = b_offset + num_stations();
+
+      for (size_t j = 0; j < num_stations(); ++j) {
+        // the r times can only range up to max_time[j] - 1; truncation is
+        // required because of the ceil() used below to scale the times below
+        int max_time_j = -INT_MAX;
+        for (size_t i = 0; i < num_stations(); ++i) {
+          if (trip_time(i,j) > max_time_j) {
+            max_time_j = trip_time(i,j);
+          }
+        }
+        max_time_j = (int)ceil(max_time_j / policy_step_size);
+
+        for (int k = state[b_offset + j]; k > 0; --k) {
+          CHECK(r_offset < state.size());
+          state[r_offset] = (int)ceil(state[r_offset] / policy_step_size);
+          if (state[r_offset] >= max_time_j)
+            state[r_offset] = max_time_j - 1;
+          ++r_offset;
+        }
+      }
+      CHECK(r_offset == state.size());
+    }
+
+    // look up action for this state
+    policy_t::const_iterator it = pi.find(state);
+    CHECK(it != pi.end());
+    std::copy(it->second.data().begin(), it->second.data().end(),
+        action.data().begin());
+
+    // the policy for the truncated queues may not be valid for the actual
+    // queues; in particular, we can try to move more empty vehicles from a
+    // station than will be available after serving the queues; to avoid
+    // this, zero the action row for each station at which we truncated the
+    // queues; this is crude but simple, and it avoids fairness issues
+    for (size_t i = 0; i < num_stations(); ++i) {
+      if (truncated_queue[i]) {
+        for (size_t j = 0; j < num_stations(); ++j) {
+          action(i,j) = 0;
+        }
+      }
+    }
+
+    // process passengers
+    const std::vector<MDPPax> &pax = pax_stream.next_pax();
+    tick(action, pax);
+
+    pax_generated += pax.size();
+  }
+
+  return pax_generated;
+}
 
 void MDPSimStats::init()
 {
@@ -238,7 +335,7 @@ void MDPSimStats::record_pax_to_be_served(const MDPPax &pax)
 
   //
   // update simple waiting time estimate
-  // TODO WRONG
+  // TODO this tends to overestimate
   //
   double wait_simple = step * ceil(sim.now - pax.arrive / step);
   CHECK(wait_simple >= 0);

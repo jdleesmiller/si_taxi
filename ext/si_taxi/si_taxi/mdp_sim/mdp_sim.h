@@ -15,6 +15,7 @@ typedef boost::numeric::ublas::matrix<int> int_od_t;
 
 // forward declaration
 struct MDPSimStats;
+struct MDPPaxStream;
 
 /**
  * A simulation consistent with MDPModelC.
@@ -127,6 +128,13 @@ struct MDPSim {
    * @param state must have size at least 2*num_stations + num_veh
    */
   void model_c_state(std::vector<int> &state) const;
+
+  /**
+   *
+   */
+  size_t run_with_model_c_policy(const std::vector<std::vector<int> > &policy,
+      MDPPaxStream &pax_stream, size_t num_pax,
+      int policy_queue_max, double policy_step_size);
 };
 
 struct MDPSimStats
@@ -185,12 +193,8 @@ struct MDPSimStats
   /**
    * Histograms of passenger waiting times, in seconds, per station.
    *
-   * This is computed to be consistent with the simplest reward function for
-   * MDPModelC, which is the negative sum of the queue lengths. It counts the
-   * number of time steps that the request spent in the queue, rounding down.
-   * So, in particular, if a request is served in the same time step in which
-   * it arrives, this counts it as a zero, which is not strictly speaking
-   * correct.
+   * TODO not quite right; tends to overestimate, whereas accumulated reward
+   * tends to underestimate, at present; small time steps advisable
    */
   std::vector<NaturalHistogram> pax_wait_simple;
 
@@ -210,7 +214,7 @@ struct MDPSimStats
   boost::numeric::ublas::matrix<size_t> empty_trips;
 
   /// Reward (will be non-positive) collected for each station.
-  std::vector<int> reward;
+  std::vector<long long> reward;
 };
 
 /**

@@ -2254,43 +2254,45 @@ namespace Swig {
 #define SWIGTYPE_p_size_type swig_types[53]
 #define SWIGTYPE_p_std__allocatorT_double_t swig_types[54]
 #define SWIGTYPE_p_std__allocatorT_int_t swig_types[55]
-#define SWIGTYPE_p_std__allocatorT_long_t swig_types[56]
-#define SWIGTYPE_p_std__allocatorT_si_taxi__BWSimStatsPaxRecord_t swig_types[57]
-#define SWIGTYPE_p_std__allocatorT_si_taxi__BWVehicle_t swig_types[58]
-#define SWIGTYPE_p_std__allocatorT_si_taxi__MDPPax_t swig_types[59]
-#define SWIGTYPE_p_std__allocatorT_si_taxi__NaturalHistogram_t swig_types[60]
-#define SWIGTYPE_p_std__allocatorT_size_t_t swig_types[61]
-#define SWIGTYPE_p_std__allocatorT_std__dequeT_si_taxi__MDPPax_std__allocatorT_si_taxi__MDPPax_t_t_t swig_types[62]
-#define SWIGTYPE_p_std__allocatorT_std__dequeT_si_taxi__MDPTime_std__allocatorT_si_taxi__MDPTime_t_t_t swig_types[63]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[64]
-#define SWIGTYPE_p_std__dequeT_int_std__allocatorT_int_t_t swig_types[65]
-#define SWIGTYPE_p_std__dequeT_long_std__allocatorT_long_t_t swig_types[66]
-#define SWIGTYPE_p_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t swig_types[67]
-#define SWIGTYPE_p_std__dequeT_si_taxi__MDPPax_std__allocatorT_si_taxi__MDPPax_t_t swig_types[68]
-#define SWIGTYPE_p_std__exception swig_types[69]
-#define SWIGTYPE_p_std__ostream swig_types[70]
-#define SWIGTYPE_p_std__pairT_std__vectorT_int_std__allocatorT_int_t_t_double_t swig_types[71]
-#define SWIGTYPE_p_std__queueT_int_std__dequeT_int_std__allocatorT_int_t_t_t swig_types[72]
-#define SWIGTYPE_p_std__queueT_si_taxi__BWPax_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t_t swig_types[73]
-#define SWIGTYPE_p_std__string swig_types[74]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[75]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[76]
-#define SWIGTYPE_p_std__vectorT_si_taxi__BWSimStatsPaxRecord_std__allocatorT_si_taxi__BWSimStatsPaxRecord_t_t swig_types[77]
-#define SWIGTYPE_p_std__vectorT_si_taxi__BWVehicle_std__allocatorT_si_taxi__BWVehicle_t_t swig_types[78]
-#define SWIGTYPE_p_std__vectorT_si_taxi__MDPPax_std__allocatorT_si_taxi__MDPPax_t_t swig_types[79]
-#define SWIGTYPE_p_std__vectorT_si_taxi__NaturalHistogram_std__allocatorT_si_taxi__NaturalHistogram_t_t swig_types[80]
-#define SWIGTYPE_p_std__vectorT_size_t_std__allocatorT_size_t_t_t swig_types[81]
-#define SWIGTYPE_p_std__vectorT_std__dequeT_si_taxi__MDPPax_std__allocatorT_si_taxi__MDPPax_t_t_std__allocatorT_std__dequeT_si_taxi__MDPPax_std__allocatorT_si_taxi__MDPPax_t_t_t_t swig_types[82]
-#define SWIGTYPE_p_std__vectorT_std__dequeT_si_taxi__MDPTime_std__allocatorT_si_taxi__MDPTime_t_t_std__allocatorT_std__dequeT_si_taxi__MDPTime_std__allocatorT_si_taxi__MDPTime_t_t_t_t swig_types[83]
-#define SWIGTYPE_p_std__vectorT_std__priority_queueT_long_std__vectorT_long_std__allocatorT_long_t_t_std__greaterT_long_t_t_std__allocatorT_std__priority_queueT_long_std__vectorT_long_std__allocatorT_long_t_t_std__greaterT_long_t_t_t_t swig_types[84]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[85]
-#define SWIGTYPE_p_swig__ConstIterator swig_types[86]
-#define SWIGTYPE_p_swig__GC_VALUE swig_types[87]
-#define SWIGTYPE_p_swig__Iterator swig_types[88]
-#define SWIGTYPE_p_value_type swig_types[89]
-#define SWIGTYPE_p_void swig_types[90]
-static swig_type_info *swig_types[92];
-static swig_module_info swig_module = {swig_types, 91, 0, 0, 0, 0};
+#define SWIGTYPE_p_std__allocatorT_long_long_t swig_types[56]
+#define SWIGTYPE_p_std__allocatorT_long_t swig_types[57]
+#define SWIGTYPE_p_std__allocatorT_si_taxi__BWSimStatsPaxRecord_t swig_types[58]
+#define SWIGTYPE_p_std__allocatorT_si_taxi__BWVehicle_t swig_types[59]
+#define SWIGTYPE_p_std__allocatorT_si_taxi__MDPPax_t swig_types[60]
+#define SWIGTYPE_p_std__allocatorT_si_taxi__NaturalHistogram_t swig_types[61]
+#define SWIGTYPE_p_std__allocatorT_size_t_t swig_types[62]
+#define SWIGTYPE_p_std__allocatorT_std__dequeT_si_taxi__MDPPax_std__allocatorT_si_taxi__MDPPax_t_t_t swig_types[63]
+#define SWIGTYPE_p_std__allocatorT_std__dequeT_si_taxi__MDPTime_std__allocatorT_si_taxi__MDPTime_t_t_t swig_types[64]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[65]
+#define SWIGTYPE_p_std__dequeT_int_std__allocatorT_int_t_t swig_types[66]
+#define SWIGTYPE_p_std__dequeT_long_std__allocatorT_long_t_t swig_types[67]
+#define SWIGTYPE_p_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t swig_types[68]
+#define SWIGTYPE_p_std__dequeT_si_taxi__MDPPax_std__allocatorT_si_taxi__MDPPax_t_t swig_types[69]
+#define SWIGTYPE_p_std__exception swig_types[70]
+#define SWIGTYPE_p_std__ostream swig_types[71]
+#define SWIGTYPE_p_std__pairT_std__vectorT_int_std__allocatorT_int_t_t_double_t swig_types[72]
+#define SWIGTYPE_p_std__queueT_int_std__dequeT_int_std__allocatorT_int_t_t_t swig_types[73]
+#define SWIGTYPE_p_std__queueT_si_taxi__BWPax_std__dequeT_si_taxi__BWPax_std__allocatorT_si_taxi__BWPax_t_t_t swig_types[74]
+#define SWIGTYPE_p_std__string swig_types[75]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[76]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[77]
+#define SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t swig_types[78]
+#define SWIGTYPE_p_std__vectorT_si_taxi__BWSimStatsPaxRecord_std__allocatorT_si_taxi__BWSimStatsPaxRecord_t_t swig_types[79]
+#define SWIGTYPE_p_std__vectorT_si_taxi__BWVehicle_std__allocatorT_si_taxi__BWVehicle_t_t swig_types[80]
+#define SWIGTYPE_p_std__vectorT_si_taxi__MDPPax_std__allocatorT_si_taxi__MDPPax_t_t swig_types[81]
+#define SWIGTYPE_p_std__vectorT_si_taxi__NaturalHistogram_std__allocatorT_si_taxi__NaturalHistogram_t_t swig_types[82]
+#define SWIGTYPE_p_std__vectorT_size_t_std__allocatorT_size_t_t_t swig_types[83]
+#define SWIGTYPE_p_std__vectorT_std__dequeT_si_taxi__MDPPax_std__allocatorT_si_taxi__MDPPax_t_t_std__allocatorT_std__dequeT_si_taxi__MDPPax_std__allocatorT_si_taxi__MDPPax_t_t_t_t swig_types[84]
+#define SWIGTYPE_p_std__vectorT_std__dequeT_si_taxi__MDPTime_std__allocatorT_si_taxi__MDPTime_t_t_std__allocatorT_std__dequeT_si_taxi__MDPTime_std__allocatorT_si_taxi__MDPTime_t_t_t_t swig_types[85]
+#define SWIGTYPE_p_std__vectorT_std__priority_queueT_long_std__vectorT_long_std__allocatorT_long_t_t_std__greaterT_long_t_t_std__allocatorT_std__priority_queueT_long_std__vectorT_long_std__allocatorT_long_t_t_std__greaterT_long_t_t_t_t swig_types[86]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[87]
+#define SWIGTYPE_p_swig__ConstIterator swig_types[88]
+#define SWIGTYPE_p_swig__GC_VALUE swig_types[89]
+#define SWIGTYPE_p_swig__Iterator swig_types[90]
+#define SWIGTYPE_p_value_type swig_types[91]
+#define SWIGTYPE_p_void swig_types[92]
+static swig_type_info *swig_types[94];
+static swig_module_info swig_module = {swig_types, 93, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -6297,6 +6299,374 @@ SWIGINTERN std::vector< si_taxi::NaturalHistogram,std::allocator< si_taxi::Natur
       return self;
     }
 
+/*@SWIG:/home/john/local/share/swig/2.0.4/ruby/rubyprimtypes.swg,19,%ruby_aux_method@*/
+SWIGINTERN VALUE SWIG_AUX_NUM2LL(VALUE *args)
+{
+  VALUE obj = args[0];
+  VALUE type = TYPE(obj);
+  long long *res = (long long *)(args[1]);
+  *res = type == T_FIXNUM ? NUM2LL(obj) : rb_big2ll(obj);
+  return obj;
+}
+/*@SWIG@*/
+
+SWIGINTERN int
+SWIG_AsVal_long_SS_long (VALUE obj, long long *val)
+{
+  VALUE type = TYPE(obj);
+  if ((type == T_FIXNUM) || (type == T_BIGNUM)) {
+    long long v;
+    VALUE a[2];
+    a[0] = obj;
+    a[1] = (VALUE)(&v);
+    if (rb_rescue(RUBY_METHOD_FUNC(SWIG_AUX_NUM2LL), (VALUE)a, RUBY_METHOD_FUNC(SWIG_ruby_failed), 0) != Qnil) {
+      if (val) *val = v;
+      return SWIG_OK;
+    }
+  }
+  return SWIG_TypeError;
+}
+
+
+SWIGINTERNINLINE VALUE 
+SWIG_From_long_SS_long  (long long value)
+{
+  return LL2NUM(value);
+}
+
+
+namespace swig {
+  template <> struct traits<long long > {
+    typedef value_category category;
+    static const char* type_name() { return"long long"; }
+  };  
+  template <>  struct traits_asval<long long > {   
+    typedef long long value_type;
+    static int asval(VALUE obj, value_type *val) { 
+      return SWIG_AsVal_long_SS_long (obj, val);
+    }
+  };
+  template <>  struct traits_from<long long > {
+    typedef long long value_type;
+    static VALUE from(const value_type& val) {
+      return SWIG_From_long_SS_long  (val);
+    }
+  };
+}
+
+
+      namespace swig {
+	template <>  struct traits<std::vector<long long, std::allocator< long long > > > {
+	  typedef pointer_category category;
+	  static const char* type_name() {
+	    return "std::vector<" "long long" "," "std::allocator< long long >" " >";
+	  }
+	};
+      }
+    
+SWIGINTERN std::vector< long long,std::allocator< long long > > *std_vector_Sl_long_SS_long_Sg__dup(std::vector< long long > *self){
+      return new std::vector<long long,std::allocator< long long > >(*self);
+    }
+SWIGINTERN VALUE std_vector_Sl_long_SS_long_Sg__inspect(std::vector< long long > *self){
+      std::vector<long long,std::allocator< long long > >::const_iterator i = self->begin();
+      std::vector<long long,std::allocator< long long > >::const_iterator e = self->end();
+      const char *type_name = swig::type_name< std::vector<long long,std::allocator< long long > > >();
+      VALUE str = rb_str_new2(type_name);
+      str = rb_str_cat2( str, " [" );
+      bool comma = false;
+      VALUE tmp;
+      for ( ; i != e; ++i, comma = true )
+	{
+	  if (comma) str = rb_str_cat2( str, "," );
+	  tmp = swig::from< std::vector<long long,std::allocator< long long > >::value_type >( *i );
+	  tmp = rb_inspect( tmp );
+	  str = rb_str_buf_append( str, tmp );
+	}
+      str = rb_str_cat2( str, "]" );
+      return str;
+    }
+SWIGINTERN VALUE std_vector_Sl_long_SS_long_Sg__to_a(std::vector< long long > *self){
+      std::vector<long long,std::allocator< long long > >::const_iterator i = self->begin();
+      std::vector<long long,std::allocator< long long > >::const_iterator e = self->end();
+      VALUE ary = rb_ary_new2( std::distance( i, e ) );
+      VALUE tmp;
+      for ( ; i != e; ++i )
+	{
+	  tmp = swig::from< std::vector<long long,std::allocator< long long > >::value_type >( *i );
+	  rb_ary_push( ary, tmp );
+	}
+      return ary;
+    }
+SWIGINTERN VALUE std_vector_Sl_long_SS_long_Sg__to_s(std::vector< long long > *self){
+      std::vector<long long,std::allocator< long long > >::iterator i = self->begin();
+      std::vector<long long,std::allocator< long long > >::iterator e = self->end();
+      VALUE str = rb_str_new2( "" );
+      VALUE tmp;
+      for ( ; i != e; ++i )
+	{
+	  tmp = swig::from< std::vector<long long,std::allocator< long long > >::value_type >( *i );
+	  tmp = rb_obj_as_string( tmp );
+	  str = rb_str_buf_append( str, tmp );
+	}
+      return str;
+    }
+SWIGINTERN VALUE std_vector_Sl_long_SS_long_Sg__slice(std::vector< long long > *self,std::vector< long long >::difference_type i,std::vector< long long >::difference_type j){
+	if ( j <= 0 ) return Qnil;
+	std::size_t len = self->size();
+	if ( i < 0 ) i = len - i;
+	j += i;
+	if ( static_cast<std::size_t>(j) >= len ) j = len-1;
+
+	VALUE r = Qnil;
+	try {
+	  r = swig::from< const std::vector<long long,std::allocator< long long > >* >( swig::getslice(self, i, j) );
+	}
+	catch( std::out_of_range )
+	  {
+	  }
+	return r;
+      }
+SWIGINTERN std::vector< long long,std::allocator< long long > > *std_vector_Sl_long_SS_long_Sg__each(std::vector< long long > *self){
+	if ( !rb_block_given_p() )
+	  rb_raise( rb_eArgError, "no block given");
+
+	VALUE r;
+	std::vector<long long,std::allocator< long long > >::const_iterator i = self->begin();
+	std::vector<long long,std::allocator< long long > >::const_iterator e = self->end();
+	for ( ; i != e; ++i )
+	  {
+	    r = swig::from< std::vector<long long,std::allocator< long long > >::value_type >(*i);
+	    rb_yield(r);
+	  }
+	
+	return self;
+      }
+SWIGINTERN std::vector< long long,std::allocator< long long > > *std_vector_Sl_long_SS_long_Sg__select(std::vector< long long > *self){
+      if ( !rb_block_given_p() )
+	rb_raise( rb_eArgError, "no block given" );
+
+      std::vector<long long,std::allocator< long long > >* r = new std::vector<long long,std::allocator< long long > >;
+      std::vector<long long,std::allocator< long long > >::const_iterator i = self->begin();
+      std::vector<long long,std::allocator< long long > >::const_iterator e = self->end();
+      for ( ; i != e; ++i )
+	{
+	  VALUE v = swig::from< std::vector<long long,std::allocator< long long > >::value_type >(*i);
+	  if ( RTEST( rb_yield(v) ) )
+	    self->insert( r->end(), *i);
+	}
+	
+      return r;
+    }
+SWIGINTERN std::vector< long long,std::allocator< long long > > *std_vector_Sl_long_SS_long_Sg__reject_bang(std::vector< long long > *self){
+      if ( !rb_block_given_p() )
+	rb_raise( rb_eArgError, "no block given" );
+
+      std::vector<long long,std::allocator< long long > >::iterator i = self->begin();
+      std::vector<long long,std::allocator< long long > >::iterator e = self->end();
+      for ( ; i != e; )
+	{
+	  VALUE r = swig::from< std::vector<long long,std::allocator< long long > >::value_type >(*i);
+	  if ( RTEST( rb_yield(r) ) ) {
+	    self->erase(i++);
+            e = self->end();
+	  } else {
+	    ++i;
+          }
+	}
+	
+      return self;
+    }
+SWIGINTERN VALUE std_vector_Sl_long_SS_long_Sg__delete_at(std::vector< long long > *self,std::vector< long long >::difference_type i){
+      VALUE r = Qnil;
+      try {
+	std::vector<long long,std::allocator< long long > >::iterator at = swig::getpos(self, i);
+	r = swig::from< std::vector<long long,std::allocator< long long > >::value_type >( *(at) );
+	self->erase(at); 
+      }
+      catch (std::out_of_range)
+	{
+	}
+      return r;
+    }
+SWIGINTERN VALUE std_vector_Sl_long_SS_long_Sg____delete2__(std::vector< long long > *self,std::vector< long long >::value_type const &i){
+      VALUE r = Qnil;
+      return r;
+    }
+SWIGINTERN VALUE std_vector_Sl_long_SS_long_Sg__pop(std::vector< long long > *self){
+      if (self->empty()) return Qnil;
+      std::vector<long long,std::allocator< long long > >::value_type x = self->back();
+      self->pop_back();
+      return swig::from< std::vector<long long,std::allocator< long long > >::value_type >( x );
+    }
+SWIGINTERN std::vector< long long >::value_type const std_vector_Sl_long_SS_long_Sg__push(std::vector< long long > *self,std::vector< long long >::value_type const &e){
+      self->push_back( e );
+      return e;
+    }
+SWIGINTERN std::vector< long long,std::allocator< long long > > *std_vector_Sl_long_SS_long_Sg__reject(std::vector< long long > *self){
+      if ( !rb_block_given_p() )
+	rb_raise( rb_eArgError, "no block given" );
+
+      std::vector<long long,std::allocator< long long > >* r = new std::vector<long long,std::allocator< long long > >;
+      std::remove_copy_if( self->begin(), self->end(),              
+			   std::back_inserter(*r),
+			   swig::yield< std::vector<long long,std::allocator< long long > >::value_type >() );
+      return r;
+    }
+SWIGINTERN VALUE std_vector_Sl_long_SS_long_Sg__at(std::vector< long long > const *self,std::vector< long long >::difference_type i){
+      VALUE r = Qnil;
+      try {
+	r = swig::from< std::vector<long long,std::allocator< long long > >::value_type >( *(swig::cgetpos(self, i)) );
+      }
+      catch( std::out_of_range )
+	{
+	}
+      return r;
+    }
+SWIGINTERN VALUE std_vector_Sl_long_SS_long_Sg____getitem____SWIG_0(std::vector< long long > const *self,std::vector< long long >::difference_type i,std::vector< long long >::difference_type j){
+      if ( j <= 0 ) return Qnil;
+      std::size_t len = self->size();
+      if ( i < 0 ) i = len - i;
+      j += i; if ( static_cast<std::size_t>(j) >= len ) j = len-1;
+
+      VALUE r = Qnil;
+      try {
+	r = swig::from< const std::vector<long long,std::allocator< long long > >* >( swig::getslice(self, i, j) );
+      }
+      catch( std::out_of_range )
+	{
+	}
+      return r;
+    }
+SWIGINTERN VALUE std_vector_Sl_long_SS_long_Sg____getitem____SWIG_1(std::vector< long long > const *self,std::vector< long long >::difference_type i){
+      VALUE r = Qnil;
+      try {
+	r = swig::from< std::vector<long long,std::allocator< long long > >::value_type >( *(swig::cgetpos(self, i)) );
+      }
+      catch( std::out_of_range )
+	{
+	}
+      return r;
+    }
+SWIGINTERN VALUE std_vector_Sl_long_SS_long_Sg____getitem____SWIG_2(std::vector< long long > const *self,VALUE i){
+      if ( rb_obj_is_kind_of( i, rb_cRange ) == Qfalse )
+	{
+	  rb_raise( rb_eTypeError, "not a valid index or range" );
+	}
+
+      VALUE r = Qnil;
+      static ID id_end   = rb_intern("end");
+      static ID id_start = rb_intern("begin");
+      static ID id_noend = rb_intern("exclude_end?");
+
+      VALUE start = rb_funcall( i, id_start, 0 );
+      VALUE end   = rb_funcall( i, id_end, 0 );
+      bool  noend = ( rb_funcall( i, id_noend, 0 ) == Qtrue );
+
+      int len = self->size();
+
+      int s = NUM2INT( start );
+      if ( s < 0 ) s = len + s;
+      else if ( s >= len ) return Qnil;
+
+      int e = NUM2INT( end );
+      if ( e < 0 ) e = len + e;
+
+      if ( e < s ) return Qnil; //std::swap( s, e );
+
+      if ( noend ) e -= 1;
+      if ( e >= len ) e = len - 1;
+
+      return swig::from< std::vector<long long,std::allocator< long long > >* >( swig::getslice(self, s, e+1) );
+    }
+SWIGINTERN VALUE std_vector_Sl_long_SS_long_Sg____setitem____SWIG_0(std::vector< long long > *self,std::vector< long long >::difference_type i,std::vector< long long >::value_type const &x){
+	std::size_t len = self->size();
+	if ( i < 0 ) i = len - i;
+	else if ( static_cast<std::size_t>(i) >= len )
+	  self->resize( i+1, x );
+	else
+	  *(swig::getpos(self,i)) = x;
+
+	return swig::from< std::vector<long long,std::allocator< long long > >::value_type >( x );
+      }
+SWIGINTERN VALUE std_vector_Sl_long_SS_long_Sg____setitem____SWIG_1(std::vector< long long > *self,std::vector< long long >::difference_type i,std::vector< long long >::difference_type j,std::vector< long long,std::allocator< long long > > const &v){
+
+      if ( j <= 0 ) return Qnil;
+      std::size_t len = self->size();
+      if ( i < 0 ) i = len - i;
+      j += i; 
+      if ( static_cast<std::size_t>(j) >= len ) {
+	self->resize( j+1, *(v.begin()) );
+	j = len-1;
+      }
+
+      VALUE r = Qnil;
+      swig::setslice(self, i, j, v);
+      r = swig::from< const std::vector<long long,std::allocator< long long > >* >( &v );
+      return r;
+    }
+SWIGINTERN VALUE std_vector_Sl_long_SS_long_Sg__shift(std::vector< long long > *self){
+      if (self->empty()) return Qnil;
+      std::vector<long long,std::allocator< long long > >::value_type x = self->front();
+      self->erase( self->begin() );
+      return swig::from< std::vector<long long,std::allocator< long long > >::value_type >( x );
+    }
+SWIGINTERN std::vector< long long,std::allocator< long long > > *std_vector_Sl_long_SS_long_Sg__insert__SWIG_0(std::vector< long long > *self,std::vector< long long >::difference_type pos,int argc,VALUE *argv,...){
+      std::size_t len = self->size();
+      std::size_t   i = swig::check_index( pos, len, true );
+      std::vector<long long,std::allocator< long long > >::iterator start;
+
+      VALUE elem = argv[0];
+      int idx = 0;
+      try {
+	std::vector<long long,std::allocator< long long > >::value_type val = swig::as<std::vector<long long,std::allocator< long long > >::value_type>( elem, true );
+	if ( i >= len ) {
+	  self->resize(i-1, val);
+	  return self;
+	}
+	start = self->begin();
+	std::advance( start, i );
+	self->insert( start++, val );
+
+	for ( ++idx; idx < argc; ++idx )
+	  {
+	    elem = argv[idx];
+	    val = swig::as<std::vector<long long,std::allocator< long long > >::value_type>( elem );
+	    self->insert( start++, val );
+	  }
+
+      } 
+      catch( std::invalid_argument )
+	{
+	  rb_raise( rb_eArgError, "%s",
+		    Ruby_Format_TypeError( "", 
+					   swig::type_name<std::vector<long long,std::allocator< long long > >::value_type>(),
+					   __FUNCTION__, idx+2, elem ));
+	}
+
+
+      return self;
+    }
+SWIGINTERN std::vector< long long,std::allocator< long long > > *std_vector_Sl_long_SS_long_Sg__unshift(std::vector< long long > *self,int argc,VALUE *argv,...){
+      for ( int idx = argc-1; idx >= 0; --idx )
+	{
+	  std::vector<long long,std::allocator< long long > >::iterator start = self->begin();
+	  VALUE elem = argv[idx];
+	  try {
+	    std::vector<long long,std::allocator< long long > >::value_type val = swig::as<std::vector<long long,std::allocator< long long > >::value_type>( elem, true );
+	    self->insert( start, val );
+	  }
+	  catch( std::invalid_argument )
+	    {
+	      rb_raise( rb_eArgError, "%s",
+			Ruby_Format_TypeError( "", 
+					       swig::type_name<std::vector<long long,std::allocator< long long > >::value_type>(),
+					       __FUNCTION__, idx+2, elem ));
+	    }
+	}
+
+      return self;
+    }
+
   namespace swig {
     template <>  struct traits<si_taxi::BWVehicle > {
       typedef pointer_category category;
@@ -7055,13 +7425,6 @@ SWIGINTERNINLINE VALUE
 SWIG_FromCharPtr(const char *cptr)
 { 
   return SWIG_FromCharPtrAndSize(cptr, (cptr ? strlen(cptr) : 0));
-}
-
-
-SWIGINTERNINLINE VALUE 
-SWIG_From_long_SS_long  (long long value)
-{
-  return LL2NUM(value);
 }
 
 
@@ -22712,6 +23075,2436 @@ fail:
 
 SWIGINTERN void
 free_std_vector_Sl_si_taxi_NaturalHistogram_Sg_(std::vector< si_taxi::NaturalHistogram > *arg1) {
+    delete arg1;
+}
+
+swig_class SwigClassLongLongVector;
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.dup
+
+  call-seq:
+    dup -> LongLongVector
+
+Create a duplicate of the class and unfreeze it if needed.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_dup(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::vector< long long,std::allocator< long long > > *result = 0 ;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","dup", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  {
+    try {
+      result = (std::vector< long long,std::allocator< long long > > *)std_vector_Sl_long_SS_long_Sg__dup(arg1);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, SWIG_POINTER_OWN |  0 );
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.inspect
+
+  call-seq:
+    inspect -> VALUE
+
+Inspect class and its contents.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_inspect(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  VALUE result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","inspect", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  {
+    try {
+      result = (VALUE)std_vector_Sl_long_SS_long_Sg__inspect(arg1);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = result;
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.to_a
+
+  call-seq:
+    to_a -> VALUE
+
+Convert LongLongVector to an Array.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_to_a(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  VALUE result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","to_a", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  {
+    try {
+      result = (VALUE)std_vector_Sl_long_SS_long_Sg__to_a(arg1);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = result;
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.to_s
+
+  call-seq:
+    to_s -> VALUE
+
+Convert class to a String representation.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_to_s(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  VALUE result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","to_s", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  {
+    try {
+      result = (VALUE)std_vector_Sl_long_SS_long_Sg__to_s(arg1);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = result;
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.slice
+
+  call-seq:
+    slice(i, j) -> VALUE
+
+Return a slice (portion of) the LongLongVector.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_slice(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  std::vector< long long >::difference_type arg2 ;
+  std::vector< long long >::difference_type arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  ptrdiff_t val2 ;
+  int ecode2 = 0 ;
+  ptrdiff_t val3 ;
+  int ecode3 = 0 ;
+  VALUE result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 2) || (argc > 2)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 2)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","slice", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  ecode2 = SWIG_AsVal_ptrdiff_t(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "std::vector< long long >::difference_type","slice", 2, argv[0] ));
+  } 
+  arg2 = static_cast< std::vector< long long >::difference_type >(val2);
+  ecode3 = SWIG_AsVal_ptrdiff_t(argv[1], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), Ruby_Format_TypeError( "", "std::vector< long long >::difference_type","slice", 3, argv[1] ));
+  } 
+  arg3 = static_cast< std::vector< long long >::difference_type >(val3);
+  {
+    try {
+      result = (VALUE)std_vector_Sl_long_SS_long_Sg__slice(arg1,arg2,arg3);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = result;
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.each
+
+  call-seq:
+    each -> LongLongVector
+
+Iterate thru each element in the LongLongVector.  A block must be provided.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_each(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::vector< long long,std::allocator< long long > > *result = 0 ;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","each", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  {
+    try {
+      result = (std::vector< long long,std::allocator< long long > > *)std_vector_Sl_long_SS_long_Sg__each(arg1);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.select
+
+  call-seq:
+    select -> LongLongVector
+
+Iterate thru each element in the LongLongVector and select those that match a condition.  A block must be provided.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_select(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::vector< long long,std::allocator< long long > > *result = 0 ;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","select", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  {
+    try {
+      result = (std::vector< long long,std::allocator< long long > > *)std_vector_Sl_long_SS_long_Sg__select(arg1);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, SWIG_POINTER_OWN |  0 );
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.reject!
+
+  call-seq:
+    reject! -> LongLongVector
+
+Iterate thru each element in the LongLongVector and reject those that fail a condition.  A block must be provided.  LongLongVector is modified in place.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_rejectN___(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::vector< long long,std::allocator< long long > > *result = 0 ;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","reject_bang", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  {
+    try {
+      result = (std::vector< long long,std::allocator< long long > > *)std_vector_Sl_long_SS_long_Sg__reject_bang(arg1);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.delete_at
+
+  call-seq:
+    delete_at(i) -> VALUE
+
+Delete an element at a certain index.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_delete_at(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  std::vector< long long >::difference_type arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  ptrdiff_t val2 ;
+  int ecode2 = 0 ;
+  VALUE result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","delete_at", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  ecode2 = SWIG_AsVal_ptrdiff_t(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "std::vector< long long >::difference_type","delete_at", 2, argv[0] ));
+  } 
+  arg2 = static_cast< std::vector< long long >::difference_type >(val2);
+  {
+    try {
+      result = (VALUE)std_vector_Sl_long_SS_long_Sg__delete_at(arg1,arg2);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = result;
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_LongLongVector___delete2__(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  std::vector< long long >::value_type *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::vector< long long >::value_type temp2 ;
+  long long val2 ;
+  int ecode2 = 0 ;
+  VALUE result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","__delete2__", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  ecode2 = SWIG_AsVal_long_SS_long(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "std::vector< long long >::value_type","__delete2__", 2, argv[0] ));
+  } 
+  temp2 = static_cast< std::vector< long long >::value_type >(val2);
+  arg2 = &temp2;
+  {
+    try {
+      result = (VALUE)std_vector_Sl_long_SS_long_Sg____delete2__(arg1,(long long const &)*arg2);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = result;
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.pop
+
+  call-seq:
+    pop -> VALUE
+
+Remove and return element at the end of the LongLongVector.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_pop(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  VALUE result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","pop", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  {
+    try {
+      result = (VALUE)std_vector_Sl_long_SS_long_Sg__pop(arg1);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = result;
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.push
+
+  call-seq:
+    push(e) -> value_type
+
+Add an element at the end of the LongLongVector.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_push(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  std::vector< long long >::value_type *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::vector< long long >::value_type temp2 ;
+  long long val2 ;
+  int ecode2 = 0 ;
+  std::vector< long long >::value_type result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","push", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  ecode2 = SWIG_AsVal_long_SS_long(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "std::vector< long long >::value_type","push", 2, argv[0] ));
+  } 
+  temp2 = static_cast< std::vector< long long >::value_type >(val2);
+  arg2 = &temp2;
+  {
+    try {
+      result = (std::vector< long long >::value_type)std_vector_Sl_long_SS_long_Sg__push(arg1,(long long const &)*arg2);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = SWIG_From_long_SS_long(static_cast< long long >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.reject
+
+  call-seq:
+    reject -> LongLongVector
+
+Iterate thru each element in the LongLongVector and reject those that fail a condition returning a new LongLongVector.  A block must be provided.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_reject(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::vector< long long,std::allocator< long long > > *result = 0 ;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","reject", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  {
+    try {
+      result = (std::vector< long long,std::allocator< long long > > *)std_vector_Sl_long_SS_long_Sg__reject(arg1);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, SWIG_POINTER_OWN |  0 );
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.at
+
+  call-seq:
+    at(i) -> VALUE
+
+Return element at a certain index.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_at(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  std::vector< long long >::difference_type arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  ptrdiff_t val2 ;
+  int ecode2 = 0 ;
+  VALUE result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > const *","at", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  ecode2 = SWIG_AsVal_ptrdiff_t(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "std::vector< long long >::difference_type","at", 2, argv[0] ));
+  } 
+  arg2 = static_cast< std::vector< long long >::difference_type >(val2);
+  {
+    try {
+      result = (VALUE)std_vector_Sl_long_SS_long_Sg__at((std::vector< long long > const *)arg1,arg2);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = result;
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.[]
+
+  call-seq:
+    [](i, j) -> VALUE
+    [](i) -> VALUE
+    [](i) -> VALUE
+
+Element accessor/slicing.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector___getitem____SWIG_0(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  std::vector< long long >::difference_type arg2 ;
+  std::vector< long long >::difference_type arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  ptrdiff_t val2 ;
+  int ecode2 = 0 ;
+  ptrdiff_t val3 ;
+  int ecode3 = 0 ;
+  VALUE result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 2) || (argc > 2)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 2)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > const *","__getitem__", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  ecode2 = SWIG_AsVal_ptrdiff_t(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "std::vector< long long >::difference_type","__getitem__", 2, argv[0] ));
+  } 
+  arg2 = static_cast< std::vector< long long >::difference_type >(val2);
+  ecode3 = SWIG_AsVal_ptrdiff_t(argv[1], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), Ruby_Format_TypeError( "", "std::vector< long long >::difference_type","__getitem__", 3, argv[1] ));
+  } 
+  arg3 = static_cast< std::vector< long long >::difference_type >(val3);
+  {
+    try {
+      result = (VALUE)std_vector_Sl_long_SS_long_Sg____getitem____SWIG_0((std::vector< long long > const *)arg1,arg2,arg3);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = result;
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_LongLongVector___getitem____SWIG_1(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  std::vector< long long >::difference_type arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  ptrdiff_t val2 ;
+  int ecode2 = 0 ;
+  VALUE result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > const *","__getitem__", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  ecode2 = SWIG_AsVal_ptrdiff_t(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "std::vector< long long >::difference_type","__getitem__", 2, argv[0] ));
+  } 
+  arg2 = static_cast< std::vector< long long >::difference_type >(val2);
+  {
+    try {
+      result = (VALUE)std_vector_Sl_long_SS_long_Sg____getitem____SWIG_1((std::vector< long long > const *)arg1,arg2);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = result;
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_LongLongVector___getitem____SWIG_2(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  VALUE arg2 = (VALUE) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  VALUE result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > const *","__getitem__", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  arg2 = argv[0];
+  {
+    try {
+      result = (VALUE)std_vector_Sl_long_SS_long_Sg____getitem____SWIG_2((std::vector< long long > const *)arg1,arg2);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = result;
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE _wrap_LongLongVector___getitem__(int nargs, VALUE *args, VALUE self) {
+  int argc;
+  VALUE argv[4];
+  int ii;
+  
+  argc = nargs + 1;
+  argv[0] = self;
+  if (argc > 4) SWIG_fail;
+  for (ii = 1; (ii < argc); ++ii) {
+    argv[ii] = args[ii-1];
+  }
+  if (argc == 2) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector<long long,std::allocator< long long > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_ptrdiff_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_LongLongVector___getitem____SWIG_1(nargs, args, self);
+      }
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector<long long,std::allocator< long long > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      _v = (argv[1] != 0);
+      if (_v) {
+        return _wrap_LongLongVector___getitem____SWIG_2(nargs, args, self);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector<long long,std::allocator< long long > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_ptrdiff_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_ptrdiff_t(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_LongLongVector___getitem____SWIG_0(nargs, args, self);
+        }
+      }
+    }
+  }
+  
+fail:
+  Ruby_Format_OverloadedError( argc, 4, "__getitem__", 
+    "    VALUE __getitem__(std::vector< long long >::difference_type i, std::vector< long long >::difference_type j)\n"
+    "    VALUE __getitem__(std::vector< long long >::difference_type i)\n"
+    "    VALUE __getitem__(VALUE i)\n");
+  
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.[]=
+
+  call-seq:
+    []=(i, x) -> VALUE
+    []=(i, j, v) -> VALUE
+
+Element setter/slicing.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector___setitem____SWIG_0(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  std::vector< long long >::difference_type arg2 ;
+  std::vector< long long >::value_type *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  ptrdiff_t val2 ;
+  int ecode2 = 0 ;
+  std::vector< long long >::value_type temp3 ;
+  long long val3 ;
+  int ecode3 = 0 ;
+  VALUE result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 2) || (argc > 2)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 2)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","__setitem__", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  ecode2 = SWIG_AsVal_ptrdiff_t(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "std::vector< long long >::difference_type","__setitem__", 2, argv[0] ));
+  } 
+  arg2 = static_cast< std::vector< long long >::difference_type >(val2);
+  ecode3 = SWIG_AsVal_long_SS_long(argv[1], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), Ruby_Format_TypeError( "", "std::vector< long long >::value_type","__setitem__", 3, argv[1] ));
+  } 
+  temp3 = static_cast< std::vector< long long >::value_type >(val3);
+  arg3 = &temp3;
+  {
+    try {
+      result = (VALUE)std_vector_Sl_long_SS_long_Sg____setitem____SWIG_0(arg1,arg2,(long long const &)*arg3);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = result;
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_LongLongVector___setitem____SWIG_1(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  std::vector< long long >::difference_type arg2 ;
+  std::vector< long long >::difference_type arg3 ;
+  std::vector< long long,std::allocator< long long > > *arg4 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  ptrdiff_t val2 ;
+  int ecode2 = 0 ;
+  ptrdiff_t val3 ;
+  int ecode3 = 0 ;
+  int res4 = SWIG_OLDOBJ ;
+  VALUE result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 3) || (argc > 3)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 3)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","__setitem__", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  ecode2 = SWIG_AsVal_ptrdiff_t(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "std::vector< long long >::difference_type","__setitem__", 2, argv[0] ));
+  } 
+  arg2 = static_cast< std::vector< long long >::difference_type >(val2);
+  ecode3 = SWIG_AsVal_ptrdiff_t(argv[1], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), Ruby_Format_TypeError( "", "std::vector< long long >::difference_type","__setitem__", 3, argv[1] ));
+  } 
+  arg3 = static_cast< std::vector< long long >::difference_type >(val3);
+  {
+    std::vector<long long,std::allocator< long long > > *ptr = (std::vector<long long,std::allocator< long long > > *)0;
+    res4 = swig::asptr(argv[2], &ptr);
+    if (!SWIG_IsOK(res4)) {
+      SWIG_exception_fail(SWIG_ArgError(res4), Ruby_Format_TypeError( "", "std::vector< long long,std::allocator< long long > > const &","__setitem__", 4, argv[2] )); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "std::vector< long long,std::allocator< long long > > const &","__setitem__", 4, argv[2])); 
+    }
+    arg4 = ptr;
+  }
+  {
+    try {
+      try {
+        result = (VALUE)std_vector_Sl_long_SS_long_Sg____setitem____SWIG_1(arg1,arg2,arg3,(std::vector< long long,std::allocator< long long > > const &)*arg4);
+      }
+      catch(std::invalid_argument &_e) {
+        SWIG_exception_fail(SWIG_ValueError, (&_e)->what());
+      }
+      
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = result;
+  if (SWIG_IsNewObj(res4)) delete arg4;
+  return vresult;
+fail:
+  if (SWIG_IsNewObj(res4)) delete arg4;
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE _wrap_LongLongVector___setitem__(int nargs, VALUE *args, VALUE self) {
+  int argc;
+  VALUE argv[5];
+  int ii;
+  
+  argc = nargs + 1;
+  argv[0] = self;
+  if (argc > 5) SWIG_fail;
+  for (ii = 1; (ii < argc); ++ii) {
+    argv[ii] = args[ii-1];
+  }
+  if (argc == 3) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector<long long,std::allocator< long long > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_ptrdiff_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_LongLongVector___setitem____SWIG_0(nargs, args, self);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector<long long,std::allocator< long long > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_ptrdiff_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_ptrdiff_t(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          int res = swig::asptr(argv[3], (std::vector<long long,std::allocator< long long > >**)(0));
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_LongLongVector___setitem____SWIG_1(nargs, args, self);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  Ruby_Format_OverloadedError( argc, 5, "__setitem__", 
+    "    VALUE __setitem__(std::vector< long long >::difference_type i, std::vector< long long >::value_type const &x)\n"
+    "    VALUE __setitem__(std::vector< long long >::difference_type i, std::vector< long long >::difference_type j, std::vector< long long,std::allocator< long long > > const &v)\n");
+  
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.shift
+
+  call-seq:
+    shift -> VALUE
+
+Remove and return element at the beginning of the LongLongVector.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_shift(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  VALUE result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","shift", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  {
+    try {
+      result = (VALUE)std_vector_Sl_long_SS_long_Sg__shift(arg1);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = result;
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.insert
+
+  call-seq:
+    insert(pos, argc, ?) -> LongLongVector
+    insert(pos, x) -> iterator
+    insert(pos, n, x)
+
+Insert one or more new elements in the LongLongVector.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_insert__SWIG_0(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  std::vector< long long >::difference_type arg2 ;
+  int arg3 ;
+  VALUE *arg4 = (VALUE *) 0 ;
+  void *arg5 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  ptrdiff_t val2 ;
+  int ecode2 = 0 ;
+  std::vector< long long,std::allocator< long long > > *result = 0 ;
+  VALUE vresult = Qnil;
+  
+  if (argc < 2) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 2)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","insert", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  ecode2 = SWIG_AsVal_ptrdiff_t(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "std::vector< long long >::difference_type","insert", 2, argv[0] ));
+  } 
+  arg2 = static_cast< std::vector< long long >::difference_type >(val2);
+  {
+    arg3 = argc - 1;
+    arg4 = argv + 1;
+  }
+  {
+    try {
+      result = (std::vector< long long,std::allocator< long long > > *)std_vector_Sl_long_SS_long_Sg__insert__SWIG_0(arg1,arg2,arg3,arg4,arg5);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.unshift
+
+  call-seq:
+    unshift(argc, ?) -> LongLongVector
+
+Add one or more elements at the beginning of the LongLongVector.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_unshift(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  int arg2 ;
+  VALUE *arg3 = (VALUE *) 0 ;
+  void *arg4 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::vector< long long,std::allocator< long long > > *result = 0 ;
+  VALUE vresult = Qnil;
+  
+  if (argc < 1) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","unshift", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  {
+    arg2 = argc;
+    arg3 = argv;
+  }
+  {
+    try {
+      result = (std::vector< long long,std::allocator< long long > > *)std_vector_Sl_long_SS_long_Sg__unshift(arg1,arg2,arg3,arg4);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_new_LongLongVector__SWIG_0(int argc, VALUE *argv, VALUE self) {
+  const char *classname SWIGUNUSED = "SiTaxi::LongLongVector";
+  std::vector< long long > *result = 0 ;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  {
+    try {
+      result = (std::vector< long long > *)new std::vector< long long >();
+      DATA_PTR(self) = result;
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  return self;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_new_LongLongVector__SWIG_1(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = 0 ;
+  int res1 = SWIG_OLDOBJ ;
+  const char *classname SWIGUNUSED = "SiTaxi::LongLongVector";
+  std::vector< long long > *result = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  {
+    std::vector<long long,std::allocator< long long > > *ptr = (std::vector<long long,std::allocator< long long > > *)0;
+    res1 = swig::asptr(argv[0], &ptr);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > const &","std::vector<(long long)>", 1, argv[0] )); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "std::vector< long long > const &","std::vector<(long long)>", 1, argv[0])); 
+    }
+    arg1 = ptr;
+  }
+  {
+    try {
+      result = (std::vector< long long > *)new std::vector< long long >((std::vector< long long > const &)*arg1);
+      DATA_PTR(self) = result;
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return self;
+fail:
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.empty?
+
+  call-seq:
+    empty? -> bool
+
+Check if the LongLongVector is empty or not.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_emptyq___(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > const *","empty", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  {
+    try {
+      result = (bool)((std::vector< long long > const *)arg1)->empty();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = SWIG_From_bool(static_cast< bool >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.size
+
+  call-seq:
+    size -> size_type
+
+Size or Length of the LongLongVector.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_size(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::vector< long long >::size_type result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > const *","size", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  {
+    try {
+      result = ((std::vector< long long > const *)arg1)->size();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = SWIG_From_size_t(static_cast< size_t >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.clear
+
+  call-seq:
+    clear
+
+Clear LongLongVector contents.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_clear(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","clear", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  {
+    try {
+      (arg1)->clear();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_LongLongVector_swap(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  std::vector< long long > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","swap", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  res2 = SWIG_ConvertPtr(argv[0], &argp2, SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "std::vector< long long > &","swap", 2, argv[0] )); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "std::vector< long long > &","swap", 2, argv[0])); 
+  }
+  arg2 = reinterpret_cast< std::vector< long long > * >(argp2);
+  {
+    try {
+      (arg1)->swap(*arg2);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_LongLongVector_get_allocator(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  SwigValueWrapper< std::allocator< long long > > result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > const *","get_allocator", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  {
+    try {
+      result = ((std::vector< long long > const *)arg1)->get_allocator();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = SWIG_NewPointerObj((new std::vector< long long >::allocator_type(static_cast< const std::vector< long long >::allocator_type& >(result))), SWIGTYPE_p_std__allocatorT_long_long_t, SWIG_POINTER_OWN |  0 );
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.begin
+
+  call-seq:
+    begin -> iterator
+
+Return an iterator to the beginning of the LongLongVector.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_begin(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::vector< long long >::iterator result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","begin", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  {
+    try {
+      result = (arg1)->begin();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = SWIG_NewPointerObj(swig::make_nonconst_iterator(static_cast< const std::vector< long long >::iterator & >(result),
+      self),
+    swig::Iterator::descriptor(),SWIG_POINTER_OWN);
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.end
+
+  call-seq:
+    end -> iterator
+
+Return an iterator to past the end of the LongLongVector.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_end(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::vector< long long >::iterator result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","end", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  {
+    try {
+      result = (arg1)->end();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = SWIG_NewPointerObj(swig::make_nonconst_iterator(static_cast< const std::vector< long long >::iterator & >(result),
+      self),
+    swig::Iterator::descriptor(),SWIG_POINTER_OWN);
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.rbegin
+
+  call-seq:
+    rbegin -> reverse_iterator
+
+Return a reverse iterator to the beginning (the end) of the LongLongVector.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_rbegin(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::vector< long long >::reverse_iterator result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","rbegin", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  {
+    try {
+      result = (arg1)->rbegin();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = SWIG_NewPointerObj(swig::make_nonconst_iterator(static_cast< const std::vector< long long >::reverse_iterator & >(result),
+      self),
+    swig::Iterator::descriptor(),SWIG_POINTER_OWN);
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.rend
+
+  call-seq:
+    rend -> reverse_iterator
+
+Return a reverse iterator to past the end (past the beginning) of the LongLongVector.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_rend(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::vector< long long >::reverse_iterator result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","rend", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  {
+    try {
+      result = (arg1)->rend();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = SWIG_NewPointerObj(swig::make_nonconst_iterator(static_cast< const std::vector< long long >::reverse_iterator & >(result),
+      self),
+    swig::Iterator::descriptor(),SWIG_POINTER_OWN);
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_new_LongLongVector__SWIG_2(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long >::size_type arg1 ;
+  size_t val1 ;
+  int ecode1 = 0 ;
+  const char *classname SWIGUNUSED = "SiTaxi::LongLongVector";
+  std::vector< long long > *result = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  ecode1 = SWIG_AsVal_size_t(argv[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), Ruby_Format_TypeError( "", "std::vector< long long >::size_type","std::vector<(long long)>", 1, argv[0] ));
+  } 
+  arg1 = static_cast< std::vector< long long >::size_type >(val1);
+  {
+    try {
+      result = (std::vector< long long > *)new std::vector< long long >(arg1);
+      DATA_PTR(self) = result;
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  return self;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.resize
+
+  call-seq:
+    resize(new_size)
+    resize(new_size, x)
+
+Resize the size of the LongLongVector.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_resize__SWIG_0(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  std::vector< long long >::size_type arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","resize", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "std::vector< long long >::size_type","resize", 2, argv[0] ));
+  } 
+  arg2 = static_cast< std::vector< long long >::size_type >(val2);
+  {
+    try {
+      (arg1)->resize(arg2);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.erase
+
+  call-seq:
+    erase(pos) -> iterator
+    erase(first, last) -> iterator
+
+Delete a portion of the LongLongVector.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_erase__SWIG_0(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  std::vector< long long >::iterator arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  swig::Iterator *iter2 = 0 ;
+  int res2 ;
+  std::vector< long long >::iterator result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","erase", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  res2 = SWIG_ConvertPtr(argv[0], SWIG_as_voidptrptr(&iter2), swig::Iterator::descriptor(), 0);
+  if (!SWIG_IsOK(res2) || !iter2) {
+    SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), Ruby_Format_TypeError( "", "std::vector< long long >::iterator","erase", 2, argv[0] ));
+  } else {
+    swig::Iterator_T<std::vector< long long >::iterator > *iter_t = dynamic_cast<swig::Iterator_T<std::vector< long long >::iterator > *>(iter2);
+    if (iter_t) {
+      arg2 = iter_t->get_current();
+    } else {
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), Ruby_Format_TypeError( "", "std::vector< long long >::iterator","erase", 2, argv[0] ));
+    }
+  }
+  {
+    try {
+      result = (arg1)->erase(arg2);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = SWIG_NewPointerObj(swig::make_nonconst_iterator(static_cast< const std::vector< long long >::iterator & >(result),
+      self),
+    swig::Iterator::descriptor(),SWIG_POINTER_OWN);
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_LongLongVector_erase__SWIG_1(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  std::vector< long long >::iterator arg2 ;
+  std::vector< long long >::iterator arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  swig::Iterator *iter2 = 0 ;
+  int res2 ;
+  swig::Iterator *iter3 = 0 ;
+  int res3 ;
+  std::vector< long long >::iterator result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 2) || (argc > 2)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 2)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","erase", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  res2 = SWIG_ConvertPtr(argv[0], SWIG_as_voidptrptr(&iter2), swig::Iterator::descriptor(), 0);
+  if (!SWIG_IsOK(res2) || !iter2) {
+    SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), Ruby_Format_TypeError( "", "std::vector< long long >::iterator","erase", 2, argv[0] ));
+  } else {
+    swig::Iterator_T<std::vector< long long >::iterator > *iter_t = dynamic_cast<swig::Iterator_T<std::vector< long long >::iterator > *>(iter2);
+    if (iter_t) {
+      arg2 = iter_t->get_current();
+    } else {
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), Ruby_Format_TypeError( "", "std::vector< long long >::iterator","erase", 2, argv[0] ));
+    }
+  }
+  res3 = SWIG_ConvertPtr(argv[1], SWIG_as_voidptrptr(&iter3), swig::Iterator::descriptor(), 0);
+  if (!SWIG_IsOK(res3) || !iter3) {
+    SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), Ruby_Format_TypeError( "", "std::vector< long long >::iterator","erase", 3, argv[1] ));
+  } else {
+    swig::Iterator_T<std::vector< long long >::iterator > *iter_t = dynamic_cast<swig::Iterator_T<std::vector< long long >::iterator > *>(iter3);
+    if (iter_t) {
+      arg3 = iter_t->get_current();
+    } else {
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), Ruby_Format_TypeError( "", "std::vector< long long >::iterator","erase", 3, argv[1] ));
+    }
+  }
+  {
+    try {
+      result = (arg1)->erase(arg2,arg3);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = SWIG_NewPointerObj(swig::make_nonconst_iterator(static_cast< const std::vector< long long >::iterator & >(result),
+      self),
+    swig::Iterator::descriptor(),SWIG_POINTER_OWN);
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE _wrap_LongLongVector_erase(int nargs, VALUE *args, VALUE self) {
+  int argc;
+  VALUE argv[4];
+  int ii;
+  
+  argc = nargs + 1;
+  argv[0] = self;
+  if (argc > 4) SWIG_fail;
+  for (ii = 1; (ii < argc); ++ii) {
+    argv[ii] = args[ii-1];
+  }
+  if (argc == 2) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector<long long,std::allocator< long long > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      swig::ConstIterator *iter = 0;
+      int res = SWIG_ConvertPtr(argv[1], SWIG_as_voidptrptr(&iter), 
+        swig::Iterator::descriptor(), 0);
+      _v = (SWIG_IsOK(res) && iter && (dynamic_cast<swig::Iterator_T<std::vector< long long >::iterator > *>(iter) != 0));
+      if (_v) {
+        return _wrap_LongLongVector_erase__SWIG_0(nargs, args, self);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector<long long,std::allocator< long long > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      swig::ConstIterator *iter = 0;
+      int res = SWIG_ConvertPtr(argv[1], SWIG_as_voidptrptr(&iter), 
+        swig::Iterator::descriptor(), 0);
+      _v = (SWIG_IsOK(res) && iter && (dynamic_cast<swig::Iterator_T<std::vector< long long >::iterator > *>(iter) != 0));
+      if (_v) {
+        swig::ConstIterator *iter = 0;
+        int res = SWIG_ConvertPtr(argv[2], SWIG_as_voidptrptr(&iter), 
+          swig::Iterator::descriptor(), 0);
+        _v = (SWIG_IsOK(res) && iter && (dynamic_cast<swig::Iterator_T<std::vector< long long >::iterator > *>(iter) != 0));
+        if (_v) {
+          return _wrap_LongLongVector_erase__SWIG_1(nargs, args, self);
+        }
+      }
+    }
+  }
+  
+fail:
+  Ruby_Format_OverloadedError( argc, 4, "LongLongVector.erase", 
+    "    std::vector< long long >::iterator LongLongVector.erase(std::vector< long long >::iterator pos)\n"
+    "    std::vector< long long >::iterator LongLongVector.erase(std::vector< long long >::iterator first, std::vector< long long >::iterator last)\n");
+  
+  return Qnil;
+}
+
+
+#ifdef HAVE_RB_DEFINE_ALLOC_FUNC
+SWIGINTERN VALUE
+_wrap_LongLongVector_allocate(VALUE self) {
+#else
+  SWIGINTERN VALUE
+  _wrap_LongLongVector_allocate(int argc, VALUE *argv, VALUE self) {
+#endif
+    
+    
+    VALUE vresult = SWIG_NewClassInstance(self, SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t);
+#ifndef HAVE_RB_DEFINE_ALLOC_FUNC
+    rb_obj_call_init(vresult, argc, argv);
+#endif
+    return vresult;
+  }
+  
+
+SWIGINTERN VALUE
+_wrap_new_LongLongVector__SWIG_3(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long >::size_type arg1 ;
+  std::vector< long long >::value_type *arg2 = 0 ;
+  size_t val1 ;
+  int ecode1 = 0 ;
+  std::vector< long long >::value_type temp2 ;
+  long long val2 ;
+  int ecode2 = 0 ;
+  const char *classname SWIGUNUSED = "SiTaxi::LongLongVector";
+  std::vector< long long > *result = 0 ;
+  
+  if ((argc < 2) || (argc > 2)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 2)",argc); SWIG_fail;
+  }
+  ecode1 = SWIG_AsVal_size_t(argv[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), Ruby_Format_TypeError( "", "std::vector< long long >::size_type","std::vector<(long long)>", 1, argv[0] ));
+  } 
+  arg1 = static_cast< std::vector< long long >::size_type >(val1);
+  ecode2 = SWIG_AsVal_long_SS_long(argv[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "std::vector< long long >::value_type","std::vector<(long long)>", 2, argv[1] ));
+  } 
+  temp2 = static_cast< std::vector< long long >::value_type >(val2);
+  arg2 = &temp2;
+  {
+    try {
+      result = (std::vector< long long > *)new std::vector< long long >(arg1,(std::vector< long long >::value_type const &)*arg2);
+      DATA_PTR(self) = result;
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  return self;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE _wrap_new_LongLongVector(int nargs, VALUE *args, VALUE self) {
+  int argc;
+  VALUE argv[2];
+  int ii;
+  
+  argc = nargs;
+  if (argc > 2) SWIG_fail;
+  for (ii = 0; (ii < argc); ++ii) {
+    argv[ii] = args[ii];
+  }
+  if (argc == 0) {
+    return _wrap_new_LongLongVector__SWIG_0(nargs, args, self);
+  }
+  if (argc == 1) {
+    int _v;
+    {
+      int res = SWIG_AsVal_size_t(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      return _wrap_new_LongLongVector__SWIG_2(nargs, args, self);
+    }
+  }
+  if (argc == 1) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector<long long,std::allocator< long long > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_new_LongLongVector__SWIG_1(nargs, args, self);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      int res = SWIG_AsVal_size_t(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_long_SS_long(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_new_LongLongVector__SWIG_3(nargs, args, self);
+      }
+    }
+  }
+  
+fail:
+  Ruby_Format_OverloadedError( argc, 2, "LongLongVector.new", 
+    "    LongLongVector.new()\n"
+    "    LongLongVector.new(std::vector< long long > const &)\n"
+    "    LongLongVector.new(std::vector< long long >::size_type size)\n"
+    "    LongLongVector.new(std::vector< long long >::size_type size, std::vector< long long >::value_type const &value)\n");
+  
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.front
+
+  call-seq:
+    front -> value_type
+
+Return the first element in LongLongVector.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_front(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::vector< long long >::value_type *result = 0 ;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > const *","front", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  {
+    try {
+      result = (std::vector< long long >::value_type *) &((std::vector< long long > const *)arg1)->front();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = SWIG_From_long_SS_long(static_cast< long long >(*result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.back
+
+  call-seq:
+    back -> value_type
+
+Return the last element in LongLongVector.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_back(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::vector< long long >::value_type *result = 0 ;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > const *","back", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  {
+    try {
+      result = (std::vector< long long >::value_type *) &((std::vector< long long > const *)arg1)->back();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = SWIG_From_long_SS_long(static_cast< long long >(*result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.assign
+
+  call-seq:
+    assign(n, x)
+
+Assign a new LongLongVector or portion of it.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_assign(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  std::vector< long long >::size_type arg2 ;
+  std::vector< long long >::value_type *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  std::vector< long long >::value_type temp3 ;
+  long long val3 ;
+  int ecode3 = 0 ;
+  
+  if ((argc < 2) || (argc > 2)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 2)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","assign", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "std::vector< long long >::size_type","assign", 2, argv[0] ));
+  } 
+  arg2 = static_cast< std::vector< long long >::size_type >(val2);
+  ecode3 = SWIG_AsVal_long_SS_long(argv[1], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), Ruby_Format_TypeError( "", "std::vector< long long >::value_type","assign", 3, argv[1] ));
+  } 
+  temp3 = static_cast< std::vector< long long >::value_type >(val3);
+  arg3 = &temp3;
+  {
+    try {
+      (arg1)->assign(arg2,(std::vector< long long >::value_type const &)*arg3);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.resize
+
+  call-seq:
+    resize(new_size)
+    resize(new_size, x)
+
+Resize the size of the LongLongVector.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_resize__SWIG_1(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  std::vector< long long >::size_type arg2 ;
+  std::vector< long long >::value_type *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  std::vector< long long >::value_type temp3 ;
+  long long val3 ;
+  int ecode3 = 0 ;
+  
+  if ((argc < 2) || (argc > 2)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 2)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","resize", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "std::vector< long long >::size_type","resize", 2, argv[0] ));
+  } 
+  arg2 = static_cast< std::vector< long long >::size_type >(val2);
+  ecode3 = SWIG_AsVal_long_SS_long(argv[1], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), Ruby_Format_TypeError( "", "std::vector< long long >::value_type","resize", 3, argv[1] ));
+  } 
+  temp3 = static_cast< std::vector< long long >::value_type >(val3);
+  arg3 = &temp3;
+  {
+    try {
+      (arg1)->resize(arg2,(std::vector< long long >::value_type const &)*arg3);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE _wrap_LongLongVector_resize(int nargs, VALUE *args, VALUE self) {
+  int argc;
+  VALUE argv[4];
+  int ii;
+  
+  argc = nargs + 1;
+  argv[0] = self;
+  if (argc > 4) SWIG_fail;
+  for (ii = 1; (ii < argc); ++ii) {
+    argv[ii] = args[ii-1];
+  }
+  if (argc == 2) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector<long long,std::allocator< long long > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_size_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_LongLongVector_resize__SWIG_0(nargs, args, self);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector<long long,std::allocator< long long > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_size_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_LongLongVector_resize__SWIG_1(nargs, args, self);
+        }
+      }
+    }
+  }
+  
+fail:
+  Ruby_Format_OverloadedError( argc, 4, "LongLongVector.resize", 
+    "    void LongLongVector.resize(std::vector< long long >::size_type new_size)\n"
+    "    void LongLongVector.resize(std::vector< long long >::size_type new_size, std::vector< long long >::value_type const &x)\n");
+  
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.insert
+
+  call-seq:
+    insert(pos, argc, ?) -> LongLongVector
+    insert(pos, x) -> iterator
+    insert(pos, n, x)
+
+Insert one or more new elements in the LongLongVector.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_insert__SWIG_1(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  std::vector< long long >::iterator arg2 ;
+  std::vector< long long >::value_type *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  swig::Iterator *iter2 = 0 ;
+  int res2 ;
+  std::vector< long long >::value_type temp3 ;
+  long long val3 ;
+  int ecode3 = 0 ;
+  std::vector< long long >::iterator result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 2) || (argc > 2)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 2)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","insert", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  res2 = SWIG_ConvertPtr(argv[0], SWIG_as_voidptrptr(&iter2), swig::Iterator::descriptor(), 0);
+  if (!SWIG_IsOK(res2) || !iter2) {
+    SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), Ruby_Format_TypeError( "", "std::vector< long long >::iterator","insert", 2, argv[0] ));
+  } else {
+    swig::Iterator_T<std::vector< long long >::iterator > *iter_t = dynamic_cast<swig::Iterator_T<std::vector< long long >::iterator > *>(iter2);
+    if (iter_t) {
+      arg2 = iter_t->get_current();
+    } else {
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), Ruby_Format_TypeError( "", "std::vector< long long >::iterator","insert", 2, argv[0] ));
+    }
+  }
+  ecode3 = SWIG_AsVal_long_SS_long(argv[1], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), Ruby_Format_TypeError( "", "std::vector< long long >::value_type","insert", 3, argv[1] ));
+  } 
+  temp3 = static_cast< std::vector< long long >::value_type >(val3);
+  arg3 = &temp3;
+  {
+    try {
+      result = (arg1)->insert(arg2,(std::vector< long long >::value_type const &)*arg3);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = SWIG_NewPointerObj(swig::make_nonconst_iterator(static_cast< const std::vector< long long >::iterator & >(result),
+      self),
+    swig::Iterator::descriptor(),SWIG_POINTER_OWN);
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_LongLongVector_insert__SWIG_2(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  std::vector< long long >::iterator arg2 ;
+  std::vector< long long >::size_type arg3 ;
+  std::vector< long long >::value_type *arg4 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  swig::Iterator *iter2 = 0 ;
+  int res2 ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  std::vector< long long >::value_type temp4 ;
+  long long val4 ;
+  int ecode4 = 0 ;
+  
+  if ((argc < 3) || (argc > 3)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 3)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","insert", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  res2 = SWIG_ConvertPtr(argv[0], SWIG_as_voidptrptr(&iter2), swig::Iterator::descriptor(), 0);
+  if (!SWIG_IsOK(res2) || !iter2) {
+    SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), Ruby_Format_TypeError( "", "std::vector< long long >::iterator","insert", 2, argv[0] ));
+  } else {
+    swig::Iterator_T<std::vector< long long >::iterator > *iter_t = dynamic_cast<swig::Iterator_T<std::vector< long long >::iterator > *>(iter2);
+    if (iter_t) {
+      arg2 = iter_t->get_current();
+    } else {
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), Ruby_Format_TypeError( "", "std::vector< long long >::iterator","insert", 2, argv[0] ));
+    }
+  }
+  ecode3 = SWIG_AsVal_size_t(argv[1], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), Ruby_Format_TypeError( "", "std::vector< long long >::size_type","insert", 3, argv[1] ));
+  } 
+  arg3 = static_cast< std::vector< long long >::size_type >(val3);
+  ecode4 = SWIG_AsVal_long_SS_long(argv[2], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), Ruby_Format_TypeError( "", "std::vector< long long >::value_type","insert", 4, argv[2] ));
+  } 
+  temp4 = static_cast< std::vector< long long >::value_type >(val4);
+  arg4 = &temp4;
+  {
+    try {
+      (arg1)->insert(arg2,arg3,(std::vector< long long >::value_type const &)*arg4);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE _wrap_LongLongVector_insert(int nargs, VALUE *args, VALUE self) {
+  int argc;
+  VALUE argv[5];
+  int ii;
+  
+  argc = nargs + 1;
+  argv[0] = self;
+  if (argc > 5) SWIG_fail;
+  for (ii = 1; (ii < argc); ++ii) {
+    argv[ii] = args[ii-1];
+  }
+  if (argc == 3) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector<long long,std::allocator< long long > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      swig::ConstIterator *iter = 0;
+      int res = SWIG_ConvertPtr(argv[1], SWIG_as_voidptrptr(&iter), 
+        swig::Iterator::descriptor(), 0);
+      _v = (SWIG_IsOK(res) && iter && (dynamic_cast<swig::Iterator_T<std::vector< long long >::iterator > *>(iter) != 0));
+      if (_v) {
+        {
+          int res = SWIG_AsVal_long_SS_long(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_LongLongVector_insert__SWIG_1(nargs, args, self);
+        }
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector<long long,std::allocator< long long > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_ptrdiff_t(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_int(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          if (argc <= 3) {
+            return _wrap_LongLongVector_insert__SWIG_0(nargs, args, self);
+          }
+          return _wrap_LongLongVector_insert__SWIG_0(nargs, args, self);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector<long long,std::allocator< long long > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      swig::ConstIterator *iter = 0;
+      int res = SWIG_ConvertPtr(argv[1], SWIG_as_voidptrptr(&iter), 
+        swig::Iterator::descriptor(), 0);
+      _v = (SWIG_IsOK(res) && iter && (dynamic_cast<swig::Iterator_T<std::vector< long long >::iterator > *>(iter) != 0));
+      if (_v) {
+        {
+          int res = SWIG_AsVal_size_t(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          {
+            int res = SWIG_AsVal_long_SS_long(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            return _wrap_LongLongVector_insert__SWIG_2(nargs, args, self);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  Ruby_Format_OverloadedError( argc, 5, "insert", 
+    "    void insert(std::vector< long long >::difference_type pos, int argc, VALUE *argv, ...)\n"
+    "    void insert(std::vector< long long >::iterator pos, std::vector< long long >::value_type const &x)\n"
+    "    void insert(std::vector< long long >::iterator pos, std::vector< long long >::size_type n, std::vector< long long >::value_type const &x)\n");
+  
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.reserve
+
+  call-seq:
+    reserve(n)
+
+Reserve memory in the LongLongVector for a number of elements.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_reserve(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  std::vector< long long >::size_type arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > *","reserve", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(argv[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), Ruby_Format_TypeError( "", "std::vector< long long >::size_type","reserve", 2, argv[0] ));
+  } 
+  arg2 = static_cast< std::vector< long long >::size_type >(val2);
+  {
+    try {
+      (arg1)->reserve(arg2);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+
+/*
+  Document-method: SiTaxi::LongLongVector.capacity
+
+  call-seq:
+    capacity -> size_type
+
+Reserved capacity of the LongLongVector.
+*/
+SWIGINTERN VALUE
+_wrap_LongLongVector_capacity(int argc, VALUE *argv, VALUE self) {
+  std::vector< long long > *arg1 = (std::vector< long long > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::vector< long long >::size_type result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "std::vector< long long > const *","capacity", 1, self )); 
+  }
+  arg1 = reinterpret_cast< std::vector< long long > * >(argp1);
+  {
+    try {
+      result = ((std::vector< long long > const *)arg1)->capacity();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = SWIG_From_size_t(static_cast< size_t >(result));
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN void
+free_std_vector_Sl_long_SS_long_Sg_(std::vector< long long > *arg1) {
     delete arg1;
 }
 
@@ -51601,6 +54394,86 @@ fail:
 }
 
 
+SWIGINTERN VALUE
+_wrap_MDPSim_run_with_model_c_policy(int argc, VALUE *argv, VALUE self) {
+  si_taxi::MDPSim *arg1 = (si_taxi::MDPSim *) 0 ;
+  std::vector< std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > > *arg2 = 0 ;
+  si_taxi::MDPPaxStream *arg3 = 0 ;
+  size_t arg4 ;
+  int arg5 ;
+  double arg6 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  size_t val4 ;
+  int ecode4 = 0 ;
+  int val5 ;
+  int ecode5 = 0 ;
+  double val6 ;
+  int ecode6 = 0 ;
+  size_t result;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 5) || (argc > 5)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 5)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__MDPSim, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::MDPSim *","run_with_model_c_policy", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::MDPSim * >(argp1);
+  {
+    std::vector<std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > > *ptr = (std::vector<std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > > *)0;
+    res2 = swig::asptr(argv[0], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "std::vector< std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > > const &","run_with_model_c_policy", 2, argv[0] )); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "std::vector< std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > > const &","run_with_model_c_policy", 2, argv[0])); 
+    }
+    arg2 = ptr;
+  }
+  res3 = SWIG_ConvertPtr(argv[1], &argp3, SWIGTYPE_p_si_taxi__MDPPaxStream,  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), Ruby_Format_TypeError( "", "si_taxi::MDPPaxStream &","run_with_model_c_policy", 3, argv[1] )); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, Ruby_Format_TypeError("invalid null reference ", "si_taxi::MDPPaxStream &","run_with_model_c_policy", 3, argv[1])); 
+  }
+  arg3 = reinterpret_cast< si_taxi::MDPPaxStream * >(argp3);
+  ecode4 = SWIG_AsVal_size_t(argv[2], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), Ruby_Format_TypeError( "", "size_t","run_with_model_c_policy", 4, argv[2] ));
+  } 
+  arg4 = static_cast< size_t >(val4);
+  ecode5 = SWIG_AsVal_int(argv[3], &val5);
+  if (!SWIG_IsOK(ecode5)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode5), Ruby_Format_TypeError( "", "int","run_with_model_c_policy", 5, argv[3] ));
+  } 
+  arg5 = static_cast< int >(val5);
+  ecode6 = SWIG_AsVal_double(argv[4], &val6);
+  if (!SWIG_IsOK(ecode6)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode6), Ruby_Format_TypeError( "", "double","run_with_model_c_policy", 6, argv[4] ));
+  } 
+  arg6 = static_cast< double >(val6);
+  {
+    try {
+      result = (arg1)->run_with_model_c_policy((std::vector< std::vector< int,std::allocator< int > >,std::allocator< std::vector< int,std::allocator< int > > > > const &)*arg2,*arg3,arg4,arg5,arg6);
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  vresult = SWIG_From_size_t(static_cast< size_t >(result));
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return vresult;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return Qnil;
+}
+
+
 SWIGINTERN void
 free_si_taxi_MDPSim(si_taxi::MDPSim *arg1) {
     delete arg1;
@@ -52350,7 +55223,7 @@ fail:
 SWIGINTERN VALUE
 _wrap_MDPSimStats_reward_set(int argc, VALUE *argv, VALUE self) {
   si_taxi::MDPSimStats *arg1 = (si_taxi::MDPSimStats *) 0 ;
-  std::vector< int,std::allocator< int > > *arg2 = (std::vector< int,std::allocator< int > > *) 0 ;
+  std::vector< long long,std::allocator< long long > > *arg2 = (std::vector< long long,std::allocator< long long > > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -52364,11 +55237,11 @@ _wrap_MDPSimStats_reward_set(int argc, VALUE *argv, VALUE self) {
     SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::MDPSimStats *","reward", 1, self )); 
   }
   arg1 = reinterpret_cast< si_taxi::MDPSimStats * >(argp1);
-  res2 = SWIG_ConvertPtr(argv[0], &argp2,SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t, 0 |  0 );
+  res2 = SWIG_ConvertPtr(argv[0], &argp2,SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "std::vector< int,std::allocator< int > > *","reward", 2, argv[0] )); 
+    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "std::vector< long long,std::allocator< long long > > *","reward", 2, argv[0] )); 
   }
-  arg2 = reinterpret_cast< std::vector< int,std::allocator< int > > * >(argp2);
+  arg2 = reinterpret_cast< std::vector< long long,std::allocator< long long > > * >(argp2);
   if (arg1) (arg1)->reward = *arg2;
   return Qnil;
 fail:
@@ -52381,7 +55254,7 @@ _wrap_MDPSimStats_reward_get(int argc, VALUE *argv, VALUE self) {
   si_taxi::MDPSimStats *arg1 = (si_taxi::MDPSimStats *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  std::vector< int,std::allocator< int > > *result = 0 ;
+  std::vector< long long,std::allocator< long long > > *result = 0 ;
   VALUE vresult = Qnil;
   
   if ((argc < 0) || (argc > 0)) {
@@ -52392,8 +55265,8 @@ _wrap_MDPSimStats_reward_get(int argc, VALUE *argv, VALUE self) {
     SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::MDPSimStats *","reward", 1, self )); 
   }
   arg1 = reinterpret_cast< si_taxi::MDPSimStats * >(argp1);
-  result = (std::vector< int,std::allocator< int > > *)& ((arg1)->reward);
-  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t, 0 |  0 );
+  result = (std::vector< long long,std::allocator< long long > > *)& ((arg1)->reward);
+  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0 |  0 );
   return vresult;
 fail:
   return Qnil;
@@ -53441,6 +56314,7 @@ static swig_type_info _swigt__p_size_t = {"_p_size_t", "size_t *", 0, 0, (void*)
 static swig_type_info _swigt__p_size_type = {"_p_size_type", "size_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__allocatorT_double_t = {"_p_std__allocatorT_double_t", "std::vector< double >::allocator_type *|std::allocator< double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__allocatorT_int_t = {"_p_std__allocatorT_int_t", "std::vector< int >::allocator_type *|std::allocator< int > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__allocatorT_long_long_t = {"_p_std__allocatorT_long_long_t", "std::vector< long long >::allocator_type *|std::allocator< long long > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__allocatorT_long_t = {"_p_std__allocatorT_long_t", "std::deque< long >::allocator_type *|std::allocator< long > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__allocatorT_si_taxi__BWSimStatsPaxRecord_t = {"_p_std__allocatorT_si_taxi__BWSimStatsPaxRecord_t", "std::allocator< si_taxi::BWSimStatsPaxRecord > *|std::vector< si_taxi::BWSimStatsPaxRecord >::allocator_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__allocatorT_si_taxi__BWVehicle_t = {"_p_std__allocatorT_si_taxi__BWVehicle_t", "std::allocator< si_taxi::BWVehicle > *|std::vector< si_taxi::BWVehicle >::allocator_type *", 0, 0, (void*)0, 0};
@@ -53462,6 +56336,7 @@ static swig_type_info _swigt__p_std__queueT_si_taxi__BWPax_std__dequeT_si_taxi__
 static swig_type_info _swigt__p_std__string = {"_p_std__string", "std::string *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_double_std__allocatorT_double_t_t = {"_p_std__vectorT_double_std__allocatorT_double_t_t", "std::vector< double,std::allocator< double > > *|std::vector< double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_int_std__allocatorT_int_t_t = {"_p_std__vectorT_int_std__allocatorT_int_t_t", "std::vector< int,std::allocator< int > > *|std::vector< int > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__vectorT_long_long_std__allocatorT_long_long_t_t = {"_p_std__vectorT_long_long_std__allocatorT_long_long_t_t", "std::vector< long long,std::allocator< long long > > *|std::vector< long long > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_si_taxi__BWSimStatsPaxRecord_std__allocatorT_si_taxi__BWSimStatsPaxRecord_t_t = {"_p_std__vectorT_si_taxi__BWSimStatsPaxRecord_std__allocatorT_si_taxi__BWSimStatsPaxRecord_t_t", "std::vector< si_taxi::BWSimStatsPaxRecord,std::allocator< si_taxi::BWSimStatsPaxRecord > > *|std::vector< si_taxi::BWSimStatsPaxRecord > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_si_taxi__BWVehicle_std__allocatorT_si_taxi__BWVehicle_t_t = {"_p_std__vectorT_si_taxi__BWVehicle_std__allocatorT_si_taxi__BWVehicle_t_t", "std::vector< si_taxi::BWVehicle,std::allocator< si_taxi::BWVehicle > > *|std::vector< si_taxi::BWVehicle > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_si_taxi__MDPPax_std__allocatorT_si_taxi__MDPPax_t_t = {"_p_std__vectorT_si_taxi__MDPPax_std__allocatorT_si_taxi__MDPPax_t_t", "std::vector< si_taxi::MDPPax,std::allocator< si_taxi::MDPPax > > *|std::vector< si_taxi::MDPPax > *", 0, 0, (void*)0, 0};
@@ -53534,6 +56409,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_size_type,
   &_swigt__p_std__allocatorT_double_t,
   &_swigt__p_std__allocatorT_int_t,
+  &_swigt__p_std__allocatorT_long_long_t,
   &_swigt__p_std__allocatorT_long_t,
   &_swigt__p_std__allocatorT_si_taxi__BWSimStatsPaxRecord_t,
   &_swigt__p_std__allocatorT_si_taxi__BWVehicle_t,
@@ -53555,6 +56431,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_std__string,
   &_swigt__p_std__vectorT_double_std__allocatorT_double_t_t,
   &_swigt__p_std__vectorT_int_std__allocatorT_int_t_t,
+  &_swigt__p_std__vectorT_long_long_std__allocatorT_long_long_t_t,
   &_swigt__p_std__vectorT_si_taxi__BWSimStatsPaxRecord_std__allocatorT_si_taxi__BWSimStatsPaxRecord_t_t,
   &_swigt__p_std__vectorT_si_taxi__BWVehicle_std__allocatorT_si_taxi__BWVehicle_t_t,
   &_swigt__p_std__vectorT_si_taxi__MDPPax_std__allocatorT_si_taxi__MDPPax_t_t,
@@ -53627,6 +56504,7 @@ static swig_cast_info _swigc__p_size_t[] = {  {&_swigt__p_size_t, 0, 0, 0},{0, 0
 static swig_cast_info _swigc__p_size_type[] = {  {&_swigt__p_size_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__allocatorT_double_t[] = {  {&_swigt__p_std__allocatorT_double_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__allocatorT_int_t[] = {  {&_swigt__p_std__allocatorT_int_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__allocatorT_long_long_t[] = {  {&_swigt__p_std__allocatorT_long_long_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__allocatorT_long_t[] = {  {&_swigt__p_std__allocatorT_long_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__allocatorT_si_taxi__BWSimStatsPaxRecord_t[] = {  {&_swigt__p_std__allocatorT_si_taxi__BWSimStatsPaxRecord_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__allocatorT_si_taxi__BWVehicle_t[] = {  {&_swigt__p_std__allocatorT_si_taxi__BWVehicle_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -53648,6 +56526,7 @@ static swig_cast_info _swigc__p_std__queueT_si_taxi__BWPax_std__dequeT_si_taxi__
 static swig_cast_info _swigc__p_std__string[] = {  {&_swigt__p_std__string, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_double_std__allocatorT_double_t_t[] = {  {&_swigt__p_std__vectorT_double_std__allocatorT_double_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_int_std__allocatorT_int_t_t[] = {  {&_swigt__p_std__vectorT_int_std__allocatorT_int_t_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__vectorT_long_long_std__allocatorT_long_long_t_t[] = {  {&_swigt__p_std__vectorT_long_long_std__allocatorT_long_long_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_si_taxi__BWSimStatsPaxRecord_std__allocatorT_si_taxi__BWSimStatsPaxRecord_t_t[] = {  {&_swigt__p_std__vectorT_si_taxi__BWSimStatsPaxRecord_std__allocatorT_si_taxi__BWSimStatsPaxRecord_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_si_taxi__BWVehicle_std__allocatorT_si_taxi__BWVehicle_t_t[] = {  {&_swigt__p_std__vectorT_si_taxi__BWVehicle_std__allocatorT_si_taxi__BWVehicle_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_si_taxi__MDPPax_std__allocatorT_si_taxi__MDPPax_t_t[] = {  {&_swigt__p_std__vectorT_si_taxi__MDPPax_std__allocatorT_si_taxi__MDPPax_t_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -53720,6 +56599,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_size_type,
   _swigc__p_std__allocatorT_double_t,
   _swigc__p_std__allocatorT_int_t,
+  _swigc__p_std__allocatorT_long_long_t,
   _swigc__p_std__allocatorT_long_t,
   _swigc__p_std__allocatorT_si_taxi__BWSimStatsPaxRecord_t,
   _swigc__p_std__allocatorT_si_taxi__BWVehicle_t,
@@ -53741,6 +56621,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_std__string,
   _swigc__p_std__vectorT_double_std__allocatorT_double_t_t,
   _swigc__p_std__vectorT_int_std__allocatorT_int_t_t,
+  _swigc__p_std__vectorT_long_long_std__allocatorT_long_long_t_t,
   _swigc__p_std__vectorT_si_taxi__BWSimStatsPaxRecord_std__allocatorT_si_taxi__BWSimStatsPaxRecord_t_t,
   _swigc__p_std__vectorT_si_taxi__BWVehicle_std__allocatorT_si_taxi__BWVehicle_t_t,
   _swigc__p_std__vectorT_si_taxi__MDPPax_std__allocatorT_si_taxi__MDPPax_t_t,
@@ -54307,6 +57188,52 @@ SWIGEXPORT void Init_siTaxi(void) {
   SwigClassNaturalHistogramVector.mark = 0;
   SwigClassNaturalHistogramVector.destroy = (void (*)(void *)) free_std_vector_Sl_si_taxi_NaturalHistogram_Sg_;
   SwigClassNaturalHistogramVector.trackObjects = 0;
+  
+  SwigClassLongLongVector.klass = rb_define_class_under(mSiTaxi, "LongLongVector", rb_cObject);
+  SWIG_TypeClientData(SWIGTYPE_p_std__vectorT_long_long_std__allocatorT_long_long_t_t, (void *) &SwigClassLongLongVector);
+  rb_include_module(SwigClassLongLongVector.klass, rb_eval_string("Enumerable"));
+  rb_define_alloc_func(SwigClassLongLongVector.klass, _wrap_LongLongVector_allocate);
+  rb_define_method(SwigClassLongLongVector.klass, "initialize", VALUEFUNC(_wrap_new_LongLongVector), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "dup", VALUEFUNC(_wrap_LongLongVector_dup), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "inspect", VALUEFUNC(_wrap_LongLongVector_inspect), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "to_a", VALUEFUNC(_wrap_LongLongVector_to_a), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "to_s", VALUEFUNC(_wrap_LongLongVector_to_s), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "slice", VALUEFUNC(_wrap_LongLongVector_slice), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "each", VALUEFUNC(_wrap_LongLongVector_each), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "select", VALUEFUNC(_wrap_LongLongVector_select), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "reject!", VALUEFUNC(_wrap_LongLongVector_rejectN___), -1);
+  rb_define_alias(SwigClassLongLongVector.klass, "delete_if", "reject!");
+  rb_define_method(SwigClassLongLongVector.klass, "delete_at", VALUEFUNC(_wrap_LongLongVector_delete_at), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "__delete2__", VALUEFUNC(_wrap_LongLongVector___delete2__), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "pop", VALUEFUNC(_wrap_LongLongVector_pop), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "push", VALUEFUNC(_wrap_LongLongVector_push), -1);
+  rb_define_alias(SwigClassLongLongVector.klass, "<<", "push");
+  rb_define_method(SwigClassLongLongVector.klass, "reject", VALUEFUNC(_wrap_LongLongVector_reject), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "at", VALUEFUNC(_wrap_LongLongVector_at), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "[]", VALUEFUNC(_wrap_LongLongVector___getitem__), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "[]=", VALUEFUNC(_wrap_LongLongVector___setitem__), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "shift", VALUEFUNC(_wrap_LongLongVector_shift), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "unshift", VALUEFUNC(_wrap_LongLongVector_unshift), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "empty?", VALUEFUNC(_wrap_LongLongVector_emptyq___), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "size", VALUEFUNC(_wrap_LongLongVector_size), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "clear", VALUEFUNC(_wrap_LongLongVector_clear), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "swap", VALUEFUNC(_wrap_LongLongVector_swap), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "get_allocator", VALUEFUNC(_wrap_LongLongVector_get_allocator), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "begin", VALUEFUNC(_wrap_LongLongVector_begin), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "end", VALUEFUNC(_wrap_LongLongVector_end), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "rbegin", VALUEFUNC(_wrap_LongLongVector_rbegin), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "rend", VALUEFUNC(_wrap_LongLongVector_rend), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "erase", VALUEFUNC(_wrap_LongLongVector_erase), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "front", VALUEFUNC(_wrap_LongLongVector_front), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "back", VALUEFUNC(_wrap_LongLongVector_back), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "assign", VALUEFUNC(_wrap_LongLongVector_assign), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "resize", VALUEFUNC(_wrap_LongLongVector_resize), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "insert", VALUEFUNC(_wrap_LongLongVector_insert), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "reserve", VALUEFUNC(_wrap_LongLongVector_reserve), -1);
+  rb_define_method(SwigClassLongLongVector.klass, "capacity", VALUEFUNC(_wrap_LongLongVector_capacity), -1);
+  SwigClassLongLongVector.mark = 0;
+  SwigClassLongLongVector.destroy = (void (*)(void *)) free_std_vector_Sl_long_SS_long_Sg_;
+  SwigClassLongLongVector.trackObjects = 0;
   
   SwigClassBWVehicleVector.klass = rb_define_class_under(mSiTaxi, "BWVehicleVector", rb_cObject);
   SWIG_TypeClientData(SWIGTYPE_p_std__vectorT_si_taxi__BWVehicle_std__allocatorT_si_taxi__BWVehicle_t_t, (void *) &SwigClassBWVehicleVector);
@@ -55162,6 +58089,7 @@ SWIGEXPORT void Init_siTaxi(void) {
   rb_define_method(SwigClassMDPSim.klass, "count_idle_by", VALUEFUNC(_wrap_MDPSim_count_idle_by), -1);
   rb_define_method(SwigClassMDPSim.klass, "move", VALUEFUNC(_wrap_MDPSim_move), -1);
   rb_define_method(SwigClassMDPSim.klass, "model_c_state", VALUEFUNC(_wrap_MDPSim_model_c_state), -1);
+  rb_define_method(SwigClassMDPSim.klass, "run_with_model_c_policy", VALUEFUNC(_wrap_MDPSim_run_with_model_c_policy), -1);
   SwigClassMDPSim.mark = 0;
   SwigClassMDPSim.destroy = (void (*)(void *)) free_si_taxi_MDPSim;
   SwigClassMDPSim.trackObjects = 0;
