@@ -51795,6 +51795,33 @@ fail:
 
 
 SWIGINTERN VALUE
+_wrap_MDPSimStats_record_reward(int argc, VALUE *argv, VALUE self) {
+  si_taxi::MDPSimStats *arg1 = (si_taxi::MDPSimStats *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__MDPSimStats, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::MDPSimStats *","record_reward", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::MDPSimStats * >(argp1);
+  {
+    try {
+      (arg1)->record_reward();
+    } catch (const std::exception& e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+  }
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
 _wrap_MDPSimStats_record_empty_trip(int argc, VALUE *argv, VALUE self) {
   si_taxi::MDPSimStats *arg1 = (si_taxi::MDPSimStats *) 0 ;
   size_t arg2 ;
@@ -52314,6 +52341,59 @@ _wrap_MDPSimStats_empty_trips_get(int argc, VALUE *argv, VALUE self) {
       }
     }
   }
+  return vresult;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_MDPSimStats_reward_set(int argc, VALUE *argv, VALUE self) {
+  si_taxi::MDPSimStats *arg1 = (si_taxi::MDPSimStats *) 0 ;
+  std::vector< int,std::allocator< int > > *arg2 = (std::vector< int,std::allocator< int > > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__MDPSimStats, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::MDPSimStats *","reward", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::MDPSimStats * >(argp1);
+  res2 = SWIG_ConvertPtr(argv[0], &argp2,SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), Ruby_Format_TypeError( "", "std::vector< int,std::allocator< int > > *","reward", 2, argv[0] )); 
+  }
+  arg2 = reinterpret_cast< std::vector< int,std::allocator< int > > * >(argp2);
+  if (arg1) (arg1)->reward = *arg2;
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_MDPSimStats_reward_get(int argc, VALUE *argv, VALUE self) {
+  si_taxi::MDPSimStats *arg1 = (si_taxi::MDPSimStats *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::vector< int,std::allocator< int > > *result = 0 ;
+  VALUE vresult = Qnil;
+  
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  res1 = SWIG_ConvertPtr(self, &argp1,SWIGTYPE_p_si_taxi__MDPSimStats, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "si_taxi::MDPSimStats *","reward", 1, self )); 
+  }
+  arg1 = reinterpret_cast< si_taxi::MDPSimStats * >(argp1);
+  result = (std::vector< int,std::allocator< int > > *)& ((arg1)->reward);
+  vresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t, 0 |  0 );
   return vresult;
 fail:
   return Qnil;
@@ -55095,6 +55175,7 @@ SWIGEXPORT void Init_siTaxi(void) {
   rb_define_method(SwigClassMDPSimStats.klass, "step", VALUEFUNC(_wrap_MDPSimStats_step_get), -1);
   rb_define_method(SwigClassMDPSimStats.klass, "init", VALUEFUNC(_wrap_MDPSimStats_init), -1);
   rb_define_method(SwigClassMDPSimStats.klass, "record_time_step_stats", VALUEFUNC(_wrap_MDPSimStats_record_time_step_stats), -1);
+  rb_define_method(SwigClassMDPSimStats.klass, "record_reward", VALUEFUNC(_wrap_MDPSimStats_record_reward), -1);
   rb_define_method(SwigClassMDPSimStats.klass, "record_empty_trip", VALUEFUNC(_wrap_MDPSimStats_record_empty_trip), -1);
   rb_define_method(SwigClassMDPSimStats.klass, "record_pax_to_be_served", VALUEFUNC(_wrap_MDPSimStats_record_pax_to_be_served), -1);
   rb_define_method(SwigClassMDPSimStats.klass, "pax_wait=", VALUEFUNC(_wrap_MDPSimStats_pax_wait_set), -1);
@@ -55111,6 +55192,8 @@ SWIGEXPORT void Init_siTaxi(void) {
   rb_define_method(SwigClassMDPSimStats.klass, "occupied_trips", VALUEFUNC(_wrap_MDPSimStats_occupied_trips_get), -1);
   rb_define_method(SwigClassMDPSimStats.klass, "empty_trips=", VALUEFUNC(_wrap_MDPSimStats_empty_trips_set), -1);
   rb_define_method(SwigClassMDPSimStats.klass, "empty_trips", VALUEFUNC(_wrap_MDPSimStats_empty_trips_get), -1);
+  rb_define_method(SwigClassMDPSimStats.klass, "reward=", VALUEFUNC(_wrap_MDPSimStats_reward_set), -1);
+  rb_define_method(SwigClassMDPSimStats.klass, "reward", VALUEFUNC(_wrap_MDPSimStats_reward_get), -1);
   SwigClassMDPSimStats.mark = 0;
   SwigClassMDPSimStats.destroy = (void (*)(void *)) free_si_taxi_MDPSimStats;
   SwigClassMDPSimStats.trackObjects = 0;

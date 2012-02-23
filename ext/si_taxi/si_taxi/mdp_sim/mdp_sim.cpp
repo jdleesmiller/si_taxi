@@ -54,6 +54,9 @@ void MDPSim::tick(const int_od_t &empty_trips,
     }
   }
 
+  if (stats)
+    stats->record_reward();
+
   // then move idle vehicles according to action; this will fail if there are
   // not enough idle vehicles left
   for (size_t i = 0; i < num_stations(); ++i) {
@@ -184,6 +187,8 @@ void MDPSimStats::init()
   empty_trips.resize(sim.num_stations(), sim.num_stations());
   empty_trips.clear();
   idle_vehs_simple_total.clear();
+  reward.clear();
+  reward.resize(sim.num_stations());
 }
 
 void MDPSimStats::record_time_step_stats()
@@ -210,6 +215,14 @@ void MDPSimStats::record_time_step_stats()
   idle_vehs_simple_total.increment(idle_total);
 }
 
+void MDPSimStats::record_reward()
+{
+  // queue lengths AFTER we've served as many queued requests as possible
+  for (size_t i = 0; i < sim.num_stations(); ++i) {
+    reward[i] -= sim.queue[i].size();
+  }
+}
+
 void MDPSimStats::record_empty_trip(
     size_t origin, size_t destin, size_t count)
 {
@@ -225,6 +238,7 @@ void MDPSimStats::record_pax_to_be_served(const MDPPax &pax)
 
   //
   // update simple waiting time estimate
+  // TODO WRONG
   //
   double wait_simple = step * ceil(sim.now - pax.arrive / step);
   CHECK(wait_simple >= 0);
@@ -232,6 +246,7 @@ void MDPSimStats::record_pax_to_be_served(const MDPPax &pax)
 
   //
   // update best guess at actual waiting time
+  // TODO WRONG
   //
   CHECK(!sim.inbound[pax.origin].empty());
   MDPTime veh_stop_time = sim.inbound[pax.origin].front();

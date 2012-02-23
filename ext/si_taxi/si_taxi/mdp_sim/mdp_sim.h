@@ -150,6 +150,11 @@ struct MDPSimStats
    */
   virtual void record_time_step_stats();
 
+  /**
+   * Called immediately after queued requests are served.
+   */
+  virtual void record_reward();
+
   virtual void record_empty_trip(size_t origin, size_t destin, size_t count);
 
   virtual void record_pax_to_be_served(const MDPPax &pax);
@@ -203,6 +208,9 @@ struct MDPSimStats
 
   /// Number of empty vehicle trips observed between each pair of stations.
   boost::numeric::ublas::matrix<size_t> empty_trips;
+
+  /// Reward (will be non-positive) collected for each station.
+  std::vector<int> reward;
 };
 
 /**
